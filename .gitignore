@@ -3,3 +3,6 @@
 Homestead.yaml
 Homestead.json
 .env
+# Ignore these directories and files for PHPStorm
+/id
+/.idea
