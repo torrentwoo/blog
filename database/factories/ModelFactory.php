@@ -19,3 +19,15 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+// Testing data for category
+$factory->define(App\Models\Category::class, function(Faker\Generator $faker) {
+    return [
+        'name'          =>  $faker->word,
+        'description'   =>  $faker->sentence,
+        'priority'      =>  $faker->randomElement(range(0, 10)),
+        'hidden'        =>  false,
+        'created_at'    =>  $faker->dateTime,
+        'updated_at'    =>  $faker->dateTime,
+    ];
+});
