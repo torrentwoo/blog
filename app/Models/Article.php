@@ -67,11 +67,23 @@ class Article extends Model
 
     /**
      * 定义文章与文章评论之间的一对多关联
+     * 获取该篇文章下的所有评论
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
     {
         return $this->hasMany(Comment::class, 'article_id');
+    }
+
+    /**
+     * 定义文章与标签之间的多对多关联
+     * 获取此文章使用的所有标签
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'tag_clouds', 'article_id', 'tag_id');
     }
 }
