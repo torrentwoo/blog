@@ -23,9 +23,6 @@ class CreateCategoriesTable extends Migration
             $table->integer('priority')->unsigned()->default(0); // 排序权值，数值越大权值越高，排位越靠前
             $table->boolean('hidden')->default(false); // 类别是否隐藏
             $table->timestamps();
-            // 表的字符集和整理
-            //$table->charset = 'utf8mb4';
-            //$table->collation = 'utf8mb4_unicode_ci';
         });
     }
 
