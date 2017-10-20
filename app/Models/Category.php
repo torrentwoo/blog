@@ -95,24 +95,13 @@ class Category extends Model
     }
 
     /**
-     * 定义类别与案例之间的一对多关联
-     * 该类别下的所有案例
+     * 定义类别与文章之间的一对多关联
+     * 该类别下的所有文章
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function projects()
+    public function articles()
     {
-        return $this->hasMany(Project::class, 'category_id');
-    }
-
-    /**
-     * 定义类别与资质之间的一对多关联
-     * 该类别下的所有资质
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function qualifications()
-    {
-        return $this->hasMany(Qualification::class, 'category_id');
+        return $this->hasMany(Article::class, 'category_id');
     }
 }
