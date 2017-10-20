@@ -64,4 +64,14 @@ class Article extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    /**
+     * 定义文章与文章评论之间的一对多关联
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'article_id');
+    }
 }
