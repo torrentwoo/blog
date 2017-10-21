@@ -13,10 +13,14 @@
 
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->safeEmail,
-        'password' => bcrypt(str_random(10)),
+        'name'           => $faker->name,
+        'email'          => $faker->safeEmail,
+        'password'       => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
+
+        'created_at'     =>  $faker->dateTime,
+        'updated_at'     =>  $faker->dateTime,
+        'activated'      =>  false,
     ];
 });
 
@@ -29,5 +33,35 @@ $factory->define(App\Models\Category::class, function(Faker\Generator $faker) {
         'hidden'        =>  false,
         'created_at'    =>  $faker->dateTime,
         'updated_at'    =>  $faker->dateTime,
+    ];
+});
+
+// Testing data for articles
+$factory->define(App\Models\Article::class, function(Faker\Generator $faker) {
+    return [
+        'title'         =>  $faker->sentence,
+        'keywords'      =>  implode(',', $faker->words),
+        'description'   =>  $faker->sentence,
+        'content'       =>  $faker->text,
+        'created_at'    =>  $faker->dateTime,
+        'updated_at'    =>  $faker->dateTime,
+    ];
+});
+
+// Testing data for comments
+$factory->define(App\Models\Comment::class, function(Faker\Generator $faker) {
+    return [
+        'content'       =>  $faker->sentence,
+        'created_at'    =>  $faker->dateTime,
+        'updated_at'    =>  $faker->dateTime,
+    ];
+});
+
+// Testing data for tags
+$factory->define(App\Models\Tag::class, function(Faker\Generator $faker) {
+    $tmp = $faker->word;
+    return [
+        'name'      =>  $tmp,
+        'rewrite'   =>  $tmp,
     ];
 });

@@ -2,8 +2,6 @@
 
 use Illuminate\Database\Seeder;
 
-use App\Models\Category; // import category model
-
 class CategoriesTableSeeder extends Seeder
 {
     /**
@@ -13,16 +11,19 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        // 生成100条测试类别数据
-        // 注：并不会填充 parent_id 字段 @TODO
+        // 调用测试数据生成器容器
         $faker      = app(Faker\Generator::class);
-        $parent_id  = range(0, 50);
-        $categories = factory(Category::class)->times(100)->make()->each(function($i) use ($faker, $parent_id) {
+        // 设定类别的父级分类 id 范围
+        $parent_id  = range(0, 20);
+        // 生成 100 条测试类别数据
+        $categories = factory(App\Models\Category::class)->times(100)->make()->each(function($i) use ($faker, $parent_id) {
             $i->parent_id = $faker->randomElement($parent_id);
         });
-        Category::insert($categories->toArray());
+        // 保存测试数据到数据库
+        App\Models\Category::insert($categories->toArray());
+
         // 无论如何，第一条记录不应该存在父分类
-        $category   = Category::first();
+        $category   = App\Models\Category::first();
         $category->update([
             'parent_id' => 0
         ]);

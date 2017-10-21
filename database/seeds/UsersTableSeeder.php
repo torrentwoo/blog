@@ -2,9 +2,6 @@
 
 use Illuminate\Database\Seeder;
 
-use App\Models\User; // import user model
-use Illuminate\Support\Facades\Hash; // import hash facade
-
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -15,14 +12,14 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         // 生成10个测试用户数据
-        $users = factory(User::class)->times(10)->make();
-        User::insert($users->toArray());
+        $users = factory(App\Models\User::class)->times(10)->make();
+        App\Models\User::insert($users->toArray());
 
         // 修改第一个用户信息（以便登录测试）
-        $user  = User::find(1);
+        $user  = App\Models\User::find(1);
         $user->name     = 'torrent';
         $user->email    = 'torrent@devel.local';
-        $user->password = Hash::make('test');
+        $user->password = bcrypt('test');
         $user->activated= true;
         $user->save();
     }
