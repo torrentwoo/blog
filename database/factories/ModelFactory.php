@@ -48,6 +48,19 @@ $factory->define(App\Models\Article::class, function(Faker\Generator $faker) {
     ];
 });
 
+// Testing data for attachments those attached to articles
+$factory->define(App\Models\Attachment::class, function(Faker\Generator $faker) {
+    $type = $faker->randomElement(['audio', 'picture', 'video']);
+    $url  = $type === 'picture' ? $faker->image('/tmp', 600, 400) : $faker->url;
+    $cover= $type === 'picture' ? $faker->boolean : false;
+    return [
+        'url'       =>  $url,
+        'name'      =>  $faker->word,
+        'type'      =>  $type,
+        'preview'   =>  $cover,
+    ];
+});
+
 // Testing data for comments
 $factory->define(App\Models\Comment::class, function(Faker\Generator $faker) {
     return [
