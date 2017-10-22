@@ -86,4 +86,15 @@ class Article extends Model
     {
         return $this->belongsToMany(Tag::class, 'tag_clouds', 'article_id', 'tag_id');
     }
+
+    /**
+     * 定义文章与文章引用附件之间的一对多关联
+     * 获取该篇文章下的所有引用附件（包括 audio/picture/video）
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class, 'article_id');
+    }
 }
