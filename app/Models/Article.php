@@ -99,4 +99,15 @@ class Article extends Model
     {
         return $this->hasMany(Attachment::class, 'article_id');
     }
+
+    /**
+     * 定义文章与文章引用的缩略图之间的一对多关联
+     * 获取该篇文章下的所有缩略图
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function thumbnails()
+    {
+        return $this->hasMany(Thumbnail::class, 'article_id');
+    }
 }
