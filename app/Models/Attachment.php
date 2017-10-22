@@ -14,6 +14,19 @@ class Attachment extends Model
     protected $table = 'attachments';
 
     /**
+     * 可予批量赋值的数据表字段名称
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'article_id',
+        'url',
+        'name',
+        'type',
+        'preview',
+    ];
+
+    /**
      * 禁用时间戳记
      *
      * @var bool false
