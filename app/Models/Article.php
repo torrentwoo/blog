@@ -19,15 +19,17 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
+        'category_id', // 文章的类别
         'title', // 文章标题
         'keywords', // 文章关键词
         'description', // 文章描述
         'content', // 文章内容
         'source', // 文章来源（枚举：原创、转载、投稿）
         'author', // 文章作者
+        'approval', // 文章的审核标志
+        'priority', // 文章的排序权重数值
         'visited', // 文章浏览次数
-        'priority',
-        'approval',
+        'released_at', // 文章指定的发布日期时间
     ];
 
     /**
