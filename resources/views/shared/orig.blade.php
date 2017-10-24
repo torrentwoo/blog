@@ -15,8 +15,8 @@
 {{--
     <meta name="author" content="torrent, 790896@qq.com" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    http://v3.bootcss.com/examples/offcanvas/
 --}}
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-3.3.7.min.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/app.css" />
 </head>
 
@@ -38,6 +38,12 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
             </div><!-- /.nav-collapse -->
         </div><!-- /.container -->
     </nav><!-- /.nav-element -->
@@ -90,7 +96,7 @@
 
             <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
                 <div class="list-group">
-                    <a href="#" class="list-group-item active">Link</a>
+                    <a href="#" class="list-group-item active">Link<span class="badge">14</span></a>
                     <a href="#" class="list-group-item">Link</a>
                     <a href="#" class="list-group-item">Link</a>
                     <a href="#" class="list-group-item">Link</a>
@@ -107,7 +113,7 @@
         <hr>
 
         <footer>
-            <p>&copy; @yield('year')</p>
+            <p>&copy; <span class="glyphicon glyphicon-headphones"></span></p>
         </footer>
 
     </div><!--/.container-->
