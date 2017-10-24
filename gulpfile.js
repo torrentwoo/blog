@@ -14,5 +14,6 @@ var elixir = require('laravel-elixir');
 elixir.config.sourcemaps = false; // disable to generate source maps
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+    mix.sass('app.scss', 'public/assets/css')
+        .browserify('app.js', 'public/assets/js');
 });

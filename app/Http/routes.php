@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Fore-end layouts demo
+Route::get('/layout', function() {
+    return view('shared.orig');
+});
