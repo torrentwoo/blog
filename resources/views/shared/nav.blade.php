@@ -16,10 +16,14 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <form class="navbar-form navbar-right">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </span>
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
                 </form>
             </div><!-- /.nav-collapse -->
         </div><!-- /.container -->

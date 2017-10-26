@@ -19,3 +19,15 @@ Route::get('/', function () {
 Route::get('/demo', function() {
     return view('layouts.home');
 });
+Route::get('/column', function() {
+    return view('layouts.column');
+})->name('column');
+Route::get('/column/{id}', function($id) {
+    return view('layouts.article');
+})->name('show');
+Route::get('/tag/{id}', function($id) {
+    return view('layouts.tag');
+})->name('tag');
+Route::get('/tagcloud', function() {
+    return view('layouts.tagcloud');
+})->name('tagcloud');
