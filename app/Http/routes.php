@@ -23,11 +23,14 @@ Route::get('/column', function() {
     return view('layouts.column');
 })->name('column');
 Route::get('/column/{id}', function($id) {
-    return view('layouts.article');
+    return view('layouts.article', compact('id'));
 })->name('show');
 Route::get('/tag/{id}', function($id) {
-    return view('layouts.tag');
+    return view('layouts.tag', ['id' => $id]);
 })->name('tag');
 Route::get('/tagcloud', function() {
     return view('layouts.tagcloud');
 })->name('tagcloud');
+Route::get('/column/{id}/comments', function($id) {
+    return view('layouts.comments')->with('id', $id);
+})->name('comments');

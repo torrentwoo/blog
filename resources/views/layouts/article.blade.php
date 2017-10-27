@@ -4,16 +4,16 @@
                 <ol class="breadcrumb">
                     <li><a href="/demo">Home</a></li>
                     <li><a href="{{ route('column') }}">Column</a></li>
-                    <li class="active">located</li>
+                    <li class="active">located document article</li>
                 </ol>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-lg-12">
                         <div class="page-header">
-                            <h1>Testing data</h1>
+                            <h1>Document title</h1>
                             <p><span>Posted on {{ date('Y-m-d H:i') }}</span><span class="author">@author</span><span>@visited times</span></p>
                         </div>
                         <div class="page-content">
-                            <p>Content goes here...</p>
+                            <p>Document contents goes here...</p>
                             <p>the another block</p>
                             <ol>
                                 <li>abc</li>
@@ -24,65 +24,68 @@
                             </ol>
                         </div>
                         <div id="tagcloud">
-                            <a href="{{ route('tag', 1) }}" class="label label-default">标签1</a>
-                            <a href="#" class="label label-default">标签2</a>
-                            <a href="#" class="label label-default">标签3</a>
-                            <a href="#" class="label label-default">标签4</a>
+                            <a href="{{ route('tag', 1) }}" class="label label-default">标签</a>
+                            <a href="{{ route('tag', 2) }}" class="label label-default">Testing</a>
+                            <a href="{{ route('tag', 3) }}" class="label label-default">Delta</a>
+                            <a href="{{ route('tag', 4) }}" class="label label-default">Alphabet</a>
                         </div>
                         <nav aria-label="Page navigation">
                             <ul class="pager">
                                 <li class="previous disabled"><a href="#"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Older</a></li>
-                                <li class="next"><a href="#">Newer <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
+                                <li class="next"><a href="{{ route('show', $id+1) }}">Newer <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
                             </ul>
                         </nav>
                     </div>
-                    <form class="col-xs-12 form-horizontal">
-                        <div class="form-group">
-                            <textarea name="comment" class="form-control" rows="3" placeholder="Leave your comments here"></textarea>
-                        </div>
-                        <div class="form-group text-right">
-@if (Auth::check())
-                            <button type="submit" class="btn btn-default">发表评论</button>
-@else
-                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal">登录发表评论</button>
-@endif
-                        </div>
-                    </form>
-@unless (Auth::check())
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="exampleModalLabel">用户登录</h4>
+
+                    <div class="col-xs-12">
+                        <ul class="media-list">
+                            <li class="media">
+                                <div class="media-left">
+{{--
+                                    <a href="#">
+--}}
+                                    <img alt="64x64" data-src="holder.js/64x64" class="media-object" style="width: 64px; height: 64px;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWY1YjZmN2M2YSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ZjViNmY3YzZhIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNCIgeT0iMzYuOCI+NjR4NjQ8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true">
+{{--
+                                    </a>
+--}}
                                 </div>
-                                <form>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="control-label">帐号</label>
-                                            <input type="text" class="form-control" id="recipient-name" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="message-text" class="control-label">密码</label>
-                                            <input class="form-control" id="message-text" />
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="remenber" />
-                                                <span>记住我（下次自动登录）</span>
-                                            </label>
-                                            <span class="pull-right">没有帐号？前往<a href="#">注册新用户</a></span>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary">登录</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">Media heading <small>20 min ago</small></h4>
+                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                                </div>
+                            </li>
+                            <li class="media">
+                                <div class="media-left">
+                                    <img alt="64x64" data-src="holder.js/64x64" class="media-object" style="width: 64px; height: 64px;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWY1YjZmN2M2YSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ZjViNmY3YzZhIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNCIgeT0iMzYuOCI+NjR4NjQ8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true">
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">Media heading</h4>
+                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                                </div>
+                            </li>
+                            <li class="media">
+                                <div class="media-left">
+                                    <img alt="64x64" data-src="holder.js/64x64" class="media-object" style="width: 64px; height: 64px;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWY1YjZmN2M2YSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ZjViNmY3YzZhIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNCIgeT0iMzYuOCI+NjR4NjQ8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true">
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">Media heading</h4>
+                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <p class="text-right">
+                            <a class="btn btn-info" href="{{ route('comments', $id) }}" role="button">查看更多评论</a>
+                        </p>
                     </div>
+
+                    <div class="col-xs-12">
+                        @include('features.comment-form', ['modalLogin' => isset($modalLogin) ? $modalLogin : false])
+                    </div>
+@if (isset($modalLogin) && $modalLogin)
+@unless (Auth::check())
+                    @include('features.modal-login')
 @endunless
+@endif
                 </div>
 @stop
 
