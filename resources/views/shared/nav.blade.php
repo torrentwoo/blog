@@ -15,11 +15,12 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <form class="navbar-form navbar-right">
+                <form class="navbar-form navbar-right" action="{{ route('search') }}" method="get">
+                    {{ csrf_field() }}
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for..." />
+                        <input type="text" name="keyword" class="form-control" placeholder="Search for..." />
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
+                            <button class="btn btn-default" type="submit">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </button>
                         </span>

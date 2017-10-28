@@ -34,3 +34,6 @@ Route::get('/tagcloud', function() {
 Route::get('/column/{id}/comments', function($id) {
     return view('layouts.comments')->with('id', $id);
 })->name('comments');
+Route::get('/search', function() {
+    return view('layouts.search');
+})->name('search');
