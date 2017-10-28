@@ -3,7 +3,7 @@
 @section('content')
                 <ol class="breadcrumb">
                     <li><a href="/demo">Home</a></li>
-                    <li><a href="{{ route('column') }}">Column</a></li>
+                    <li class="active">The specified column</li>
                 </ol>
                 <div class="row">
                     <div class="col-sm-6 col-md-4">
