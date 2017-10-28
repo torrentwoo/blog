@@ -35,5 +35,7 @@ Route::get('/column/{id}/comments', function($id) {
     return view('layouts.comments')->with('id', $id);
 })->name('comments');
 Route::get('/search', function() {
-    return view('layouts.search');
+    $keyword = Input::get('keyword');
+    $keyword = $keyword ?: null;
+    return view('layouts.search')->with('keyword', $keyword);
 })->name('search');

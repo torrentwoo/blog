@@ -6,7 +6,7 @@
 @if (isset($keyword))
                     <li><a href="{{ route('search') }}">Search</a></li>
 @endif
-                    <li class="active">{{ $keyword or null }}</li>
+                    <li class="active">{{ $keyword or 'Search' }}</li>
                 </ol>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
