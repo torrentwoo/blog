@@ -51,3 +51,14 @@ footer {
  */
 .navbar-brand {
   height: auto; }
+
+#footer-nav {
+  float: right;
+  list-style: none;
+  text-align: right; }
+
+#footer-nav li {
+  display: inline; }
+
+#footer-nav a {
+  padding: 0 10px; }
