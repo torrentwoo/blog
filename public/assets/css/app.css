@@ -52,6 +52,12 @@ footer {
 .navbar-brand {
   height: auto; }
 
+@media only screen and (min-width: 768px) {
+  .navbar-right {
+    margin-right: 0; }
+  #nav-search .input-group {
+    min-width: 230px; } }
+
 #footer-nav {
   float: right;
   list-style: none;
