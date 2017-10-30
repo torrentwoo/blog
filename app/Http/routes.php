@@ -39,3 +39,9 @@ Route::get('/search', function() {
     $keyword = $keyword ?: null;
     return view('layouts.search')->with('keyword', $keyword);
 })->name('search');
+Route::get('/login', function() {
+    return view('layouts.login');
+})->name('login');
+Route::get('/logon', function() {
+    return view('layouts.logon');
+})->name('logon');
