@@ -45,3 +45,12 @@ Route::get('/login', function() {
 Route::get('/logon', function() {
     return view('layouts.logon');
 })->name('logon');
+Route::get('/contact', function() {
+    return view('layouts.contact');
+})->name('contact');
+Route::get('/about', function() {
+    return view('layouts.about');
+})->name('about');
+Route::get('/help', function() {
+    return view('layouts.help');
+})->name('help');
