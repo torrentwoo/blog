@@ -58,6 +58,14 @@ footer {
   #nav-search .input-group {
     min-width: 230px; } }
 
+#tagcloud {
+  padding: 1em 0; }
+
+#tagcloud:before {
+  content: "\6807\7B7E\FF1A";
+  font-size: 1em;
+  color: #999; }
+
 #footer-nav {
   float: right;
   list-style: none;
