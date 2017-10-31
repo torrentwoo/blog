@@ -14,8 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+/*
+ * Production environment routes
+ */
+Route::get('/about', 'StaticPagesController@about')->name('about');
+Route::get('/contact', 'StaticPagesController@contact')->name('contact');
+Route::get('/help', ['as'   =>  'help', 'uses'  =>  'StaticPagesController@help']);
 
-// Fore-end layouts demo
+/*
+ * Temporary testing routes
+ */
 Route::get('/demo', function() {
     return view('layouts.home');
 })->name('home');
@@ -45,12 +53,15 @@ Route::get('/login', function() {
 Route::get('/logon', function() {
     return view('layouts.logon');
 })->name('logon');
+/*
 Route::get('/contact', function() {
     return view('layouts.contact');
-})->name('contact');
+})->name('contact');*/
+/*
 Route::get('/about', function() {
     return view('layouts.about');
-})->name('about');
+})->name('about');*/
+/*
 Route::get('/help', function() {
     return view('layouts.help');
-})->name('help');
+})->name('help');*/
