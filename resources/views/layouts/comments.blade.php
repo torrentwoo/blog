@@ -1,14 +1,12 @@
 @extends('shared.origin')
 
 @section('content')
-{{--
                 <ol class="breadcrumb">
-                    <li>评论：<a href="{{ route('show', $id) }}">Testing article</a></li>
+                    <li><a href="{{ route('home') }}">首页</a></li>
+                    <li><a href="{{ route('column') }}">Column</a></li>
+                    <li><a href="{{ route('show', $id) }}">Testing article</a></li>
+                    <li class="active">评论</li>
                 </ol>
---}}
-                <div class="well well-sm">
-                    评论：<a href="{{ route('show', $id) }}">Testing article</a>
-                </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <ul class="media-list">
