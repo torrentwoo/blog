@@ -44,7 +44,7 @@
         <div class="content">
             <h1 class="heading">Not Found</h1>
             <p>The server has not found anything matching the Request-URI. No indication is given of whether the condition is temporary or permanent.</p>
-            <p>That's all we know, <a class="redirect" href="/" title="Redirect to the homepage">Redirect to the homepage</a>.</p>
+            <p>That's all we know, <a class="redirect" href="{{ route('home') }}" title="Redirect to the homepage">Redirect to the homepage</a>.</p>
         </div>
     </div>
 </body>

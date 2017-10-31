@@ -18,7 +18,7 @@ Route::get('/', function () {
 // Fore-end layouts demo
 Route::get('/demo', function() {
     return view('layouts.home');
-});
+})->name('home');
 Route::get('/column', function() {
     return view('layouts.column');
 })->name('column');

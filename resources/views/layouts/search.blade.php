@@ -2,7 +2,7 @@
 
 @section('content')
                 <ol class="breadcrumb">
-                    <li><a href="/demo">Home</a></li>
+                    <li><a href="{{ route('home') }}">Home</a></li>
 @if (isset($keyword))
                     <li><a href="{{ route('search') }}">Search</a></li>
 @endif

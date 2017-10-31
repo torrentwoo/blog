@@ -2,7 +2,7 @@
 
 @section('content')
                 <ol class="breadcrumb">
-                    <li><a href="/demo">Home</a></li>
+                    <li><a href="{{ route('home') }}">Home</a></li>
                     <li class="active">The specified column</li>
                 </ol>
                 <div class="row">

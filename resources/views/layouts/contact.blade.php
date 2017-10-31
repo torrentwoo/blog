@@ -2,7 +2,7 @@
 
 @section('content')
                 <ol class="breadcrumb">
-                    <li><a href="/">首页</a></li>
+                    <li><a href="{{ route('home') }}">首页</a></li>
                     <li class="active">联系</li>
                 </ol>
                 <div class="row">
