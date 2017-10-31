@@ -3,7 +3,7 @@
 @section('content')
                 <ol class="breadcrumb">
                     <li><a href="/">首页</a></li>
-                    <li class="active">联系</li>
+                    <li class="active">关于</li>
                 </ol>
                 <div class="row">
                     <div class="col-xs-12">
