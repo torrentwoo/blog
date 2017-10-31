@@ -22,11 +22,11 @@
                                 <dd>where@domain.suffix</dd>
                                 <dt>投稿须知</dt>
                                 <dd>
-                                    <ol>
+                                    <ul class="list-unstyled">
                                         <li>稿件内容请务必以附件形式发送到指定邮箱</li>
                                         <li>稿件内容若不是您原创，请务必备注来源</li>
                                         <li>您的投稿若被采用，本站会支付稿费，所以请您投稿时，备注您的收款方式</li>
-                                    </ol>
+                                    </ul>
                                 </dd>
                             </dl>
                             <h3>广告合作</h3>
