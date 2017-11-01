@@ -42,12 +42,23 @@ class Article extends Model
 
     /**
      * 将 released_at 字段的值转换为 Carbon 对象且拥有时间日期属性的实例
-     * 
+     *
      * @param $date
      */
     public function setReleasedAtAttribute($date)
     {
         $this->attributes['released_at'] = Carbon::createFromFormat('Y-m-d', $date);
+    }
+
+    /**
+     * 查找释出日期时间在当前之前的所有文章
+     *
+     * @param $query \Illuminate\Database\Eloquent\Builder
+     * @return mixed \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeReleased($query)
+    {
+        return $query->where('released_at', '<=', Carbon::now());
     }
 
     /**
