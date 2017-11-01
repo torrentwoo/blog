@@ -16,8 +16,30 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+@if (Auth::check())
+                    <li class="dropdown">
+                        <a href="#" id="navDropdownMenu1" class="dropdown-toggle" data-toggle="dropdown">
+                            {{ Auth::user()->name }}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navDropdownMenu1">
+                            <li><a href="#">个人资料</a></li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#logout">
+                                    <form method="GET" action="{{ route('logout') }}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <button class="btn btn-block btn-danger" type="submit" name="button">注销登录</button>
+                                    </form>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+@else
                     <li><a href="{{ route('login') }}">登陆</a></li>
                     <li><a href="#logon">注册</a></li>
+@endif
                     <li><a href="{{ route('help') }}">帮助</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
