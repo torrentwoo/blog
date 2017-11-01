@@ -4,6 +4,9 @@
     @include('shared.nav')
 
     <div class="container">
+
+        @include('shared.message')
+
         <div class="row">
 @yield('content')
         </div>

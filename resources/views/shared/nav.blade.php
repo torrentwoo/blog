@@ -16,9 +16,9 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#login">登陆</a></li>
+                    <li><a href="{{ route('login') }}">登陆</a></li>
                     <li><a href="#logon">注册</a></li>
-                    <li><a href="#help">帮助</a></li>
+                    <li><a href="{{ route('help') }}">帮助</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>

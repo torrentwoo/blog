@@ -7,15 +7,28 @@
                         <h2 class="panel-title">用户登录</h2>
                     </div>
                     <div class="panel-body">
-                        <form action="#" method="post">
+@if (count($errors) > 0)
+                        <div class="alert alert-danger" role="alert">
+                            <ul class="list-unstyled">
+@foreach ($errors->all() as $error)
+                                <li>
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    <span class="sr-only">Error:</span>
+                                    {{ $error }}
+                                </li>
+@endforeach
+                            </ul>
+                        </div><!-- /.alert -->
+@endif
+                        <form method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="username">您的帐号</label>
-                                <input type="text" class="form-control" name="username" id="username" />
+                                <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}" />
                             </div>
                             <div class="form-group">
                                 <label for="password">登录密码</label>
-                                <input type="password" id="password" class="form-control" name="password" />
+                                <input type="password" name="password" id="password" class="form-control" value="{{ old('password') }}" />
                             </div>
                             <div class="form-group">
                                 <label>
