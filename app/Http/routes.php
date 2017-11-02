@@ -25,16 +25,22 @@ Route::get('/auth/login', 'SessionsController@create')->name('login');
 Route::post('/auth/login', 'SessionsController@store')->name('login');
 Route::get('/auth/logout', 'SessionsController@destroy')->name('logout');
 
+// Categories routes
+Route::get('/column', 'ColumnsController@index')->name('columnIndex');
+Route::get('/column/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->name('column');
+
 /*
  * Temporary testing routes
  */
 Route::get('/demo', function() {
     return view('layouts.home');
 })->name('home');
+/*
 Route::get('/column', function() {
     return view('layouts.column');
 })->name('column');
-Route::get('/column/{id}', function($id) {
+*/
+Route::get('/article/{id}', function($id) {
     return view('layouts.article', compact('id'));
 })->name('show');
 Route::get('/tag/{id}', function($id) {
@@ -43,9 +49,10 @@ Route::get('/tag/{id}', function($id) {
 Route::get('/tagcloud', function() {
     return view('layouts.tagcloud');
 })->name('tagcloud');
+/*
 Route::get('/column/{id}/comments', function($id) {
     return view('layouts.comments')->with('id', $id);
-})->name('comments');
+})->name('comments');*/
 Route::get('/search', function() {
     $keyword = Input::get('keyword');
     $keyword = $keyword ?: null;

@@ -58,7 +58,7 @@ class Article extends Model
      */
     public function scopeReleased($query)
     {
-        return $query->where('released_at', '<=', Carbon::now());
+        return $query->where('approval', '<>', 0)->where('released_at', '<=', Carbon::now());
     }
 
     /**
