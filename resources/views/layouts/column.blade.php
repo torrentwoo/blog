@@ -23,7 +23,7 @@
                             <div class="caption">
                                 <h2>{{ $article->title }}</h2>
                                 <p>{{ $article->description }}</p>
-                                <p class="text-right"><a class="btn btn-default" href="{{ route('show', $article->id) }}" role="button">View details &raquo;</a></p>
+                                <p class="text-right"><a class="btn btn-default" href="{{ route('article', $article->id) }}" role="button">View details &raquo;</a></p>
                             </div>
                         </div>
                     </div><!--/.col-sm-6.col-md-4-->
@@ -35,7 +35,7 @@
                             <div class="caption">
                                 <h2>Heading</h2>
                                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                                <p class="text-right"><a class="btn btn-default" href="{{ route('show', 2) }}" role="button">View details &raquo;</a></p>
+                                <p class="text-right"><a class="btn btn-default" href="{{ route('article', 2) }}" role="button">View details &raquo;</a></p>
                             </div>
                         </div>
                     </div><!--/.col-sm-6.col-md-4-->
@@ -45,39 +45,39 @@
                             <div class="caption">
                                 <h2>Heading</h2>
                                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                                <p class="text-right"><a class="btn btn-default" href="{{ route('show', 3) }}" role="button">View details &raquo;</a></p>
+                                <p class="text-right"><a class="btn btn-default" href="{{ route('article', 3) }}" role="button">View details &raquo;</a></p>
                             </div>
                         </div>
                     </div><!--/.col-sm-6.col-md-4-->
                     <div class="col-xs-6 col-lg-4">
                         <h2>Heading</h2>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn btn-default" href="{{ route('show', 2) }}" role="button">View details &raquo;</a></p>
+                        <p><a class="btn btn-default" href="{{ route('article', 2) }}" role="button">View details &raquo;</a></p>
                     </div><!--/.col-xs-6.col-lg-4-->
                     <div class="col-xs-6 col-lg-4">
                         <h2>Heading</h2>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn btn-default" href="{{ route('show', 3) }}" role="button">View details &raquo;</a></p>
+                        <p><a class="btn btn-default" href="{{ route('article', 3) }}" role="button">View details &raquo;</a></p>
                     </div><!--/.col-xs-6.col-lg-4-->
                     <div class="col-xs-6 col-lg-4">
                         <h2>Heading</h2>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn btn-default" href="{{ route('show', 4) }}" role="button">View details &raquo;</a></p>
+                        <p><a class="btn btn-default" href="{{ route('article', 4) }}" role="button">View details &raquo;</a></p>
                     </div><!--/.col-xs-6.col-lg-4-->
                     <div class="col-xs-6 col-lg-4">
                         <h2>Heading</h2>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn btn-default" href="{{ route('show', 5) }}" role="button">View details &raquo;</a></p>
+                        <p><a class="btn btn-default" href="{{ route('article', 5) }}" role="button">View details &raquo;</a></p>
                     </div><!--/.col-xs-6.col-lg-4-->
                     <div class="col-xs-6 col-lg-4">
                         <h2>Heading</h2>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn btn-default" href="{{ route('show', 6) }}" role="button">View details &raquo;</a></p>
+                        <p><a class="btn btn-default" href="{{ route('article', 6) }}" role="button">View details &raquo;</a></p>
                     </div><!--/.col-xs-6.col-lg-4-->
                     <div class="col-xs-6 col-lg-4">
                         <h2>Heading</h2>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn btn-default" href="{{ route('show', 6) }}" role="button">View details &raquo;</a></p>
+                        <p><a class="btn btn-default" href="{{ route('article', 6) }}" role="button">View details &raquo;</a></p>
                     </div><!--/.col-xs-6.col-lg-4-->
 --}}
                 </div><!--/row-->

@@ -29,6 +29,9 @@ Route::get('/auth/logout', 'SessionsController@destroy')->name('logout');
 Route::get('/column', 'ColumnsController@index')->name('columnIndex');
 Route::get('/column/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->name('column');
 
+// Articles routes
+Route::get('/article/{id}', 'ArticlesController@show')->where('id', '[a-z\d]+')->name('article');
+
 /*
  * Temporary testing routes
  */
@@ -40,9 +43,10 @@ Route::get('/column', function() {
     return view('layouts.column');
 })->name('column');
 */
+/*
 Route::get('/article/{id}', function($id) {
     return view('layouts.article', compact('id'));
-})->name('show');
+})->name('show');*/
 Route::get('/tag/{id}', function($id) {
     return view('layouts.tag', ['id' => $id]);
 })->name('tag');

@@ -4,7 +4,7 @@
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home') }}">首页</a></li>
                     <li><a href="{{ route('column') }}">Column</a></li>
-                    <li><a href="{{ route('show', $id) }}">Testing article</a></li>
+                    <li><a href="{{ route('article', $id) }}">Testing article</a></li>
                     <li class="active">评论</li>
                 </ol>
                 <div class="row">
@@ -121,11 +121,11 @@
                         <h5 class="panel-title">热门评论文章</h5>
                     </div>
                     <div class="list-group">
-                        <a class="list-group-item" href="{{ route('show', 1) }}">Testing article title<span class="badge" title="评论数量：321">321</span></a>
-                        <a class="list-group-item" href="{{ route('show', 2) }}">Testing article title<span class="badge" title="评论数量：111">111</span></a>
-                        <a class="list-group-item" href="{{ route('show', 3) }}">Testing article title<span class="badge" title="评论数量：78">78</span></a>
-                        <a class="list-group-item" href="{{ route('show', 4) }}">Testing article title<span class="badge" title="评论数量：42">42</span></a>
-                        <a class="list-group-item" href="{{ route('show', 5) }}">Testing article title<span class="badge" title="评论数量：32">32</span></a>
+                        <a class="list-group-item" href="{{ route('article', 1) }}">Testing article title<span class="badge" title="评论数量：321">321</span></a>
+                        <a class="list-group-item" href="{{ route('article', 2) }}">Testing article title<span class="badge" title="评论数量：111">111</span></a>
+                        <a class="list-group-item" href="{{ route('article', 3) }}">Testing article title<span class="badge" title="评论数量：78">78</span></a>
+                        <a class="list-group-item" href="{{ route('article', 4) }}">Testing article title<span class="badge" title="评论数量：42">42</span></a>
+                        <a class="list-group-item" href="{{ route('article', 5) }}">Testing article title<span class="badge" title="评论数量：32">32</span></a>
                     </div>
                 </div>
 @stop

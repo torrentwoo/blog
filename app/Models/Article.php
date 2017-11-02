@@ -64,25 +64,37 @@ class Article extends Model
     /**
      * 查找上一篇文章
      *
-     * @param $query \Illuminate\Database\Eloquent\Builder
-     * @param $id    Value of the identifier
-     * @return mixed \Illuminate\Database\Eloquent\Builder
+     * @param $query    \Illuminate\Database\Eloquent\Builder
+     * @param $id       Value of the article identifier
+     * @param $columnId Value of the category identifier
+     * @return mixed    \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOfPrev($query, $id)
+    public function scopeOfPrev($query, $id, $columnId = null)
     {
-        return $query->where('id', '=', $query->where('id', '<', $id)->max('id'));
+        if (isset($columnId)) {
+            return $query->where('id', '=', $query->where('id', '<', $id)->max('id'))
+                ->where('category_id', '=', $columnId);
+        } else {
+            return $query->where('id', '=', $query->where('id', '<', $id)->max('id'));
+        }
     }
 
     /**
      * 查找下一篇文章
      *
-     * @param $query \Illuminate\Database\Eloquent\Builder
-     * @param $id    Value of the identifier
-     * @return mixed \Illuminate\Database\Eloquent\Builder
+     * @param $query    \Illuminate\Database\Eloquent\Builder
+     * @param $id       Value of the identifier
+     * @param $columnId Value of the category identifier
+     * @return mixed    \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOfNext($query, $id)
+    public function scopeOfNext($query, $id, $columnId)
     {
-        return $query->where('id', '=', $query->where('id', '>', $id)->min('id'));
+        if (isset($columnId)) {
+            return $query->where('id', '=', $query->where('id', '>', $id)->min('id'))
+                ->where('category_id', '=', $columnId);
+        } else {
+            return $query->where('id', '=', $query->where('id', '>', $id)->min('id'));
+        }
     }
 
     /**
