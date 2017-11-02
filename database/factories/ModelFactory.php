@@ -43,6 +43,8 @@ $factory->define(App\Models\Article::class, function(Faker\Generator $faker) {
         'keywords'      =>  implode(',', $faker->words),
         'description'   =>  $faker->sentence,
         'content'       =>  $faker->text,
+        'approval'      =>  $faker->boolean,
+        'released_at'   =>  date('Y-m-d', strtotime('-' . array_rand(range(1, 30)) . ' day')),
         'created_at'    =>  $faker->dateTime,
         'updated_at'    =>  $faker->dateTime,
     ];
@@ -51,7 +53,7 @@ $factory->define(App\Models\Article::class, function(Faker\Generator $faker) {
 // Testing data for attachments those attached to articles
 $factory->define(App\Models\Attachment::class, function(Faker\Generator $faker) {
     $type = $faker->randomElement(['audio', 'picture', 'video']);
-    $url  = $type === 'picture' ? $faker->image('/tmp', 600, 400) : $faker->url;
+    $url  = $type === 'picture' ? $faker->imageUrl() : $faker->url;
     $cover= $type === 'picture' ? $faker->boolean : false;
     return [
         'url'       =>  $url,
