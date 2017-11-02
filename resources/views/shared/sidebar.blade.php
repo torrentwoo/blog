@@ -1,6 +1,6 @@
             <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
 @section('sidebar')
-
+@if (isset($columns))
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">热门栏目</h3>
@@ -25,5 +25,6 @@
 --}}
                     </div>
                 </div>
+@endif
 @show
             </div><!--/.sidebar-offcanvas-->
