@@ -36,4 +36,15 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * 定义用户与评论之间的一对多关联
+     * 获取一个用户发表过的的所有评论
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'user_id');
+    }
 }
