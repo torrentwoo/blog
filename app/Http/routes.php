@@ -49,10 +49,9 @@ Route::get('/tag/{id}', function($id) {
 Route::get('/tagcloud', function() {
     return view('layouts.tagcloud');
 })->name('tagcloud');
-/*
-Route::get('/column/{id}/comments', function($id) {
+Route::get('/article/{id}/comments', function($id) {
     return view('layouts.comments')->with('id', $id);
-})->name('comments');*/
+})->name('comments');
 Route::get('/search', function() {
     $keyword = Input::get('keyword');
     $keyword = $keyword ?: null;
