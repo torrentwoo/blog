@@ -51,7 +51,10 @@ class ColumnsController extends Controller
     public function show($id)
     {
         $column     = Category::findOrFail($id); // current
-        $columns    = Category::where('hidden', '=', 0)->has('articles')->get();
+        //$columns    = Category::where('hidden', '=', 0)->has('articles')->get();
+        $columns    = Category::where('hidden', '=', 0)->whereHas('articles', function($query) {
+            $query->where('approval', '<>', 0);
+        })->get();
         $articles   = Article::where('category_id', $id)->released()->with('attachments', 'thumbnails')->paginate(15);
         return view('layouts.column', [
             'column'    =>  $column,
