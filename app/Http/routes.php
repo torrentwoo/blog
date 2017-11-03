@@ -30,6 +30,8 @@ Route::get('/column/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->n
 
 // Articles routes
 Route::get('/article/{id}', 'ArticlesController@show')->where('id', '[a-z\d]+')->name('article');
+// Comments appended to article routes
+Route::get('/article/{id}/comments', 'CommentsController@show')->name('comments');
 
 /*
  * Temporary testing routes
@@ -49,9 +51,10 @@ Route::get('/tag/{id}', function($id) {
 Route::get('/tagcloud', function() {
     return view('layouts.tagcloud');
 })->name('tagcloud');
+/*
 Route::get('/article/{id}/comments', function($id) {
     return view('layouts.comments')->with('id', $id);
-})->name('comments');
+})->name('comments');*/
 Route::get('/search', function() {
     $keyword = Input::get('keyword');
     $keyword = $keyword ?: null;
