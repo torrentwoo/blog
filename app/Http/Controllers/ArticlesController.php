@@ -49,12 +49,10 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        $article  = Article::findOrFail($id);
+        $article  = Article::released()->findOrFail($id);
         $column   = $article->category()->first();
         $tags     = $article->tags()->get();
         $comments = $article->comments()->orderBy('created_at', 'desc')->get();
-        //dd($column->toArray());
-        //dd($article->ofPrev($article->id, $column->id)->pluck('id'));
         return view('layouts.article', [
             'article'   =>  $article,
             'column'    =>  $column,
