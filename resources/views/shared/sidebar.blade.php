@@ -8,9 +8,9 @@
                     <div class="list-group">
 @foreach ($columns as $genre)
 @if ($genre->id === $column->id)
-                        <a href="{{ route('column', $genre->id) }}" class="list-group-item active">{{ $genre->name }}<span class="badge">{{ $genre->articles->count() }}</span></a>
+                        <a href="{{ route('column', $genre->id) }}" class="list-group-item active">{{ $genre->name }}<span class="badge">{{ $genre->articles()->where('approval', '<>', 0)->get()->count() }}</span></a>
 @else
-                        <a href="{{ route('column', $genre->id) }}" class="list-group-item">{{ $genre->name }}<span class="badge">{{ $genre->articles->count() }}</span></a>
+                        <a href="{{ route('column', $genre->id) }}" class="list-group-item">{{ $genre->name }}<span class="badge">{{ $genre->articles()->where('approval', '<>', 0)->get()->count() }}</span></a>
 @endif
 @endforeach
 {{--
