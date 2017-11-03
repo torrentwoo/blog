@@ -56,8 +56,8 @@ class ArticlesController extends Controller
         return view('layouts.article', [
             'article'   =>  $article,
             'column'    =>  $column,
-            'prev'      =>  $article->ofPrev($article->id, $column->id)->first(),
-            'next'      =>  $article->ofNext($article->id, $column->id)->first(),
+            'prev'      =>  $article->ofPrev($article->id, $column->id)->released()->first(),
+            'next'      =>  $article->ofNext($article->id, $column->id)->released()->first(),
             'tags'      =>  $tags,
             'comments'  =>  $comments,
         ]);
