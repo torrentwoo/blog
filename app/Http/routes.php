@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Home route
+Route::get('/', 'HomepageController@index')->name('home');
 
 // Static pages routes
 Route::get('/about', 'StaticPagesController@about')->name('about');
@@ -35,9 +34,6 @@ Route::get('/article/{id}', 'ArticlesController@show')->where('id', '[a-z\d]+')-
 /*
  * Temporary testing routes
  */
-Route::get('/demo', function() {
-    return view('layouts.home');
-})->name('home');
 /*
 Route::get('/column', function() {
     return view('layouts.column');
