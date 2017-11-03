@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -53,6 +54,9 @@ class ArticlesController extends Controller
         $column   = $article->category()->first();
         $tags     = $article->tags()->get();
         $comments = $article->comments()->orderBy('created_at', 'desc')->get();
+        $columns  = Category::where('hidden', '=', 0)->whereHas('articles', function($query) {
+            $query->where('approval', '<>', 0);
+        })->get();
         return view('layouts.article', [
             'article'   =>  $article,
             'column'    =>  $column,
@@ -60,6 +64,7 @@ class ArticlesController extends Controller
             'next'      =>  $article->ofNext($article->id, $column->id)->released()->first(),
             'tags'      =>  $tags,
             'comments'  =>  $comments,
+            'columns'   =>  $columns,
         ]);
     }
 

@@ -103,5 +103,4 @@
 
 @section('sidebar')
                 @parent
-                <p>Appended entries in [sidebar] section</p>
 @stop
