@@ -15,15 +15,15 @@ class AttachmentsTableSeeder extends Seeder
         $faker = app(Faker\Generator::class);
         // 获取已发布文章的 id
         $arrArticlesId = App\Models\Article::lists('id')->toArray();
-        // 为随机的文章分配随机个数的测试附件内容
+        // 为每篇文章分配一个测试（图片）附件，该附件的 preview 字段属性为真
+        $data = [];
         foreach ($arrArticlesId as $id) {
-            $amount = array_rand(range(0, 3));
-            if ($amount > 1) {
-                $attachments = factory(App\Models\Attachment::class)->times($amount)->make()->each(function($ele) use ($faker, $id) {
-                    $ele->article_id = $id;
-                })->toArray();
-                App\Models\Attachment::insert($attachments);
-            }
+            $attachments = factory(App\Models\Attachment::class)->make()->toArray();
+            $data[] = array_merge($attachments, [
+                'article_id'    =>  $id,
+                'preview'       =>  true,
+            ]);
         }
+        empty($data) !== true && App\Models\Attachment::insert($data);
     }
 }
