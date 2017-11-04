@@ -34,12 +34,12 @@
                         <nav aria-label="Page navigation">
                             <ul class="pager">
 @if (isset($prev))
-                                <li class="previous"><a href="{{ route('article', $prev->id) }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> 上一篇</a></li>
+                                <li class="previous"><a href="{{ route('article', $prev->id) }}" title="{{ $prev->title }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> 上一篇</a></li>
 @else
                                 <li class="previous disabled"><a href="#"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> 上一篇</a></li>
 @endif
 @if (isset($next))
-                                <li class="next"><a href="{{ route('article', $next->id) }}">下一篇 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
+                                <li class="next"><a href="{{ route('article', $next->id) }}" title="{{ $next->title }}">下一篇 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
 @else
                                 <li class="next disabled"><a href="#">下一篇 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
 @endif
