@@ -61,9 +61,10 @@ class ArticlesController extends Controller
 
         return view('layouts.article', [
             'article'   =>  $article,
-            'prev'      =>  $article->ofPrev($article->id, $article->category->id)->released()->first(),
-            'next'      =>  $article->ofNext($article->id, $article->category->id)->released()->first(),
+            'prev'      =>  Article::released()->ofPrev($article->id, $article->category->id)->first(),
+            'next'      =>  Article::released()->ofNext($article->id, $article->category->id)->first(),
             'columns'   =>  $columns,
+            'column'    =>  $article->category, // position of active element in sidebar
         ]);
     }
 
