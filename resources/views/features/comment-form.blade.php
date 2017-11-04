@@ -1,4 +1,5 @@
-                        <form id="embeddedCommentForm">
+                        <form id="embeddedCommentForm" method="POST" action="{{ route('comment', $article->id) }}">
+                            {{ csrf_field() }}
                             <div class="form-group">
                                 <textarea name="comment" class="form-control" rows="3" placeholder="既然都来了，不说点啥么"></textarea>
                             </div>
