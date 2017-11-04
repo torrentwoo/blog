@@ -3,7 +3,7 @@
 @section('content')
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home') }}">首页</a></li>
-                    <li><a href="{{ route('column', $column->id) }}">{{ $column->name }}</a></li>
+                    <li><a href="{{ route('column', $article->category->id) }}">{{ $article->category->name }}</a></li>
                     <li><a href="{{ route('article', $article->id) }}">{{ $article->title }}</a></li>
                     <li class="active">评论</li>
                 </ol>

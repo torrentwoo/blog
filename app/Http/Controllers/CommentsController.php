@@ -50,12 +50,14 @@ class CommentsController extends Controller
      */
     public function show($id)
     {
-        $column   = Article::released()->findOrFail($id)->category()->first();
-        $article  = Article::findOrFail($id);
+        // Retrieve article data from model article and category
+        $article  = Article::with('category')->where('id', '=', $id)->released()->firstOrFail();
+        // Retrieve comments those comment on this article
         $comments = $article->comments()->with('user')->orderBy('created_at', 'desc')->paginate(10);
+        // Retrieve top 8 popular articles that been commented on
         $popular  = Article::with('comments')->released()->get()->sortBy('comments')->reverse()->take(8);
+
         return view('layouts.comments', [
-            'column'    =>  $column,
             'article'   =>  $article,
             'comments'  =>  $comments,
             'popular'   =>  $popular,
