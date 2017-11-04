@@ -19,7 +19,11 @@ class TagsController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::whereHas('articles', function($query) {
+            $query->released();
+        })->get()->sortBy('name')->values();
+
+        return view('layouts.tagcloud')->with('tags', $tags);
     }
 
     /**
@@ -59,11 +63,18 @@ class TagsController extends Controller
         $articles = Article::whereHas('tags', function($query) use ($id) {
             $query->where('tags.id', '=', $id);
         })->released()->paginate();
+        // Other popular tags
+        $popular = Tag::with(['articles' => function($query) {
+            $query->released();
+        }])->get()->filter(function($item) {
+            return !$item->articles->isEmpty();
+        })->sortBy('articles')->reverse();
 
         return view('layouts.tag', [
             'tag'       =>  $tag,
             'articles'  =>  $articles,
-        ]);
+            'popular'   =>  $popular,
+        ])->with('id', (int) $id);
     }
 
     /**

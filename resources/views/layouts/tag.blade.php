@@ -3,7 +3,7 @@
 @section('content')
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home') }}">首页</a></li>
-                    <li><a href="/tagcloud">标签</a></li>
+                    <li><a href="{{ route('tagCloud') }}">标签</a></li>
                     <li class="active">{{ $tag->name }}</li>
                 </ol>
                 <div class="row">
@@ -78,4 +78,23 @@
                     </ul>
 --}}
                 </nav>
+@stop
+
+@section('sidebar')
+@if (isset($popular))
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">热门标签列表</h5>
+                    </div>
+                    <div class="list-group">
+@foreach ($popular as $tag)
+@if (isset($id) && $id === $tag->id)
+                        <a class="list-group-item active" href="{{ route('tag', $tag->id) }}">{{ $tag->name }}</a>
+@else
+                        <a class="list-group-item" href="{{ route('tag', $tag->id) }}">{{ $tag->name }}</a>
+@endif
+@endforeach
+                    </div>
+                </div>
+@endif
 @stop

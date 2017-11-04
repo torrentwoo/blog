@@ -33,15 +33,18 @@ Route::get('/article/{id}', 'ArticlesController@show')->where('id', '[a-z\d]+')-
 // Comments appended to article routes
 Route::get('/article/{id}/comments', 'CommentsController@show')->name('comments');
 
+// Tag clouds routes
+Route::get('/tagcloud', 'TagsController@index')->name('tagCloud');
 // Tags routes
 Route::get('/tag/{id}', 'TagsController@show')->name('tag');
 
 /*
  * Temporary testing routes
  */
+/*
 Route::get('/tagcloud', function() {
     return view('layouts.tagcloud');
-})->name('tagcloud');
+})->name('tagcloud');*/
 Route::get('/search', function() {
     $keyword = Input::get('keyword');
     $keyword = $keyword ?: null;
