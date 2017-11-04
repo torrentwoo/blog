@@ -51,15 +51,15 @@ class TagsController extends Controller
      */
     public function show($id)
     {
-        /*
-        $tag = Tag::with(['articles' => function($query) {
-            $query->released()->orderBy('released_at', 'desc');
-        }])->where('id', '=', $id)->firstOrFail();
-        */
-        $tag      = Tag::findOrFail($id);
+        // Querying relationship existence
+        $tag = Tag::whereHas('articles', function($query) {
+            $query->released();
+        })->where('id', '=', $id)->firstOrFail();
+        // Pagination of the articles those applied this tag
         $articles = Article::whereHas('tags', function($query) use ($id) {
             $query->where('tags.id', '=', $id);
         })->released()->paginate();
+
         return view('layouts.tag', [
             'tag'       =>  $tag,
             'articles'  =>  $articles,
