@@ -50,20 +50,19 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        $article  = Article::released()->findOrFail($id);
-        $column   = $article->category()->first();
-        $tags     = $article->tags()->get();
-        $comments = $article->comments()->orderBy('created_at', 'desc')->get();
+        // Article and items appended to this article
+        $article  = Article::with('category', 'tags')->with(['comments' => function($query) use ($id) {
+            $query->where('article_id', '=', $id)->orderBy('created_at', 'desc')->take(4);
+        }])->where('id', '=', $id)->firstOrFail();
+        // Sidebar columns
         $columns  = Category::where('hidden', '=', 0)->whereHas('articles', function($query) {
             $query->where('approval', '<>', 0);
         })->get();
+
         return view('layouts.article', [
             'article'   =>  $article,
-            'column'    =>  $column,
-            'prev'      =>  $article->ofPrev($article->id, $column->id)->released()->first(),
-            'next'      =>  $article->ofNext($article->id, $column->id)->released()->first(),
-            'tags'      =>  $tags,
-            'comments'  =>  $comments,
+            'prev'      =>  $article->ofPrev($article->id, $article->category->id)->released()->first(),
+            'next'      =>  $article->ofNext($article->id, $article->category->id)->released()->first(),
             'columns'   =>  $columns,
         ]);
     }
