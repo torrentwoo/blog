@@ -32,6 +32,7 @@ Route::get('/column/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->n
 Route::get('/article/{id}', 'ArticlesController@show')->where('id', '[a-z\d]+')->name('article');
 // Comments appended to article routes
 Route::get('/article/{id}/comments', 'CommentsController@show')->name('comments');
+Route::post('/article/{id}/comments', 'CommentsController@store')->name('comment');
 
 // Tag clouds routes
 Route::get('/tagcloud', 'TagsController@index')->name('tagCloud');
