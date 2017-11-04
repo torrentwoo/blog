@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
@@ -35,11 +36,38 @@ class CommentsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int                       $id      the value of article identifier
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $requireLogin = Auth::check() ? [] : [
+            'username'  =>  'required',
+            'password'  =>  'required',
+        ];
+        $this->validate($request, array_merge($requireLogin, [
+            'comment'   =>  'required|min:15',
+        ]));
+        // Handle user login
+        if (!Auth::check()) {
+            $credentials = [
+                'name'      =>  $request->username,
+                'password'  =>  $request->password,
+                'activated' =>  1, // only activated user could login, extra field
+            ];
+            if (!Auth::attempt($credentials, $request->has('remember'))) {
+                abort(403, 'Authentication failed, require user login');
+            }
+        }
+        // Handle inserting related models
+        $data = new Comment([
+            'user_id'   =>  Auth::user()->id,
+            'content'   =>  $request->comment,
+        ]);
+        $article = Article::findOrFail($id);
+        $article->comments()->save($data);
+
+        return redirect()->back(); // redirect()->intended(route('comments', $id));
     }
 
     /**
