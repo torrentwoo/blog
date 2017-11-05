@@ -38,6 +38,18 @@ class User extends Model implements AuthenticatableContract,
     protected $hidden = ['password', 'remember_token'];
 
     /**
+     * 当用户创建（注册）时，自动生成 activation_token 值
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($user) {
+            $user->activation_token = str_random(32);
+        });
+    }
+
+    /**
      * 定义用户与评论之间的一对多关联
      * 获取一个用户发表过的的所有评论
      *
