@@ -19,6 +19,9 @@ Route::get('/about', 'StaticPagesController@about')->name('about');
 Route::get('/contact', 'StaticPagesController@contact')->name('contact');
 Route::get('/help', ['as'   =>  'help', 'uses'  =>  'StaticPagesController@help']);
 
+// User related routes
+Route::resource('/user', 'UsersController');
+
 // Authentication routes
 Route::get('/auth/login', 'SessionsController@create')->name('login');
 Route::post('/auth/login', 'SessionsController@store')->name('login');
