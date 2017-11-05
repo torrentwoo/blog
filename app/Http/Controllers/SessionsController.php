@@ -40,16 +40,22 @@ class SessionsController extends Controller
         $credentials = [
             'name'      =>  $request->username,
             'password'  =>  $request->password,
-            'activated' =>  1, // only activated user could login, extra field
+            //'activated' =>  1, // only activated user could login, extra field
         ];
         if (Auth::attempt($credentials, $request->has('remember'))) {
             $user = Auth::user();
-            $nickname = $user->nickname;
-            $nickname = $nickname ?: $user->name;
-            session()->flash('success', "登录成功，欢迎您回来：{$nickname}");
-            return redirect()->route('home')->with('user', $user);
+            if ($user->activated) {
+                $nickname = $user->nickname;
+                $nickname = $nickname ?: $user->name;
+                session()->flash('success', "登录成功，欢迎您回来：{$nickname}");
+                return redirect()->route('home')->with('user', $user);
+            } else {
+                Auth::logout();
+                session()->flash('warning', '您的账户未激活，请登陆您的注册邮箱，检查注册验证邮件以便激活您的账户');
+                return redirect()->route('home');
+            }
         } else { // Login failed
-            session()->flash('danger', '帐号和密码不匹配，或账户未激活，登录失败');
+            session()->flash('danger', '帐号和密码不匹配，登录失败');
             return redirect()->back();
         }
     }
