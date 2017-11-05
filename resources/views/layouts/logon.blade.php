@@ -7,7 +7,9 @@
                         <h2 class="panel-title">用户注册</h2>
                     </div>
                     <div class="panel-body">
-                        <form action="#" method="post">
+                        @include('features.builtIn-alert')
+
+                        <form action="{{ route('user.store') }}" method="POST">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="username">用户名</label>

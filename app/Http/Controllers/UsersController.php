@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -37,7 +39,21 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'username'  =>  'required|between:4,32|unique:users,name', // all printable characters are accepted
+            //'username'  =>  ['required', 'min:4', 'max:32', 'regex:/^[a-z]+[\x2d\x2e\x5f]?[a-z\d]+?$/'], // pattern
+            'email'     =>  'required|email|unique:users|max:255',
+            'password'  =>  'required|min:6|confirmed',
+        ]);
+        $user = User::create([
+            'name'  =>  $request->username,
+            'email' =>  $request->email,
+            'password'  =>  bcrypt($request->password),
+        ]);
+        //Auth::login($user); // login when register succeed
+        session()->flash('success', '注册成功，欢迎您在这里开启一段新的旅程');
+
+        return redirect()->route('home')->with('user', $user);
     }
 
     /**
