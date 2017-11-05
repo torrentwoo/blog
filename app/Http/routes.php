@@ -20,6 +20,7 @@ Route::get('/contact', 'StaticPagesController@contact')->name('contact');
 Route::get('/help', ['as'   =>  'help', 'uses'  =>  'StaticPagesController@help']);
 
 // User related routes
+Route::get('/user/activate/{token}', 'UsersController@activate')->name('user.activate'); // must be put before resource route
 Route::resource('/user', 'UsersController');
 
 // Authentication routes
