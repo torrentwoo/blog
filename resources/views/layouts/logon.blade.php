@@ -45,7 +45,7 @@
 
                             <hr />
 
-                            <p>已有帐号？<a href="#">请登录</a></p>
+                            <p>已有帐号？<a href="{{ route('login') }}">请登录</a></p>
                         </form>
                     </div>
                 </div>
