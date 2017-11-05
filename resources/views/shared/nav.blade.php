@@ -38,7 +38,7 @@
                     </li>
 @else
                     <li class="{{ $loginActive or 'void' }}"><a href="{{ route('login') }}">登陆</a></li>
-                    <li><a href="#logon">注册</a></li>
+                    <li class="{{ $logonActive or 'void' }}"><a href="{{ route('user.create') }}">注册</a></li>
 @endif
                     <li><a href="{{ route('help') }}">帮助</a></li>
                     <li class="dropdown">
