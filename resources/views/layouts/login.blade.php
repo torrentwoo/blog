@@ -7,19 +7,8 @@
                         <h2 class="panel-title">用户登录</h2>
                     </div>
                     <div class="panel-body">
-@if (count($errors) > 0)
-                        <div class="alert alert-danger" role="alert">
-                            <ul class="list-unstyled">
-@foreach ($errors->all() as $error)
-                                <li>
-                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                    <span class="sr-only">Error:</span>
-                                    {{ $error }}
-                                </li>
-@endforeach
-                            </ul>
-                        </div><!-- /.alert -->
-@endif
+                        @include('features.builtIn-alert')
+
                         <form method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
                             <div class="form-group">

@@ -1,17 +1,6 @@
                         <form id="embeddedCommentForm" method="POST" action="{{ route('comment', $article->id) }}">
-@if (count($errors) > 0)
-                            <div class="alert alert-danger" role="alert">
-                                <ul class="list-unstyled">
-@foreach ($errors->all() as $error)
-                                    <li>
-                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                        <span class="sr-only">Error:</span>
-                                        {{ $error }}
-                                    </li>
-@endforeach
-                                </ul>
-                            </div><!-- /.alert -->
-@endif
+                            @include('features.builtIn-alert')
+
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <textarea name="comment" class="form-control" rows="3" placeholder="既然都来了，不说点啥么"></textarea>
