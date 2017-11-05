@@ -51,7 +51,7 @@
 
                             <hr />
 
-                            <p>没有帐号？<a href="#">现在注册</a></p>
+                            <p>没有帐号？<a href="{{ route('user.create') }}">现在注册</a></p>
                         </form>
                     </div>
                 </div>
