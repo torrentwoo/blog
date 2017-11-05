@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -46,12 +47,55 @@ class UsersController extends Controller
             'password'  =>  'required|min:6|confirmed',
         ]);
         $user = User::create([
-            'name'  =>  $request->username,
-            'email' =>  $request->email,
+            'name'      =>  $request->username,
+            'email'     =>  $request->email,
             'password'  =>  bcrypt($request->password),
         ]);
-        //Auth::login($user); // login when register succeed
-        session()->flash('success', '注册成功，欢迎您在这里开启一段新的旅程');
+        // Send an account activation message to user via mail
+        $this->sendActivationMessage($user);
+
+        session()->flash('success', '注册验证通知邮件已经发送到您的注册邮箱，请注意查收');
+
+        return view('layouts.activation')->with('user', $user);
+    }
+
+    /**
+     * Send an account activation message to specified user
+     *
+     * @param \App\Models\User $recipient
+     */
+    public function sendActivationMessage(User $recipient)
+    {
+        $view     = 'features.activation';
+        $user     = $recipient;
+        $data     = compact('user');
+        $from     = 'admin@dev.local';
+        $fromName = 'admin';
+        $to       = $user->email;
+        $subject  = '注册验证通知邮件';
+        Mail::send($view, $data, function($message) use ($from, $fromName, $to, $subject) {
+            $message->from($from, $fromName)->to($to)->subject($subject);
+        });
+    }
+
+    /**
+     * Activate a specified user with a token
+     *
+     * @param string $token the value of activation token
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function activate($token)
+    {
+        $user = User::where('activation_token', '=', $token)->firstOrFail();
+
+        $user->activated = true;
+        $user->activation_token = null;
+        $user->save(); // update
+
+        Auth::login($user);
+        $nickname = $user->nickname;
+        $nickname = $nickname ?: $user->name;
+        session()->flash('success', "恭喜您：{$nickname}，您的账户已成功激活，祝愿您在这里开启一段愉快的旅程");
 
         return redirect()->route('home')->with('user', $user);
     }
