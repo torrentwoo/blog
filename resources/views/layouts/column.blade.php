@@ -9,17 +9,7 @@
 @foreach ($articles as $article)
                     <div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
-<?php
-    $snapshot = $article->attachments->filter(function($e) { return $e->preview === 1; })->pluck('url')->first();
-    $thumbnail = $article->thumbnails->filter(function($e) { return $e->thumbnail_loc === 'column'; })->pluck('thumbnail_url')->first();
-?>
-@if (isset($thumbnail))
-                            <img class="img-responsive" src="{{ $thumbnail }}" alt="{{ $article->title }}" />
-@elseif (isset($snapshot))
-                            <img class="img-responsive" src="{{ $snapshot }}" alt="{{ $article->title }}" />
-@else
-                            <img class="img-responsive" src="#" alt="{{ $article->title }}" /><!-- fallback preview -->
-@endif
+                            <img class="img-responsive" src="{{ $article->snapshot->thumbnail_url or $article->attachment->url }}" alt="{{ $article->title }}" />
                             <div class="caption">
                                 <h2>{{ $article->title }}</h2>
                                 <p>{{ $article->description }}</p>
