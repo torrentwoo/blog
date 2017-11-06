@@ -16,7 +16,7 @@
                             <div class="caption">
                                 <h2>{{ str_limit($article->title, 24) }}</h2>
                                 <p>{{ str_limit($article->description, 32) }}</p>
-                                <p><a class="btn btn-default" href="{{ route('article', $article->id) }}" role="button">View details &raquo;</a></p>
+                                <p class="text-right"><a class="btn btn-default" href="{{ route('article', $article->id) }}" role="button">View details &raquo;</a></p>
                             </div>
                         </div>
                     </div><!--/.col-xs-6.col-lg-4-->
