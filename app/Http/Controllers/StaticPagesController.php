@@ -33,6 +33,6 @@ class StaticPagesController extends Controller
      */
     public function help()
     {
-        return view('layouts.help');
+        return view('layouts.help')->with('helpActive', 'active');
     }
 }

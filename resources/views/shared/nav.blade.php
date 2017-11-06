@@ -40,7 +40,7 @@
                     <li class="{{ $loginActive or 'void' }}"><a href="{{ route('login') }}">登陆</a></li>
                     <li class="{{ $logonActive or 'void' }}"><a href="{{ route('user.create') }}">注册</a></li>
 @endif
-                    <li><a href="{{ route('help') }}">帮助</a></li>
+                    <li class="{{ $helpActive or 'void' }}"><a href="{{ route('help') }}">帮助</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
