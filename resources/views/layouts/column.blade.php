@@ -9,7 +9,9 @@
 @foreach ($articles as $article)
                     <div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
-                            <img class="img-responsive" src="{{ $article->snapshot->thumbnail_url or $article->attachment->url }}" alt="{{ $article->title }}" />
+                            <a href="{{ route('article', $article->id) }}" title="{{ $article->title }}">
+                                <img class="img-responsive" src="{{ $article->snapshot->thumbnail_url or $article->attachment->url }}" alt="{{ $article->title }}" />
+                            </a>
                             <div class="caption">
                                 <h2>{{ $article->title }}</h2>
                                 <p>{{ $article->description }}</p>
