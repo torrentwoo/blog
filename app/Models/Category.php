@@ -27,6 +27,17 @@ class Category extends Model
     ];
 
     /**
+     * 查找所有可见的类别
+     *
+     * @param $query \Illuminate\Database\Eloquent\Builder
+     * @return mixed \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisible($query)
+    {
+        return $query->where('hidden', '=', 0);
+    }
+
+    /**
      * 声明类别与子类别之间的一对多关联
      * 一个类别可拥有多个子类别，获取某一类别下属的直接子类别
      *
