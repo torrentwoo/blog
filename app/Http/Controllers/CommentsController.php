@@ -41,22 +41,28 @@ class CommentsController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $requireLogin = Auth::check() ? [] : [
+        $loginState   = Auth::check();
+        $requireLogin = $loginState ? [] : [
             'username'  =>  'required',
             'password'  =>  'required',
         ];
         $this->validate($request, array_merge($requireLogin, [
             'comment'   =>  'required|min:15',
         ]));
-        // Handle user login
-        if (!Auth::check()) {
+        if (!$loginState) {
             $credentials = [
                 'name'      =>  $request->username,
                 'password'  =>  $request->password,
-                'activated' =>  1, // only activated user could login, extra field
             ];
-            if (!Auth::attempt($credentials, $request->has('remember'))) {
-                abort(403, 'Authentication failed, require user login');
+            if (Auth::attempt($credentials, $request->has('remember'))) {
+                if (!Auth::user()->activated) { // Account have not been activated
+                    Auth::logout();
+                    session()->flash('warning', '您的账户未激活，请登陆您的注册邮箱，检查注册验证邮件以便激活您的账户');
+                    return redirect()->back();
+                }
+            } else { // Authenticate failed
+                session()->flash('danger', '帐号和密码不匹配，登录失败，发表评论失败');
+                return redirect()->back();
             }
         }
         // Handle inserting related models
