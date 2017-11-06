@@ -34,7 +34,7 @@
                                 <dt>电话</dt>
                                 <dd>123-456-7890</dd>
                                 <dd>mobile phone number</dd>
-                                <dd>邮箱</dd>
+                                <dt>邮箱</dt>
                                 <dd>mailbox@mailing.blah</dd>
                             </dl>
                         </div>
