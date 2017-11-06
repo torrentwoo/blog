@@ -149,7 +149,9 @@ class Article extends Model
      */
     public function attachment()
     {
-        return $this->hasOne(Attachment::class, 'article_id')->where('preview', '<>', 0)->orderBy('id')->take(1);
+        return $this->hasOne(Attachment::class, 'article_id')
+                    ->where('preview', '<>', 0)
+                    ->orderBy('id');
     }
 
     /**
@@ -173,7 +175,6 @@ class Article extends Model
     {
         return $this->hasOne(Thumbnail::class, 'article_id')
                     ->where('thumbnail_loc', '=', \Illuminate\Support\Facades\Route::currentRouteName())
-                    ->orderBy('id')
-                    ->take(1);
+                    ->orderBy('id');
     }
 }
