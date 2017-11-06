@@ -50,6 +50,19 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
+     * 利用 Gravatar 替用户生成头像
+     *
+     * @link https://cn.gravatar.com/site/implement/images/
+     * @param int $size 头像的尺寸（像素）
+     * @return string   可予显示的头像（图像）资源地址
+     */
+    public function gravatar($size = 100)
+    {
+        $hash = md5(strtolower(trim($this->email)));
+        return "https://www.gravatar.com/avatar/{$hash}?s={$size}&d=mm&r=pg";
+    }
+
+    /**
      * 定义用户与评论之间的一对多关联
      * 获取一个用户发表过的的所有评论
      *
