@@ -40,7 +40,6 @@ class SessionsController extends Controller
         $credentials = [
             'name'      =>  $request->username,
             'password'  =>  $request->password,
-            //'activated' =>  1, // only activated user could login, extra field
         ];
         if (Auth::attempt($credentials, $request->has('remember'))) {
             $user = Auth::user();
