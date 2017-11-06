@@ -33,16 +33,20 @@
 @endif
                         <nav aria-label="Page navigation">
                             <ul class="pager">
+                                <li class="previous">
 @if (isset($prev))
-                                <li class="previous"><a href="{{ route('article', $prev->id) }}" title="{{ $prev->title }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> 上一篇</a></li>
+                                    <a href="{{ route('article', $prev->id) }}" title="{{ $prev->title }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> 上一篇</a>
 @else
-                                <li class="previous disabled"><a href="#"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> 上一篇</a></li>
+                                    <button class="btn btn-default pull-left disabled"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> 上一篇</button>
 @endif
+                                </li>
+                                <li class="next">
 @if (isset($next))
-                                <li class="next"><a href="{{ route('article', $next->id) }}" title="{{ $next->title }}">下一篇 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
+                                    <a href="{{ route('article', $next->id) }}" title="{{ $next->title }}">下一篇 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
 @else
-                                <li class="next disabled"><a href="#">下一篇 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
+                                    <button class="btn btn-default pull-right disabled">下一篇 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
 @endif
+                                </li>
                             </ul>
                         </nav>
                     </div>

@@ -21,11 +21,12 @@ class HomepageController extends Controller
     {
         // Carousel
         // Articles
-        $articles = Article::latest()->released()->orderBy('released_at', 'desc')->take(6)->get();
+        $articles = Article::released()->with('attachment', 'snapshot')->orderBy('released_at', 'desc')->take(6)->get();
         // Sidebar columns list
-        $columns  = Category::where('hidden', '=', 0)->whereHas('articles', function($query) {
+        $columns  = Category::whereHas('articles', function($query) {
             $query->where('approval', '<>', 0);
-        })->get();
+        })->visible()->orderBy('priority', 'desc')->get();
+
         return view('layouts.home', [
             'articles'  =>  $articles,
             'columns'   =>  $columns,

@@ -54,15 +54,19 @@ class ArticlesController extends Controller
         $article  = Article::with('category', 'tags')->with(['comments' => function($query) use ($id) {
             $query->where('article_id', '=', $id)->orderBy('created_at', 'desc')->take(4);
         }])->where('id', '=', $id)->firstOrFail();
+        // Previous and next
+        $columnId = $article->category->id;
+        $previous = Article::where('category_id', $columnId)->released()->ofPrev($article->id)->first();
+        $next     = Article::where('category_id', $columnId)->released()->ofNext($article->id)->first();
         // Sidebar columns
-        $columns  = Category::where('hidden', '=', 0)->whereHas('articles', function($query) {
+        $columns  = Category::whereHas('articles', function($query) {
             $query->where('approval', '<>', 0);
-        })->get();
+        })->visible()->orderBy('priority', 'desc')->get();
 
         return view('layouts.article', [
             'article'   =>  $article,
-            'prev'      =>  Article::released()->ofPrev($article->id, $article->category->id)->first(),
-            'next'      =>  Article::released()->ofNext($article->id, $article->category->id)->first(),
+            'prev'      =>  $previous,
+            'next'      =>  $next,
             'columns'   =>  $columns,
             'column'    =>  $article->category, // position of active element in sidebar
         ]);

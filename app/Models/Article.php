@@ -66,17 +66,11 @@ class Article extends Model
      *
      * @param $query    \Illuminate\Database\Eloquent\Builder
      * @param $id       Value of the article identifier
-     * @param $columnId Value of the category identifier
      * @return mixed    \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOfPrev($query, $id, $columnId = null)
+    public function scopeOfPrev($query, $id)
     {
-        if (isset($columnId)) {
-            return $query->where('id', '=', $query->where('id', '<', $id)->max('id'))
-                ->where('category_id', '=', $columnId);
-        } else {
-            return $query->where('id', '=', $query->where('id', '<', $id)->max('id'));
-        }
+        return $query->where('id', '=', $query->where('id', '<', $id)->max('id'));
     }
 
     /**
@@ -84,17 +78,11 @@ class Article extends Model
      *
      * @param $query    \Illuminate\Database\Eloquent\Builder
      * @param $id       Value of the identifier
-     * @param $columnId Value of the category identifier
      * @return mixed    \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOfNext($query, $id, $columnId)
+    public function scopeOfNext($query, $id)
     {
-        if (isset($columnId)) {
-            return $query->where('id', '=', $query->where('id', '>', $id)->min('id'))
-                ->where('category_id', '=', $columnId);
-        } else {
-            return $query->where('id', '=', $query->where('id', '>', $id)->min('id'));
-        }
+        return $query->where('id', '=', $query->where('id', '>', $id)->min('id'));
     }
 
     /**

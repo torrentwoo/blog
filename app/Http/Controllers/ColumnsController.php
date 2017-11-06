@@ -50,11 +50,11 @@ class ColumnsController extends Controller
      */
     public function show($id)
     {
-        $column     = Category::visible()->findOrFail($id);
-        $columns    = Category::whereHas('articles', function($query) {
+        $column   = Category::visible()->findOrFail($id);
+        $columns  = Category::whereHas('articles', function($query) {
             $query->where('approval', '<>', 0);
         })->visible()->orderBy('priority', 'desc')->get();
-        $articles   = Article::where('category_id', $id)->released()->with('attachment', 'snapshot')->paginate(15);
+        $articles = Article::where('category_id', $id)->released()->with('attachment', 'snapshot')->paginate(15);
 
         return view('layouts.column', [
             'column'    =>  $column,
