@@ -52,6 +52,11 @@ footer {
 .navbar-brand {
   height: auto; }
 
+.alert-status {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6; }
+
 @media only screen and (min-width: 768px) {
   .navbar-right {
     margin-right: 0; }
