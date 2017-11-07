@@ -12,6 +12,8 @@
                                 <h5 class="panel-title">找回密码</h5>
                             </div>
                             <div class="panel-body">
+                                @include('features.builtIn-alert')
+
                                 <form class="form-horizontal" method="POST" action="{{ route('password.rescue') }}">
                                     {{ csrf_field() }}
                                     <div class="form-group">
