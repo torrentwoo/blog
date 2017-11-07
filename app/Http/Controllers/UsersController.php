@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Mail;
 class UsersController extends Controller
 {
     /**
+     * UsersController constructor.
+     */
+    public function __construct()
+    {
+        // Invoke middleware via constructor
+        $this->middleware('auth', [
+            'only'  =>  ['edit', 'update'],
+        ]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
