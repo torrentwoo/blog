@@ -14,6 +14,17 @@ class SessionsController extends Controller
     use ThrottlesLogins;
 
     /**
+     * SessionsController constructor.
+     */
+    public function __construct()
+    {
+        // 通过构造方法调用中间件，只让未登录用户访问登录页面
+        $this->middleware('guest', [
+            'only'  =>  ['create'],
+        ]);
+    }
+
+    /**
      * 响应对 GET /auth/login 的请求
      * 显示用户登录表单
      *
