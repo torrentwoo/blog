@@ -134,6 +134,8 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        // Make sure user can only edit profile belongs himself
+        $this->authorize('update', $user);
         return view('users.edit', [
             'user'  =>  $user,
         ])->with('account', 'active');
@@ -149,6 +151,8 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
+        // Make sure user can only edit profile belongs himself
+        $this->authorize('update', $user);
         $this->validate($request, [
             'nickname'  =>  "min:2|unique:users,nickname,{$user->id}",
             'password'  =>  'confirmed|min:6',
