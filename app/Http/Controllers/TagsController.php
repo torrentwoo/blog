@@ -67,8 +67,10 @@ class TagsController extends Controller
         $popular = Tag::with(['articles' => function($query) {
             $query->released();
         }])->get()->filter(function($item) {
-            return !$item->articles->isEmpty();
-        })->sortBy('articles')->reverse();
+            return $item->articles->isEmpty() !== true;
+        })->sortByDesc(function($item) {
+            return $item->articles->count();
+        });
 
         return view('layouts.tag', [
             'tag'       =>  $tag,
