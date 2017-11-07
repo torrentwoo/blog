@@ -47,7 +47,8 @@ class SessionsController extends Controller
                 $nickname = $user->nickname;
                 $nickname = $nickname ?: $user->name;
                 session()->flash('success', "登录成功，欢迎您回来：{$nickname}");
-                return redirect()->route('home')->with('user', $user);
+                //return redirect()->route('home')->with('user', $user);
+                return redirect()->intended(route('user.show', [$user]));
             } else {
                 Auth::logout();
                 session()->flash('warning', '您的账户未激活，请登陆您的注册邮箱，检查注册验证邮件以便激活您的账户');
