@@ -57,7 +57,7 @@
                 </tr>
                 <tr>
                     <td class="msg-feature">
-                        <a id="activationBtn" href="{{ route('password.edit') . '/' . $token }}" target="_blank">立即重置密码</a>
+                        <a id="activationBtn" href="{{ route('password.update') . '/' . $token }}" target="_blank">立即重置密码</a>
                     </td>
                 </tr>
                 <tr>
@@ -67,7 +67,7 @@
                 </tr>
                 <tr>
                     <td class="msg-feature">
-                        <a href="{{ route('password.edit') . '/' . $token }}" target="_blank">{{ route('password.edit') . '/' . $token }}</a>
+                        <a href="{{ route('password.update') . '/' . $token }}" target="_blank">{{ route('password.update') . '/' . $token }}</a>
                     </td>
                 </tr>
             </tbody>
