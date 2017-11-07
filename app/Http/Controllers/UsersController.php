@@ -19,7 +19,11 @@ class UsersController extends Controller
     {
         // Invoke middleware via constructor
         $this->middleware('auth', [
-            'only'  =>  ['edit', 'update'],
+            'only'  =>  ['edit', 'update', 'destroy'],
+        ]);
+        // 通过构造方法调用中间件，只让未登录用户访问用户注册页面
+        $this->middleware('guest', [
+            'only'  =>  ['create'],
         ]);
     }
 
