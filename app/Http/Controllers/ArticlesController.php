@@ -52,7 +52,7 @@ class ArticlesController extends Controller
     {
         // Article and items appended to this article
         $article  = Article::with('category', 'tags')->with(['comments' => function($query) use ($id) {
-            $query->where('article_id', '=', $id)->orderBy('created_at', 'desc')->take(4);
+            $query->where('article_id', '=', $id)->latest('created_at')->take(4);
         }])->where('id', '=', $id)->firstOrFail();
         // Previous and next
         $columnId = $article->category->id;
