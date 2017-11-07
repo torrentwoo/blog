@@ -137,7 +137,23 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $this->validate($request, [
+            'nickname'  =>  "min:2|unique:users,nickname,{$user->id}",
+            'password'  =>  'confirmed|min:6',
+        ]);
+        $data = [];
+        if ($request->has('nickname')) {
+            $data['nickname'] = $request->nickname;
+        }
+        if ($request->has('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
+        if (empty($data) !== true) {
+            $user->update($data);
+            session()->flash('success', '您的账户更新成功');
+        }
+        return redirect()->route('user.show', $user->id);
     }
 
     /**
