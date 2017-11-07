@@ -109,7 +109,9 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show')->with('user', $user);
+        return view('users.show', [
+            'user'  =>  $user,
+        ])->with('profile', 'active');
     }
 
     /**
@@ -121,7 +123,9 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('users.edit')->with('user', $user);
+        return view('users.edit', [
+            'user'  =>  $user,
+        ])->with('account', 'active');
     }
 
     /**
