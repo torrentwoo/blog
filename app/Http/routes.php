@@ -23,10 +23,10 @@ Route::get('/help', ['as'   =>  'help', 'uses'  =>  'StaticPagesController@help'
 Route::get('/user/activate/{token}', 'UsersController@activate')->name('user.activate'); // must be put before resource route
 Route::resource('/user', 'UsersController');
 // User password rescue
-Route::get('/user/password/rescue', 'Auth\PasswordController@show')->name('password.show');
-Route::post('/user/password/rescue', 'Auth\PasswordController@rescue')->name('password.rescue');
-Route::get('/user/password/reset/{token}', 'Auth\PasswordController@edit')->name('password.edit');
-Route::post('/user/password/reset', 'Auth\PasswordController@update')->name('password.update');
+Route::get('/user/password/rescue', 'Auth\PasswordController@getEmail')->name('password.show');
+Route::post('/user/password/rescue', 'Auth\PasswordController@postEmail')->name('password.rescue');
+Route::get('/user/password/reset/{token}', 'Auth\PasswordController@getReset')->name('password.edit');
+Route::post('/user/password/reset', 'Auth\PasswordController@postReset')->name('password.update');
 
 // Authentication routes
 Route::get('/auth/login', 'SessionsController@create')->name('login');
