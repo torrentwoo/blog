@@ -89,7 +89,9 @@ class CommentsController extends Controller
         // Retrieve comments those comment on this article
         $comments = $article->comments()->with('user')->latest('created_at')->paginate(10);
         // Retrieve top 8 popular articles that been commented on
-        $popular  = Article::with('comments')->released()->get()->sortBy('comments')->reverse()->take(8);
+        $popular  = Article::with('comments')->released()->get()->sortByDesc(function($item) {
+            return $item->comments->count();
+        })->take(8);
 
         return view('layouts.comments', [
             'article'   =>  $article,
