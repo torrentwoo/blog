@@ -81,7 +81,7 @@ class UsersController extends Controller
      */
     public function sendActivationMessage(User $recipient)
     {
-        $view     = 'features.activation';
+        $view     = 'emails.activation';
         $user     = $recipient;
         $data     = compact('user');
         $from     = 'admin@dev.local';

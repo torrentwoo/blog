@@ -5,7 +5,7 @@
 
     <div class="container">
 
-        @include('shared.message')
+        @include('features.flash-message')
 
         <div class="row row-offcanvas row-offcanvas-right">
             <div class="col-xs-12 col-sm-9">

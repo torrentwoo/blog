@@ -5,7 +5,7 @@
 
     <div class="container">
 
-        @include('shared.message')
+        @include('features.flash-message')
 
         <div class="row">
 @yield('content')
