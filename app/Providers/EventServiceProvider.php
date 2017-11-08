@@ -19,6 +19,15 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     /**
+     * 注册订阅者类
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        'App\Listeners\UserEventListener',
+    ];
+
+    /**
      * Register any other events for your application.
      *
      * @param  \Illuminate\Contracts\Events\Dispatcher  $events
