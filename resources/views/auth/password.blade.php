@@ -1,9 +1,5 @@
 @extends('shared.singleton')
 
-@section('title', '找回密码')
-@section('keywords', '找回密码')
-@section('description', '通过注册邮箱找回密码')
-
 @section('content')
                 <div class="row">
                     <div class="col-xs-8 col-xs-offset-2">
