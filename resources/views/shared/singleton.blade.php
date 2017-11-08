@@ -1,4 +1,4 @@
-@include('shared.meta', ['extraMeta' => (isset($extraMeta) ? $extraMeta : null)])
+@include('shared.meta', ['headMeta' => (isset($headMeta) ? $headMeta : null)])
 
 <body>
     @include('shared.nav')

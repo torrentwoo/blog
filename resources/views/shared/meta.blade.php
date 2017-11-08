@@ -9,9 +9,13 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-touch-fullscreen" content="yes" />
-    <title>@yield('title', 'Demo')</title>
-    <meta name="keywords" content="@yield('keywords', 'demo')" />
-    <meta name="description" content="@yield('description', 'demo')" />
+    <title>{{ $headMeta['title'] or 'Demonstration' }}</title>
+@if (isset($headMeta['keywords']))
+    <meta name="keywords" content="{{ $headMeta['keywords'] }}" />
+@endif
+@if (isset($headMeta['description']))
+    <meta name="description" content="{{ $headMeta['description'] }}" />
+@endif
 {{--
     <meta name="author" content="torrent, 790896@qq.com" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -21,20 +25,20 @@
 {{--
     extra control sections via meta definition
 --}}
-@if (isset($extraMeta))
+@if (isset($headMeta))
 {{-- search engine robots control --}}
-@if (isset($extraMeta['robots']))
-    <meta name="robots" content="{{ $extraMeta['robots'] }}" />
+@if (isset($headMeta['robots']))
+    <meta name="robots" content="{{ $headMeta['robots'] }}" />
 @endif
 {{-- extra stylesheet, extra style tweaks or third-party stylesheet --}}
-@if (isset($extraMeta['stylesheets']))
-@foreach ($extraMeta['stylesheets'] as $stylesheet)
+@if (isset($headMeta['stylesheets']))
+@foreach ($headMeta['stylesheets'] as $stylesheet)
     <link rel="stylesheet" type="text/css" href="{{ $stylesheet }}" />
 @endforeach
 @endif
 {{-- rss feed source --}}
-@if (isset($extraMeta['feeds']))
-@foreach ($extraMeta['feeds'] as $feed)
+@if (isset($headMeta['feeds']))
+@foreach ($headMeta['feeds'] as $feed)
     <link rel="alternate" type="application/rss+xml" href="{{ $feed }}" />
 @endforeach
 @endif
