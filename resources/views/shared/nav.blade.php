@@ -19,7 +19,7 @@
 @if (Auth::check())
                     <li class="dropdown">
                         <a href="#" id="navDropdownMenu1" class="dropdown-toggle" data-toggle="dropdown">
-                            {{ Auth::user()->name }}
+                            {{ Auth::user()->nickname or Auth::user()->name }}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navDropdownMenu1">
