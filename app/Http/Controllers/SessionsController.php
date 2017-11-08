@@ -35,7 +35,10 @@ class SessionsController extends Controller
      */
     public function create()
     {
-        return view('layouts.login')->with('loginActive', 'active');
+        return view('layouts.login')->with('headMeta', [
+            'title'     =>  '用户登陆',
+            'robots'    =>  'noindex,nofollow',
+        ])->with('loginActive', 'active');
     }
 
     /**
