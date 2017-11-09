@@ -53,6 +53,7 @@ footer {
   height: auto; }
 
 .alert-status {
+  /* implement from .alert-success */
   color: #3c763d;
   background-color: #dff0d8;
   border-color: #d6e9c6; }
@@ -62,6 +63,9 @@ footer {
     margin-right: 0; }
   #nav-search .input-group {
     min-width: 230px; } }
+
+#home-carousel {
+  margin-bottom: 30px; }
 
 #tagcloud {
   padding: 1em 0; }

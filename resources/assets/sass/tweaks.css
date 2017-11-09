@@ -7,18 +7,22 @@
     height:auto;
 }
 .alert-status { /* implement from .alert-success */
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
+    color:#3c763d;
+    background-color:#dff0d8;
+    border-color:#d6e9c6;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width:768px) {
     .navbar-right {
-        margin-right: 0;
+        margin-right:0;
     }
     #nav-search .input-group {
         min-width:230px;
     }
+}
+
+#home-carousel {
+    margin-bottom:30px;
 }
 
 #tagcloud {
