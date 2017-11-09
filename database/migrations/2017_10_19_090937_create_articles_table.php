@@ -27,7 +27,7 @@ class CreateArticlesTable extends Migration
 
             $table->boolean('approval')->default(false); // 审核选项（可见性，管理员操作项）
             $table->integer('priority')->unsigned()->default(0); // 文章的排序权值（数值越大，排序越靠前）
-            $table->integer('visited')->unsigned()->default(0); // 浏览次数
+            $table->integer('views')->unsigned()->default(0); // 浏览次数
 
             $table->timestamp('released_at')->nullable(); // 文章指定的发布日期时间
             $table->timestamps();

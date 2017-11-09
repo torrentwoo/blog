@@ -13,7 +13,7 @@
                             <ul class="list-inline">
                                 <li>发表于：{{ $article->released_at->diffForHumans() }}</li>
                                 <li>作者：{{ $article->author or 'Admin' }}</li>
-                                <li>浏览：{{ $article->visited }} 次</li>
+                                <li>浏览：{{ $article->views }} 次</li>
                             </ul>
                         </div>
                         <div class="page-content">

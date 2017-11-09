@@ -74,7 +74,7 @@ class ArticleEventListener
         $article = $event->article;
         if (!$this->hasBrowsed($article)) {
             $article->update([
-                'visited'   =>  $article->visited + 1
+                'views'   =>  $article->views + 1
             ]);
             $this->storeBrowsed($article);
         }

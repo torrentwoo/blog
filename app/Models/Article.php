@@ -29,7 +29,7 @@ class Article extends Model
         'author', // 文章作者
         'approval', // 文章的审核标志
         'priority', // 文章的排序权重数值
-        'visited', // 文章浏览次数
+        'views', // 文章浏览次数
         'released_at', // 文章指定的发布日期时间
     ];
 
