@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ArticleBrowseEvent;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Event;
 
 class ArticlesController extends Controller
 {
@@ -62,6 +64,8 @@ class ArticlesController extends Controller
         $columns  = Category::whereHas('articles', function($query) {
             $query->where('approval', '<>', 0);
         })->visible()->orderBy('priority', 'desc')->get();
+        // Handle article browse event
+        Event::fire(new ArticleBrowseEvent($article));
 
         return view('layouts.article', [
             'article'   =>  $article,
