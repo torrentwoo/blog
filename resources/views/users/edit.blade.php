@@ -1,4 +1,4 @@
-@extends('shared.origin')
+@extends('shared.singleton')
 
 @section('content')
                 <div class="row">
@@ -9,7 +9,7 @@
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label for="email" class="col-sm-2 control-label">头像</label>
+                                <label for="avatar" class="col-sm-2 control-label">头像</label>
                                 <div class="col-sm-6">
                                     <img class="img-rounded" src="{{ $user->gravatar(125) }}" alt="个人头像" />
                                 </div>
@@ -50,19 +50,6 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>
-@stop
-
-@section('sidebar')
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h5 class="panel-title">用户导航</h5>
-                    </div>
-                    <div class="list-group">
-                        <a class="list-group-item {{ $profile or 'void' }}" href="{{ route('user.show', Auth::user()->id) }}">个人资料</a>
-                        <a class="list-group-item {{ $account or 'void' }}" href="{{ route('user.edit', Auth::user()->id) }}">账户设置</a>
-                        <a class="list-group-item disabled" href="#">我的收藏</a>
                     </div>
                 </div>
 @stop

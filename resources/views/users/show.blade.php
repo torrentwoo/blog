@@ -1,4 +1,4 @@
-@extends('shared.origin')
+@extends('shared.singleton')
 
 @section('content')
                 <div class="row">
@@ -19,19 +19,6 @@
                                 <span>{{ $user->created_at->format('Y-m-d') }} 加入本站</span>
                             </dd>
                         </dl>
-                    </div>
-                </div>
-@stop
-
-@section('sidebar')
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h5 class="panel-title">用户导航</h5>
-                    </div>
-                    <div class="list-group">
-                        <a class="list-group-item {{ $profile or 'void' }}" href="{{ route('user.show', Auth::user()->id) }}">个人资料</a>
-                        <a class="list-group-item {{ $account or 'void' }}" href="{{ route('user.edit', Auth::user()->id) }}">账户设置</a>
-                        <a class="list-group-item disabled" href="#">我的收藏</a>
                     </div>
                 </div>
 @stop
