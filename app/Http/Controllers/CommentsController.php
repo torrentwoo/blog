@@ -48,7 +48,10 @@ class CommentsController extends Controller
         ];
         $this->validate($request, array_merge($requireLogin, [
             'comment'   =>  'required|min:15',
-        ]));
+        ]), [
+            'comment.required'  =>  '评论 不能为空',
+            'comment.min'       =>  '评论 至少为 15 个字符',
+        ]);
         if (!$loginState) {
             $credentials = [
                 'name'      =>  $request->username,
