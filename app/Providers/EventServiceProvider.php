@@ -24,7 +24,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $subscribe = [
-        'App\Listeners\UserEventListener',
+        'App\Listeners\UserEventListener', // 订阅用户的相关事件
+        'App\Listeners\ArticleEventListener', // 订阅文章的相关事件
     ];
 
     /**
