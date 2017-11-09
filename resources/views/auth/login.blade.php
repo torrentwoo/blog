@@ -25,7 +25,7 @@
                                 </label>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">登录</button>
-                            <a class="btn btn-link" href="{{ route('password.show') }}">忘记密码了？</a>
+                            <a class="btn btn-link" href="{{ route('password.rescue') }}">忘记密码了？</a>
 
                             <hr />
 
