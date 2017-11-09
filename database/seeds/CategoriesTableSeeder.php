@@ -14,9 +14,9 @@ class CategoriesTableSeeder extends Seeder
         // 调用测试数据生成器容器
         $faker      = app(Faker\Generator::class);
         // 设定类别的父级分类 id 范围
-        $parent_id  = range(0, 20);
+        $parent_id  = range(0, 10);
         // 生成 100 条测试类别数据
-        $categories = factory(App\Models\Category::class)->times(100)->make()->each(function($i) use ($faker, $parent_id) {
+        $categories = factory(App\Models\Category::class)->times(20)->make()->each(function($i) use ($faker, $parent_id) {
             $i->parent_id = $faker->randomElement($parent_id);
         });
         // 保存测试数据到数据库
