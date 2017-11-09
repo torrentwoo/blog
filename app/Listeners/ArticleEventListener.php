@@ -25,6 +25,8 @@ class ArticleEventListener
      */
     protected $request;
 
+    protected $sessionArticleBrowsedPrefixKey;
+
     /**
      * Create the event listener.
      *
@@ -36,6 +38,7 @@ class ArticleEventListener
     {
         $this->session = $session;
         $this->request = $request;
+        $this->sessionArticleBrowsedPrefixKey = 'browsedArticle-';
     }
 
     /**
@@ -62,13 +65,14 @@ class ArticleEventListener
 
     /**
      * 处理文章浏览事件
+     * 实现文章的浏览次数统计
      *
      * @param \App\Events\ArticleBrowseEvent $event
      */
     public function onArticleBrowse($event)
     {
         $article = $event->article;
-        if ($this->hasBrowsed($article)) {
+        if (!$this->hasBrowsed($article)) {
             $article->update([
                 'visited'   =>  $article->visited + 1
             ]);
@@ -76,19 +80,29 @@ class ArticleEventListener
         }
     }
 
+    /**
+     * 查询 session 数据，是否有记录文章的浏览数据
+     *
+     * @param \App\Models\Article $article
+     * @return bool
+     */
     protected function hasBrowsed($article)
     {
-        return array_key_exists($article->id, $this->getBrowsed());
+        return $this->session->has("{$this->sessionArticleBrowsedPrefixKey}{$article->id}");
     }
 
-    protected function getBrowsed()
-    {
-        return $this->session->get('browsedArticle', []);
-    }
-
+    /**
+     * 保存浏览记录数据到 session 当中
+     *
+     * @param \App\Models\Article $article
+     * @return void
+     */
     protected function storeBrowsed($article)
     {
-        $key = "browsedArticle{$article->id}";
-        $this->session->put($key, \Carbon\Carbon::now());
+        $this->session->put("{$this->sessionArticleBrowsedPrefixKey}{$article->id}", [
+            'timestamp' =>  \Carbon\Carbon::now(),
+            'slug'      =>  $article->id,
+            'ip'        =>  $this->request->ip(),
+        ]);
     }
 }
