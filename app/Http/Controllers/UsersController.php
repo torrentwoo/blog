@@ -21,9 +21,9 @@ class UsersController extends Controller
         $this->middleware('auth', [
             'only'  =>  ['edit', 'update', 'destroy'],
         ]);
-        // 通过构造方法调用中间件，只让未登录用户访问用户注册页面
+        // 通过构造方法调用中间件，只让未登录用户访问用户注册、用户激活页面
         $this->middleware('guest', [
-            'only'  =>  ['create'],
+            'only'  =>  ['create', 'activate'],
         ]);
     }
 
@@ -135,9 +135,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id = null)
     {
-        $user = User::findOrFail($id);
+        $user = Auth::user();
         // Make sure user can only edit profile belongs himself
         $this->authorize('update', $user);
         return view('users.edit', [

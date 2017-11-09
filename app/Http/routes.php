@@ -22,7 +22,8 @@ Route::get('/help', ['as'   =>  'help', 'uses'  =>  'StaticPagesController@help'
 // User related routes
 Route::get('/auth/register', 'UsersController@create')->name('register');
 Route::get('/user/activate/{token}', 'UsersController@activate')->name('user.activate'); // extras located before the resource route
-Route::resource('/user', 'UsersController', ['except' => ['create']]);
+Route::get('/user/account', 'UsersController@edit')->name('user.edit');
+Route::resource('/user', 'UsersController', ['except' => ['create', 'edit']]);
 // User password rescue routes
 Route::get('/help/password/rescue', 'Auth\PasswordController@getEmail')->name('password.rescue');
 Route::post('/help/password/rescue', 'Auth\PasswordController@postEmail')->name('password.rescue');
