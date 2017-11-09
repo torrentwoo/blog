@@ -24,6 +24,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navDropdownMenu1">
                             <li><a href="{{ route('user.show', Auth::user()->id) }}">个人资料</a></li>
+                            <li><a href="{{ route('user.edit') }}">账户设置</a></li>
                             <li class="divider"></li>
                             <li>
                                 <a href="#logout">
