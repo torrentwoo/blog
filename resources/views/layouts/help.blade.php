@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="page-content">
-                            <h3>帮助主题</h3>
+                            <h1>帮助主题</h1>
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                 <div class="panel panel-default">
                                     <div class="panel-heading" role="tab" id="headingOne">

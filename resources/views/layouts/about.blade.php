@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="page-content">
-                            <h3>关于</h3>
+                            <h1>关于</h1>
                             <p>Content goes here...</p>
                         </div>
                     </div>
