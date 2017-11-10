@@ -80,6 +80,50 @@ class SessionsController extends Controller
     }
 
     /**
+     * 响应对 POST /auth/ajaxLogin 的请求
+     * 处理用户以 ajax 方式的登录
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function ajaxLogin(Request $request)
+    {
+        $response    = [ // Default response
+            'error'     =>  true,
+            'message'   =>  '系统故障，请稍候再尝试',
+        ];
+        $credentials = [
+            'name'      =>  $request->username,
+            'password'  =>  $request->password,
+        ];
+        if (Auth::attempt($credentials, $request->has('remember'))) {
+            $user = Auth::user();
+            if ($user->activated) {
+                $nickname = $user->nickname;
+                $nickname = $nickname ?: $user->name;
+                // 处理用户登录事件
+                Event::fire(new UserLoginEvent($user, Carbon::now(), $request->ip()));
+                $response = [
+                    'error'     =>  false,
+                    'message'   =>  "登录成功，欢迎您回来：{$nickname}",
+                ];
+            } else {
+                Auth::logout();
+                $response = [
+                    'error'     =>  true,
+                    'message'   =>  '账户未激活，登录失败；请先激活您的账户',
+                ];
+            }
+        } else {
+            $response = [
+                'error'     =>  true,
+                'message'   =>  '帐号和密码不匹配，登录失败',
+            ];
+        }
+        return response()->json($response);
+    }
+
+    /**
      * 响应对 GET /auth/logout 的请求
      * 处理用户注销（退出登录）
      *
