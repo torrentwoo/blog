@@ -4,7 +4,6 @@ namespace App\Events;
 
 use App\Events\Event;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
@@ -20,32 +19,13 @@ class UserLoginEvent extends Event
     protected $user;
 
     /**
-     * 时间戳
-     *
-     * @var Carbon
-     */
-    protected $timestamp;
-
-    /**
-     * 客户端 ip 地址
-     *
-     * @var string
-     */
-    protected $ip;
-
-    /**
      * Create a new event instance.
      *
      * @param \App\Models\User $user
-     * @param \Carbon\Carbon   $timestamp
-     * @param string           $ip          the value of client ip address
-     * @return void
      */
-    public function __construct(User $user, Carbon $timestamp, $ip)
+    public function __construct(User $user)
     {
         $this->user = $user;
-        $this->timestamp = $timestamp;
-        $this->ip = $ip;
     }
 
     /**
