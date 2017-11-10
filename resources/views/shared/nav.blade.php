@@ -17,24 +17,25 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 @if (Auth::check())
+                    <li><a href="#notification"><i class="glyphicon glyphicon-bell"></i><i class="sr-only">消息通知</i></a></li>
                     <li class="dropdown">
-                        <a href="#" id="navDropdownMenu1" class="dropdown-toggle" data-toggle="dropdown">
+                        <a id="navUserDropdownMenu" class="dropdown-toggle" data-toggle="dropdown">
                             {{ Auth::user()->name }}
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navDropdownMenu1">
-                            <li><a href="{{ route('user.show', Auth::user()->id) }}">个人资料</a></li>
-                            <li><a href="{{ route('user.edit') }}">账户设置</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="navUserDropdownMenu">
+                            <li><a href="{{ route('user.show', Auth::user()->id) }}"><i class="glyphicon glyphicon-user" aria-hidden="true"></i>个人资料</a></li>
+                            <li><a href="{{ route('user.edit') }}"><i class="glyphicon glyphicon-cog" aria-hidden="true"></i>账户设置</a></li>
                             <li class="divider"></li>
-                            <li>
-                                <a href="#logout">
-                                    <form method="GET" action="{{ route('logout') }}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-                                        <button class="btn btn-block btn-danger" type="submit" name="button">注销登录</button>
-                                    </form>
-                                </a>
-                            </li>
+                            <li><a href="#articles"><i class="glyphicon glyphicon-file" aria-hidden="true"></i>我的文章</a></li>
+                            <li><a href="#favorites"><i class="glyphicon glyphicon-heart" aria-hidden="true"></i>我的收藏</a></li>
+                            <li><a href="#comments"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i>我的评论</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#balance"><i class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></i>我的余额</a></li>
+                            <li><a href="#gifts"><i class="glyphicon glyphicon-gift" aria-hidden="true"></i>礼品卡券</a></li>
+                            <li><a href="#cart"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>我的购物车</a></li>
+                            <li class="divider"></li>
+                            <li><a id="navLogoutLink" href="{{ route('logout') }}"><i class="glyphicon glyphicon-off" aria-hidden="true"></i>注销登录</a></li>
                         </ul>
                     </li>
 @else
