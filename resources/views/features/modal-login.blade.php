@@ -6,6 +6,7 @@
                                     <h4 class="modal-title" id="loginModalLabel">用户登录</h4>
                                 </div>
                                 <div class="modal-body">
+                                    <p id="loginModalMessage" class="alert alert-danger hidden"></p>
                                     <div class="form-group">
                                         <label for="ajax-username" class="control-label">帐号</label>
                                         <input type="text" name="username" id="ajax-username" class="form-control" placeholder="您的帐号" />
@@ -24,7 +25,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                    <button type="button" id="ajaxLoginSubmit" class="btn btn-primary">登录</button>
+                                    <button type="button" id="ajaxLoginSubmit" class="btn btn-primary" data-rel="{{ route('ajaxLogin') }}">登录</button>
                                 </div>
                             </div>
                         </div>
