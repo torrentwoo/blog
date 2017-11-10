@@ -9,14 +9,12 @@
             }
         });
         $('#ajaxLoginSubmit').click(function() {
-            var $btn      = $(this);
-            // data validation
-            var $username = $('#ajax-username');
-            var $password = $('#ajax-password');
+            var $username = $('#ajax-username'), $password = $('#ajax-password');
             var $remember = $('#ajax-remember').prop('checked');
             var $message  = $('#loginModalMessage');
-            var $url      = $btn.data('rel') || '/auth/ajaxLogin';
+            var $btn = $(this), $url = $btn.data('rel') || '/auth/ajaxLogin';
             switch (true) {
+                // data validation
                 case (!$username.val().length) :
                     $message.removeClass('hidden').text('帐号 不能为空');
                     $username.focus();
@@ -39,11 +37,12 @@
                         dataType: 'json',
                         success: function (response) {
                             if (!response.error) {
-                                //$('button[data-target="#loginModal"]').prop('type', 'submit');
                                 $('#loginModal').modal('hide');
-                                var $form = $('form#embeddedCommentForm');
+                                var $form = $('form[data-interact="#loginModal"]');
                                 if ($form.length) {
                                     $form.submit();
+                                } else {
+                                    location.reload();
                                 }
                             } else { // output error messages
                                 $message.removeClass('hidden').text(response.message);
