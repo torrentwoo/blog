@@ -33,6 +33,7 @@ Route::post('/help/password/reset', 'Auth\PasswordController@postReset')->name('
 // Authentication routes
 Route::get('/auth/login', 'SessionsController@create')->name('login');
 Route::post('/auth/login', 'SessionsController@store')->name('login');
+Route::post('/auth/ajaxLogin', 'SessionsController@ajaxLogin')->name('ajaxLogin');
 Route::get('/auth/logout', 'SessionsController@destroy')->name('logout');
 
 // Categories routes
