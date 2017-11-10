@@ -2,19 +2,33 @@
 
 namespace App\Listeners;
 
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UserEventListener
 {
     /**
+     * @var \Illuminate\Http\Request
+     */
+    protected $request;
+
+    /**
+     * @var \Carbon\Carbon
+     */
+    protected $carbon;
+
+    /**
      * Create the event listener.
      *
-     * @return void
+     * @param \Illuminate\Http\Request $request
+     * @param \Carbon\Carbon $carbon
      */
-    public function __construct()
+    public function __construct(Request $request, Carbon $carbon)
     {
-        //
+        $this->request = $request;
+        $this->carbon = $carbon;
     }
 
     /**
@@ -48,7 +62,7 @@ class UserEventListener
     public function onUserLogin($event)
     {
         $event->user->update([
-            'last_login_ip' =>  $event->ip, // 更新用户登录时所在的 IP 地址
+            'last_login_ip' =>  $this->request->ip(), // 更新用户登录时所在的 IP 地址
         ]);
     }
 
