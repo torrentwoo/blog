@@ -15,6 +15,7 @@
             var $password = $('#ajax-password');
             var $remember = $('#ajax-remember').prop('checked');
             var $message  = $('#loginModalMessage');
+            var $url      = $btn.data('rel') || '/auth/ajaxLogin';
             switch (true) {
                 case (!$username.val().length) :
                     $message.removeClass('hidden').text('帐号 不能为空');
@@ -28,7 +29,7 @@
                     $message.addClass('hidden').text('');
                     // data process
                     $.ajax({
-                        url: '/auth/ajaxLogin',
+                        url: $url,
                         type: 'POST',
                         data: {
                             'username': $username.val(),
