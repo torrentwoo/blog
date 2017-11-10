@@ -11,6 +11,19 @@
     background-color:#dff0d8;
     border-color:#d6e9c6;
 }
+#navUserDropdownMenu {
+    cursor:pointer;
+}
+.dropdown-menu .glyphicon {
+    margin-right:.5em;
+}
+#navLogoutLink {
+    color:#d9534f;
+}
+#navLogoutLink:hover{
+    background:#d9534f;
+    color:#fff;
+}
 
 @media only screen and (min-width:768px) {
     .navbar-right {
