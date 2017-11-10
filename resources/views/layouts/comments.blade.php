@@ -153,3 +153,9 @@
                 </div>
 @endif
 @stop
+
+@if (isset($modalLogin) && $modalLogin && !Auth::check())
+@section('scripts')
+    <script type="text/javascript" src="{{ asset('/assets/js/ajax-login.js') }}"></script>
+@stop
+@endif
