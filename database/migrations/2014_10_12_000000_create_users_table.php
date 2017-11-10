@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             // While database charset set to utf8mb4, collation set to utf8mb4_unicode_ci
             // Must set this email field a explicit length to 191, avoid unique key too long error: SQLSTATE[42000]
-            $table->string('email')->unique();
+            $table->string('email', 191)->unique();
             $table->string('password', 60);
             $table->rememberToken();
             $table->timestamps();
