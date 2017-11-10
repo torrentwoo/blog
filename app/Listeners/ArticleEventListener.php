@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-use App\Events\ArticleBrowseEvent;
 use Illuminate\Http\Request;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -25,6 +24,11 @@ class ArticleEventListener
      */
     protected $request;
 
+    /**
+     * 会话数据中，标记文章浏览次数的前缀键名片段
+     *
+     * @var string
+     */
     protected $sessionArticleBrowsedPrefixKey;
 
     /**
@@ -32,7 +36,6 @@ class ArticleEventListener
      *
      * @param \Illuminate\Session\Store $session
      * @param \Illuminate\Http\Request  $request
-     * @return void
      */
     public function __construct(Store $session, Request $request)
     {
@@ -44,10 +47,10 @@ class ArticleEventListener
     /**
      * Handle the event.
      *
-     * @param  ArticleBrowseEvent  $event
+     * @param $event
      * @return void
      */
-    public function handle(ArticleBrowseEvent $event)
+    public function handle($event)
     {
         //
     }
