@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Events\UserLoginEvent;
-use Carbon\Carbon;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 
@@ -64,7 +63,7 @@ class SessionsController extends Controller
                 $nickname = $user->nickname;
                 $nickname = $nickname ?: $user->name;
                 // 记录（处理）用户登录事件
-                Event::fire(new UserLoginEvent($user, Carbon::now(), $request->ip()));
+                Event::fire(new UserLoginEvent($user));
 
                 session()->flash('success', "登录成功，欢迎您回来：{$nickname}");
                 return redirect()->intended(route('user.show', compact('user')));
@@ -102,7 +101,7 @@ class SessionsController extends Controller
                 $nickname = $user->nickname;
                 $nickname = $nickname ?: $user->name;
                 // 处理用户登录事件
-                Event::fire(new UserLoginEvent($user, Carbon::now(), $request->ip()));
+                Event::fire(new UserLoginEvent($user));
                 $response = [
                     'error'     =>  false,
                     'message'   =>  "登录成功，欢迎您回来：{$nickname}",
