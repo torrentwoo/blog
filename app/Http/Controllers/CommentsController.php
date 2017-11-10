@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserLoginEvent;
 use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 
 class CommentsController extends Controller
 {
@@ -63,6 +65,7 @@ class CommentsController extends Controller
                     session()->flash('warning', '您的账户未激活，请登陆您的注册邮箱，检查注册验证邮件以便激活您的账户');
                     return redirect()->back();
                 }
+                Event::fire(new UserLoginEvent(Auth::user()));
             } else { // Authenticate failed
                 session()->flash('danger', '帐号和密码不匹配，登录失败，发表评论失败');
                 return redirect()->back();
