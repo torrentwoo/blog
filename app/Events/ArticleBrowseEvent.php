@@ -22,11 +22,10 @@ class ArticleBrowseEvent extends Event
      * Create a new event instance.
      *
      * @param  \App\Models\Article $article
-     * @return void
      */
     public function __construct(Article $article)
     {
-        return $this->article = $article;
+        $this->article = $article;
     }
 
     /**
