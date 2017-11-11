@@ -20,7 +20,7 @@
                             {!! $article->content !!}
                         </div>
 @if (isset($article->tags) && !$article->tags->isEmpty())
-                        <div id="tagcloud">
+                        <div id="tags">
 @foreach ($article->tags as $tag)
                             <a href="{{ route('tag', $tag->id) }}" class="label label-default">{{ $tag->name }}</a>
 @endforeach

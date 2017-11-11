@@ -3,7 +3,7 @@
 @section('content')
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home') }}">首页</a></li>
-                    <li><a href="{{ route('tagCloud') }}">标签</a></li>
+                    <li><a href="{{ route('tags') }}">标签</a></li>
                     <li class="active">{{ $tag->name }}</li>
                 </ol>
                 <div class="row">

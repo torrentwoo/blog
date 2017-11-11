@@ -38,10 +38,10 @@
     margin-bottom:30px;
 }
 
-#tagcloud {
+#tags {
     padding:1em 0;
 }
-#tagcloud:before {
+#tags:before {
     content:"\6807\7B7E\FF1A";
     font-size:1em;
     color:#999;
