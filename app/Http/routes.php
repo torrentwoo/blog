@@ -55,7 +55,7 @@ Route::get('/tags/{id}', 'TagsController@show')->name('tag');
 //--------------------------------------/
 //----    Administration routes     ----/
 //--------------------------------------/
-Route::group(['prefix'  =>  'admin', 'middleware'  =>  'auth.admin'], function() {
+Route::group(['prefix'  =>  'admin', 'middleware'  =>  'auth.admin', 'namespace'  =>  'Admin'], function() {
     Route::get('/', function() {
         return 'This is the administration backend';
     });
