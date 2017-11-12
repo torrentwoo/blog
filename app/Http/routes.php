@@ -11,6 +11,8 @@
 |
 */
 
+// The extra routes must located before the resource route
+
 // Static pages routes
 Route::get('/', 'PagesController@index')->name('home');
 Route::get('/about', 'PagesController@about')->name('about');
@@ -20,9 +22,11 @@ Route::get('/search', 'PagesController@search')->name('search');
 
 // User related routes
 Route::get('/auth/register', 'UsersController@create')->name('register');
+Route::post('/user', 'UsersController@store')->name('user.store');
 Route::get('/user/activate/{token}', 'UsersController@activate')->name('user.activate');
-Route::get('/user/account', 'UsersController@edit')->name('user.edit'); // the extra routes must located before the resource route
-Route::resource('/user', 'UsersController', ['except' => ['create', 'edit']]);
+Route::get('/user/{id}', 'UsersController@show')->name('user.show');
+Route::get('/user/{id}/edit', 'UsersController@edit')->name('user.edit');
+Route::patch('/user/{id}', 'UsersController@update')->name('user.update');
 
 // User password rescue routes
 Route::get('/help/password/rescue', 'Auth\PasswordController@getEmail')->name('password.rescue');

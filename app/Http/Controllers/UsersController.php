@@ -135,9 +135,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id = null)
+    public function edit($id)
     {
-        $user = Auth::user();
+        $user = User::findOrFail($id);
         // Make sure user can only edit profile belongs himself
         $this->authorize('update', $user);
         return view('users.edit', [
