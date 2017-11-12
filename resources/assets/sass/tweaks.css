@@ -47,6 +47,22 @@
     color:#999;
 }
 
+#preferences {
+    margin-top:1em;
+    margin-bottom:1em;
+    padding-top:1em;
+    padding-bottom:1em;
+}
+#article-author .btn {
+    margin-left:.5em;
+}
+#article-author .glyphicon {
+    margin-right:.5em;
+}
+#article-express .glyphicon {
+    margin-right:.5em;
+}
+
 #footer-nav {
     float:right;
     list-style:none;
