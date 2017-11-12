@@ -44,7 +44,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('auth.register')->with('logonActive', 'active');
+        return view('auth.register')->with('registerActive', 'active');
     }
 
     /**

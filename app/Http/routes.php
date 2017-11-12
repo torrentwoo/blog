@@ -20,8 +20,8 @@ Route::get('/search', 'PagesController@search')->name('search');
 
 // User related routes
 Route::get('/auth/register', 'UsersController@create')->name('register');
-Route::get('/user/activate/{token}', 'UsersController@activate')->name('user.activate'); // extras located before the resource route
-Route::get('/user/account', 'UsersController@edit')->name('user.edit');
+Route::get('/user/activate/{token}', 'UsersController@activate')->name('user.activate');
+Route::get('/user/account', 'UsersController@edit')->name('user.edit'); // the extra routes must located before the resource route
 Route::resource('/user', 'UsersController', ['except' => ['create', 'edit']]);
 
 // User password rescue routes
