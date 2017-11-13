@@ -103,6 +103,32 @@ footer {
 #article-express .glyphicon {
   margin-right: .5em; }
 
+/*
+ User home
+ */
+#moments {
+  padding-top: 2em;
+  padding-bottom: 1em; }
+
+.my-moment {
+  position: relative; }
+
+.my-moment:after {
+  content: '';
+  width: 4px;
+  height: 120%;
+  display: block;
+  position: absolute;
+  left: 1em;
+  top: -10%;
+  background: #daddee;
+  z-index: -1; }
+
+.my-moment .occurred {
+  margin-bottom: 1em;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: .5em; }
+
 #footer-nav {
   float: right;
   list-style: none;
