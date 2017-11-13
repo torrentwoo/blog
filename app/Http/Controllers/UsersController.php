@@ -204,12 +204,12 @@ class UsersController extends Controller
      */
     public function articles($id)
     {
-        $user = User::with(['articles'  =>  function($query) {
-            $query->orderBy('created_at', 'desc');
-        }])->findOrFail($id);
+        $user = User::findOrFail($id);
         $this->authorize('retrieve', $user);
+        $articles = $user->articles()->latest('created_at')->paginate();
         return view('users.articles', [
-            'articles'  =>  $user->articles,
+            'user'      =>  $user,
+            'articles'  =>  $articles,
         ]);
     }
 
