@@ -55,7 +55,7 @@ class ArticlesController extends Controller
         // Article and items appended to this article
         $article  = Article::with('category', 'tags')->with(['comments' => function($query) use ($id) {
             $query->where('article_id', '=', $id)->latest('created_at')->take(4);
-        }])->where('id', '=', $id)->firstOrFail();
+        }])->released()->findOrFail($id);
         // Previous and next
         $columnId = $article->category->id;
         $previous = Article::where('category_id', $columnId)->released()->ofPrev($article->id)->first();
