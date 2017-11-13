@@ -27,9 +27,9 @@
                             <li><a href="{{ route('user.show', Auth::user()->id) }}"><i class="glyphicon glyphicon-user" aria-hidden="true"></i>个人资料</a></li>
                             <li><a href="{{ route('user.edit', Auth::user()->id) }}"><i class="glyphicon glyphicon-cog" aria-hidden="true"></i>账户设置</a></li>
                             <li class="divider"></li>
-                            <li><a href="#articles"><i class="glyphicon glyphicon-file" aria-hidden="true"></i>我的文章</a></li>
-                            <li><a href="#favorites"><i class="glyphicon glyphicon-heart" aria-hidden="true"></i>我的收藏</a></li>
-                            <li><a href="#comments"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i>我的评论</a></li>
+                            <li><a href="{{ route('user.articles',  Auth::user()->id) }}"><i class="glyphicon glyphicon-file" aria-hidden="true"></i>我的文章</a></li>
+                            <li><a href="{{ route('user.favorites', Auth::user()->id) }}"><i class="glyphicon glyphicon-heart" aria-hidden="true"></i>我的收藏</a></li>
+                            <li><a href="{{ route('user.comments',  Auth::user()->id) }}"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i>我的评论</a></li>
                             <li class="divider"></li>
                             <li><a href="#balance"><i class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></i>我的余额</a></li>
                             <li><a href="#gifts"><i class="glyphicon glyphicon-gift" aria-hidden="true"></i>我的卡券</a></li>
