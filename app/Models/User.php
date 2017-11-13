@@ -24,11 +24,24 @@ class User extends Model implements AuthenticatableContract,
     protected $table = 'users';
 
     /**
+     * Datetime field
+     * @var array
+     */
+    protected $dates = ['last_login_at'];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'nickname', 'last_login_ip'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'nickname',
+        'last_login_at', // datetime
+        'last_login_ip',
+    ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -60,6 +73,17 @@ class User extends Model implements AuthenticatableContract,
     {
         $hash = md5(strtolower(trim($this->email)));
         return "https://www.gravatar.com/avatar/{$hash}?s={$size}&d=mm&r=pg";
+    }
+
+    /**
+     * 定义用户（作者）与文章之间的一对多关联
+     * 获取作者发表过的所有文章
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'user_id');
     }
 
     /**

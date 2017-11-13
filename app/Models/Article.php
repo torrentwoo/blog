@@ -86,6 +86,17 @@ class Article extends Model
     }
 
     /**
+     * 定义作者与文章之间相对的一对多关联
+     * 一个用户可能发表多篇作品，确定文章归属的作者
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
      * 定义类别与文章之间相对的一对多关联
      * 一个类别下会拥有多篇文章，确定文章归属的类别
      *

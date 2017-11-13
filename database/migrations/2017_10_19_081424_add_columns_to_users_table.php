@@ -18,6 +18,7 @@ class AddColumnsToUsersTable extends Migration
             // 扩展属性
             $table->boolean('activated')->default(false)->after('nickname'); // 用户激活状态
             $table->string('activation_token')->nullable()->after('activated'); // 用户激活令牌
+            $table->timestamp('last_login_at'); // 用户上次登录的日期时间
             $table->string('last_login_ip', 32)->nullable()->index(); // 用户上次登陆地址
         });
     }
@@ -30,7 +31,7 @@ class AddColumnsToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['nickname', 'activated', 'activation_token', 'last_login_ip']);
+            $table->dropColumn(['nickname', 'activated', 'activation_token', 'last_login_at', 'last_login_ip']);
         });
     }
 }
