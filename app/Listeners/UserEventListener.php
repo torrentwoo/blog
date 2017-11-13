@@ -62,6 +62,7 @@ class UserEventListener
     public function onUserLogin($event)
     {
         $event->user->update([
+            'last_login_at' =>  $this->carbon->now(),
             'last_login_ip' =>  $this->request->ip(), // 更新用户登录时所在的 IP 地址
         ]);
     }

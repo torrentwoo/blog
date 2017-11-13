@@ -12,11 +12,14 @@ class ArticlesTableSeeder extends Seeder
     public function run()
     {
         $faker = app(Faker\Generator::class);
+        // 获取作者的 id
+        $authors = App\Models\User::lists('id')->toArray();
         // 获取类别的 id
-        $categoriesIdArr = App\Models\Category::lists('id')->toArray();
+        $categories = App\Models\Category::lists('id')->toArray();
         // 生成 100 篇测试文章内容
-        $articles = factory(App\Models\Article::class)->times(100)->make()->each(function($ele) use ($faker, $categoriesIdArr) {
-            $ele->category_id = $faker->randomElement($categoriesIdArr);
+        $articles = factory(App\Models\Article::class)->times(100)->make()->each(function($ele) use ($faker, $authors, $categories) {
+            $ele->user_id = $faker->randomElement($authors);
+            $ele->category_id = $faker->randomElement($categories);
         });
         // 保存测试数据
         App\Models\Article::insert($articles->toArray());
