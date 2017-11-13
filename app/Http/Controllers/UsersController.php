@@ -19,7 +19,17 @@ class UsersController extends Controller
     {
         // Invoke middleware via constructor
         $this->middleware('auth', [
-            'only'  =>  ['edit', 'update', 'destroy'],
+            'only'  =>  [
+                'edit',
+                'update',
+                'destroy',
+                'articles', // 用户的文章
+                'favorites', // 用户的收藏
+                'comments', // 用户的评论
+                //'balance', // 用户的账户余额
+                //'gifts', // 用户的卡券
+                //'cart', // 用户的购物车
+            ],
         ]);
         // 通过构造方法调用中间件，只让未登录用户访问用户注册、用户激活页面
         $this->middleware('guest', [
@@ -182,6 +192,33 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        //
+    }
+
+    /**
+     * 列出用户创建（包含已发表）过的所有文章
+     *
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function articles($id)
+    {
+        $user = User::with(['articles'  =>  function($query) {
+            $query->orderBy('created_at', 'desc');
+        }])->findOrFail($id);
+        $this->authorize('retrieve', $user);
+        return view('users.articles', [
+            'articles'  =>  $user->articles,
+        ]);
+    }
+
+    public function favorites($id)
+    {
+        //
+    }
+
+    public function comments($id)
     {
         //
     }
