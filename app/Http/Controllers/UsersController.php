@@ -205,11 +205,17 @@ class UsersController extends Controller
     public function articles($id)
     {
         $user = User::findOrFail($id);
+        // Authenticate
         $this->authorize('retrieve', $user);
-        $articles = $user->articles()->latest('created_at')->paginate();
+        // All articles
+        $articles = $user->articles()->latest('created_at')->paginate(6);
+        // The popular articles @TODO be consider more dimension
+        $popular = $user->articles()->latest('released_at')->released()->orderBy('views', 'desc')->take(10)->get();
+
         return view('users.articles', [
             'user'      =>  $user,
             'articles'  =>  $articles,
+            'popular'   =>  $popular,
         ]);
     }
 
