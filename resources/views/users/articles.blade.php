@@ -41,7 +41,7 @@
                         <h5 class="panel-title">我的综合评价最高的文章</h5>
                     </div>
                     <div class="list-group">
-@foreach ($articles as $article)
+@foreach ($popular as $article)
                         <a class="list-group-item" href="{{ route('article', $article->id) }}">{{ $article->title }}</a>
 @endforeach
                     </div>
