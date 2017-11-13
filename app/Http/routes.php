@@ -27,6 +27,12 @@ Route::get('/user/activate/{token}', 'UsersController@activate')->name('user.act
 Route::get('/user/{id}', 'UsersController@show')->name('user.show');
 Route::get('/user/{id}/edit', 'UsersController@edit')->name('user.edit');
 Route::patch('/user/{id}', 'UsersController@update')->name('user.update');
+Route::get('/user/{id}/articles', 'UsersController@articles')->name('user.articles');
+Route::get('/user/{id}/favorites', 'UsersController@favorites')->name('user.favorites');
+Route::get('/user/{id}/comments', 'UsersController@comments')->name('user.comments');
+/*Route::get('/user/{id}/balance', 'UsersController@balance')->name('user.balance');
+Route::get('/user/{id}/gifts', 'UsersController@gifts')->name('user.gifts');
+Route::get('/user/{id}/cart', 'UsersController@cart')->name('user.cart');*/
 
 // User password rescue routes
 Route::get('/help/password/rescue', 'Auth\PasswordController@getEmail')->name('password.rescue');
