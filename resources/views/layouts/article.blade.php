@@ -12,7 +12,7 @@
                             <h1>{{ $article->title }}</h1>
                             <ul class="list-inline">
                                 <li>发表于：{{ $article->released_at->diffForHumans() }}</li>
-                                <li>作者：{{ $article->author or 'Admin' }}</li><!-- 关注作者 -->
+                                <li>作者：{{ $article->author->name or 'Anonymous' }}</li><!-- 关注作者 -->
                                 <li>浏览：{{ $article->views }} 次</li>
                                 <li>评论：{{ $article->comments->count() }}</li>
                                 <li>喜欢：</li>
