@@ -3,41 +3,35 @@
 @section('content')
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home') }}">首页</a></li>
-                    <li><a href="#">用户</a></li>
+                    <li><a href="{{ route('user.show', $user->id) }}">用户</a></li>
                     <li class="active">我的文章</li>
                 </ol>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
+@foreach ($articles as $article)
                         <dl class="well my-moment">
-                            <dt>Title.....</dt>
-                            <dd class="occurred"><small>2017-11-11 12AM</small></dd>
-                            <dd>hello world, hello world....1</dd>
+@if ($article->approval)
+                            <dt><a href="{{ route('article', $article->id) }}" target="_blank">{{ $article->title }}</a></dt>
+@else
+                            <dt><a class="text-muted" href="#" title="这篇文章暂未通过审核，点击链接查看具体原因">{{ $article->title }}</a></dt>
+@endif
+                            <dd class="occurred">
+                                <small class="text-muted">
+                                    <ul class="list-inline">
+                                        <li>创建于：{{ $article->created_at->format('Y-m-d H:i') }}</li>
+                                        <li>阅读：{{ $article->views }}</li>
+                                        <li>评论：{{ $article->comments->count() }}</li>
+                                        <li>喜欢：0</li>
+                                    </ul>
+                                </small>
+                            </dd>
+                            <dd>{{ $article->description }}</dd>
                         </dl>
-                        <dl class="well my-moment">
-                            <dt>Title.....</dt>
-                            <dd class="occurred"><small>2017-11-11 12AM</small></dd>
-                            <dd>hello world, hello world....</dd>
-                        </dl>
+@endforeach
                     </div>
                 </div>
                 <nav class="text-center" aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li class="disabled">
-                            <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li>
-                            <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
+                    {!! $articles->render() !!}
                 </nav>
 @stop
 
@@ -47,7 +41,9 @@
                         <h5 class="panel-title">我的综合评价最高的文章</h5>
                     </div>
                     <div class="list-group">
-                        <a class="list-group-item" href="#">Test......</a>
+@foreach ($articles as $article)
+                        <a class="list-group-item" href="{{ route('article', $article->id) }}">{{ $article->title }}</a>
+@endforeach
                     </div>
                 </div>
 @stop
