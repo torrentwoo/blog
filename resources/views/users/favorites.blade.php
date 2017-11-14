@@ -17,7 +17,7 @@
                                         <li>创建于：{{ $article->created_at->format('Y-m-d H:i') }}</li>
                                         <li>阅读：{{ $article->views }}</li>
                                         <li>评论：{{ $article->comments->count() }}</li>
-                                        <li>喜欢：0</li>
+                                        <li>喜欢：{{ $article->favorites->count() }}</li>
                                     </ul>
                                 </small>
                             </dd>
