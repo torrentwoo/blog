@@ -63,6 +63,17 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
+     * 限制查找所有已激活的用户
+     *
+     * @param $query \Illuminate\Database\Eloquent\Builder
+     * @return mixed \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActivated($query)
+    {
+        return $query->where('activated', '<>', 0);
+    }
+
+    /**
      * 利用 Gravatar 替用户生成头像
      *
      * @link https://cn.gravatar.com/site/implement/images/
@@ -88,12 +99,25 @@ class User extends Model implements AuthenticatableContract,
 
     /**
      * 定义用户与评论之间的一对多关联
-     * 获取一个用户发表过的的所有评论
+     * 获取某一个用户发表过的所有评论
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
     {
         return $this->hasMany(Comment::class, 'user_id');
+    }
+
+    /**
+     * 定义用户与收藏之间的多对多关联
+     * 获取某一个用户收藏过的所有文章
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function favorites()
+    {
+        return $this->belongsToMany(Article::class, 'favorites', 'user_id', 'article_id')
+                    ->withPivot('type')
+                    ->withTimestamps();
     }
 }

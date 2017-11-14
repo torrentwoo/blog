@@ -42,7 +42,7 @@ $factory->define(App\Models\Article::class, function(Faker\Generator $faker) {
         'title'         =>  $faker->sentence,
         'keywords'      =>  implode(',', $faker->words),
         'description'   =>  $faker->text(200),
-        'content'       =>  $faker->text($faker->numberBetween(400, 500)),
+        'content'       =>  $faker->text($faker->numberBetween(800, 1000)),
         'approval'      =>  $faker->boolean,
         'released_at'   =>  date('Y-m-d', strtotime('-' . array_rand(range(1, 30)) . ' day')),
         'created_at'    =>  $faker->dateTime,
@@ -75,5 +75,14 @@ $factory->define(App\Models\Tag::class, function(Faker\Generator $faker) {
     return [
         'name'      =>  $tmp,
         'rewrite'   =>  $tmp,
+    ];
+});
+
+// Testing data for favorites
+$factory->define(App\Models\Favorite::class, function(Faker\Generator $faker) {
+    return [
+        'type'          =>  $faker->randomElement(['like', 'mark']),
+        'created_at'    =>  $faker->dateTime,
+        'updated_at'    =>  $faker->dateTime,
     ];
 });
