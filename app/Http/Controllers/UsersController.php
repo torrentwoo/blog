@@ -208,7 +208,9 @@ class UsersController extends Controller
         // Authenticate
         $this->authorize('retrieve', $user);
         // All articles
-        $articles = $user->articles()->latest('created_at')->paginate(6);
+        $articles = $user->articles()->with(['favorites'  =>  function($query) {
+            $query->likes();
+        }])->latest('created_at')->paginate(6);
         // The popular articles @TODO be consider more dimension
         $popular = $user->articles()->latest('released_at')->released()->orderBy('views', 'desc')->take(10)->get();
 
@@ -219,9 +221,28 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * 列出用户收藏过的所有文章
+     *
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function favorites($id)
     {
-        //
+        // User
+        $user = User::findOrFail($id);
+        // Authenticate
+        $this->authorize('retrieve', $user);
+        // All the favorite articles
+        $favorites = $user->favorites()->latest('favorites.created_at')->paginate(6);
+        // The recommend articles based on user's interest
+        $recommend = null;
+
+        return view('users.favorites', [
+            'user'      =>  $user,
+            'favorites' =>  $favorites,
+            'recommend' =>  $recommend,
+        ]);
     }
 
     public function comments($id)
