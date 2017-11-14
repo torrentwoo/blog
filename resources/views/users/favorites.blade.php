@@ -34,10 +34,12 @@
 @section('sidebar')
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h5 class="panel-title">我的综合评价最高的文章</h5>
+                        <h5 class="panel-title">猜您喜欢</h5>
                     </div>
                     <div class="list-group">
-                        <a class="list-group-item" href="#">Testing</a>
+@foreach ($recommend as $article)
+                        <a class="list-group-item" href="{{ route('article', $article->id) }}">{{ $article->title }}</a>
+@endforeach
                     </div>
                 </div>
 @stop
