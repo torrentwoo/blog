@@ -178,6 +178,11 @@ class Article extends Model
                     ->orderBy('id');
     }
 
+    /**
+     * 判定当前这篇文章是否被当前登录用户收藏（或喜欢）过
+     *
+     * @return bool
+     */
     public function favorite()
     {
         return (boolean) Favorite::where('article_id', '=', $this->id)->where('user_id', '=', Auth::user()->id)->first();
