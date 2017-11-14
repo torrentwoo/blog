@@ -52,6 +52,12 @@ Route::get('/columns/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->
 // Articles routes
 Route::get('/articles/{id}', 'ArticlesController@show')->where('id', '[a-z\d]+')->name('article');
 
+// Favorites routes
+Route::patch('/articles/{id}/like', 'FavoritesController@addLike')->name('favorite.addLike');
+Route::delete('/articles/{id}/like', 'FavoritesController@revokeLike')->name('favorite.revokeLike');
+Route::patch('/articles/{id}/mark', 'FavoritesController@addMark')->name('favorite.addMark');
+Route::delete('/articles/{id}/mark', 'FavoritesController@revokeMark')->name('favorite.revokeMark');
+
 // Comments appended to article routes
 Route::get('/articles/{id}/comments', 'CommentsController@show')->name('comments');
 Route::post('/articles/{id}/comments', 'CommentsController@store')->name('comment');
