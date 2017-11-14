@@ -236,7 +236,7 @@ class UsersController extends Controller
         // All the favorite articles
         $favorites = $user->favorites()->latest('favorites.created_at')->paginate(6);
         // The recommend articles based on user's interest
-        $recommend = null;
+        $recommend = $user->articles()->take(10)->get(); // @TODO improve this
 
         return view('users.favorites', [
             'user'      =>  $user,
