@@ -197,7 +197,7 @@ class Article extends Model
     public function isLiked()
     {
         return (boolean) Favorite::likes()->where('article_id', '=', $this->id)
-            ->where('user_id', '=', Auth::user()->id)
+            ->where('user_id', '=', Auth::check() ? Auth::user()->id : 0)
             ->first();
     }
 
@@ -209,7 +209,7 @@ class Article extends Model
     public function isFavorite()
     {
         return (boolean) Favorite::favorites()->where('article_id', '=', $this->id)
-            ->where('user_id', '=', Auth::user()->id)
+            ->where('user_id', '=', Auth::check() ? Auth::user()->id : 0)
             ->first();
     }
 }
