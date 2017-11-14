@@ -179,12 +179,14 @@ class Article extends Model
     }
 
     /**
+     * 定义文章与收藏之间的一对多关联
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function favorites()
     {
         return $this->hasMany(Favorite::class, 'article_id')
-                    ->groupBy('user_id');
+                    ->groupBy('user_id'); // 备注：这一行用于过滤测试数据，正式环境不应该存在
     }
 
     /**
