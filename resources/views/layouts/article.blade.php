@@ -15,7 +15,7 @@
                                 <li>作者：{{ $article->author->name or 'Anonymous' }}</li><!-- 关注作者 -->
                                 <li>浏览：{{ $article->views }} 次</li>
                                 <li>评论：{{ $article->comments()->count() }}</li>
-                                <li>喜欢：</li>
+                                <li>喜欢：{{ $article->favorites()->count() }}</li>
                                 <li>赞赏：</li>
                             </ul>
                         </div>
