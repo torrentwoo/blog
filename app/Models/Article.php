@@ -179,12 +179,35 @@ class Article extends Model
     }
 
     /**
-     * 判定当前这篇文章是否被当前登录用户收藏（或喜欢）过
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class, 'article_id')
+                    ->groupBy('user_id');
+    }
+
+    /**
+     * 判断当前文章是否有被当前登录的用户喜欢过
      *
      * @return bool
      */
-    public function favorite()
+    public function isLiked()
     {
-        return (boolean) Favorite::where('article_id', '=', $this->id)->where('user_id', '=', Auth::user()->id)->first();
+        return (boolean) Favorite::likes()->where('article_id', '=', $this->id)
+            ->where('user_id', '=', Auth::user()->id)
+            ->first();
+    }
+
+    /**
+     * 判断当前文章是否有被当前登录的用户收藏过
+     *
+     * @return bool
+     */
+    public function isFavorite()
+    {
+        return (boolean) Favorite::favorites()->where('article_id', '=', $this->id)
+            ->where('user_id', '=', Auth::user()->id)
+            ->first();
     }
 }
