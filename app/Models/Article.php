@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Article extends Model
 {
@@ -175,5 +176,15 @@ class Article extends Model
         return $this->hasOne(Thumbnail::class, 'article_id')
                     ->where('thumbnail_loc', '=', \Illuminate\Support\Facades\Route::currentRouteName())
                     ->orderBy('id');
+    }
+
+    /**
+     * 判定当前这篇文章是否被当前登录用户收藏（或喜欢）过
+     * 
+     * @return bool
+     */
+    public function favorite()
+    {
+        return (boolean) Favorite::where('article_id', '=', $this->id)->where('user_id', '=', Auth::user()->id)->first();
     }
 }

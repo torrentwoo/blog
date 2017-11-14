@@ -13,7 +13,7 @@ class ArticlesTableSeeder extends Seeder
     {
         $faker = app(Faker\Generator::class);
         // 获取作者的 id
-        $authors = App\Models\User::lists('id')->toArray();
+        $authors = App\Models\User::activated()->lists('id')->toArray();
         // 获取类别的 id
         $categories = App\Models\Category::visible()->lists('id')->toArray();
         // 生成 100 篇测试文章内容

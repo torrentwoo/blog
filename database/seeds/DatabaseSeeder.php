@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TagsTableSeeder::class); // 生成测试的标签数据
         $this->call(CommentsTableSeeder::class); // 生成测试的评论数据
 
+        $this->call(FavoritesTableSeeder::class); // 生成测试的收藏数据
+
         Model::reguard();
     }
 }
