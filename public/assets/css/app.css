@@ -100,6 +100,17 @@ footer {
 #article-author .glyphicon {
   margin-right: .5em; }
 
+#article-express .btn-group {
+  margin-left: 0; }
+
+#article-express .btn-first {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0; }
+
+#article-express .btn-last {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0; }
+
 #article-express .glyphicon {
   margin-right: .5em; }
 

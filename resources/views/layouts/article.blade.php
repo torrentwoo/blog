@@ -40,12 +40,12 @@
                                     <li class="media">
                                         <div class="media-left">
                                             <a href="#">
-                                                <img alt="64x64" data-src="holder.js/64x64" class="media-object" style="width: 64px; height: 64px;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWY1YjZmN2M2YSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ZjViNmY3YzZhIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNCIgeT0iMzYuOCI+NjR4NjQ8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true">
+                                                <img alt="{{ $article->author->name }}" data-src="holder.js/64x64" class="media-object" src="{{ $article->author->gravatar(64) }}" data-holder-rendered="true">
                                             </a>
                                         </div>
                                         <div class="media-body">
-                                            <h2 class="media-heading">Media heading<small><a href="#" class="btn btn-success btn-xs" role="button"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i>关注作者</a></small></h2>
-                                            <p class="text-muted">发表文章：xx 篇，被 xx 人关注，收获 xx 个喜欢</p>
+                                            <h2 class="media-heading">{{ $article->author->name }}<small><a href="#" class="btn btn-success btn-xs" role="button"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i>关注作者</a></small></h2>
+                                            <p class="text-muted">发表文章：{{ $article->author->articles()->released()->count() }} 篇，被 xx 人关注，收获 xx 个喜欢</p>
                                         </div>
                                     </li>
                                 </ul>
@@ -59,10 +59,26 @@
                                 </ul>
                                 <hr />
                             </div>
-                            <p id="article-express" class="col-xs-6 col-md-6 btn-group" role="group">
-                                <a href="#" class="btn btn-danger btn-sm" role="button"><span class="glyphicon glyphicon-heart glyphicon-heart-empty" aria-hidden="true"></span>喜欢</a>
-                                <a href="#" class="btn btn-warning btn-sm" role="button"><span class="glyphicon glyphicon-star glyphicon-star-empty" aria-hidden="true"></span>收藏</a>
-                            </p>
+                            <div id="article-express" class="col-xs-6 col-md-6">
+                                <div class="btn-toolbar" role="toolbar">
+                                    <form method="POST" action="{{ $article->isLiked() ? route('favorite.revokeLike', $article->id) : route('favorite.addLike', $article->id) }}" class="btn-group" role="group">
+                                        {{ csrf_field() }}
+                                        {{ method_field($article->isLiked() ? 'DELETE' : 'PATCH') }}
+                                        <button type="submit" class="btn btn-danger btn-sm btn-first">
+                                            <span class="glyphicon {{ $article->isLiked() ? 'glyphicon-heart' : 'glyphicon-heart-empty' }}" aria-hidden="true"></span>喜欢
+                                        </button>
+                                    </form>
+                                    <form method="POST" action="{{ $article->isFavorite() ? route('favorite.revokeMark', $article->id) : route('favorite.addMark', $article->id) }}" class="btn-group" role="group">
+                                        {{ csrf_field() }}
+                                        {{ method_field($article->isFavorite() ? 'DELETE' : 'PATCH') }}
+                                        <button type="submit" class="btn btn-warning btn-sm btn-last">
+                                            <span class="glyphicon {{ $article->isFavorite() ? 'glyphicon-star' : 'glyphicon-star-empty' }}" aria-hidden="true"></span>收藏
+                                        </button>
+                                    </form>
+                                </div>
+                                {{--<a href="#" class="btn btn-danger btn-sm" role="button"><span class="glyphicon glyphicon-heart glyphicon-heart-empty" aria-hidden="true"></span>喜欢</a>--}}
+                                {{--<a href="#" class="btn btn-warning btn-sm" role="button"><span class="glyphicon glyphicon-star glyphicon-star-empty" aria-hidden="true"></span>收藏</a>--}}
+                            </div>
                             <ul id="article-share" class="col-xs-6 col-md-6 list-inline text-right">
                                 <li><a href="#">微博</a></li>
                                 <li><a href="#">微信</a></li>
@@ -103,7 +119,7 @@
 @foreach ($article->comments as $comment)
                             <li class="media">
                                 <div class="media-left">
-                                    <img alt="64x64" data-src="holder.js/64x64" class="media-object" style="width: 64px; height: 64px;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWY1YjZmN2M2YSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ZjViNmY3YzZhIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNCIgeT0iMzYuOCI+NjR4NjQ8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true">
+                                    <img alt="{{ $comment->user->name }}" data-src="holder.js/64x64" class="media-object" src="{{ $comment->user->gravatar(64) }}" data-holder-rendered="true">
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading">{{ $comment->user->name }} <small>{{ $comment->created_at->diffForHumans() }}</small></h4>
