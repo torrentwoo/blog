@@ -15,7 +15,7 @@ class ArticlesTableSeeder extends Seeder
         // 获取作者的 id
         $authors = App\Models\User::lists('id')->toArray();
         // 获取类别的 id
-        $categories = App\Models\Category::lists('id')->toArray();
+        $categories = App\Models\Category::visible()->lists('id')->toArray();
         // 生成 100 篇测试文章内容
         $articles = factory(App\Models\Article::class)->times(100)->make()->each(function($ele) use ($faker, $authors, $categories) {
             $ele->user_id = $faker->randomElement($authors);

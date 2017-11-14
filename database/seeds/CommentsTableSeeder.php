@@ -14,7 +14,7 @@ class CommentsTableSeeder extends Seeder
         // 调用测试数据生成器容器
         $faker = app(Faker\Generator::class);
         // 获取文章的 id
-        $articlesIdArr = App\Models\Article::lists('id')->toArray();
+        $articlesIdArr = App\Models\Article::released()->lists('id')->toArray();
         // 获取用户的 id
         $usersIdArr = App\Models\User::lists('id')->toArray();
         // 生成 100 个测试评论数据
