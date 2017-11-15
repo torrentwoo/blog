@@ -45,13 +45,19 @@
                                         </div>
                                         <div class="media-body">
                                             <h2 class="media-heading">{{ $article->author->name }}
+@if (Auth::check() && Auth::user()->id !== $article->author->id)
                                                 <small id="author-follow">
-                                                    <form method="POST" action="#" id="articleFollowForm">
-                                                        <button type="button" class="btn btn-success btn-xs">
+                                                    <form method="POST" action="{{ $article->author->hasFan(Auth::user()) ? route('follow.remove', $article->author->id) : route('follow.add', $article->author->id) }}" id="authorBriefFollowForm">
+                                                        {{ csrf_field() }}
+@if ($article->author->hasFan(Auth::user()))
+                                                        {{ method_field('DELETE') }}
+@endif
+                                                        <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-xs" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#authorBriefFollowForm">
                                                             <i class="glyphicon glyphicon-plus glyphicon-minus" aria-hidden="true"></i>关注作者
                                                         </button>
                                                     </form>
                                                 </small>
+@endif
                                             </h2>
                                             <p class="text-muted">发表文章：{{ $article->author->articles()->released()->count() }} 篇，被 xx 人关注，收获 xx 个喜欢</p>
                                         </div>
@@ -72,14 +78,14 @@
                                     <form method="POST" action="{{ $article->isLiked() ? route('favorite.revokeLike', $article->id) : route('favorite.addLike', $article->id) }}" id="articleLikeForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
                                         {{ method_field($article->isLiked() ? 'DELETE' : 'PATCH') }}
-                                        <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-danger btn-sm btn-first"{!! Auth::check() ?: ' data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleLikeForm">
+                                        <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-danger btn-sm btn-first" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleLikeForm">
                                             <span class="glyphicon {{ $article->isLiked() ? 'glyphicon-heart' : 'glyphicon-heart-empty' }}" aria-hidden="true"></span>喜欢
                                         </button>
                                     </form>
                                     <form method="POST" action="{{ $article->isFavorite() ? route('favorite.revokeMark', $article->id) : route('favorite.addMark', $article->id) }}" id="articleFavoriteForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
                                         {{ method_field($article->isFavorite() ? 'DELETE' : 'PATCH') }}
-                                        <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-warning btn-sm btn-last"{!! Auth::check() ?: ' data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleFavoriteForm">
+                                        <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-warning btn-sm btn-last" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleFavoriteForm">
                                             <span class="glyphicon {{ $article->isFavorite() ? 'glyphicon-star' : 'glyphicon-star-empty' }}" aria-hidden="true"></span>收藏
                                         </button>
                                     </form>

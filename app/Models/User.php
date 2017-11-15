@@ -120,4 +120,37 @@ class User extends Model implements AuthenticatableContract,
                     ->withPivot('type')
                     ->withTimestamps();
     }
+
+    /**
+     * 获取用户的粉丝列表（被哪些人关注）
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'fans_id')
+                    ->withTimestamps();
+    }
+
+    /**
+     * 获取用户的关注列表（关注了哪些人）
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'fans_id', 'user_id')
+                    ->withTimestamps();
+    }
+
+    /**
+     * 判断当前用户是否关注了某个指定的用户
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isFollowing(User $user)
+    {
+        return $this->followings->contains($user);
+    }
 }
