@@ -8,7 +8,7 @@
                 </ol>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
-@foreach ($favorites as $article)
+@forelse ($favorites as $article)
                         <dl class="well my-moment">
                             <dt><a href="{{ route('article', $article->id) }}" target="_blank">{{ $article->title }}</a></dt>
                             <dd class="occurred">
@@ -23,7 +23,12 @@
                             </dd>
                             <dd>{{ $article->description }}</dd>
                         </dl>
-@endforeach
+@empty
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <p><strong>提示：</strong>您还没有收藏过任何内容，<a href="{{ route('home') }}" class="alert-link">去这里看看</a>，可能有您喜欢的内容哦</p>
+                        </div>
+@endforelse
                     </div>
                 </div>
                 <nav class="clearfix text-center" aria-label="Page navigation">

@@ -8,7 +8,7 @@
                 </ol>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
-@foreach ($articles as $article)
+@forelse ($articles as $article)
                         <dl class="well my-moment">
 @if ($article->approval)
                             <dt><a href="{{ route('article', $article->id) }}" target="_blank">{{ $article->title }}</a></dt>
@@ -27,7 +27,12 @@
                             </dd>
                             <dd>{{ $article->description }}</dd>
                         </dl>
-@endforeach
+@empty
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <p><strong>提示：</strong>您还没有发表过任何文章哦</p>
+                        </div>
+@endforelse
                     </div>
                 </div>
                 <nav class="text-center" aria-label="Page navigation">
