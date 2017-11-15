@@ -153,4 +153,15 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->followings->contains($user);
     }
+
+    /**
+     * 判断某个指定的用户是否在一个（模型所指的）用户的粉丝列表内
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function hasFan(User $user)
+    {
+        return $this->followers->contains($user);
+    }
 }
