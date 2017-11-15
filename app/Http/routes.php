@@ -58,6 +58,10 @@ Route::delete('/articles/{id}/like', 'FavoritesController@revokeLike')->name('fa
 Route::patch('/articles/{id}/mark', 'FavoritesController@addMark')->name('favorite.addMark');
 Route::delete('/articles/{id}/mark', 'FavoritesController@revokeMark')->name('favorite.revokeMark');
 
+// Follows routes
+Route::post('/user/follow/{id}', 'FollowsController@store')->name('follow.add');
+Route::delete('/user/follow/{id}', 'FollowsController@destroy')->name('follow.remove');
+
 // Comments appended to article routes
 Route::get('/articles/{id}/comments', 'CommentsController@show')->name('comments');
 Route::post('/articles/{id}/comments', 'CommentsController@store')->name('comment');
