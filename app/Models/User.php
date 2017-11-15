@@ -146,10 +146,10 @@ class User extends Model implements AuthenticatableContract,
     /**
      * 判断当前用户是否关注了某个指定的用户
      *
-     * @param User $user
+     * @param $user
      * @return boolean
      */
-    public function isFollowing(User $user)
+    public function isFollowing($user)
     {
         return $this->followings->contains($user);
     }
@@ -157,10 +157,10 @@ class User extends Model implements AuthenticatableContract,
     /**
      * 判断某个指定的用户是否在一个（模型所指的）用户的粉丝列表内
      *
-     * @param User $user
+     * @param $user
      * @return boolean
      */
-    public function hasFan(User $user)
+    public function hasFan($user)
     {
         return $this->followers->contains($user);
     }
