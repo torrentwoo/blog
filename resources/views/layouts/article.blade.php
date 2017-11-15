@@ -13,7 +13,7 @@
                             <ul class="list-inline">
                                 <li>发表于：{{ $article->released_at->diffForHumans() }}</li>
                                 <li>作者：<a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a>
-@if (Auth::check() && Auth::user()->id !== $article->author->id)
+@if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
                                     <small>
                                         <form method="POST" action="{{ $article->author->hasFan(Auth::user()) ? route('follow.remove', $article->author->id) : route('follow.add', $article->author->id) }}" id="authorFollowForm">
                                             {{ csrf_field() }}
@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="media-body">
                                             <h2 class="media-heading">{{ $article->author->name }}
-@if (Auth::check() && Auth::user()->id !== $article->author->id)
+@if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
                                                 <small id="author-follow">
                                                     <form method="POST" action="{{ $article->author->hasFan(Auth::user()) ? route('follow.remove', $article->author->id) : route('follow.add', $article->author->id) }}" id="authorBriefFollowForm">
                                                         {{ csrf_field() }}
@@ -88,6 +88,7 @@
                                 <hr />
                             </div>
                             <div id="article-express" class="col-xs-6 col-md-6">
+@if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
                                 <div class="btn-toolbar" role="toolbar">
                                     <form method="POST" action="{{ $article->isLiked() ? route('favorite.revokeLike', $article->id) : route('favorite.addLike', $article->id) }}" id="articleLikeForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
@@ -106,6 +107,7 @@
                                 </div>
                                 {{--<a href="#" class="btn btn-danger btn-sm" role="button"><span class="glyphicon glyphicon-heart glyphicon-heart-empty" aria-hidden="true"></span>喜欢</a>--}}
                                 {{--<a href="#" class="btn btn-warning btn-sm" role="button"><span class="glyphicon glyphicon-star glyphicon-star-empty" aria-hidden="true"></span>收藏</a>--}}
+@endif
                             </div>
                             <ul id="article-share" class="col-xs-6 col-md-6 list-inline text-right">
                                 <li><a href="#">微博</a></li>
