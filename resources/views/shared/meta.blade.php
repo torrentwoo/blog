@@ -16,9 +16,7 @@
 @if (isset($headMeta['description']))
     <meta name="description" content="{{ $headMeta['description'] }}" />
 @endif
-@if (isset($modalLogin) && $modalLogin || isset($headMeta['Ajax']))
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-@endif
 {{--
     <meta name="author" content="torrent, 790896@qq.com" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />

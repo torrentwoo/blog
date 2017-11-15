@@ -15,7 +15,7 @@
                                 <li>作者：{{ $article->author->name or 'Anonymous' }}</li><!-- 关注作者 -->
                                 <li>浏览：{{ $article->views }} 次</li>
                                 <li>评论：{{ $article->comments()->count() }}</li>
-                                <li>喜欢：{{ $article->favorites()->count() }}</li>
+                                <li>喜欢：{{ $article->favorites()->likes()->count() }}</li>
                                 <li>赞赏：</li>
                             </ul>
                         </div>
@@ -61,17 +61,17 @@
                             </div>
                             <div id="article-express" class="col-xs-6 col-md-6">
                                 <div class="btn-toolbar" role="toolbar">
-                                    <form method="POST" action="{{ $article->isLiked() ? route('favorite.revokeLike', $article->id) : route('favorite.addLike', $article->id) }}" class="btn-group" role="group">
+                                    <form method="POST" action="{{ $article->isLiked() ? route('favorite.revokeLike', $article->id) : route('favorite.addLike', $article->id) }}" id="articleLikeForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
                                         {{ method_field($article->isLiked() ? 'DELETE' : 'PATCH') }}
-                                        <button type="submit" class="btn btn-danger btn-sm btn-first">
+                                        <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-danger btn-sm btn-first"{!! Auth::check() ?: ' data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleLikeForm">
                                             <span class="glyphicon {{ $article->isLiked() ? 'glyphicon-heart' : 'glyphicon-heart-empty' }}" aria-hidden="true"></span>喜欢
                                         </button>
                                     </form>
-                                    <form method="POST" action="{{ $article->isFavorite() ? route('favorite.revokeMark', $article->id) : route('favorite.addMark', $article->id) }}" class="btn-group" role="group">
+                                    <form method="POST" action="{{ $article->isFavorite() ? route('favorite.revokeMark', $article->id) : route('favorite.addMark', $article->id) }}" id="articleFavoriteForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
                                         {{ method_field($article->isFavorite() ? 'DELETE' : 'PATCH') }}
-                                        <button type="submit" class="btn btn-warning btn-sm btn-last">
+                                        <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-warning btn-sm btn-last"{!! Auth::check() ?: ' data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleFavoriteForm">
                                             <span class="glyphicon {{ $article->isFavorite() ? 'glyphicon-star' : 'glyphicon-star-empty' }}" aria-hidden="true"></span>收藏
                                         </button>
                                     </form>
@@ -158,11 +158,9 @@
                     <div class="col-xs-12">
                         @include('features.comment-form', ['modalLogin' => isset($modalLogin) ? $modalLogin : false])
                     </div>
-@if (isset($modalLogin) && $modalLogin)
 @unless (Auth::check())
                     @include('features.modal-login')
 @endunless
-@endif
                 </div>
 @stop
 
@@ -170,8 +168,8 @@
                 @parent
 @stop
 
-@if (isset($modalLogin) && $modalLogin && !Auth::check())
 @section('scripts')
+@unless (Auth::check())
     <script type="text/javascript" src="{{ asset('/assets/js/ajax-login.js') }}"></script>
+@endunless
 @stop
-@endif

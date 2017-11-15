@@ -1,4 +1,4 @@
-                        <form id="embeddedCommentForm" method="POST" action="{{ route('comment', $article->id) }}" data-interact="#loginModal">
+                        <form id="embeddedCommentForm" method="POST" action="{{ route('comment', $article->id) }}">
                             @include('features.builtIn-alert')
 
                             {{ csrf_field() }}
@@ -12,7 +12,7 @@
 @else
 @if (isset($modalLogin) && $modalLogin)
                             <div class="form-group text-right">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#loginModal">登录发表评论</button>
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#loginModal" data-trigger="#embeddedCommentForm">登录发表评论</button>
                             </div>
 @else
                             <div class="form-group form-inline">

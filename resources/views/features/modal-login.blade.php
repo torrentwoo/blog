@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                    <button type="button" id="ajaxLoginSubmit" class="btn btn-primary" data-rel="{{ route('ajaxLogin') }}">登录</button>
+                                    <button type="button" id="ajaxLoginSubmit" class="btn btn-primary" data-handler="{{ route('ajaxLogin') }}">登录</button>
                                 </div>
                             </div>
                         </div>

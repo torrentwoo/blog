@@ -2,17 +2,25 @@
     try {
         if (typeof jQuery !== 'function')
             throw 'Error: jQuery is required while Ajax login is enable, but it is missing!';
+        // Parent form handling
+        $('button[data-toggle="modal"][data-target="#loginModal"]').each(function(i) {
+            $(this).bind('click', function() {
+                $('#loginModal button[data-handler]').attr('data-form', $(this).data('trigger'));
+            });
+        });
         // All good
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $('#ajaxLoginSubmit').click(function() {
+        $('#loginModal').on('click', 'button[id="ajaxLoginSubmit"]', function() {
             var $username = $('#ajax-username'), $password = $('#ajax-password');
             var $remember = $('#ajax-remember').prop('checked');
             var $message  = $('#loginModalMessage');
-            var $btn = $(this), $url = $btn.data('rel') || '/auth/ajaxLogin';
+            var $btn = $(this), $url = $btn.data('handler') || '/auth/ajaxLogin', $form = $('form' + $btn.data('form'));
+            //console.log($form.length);
+
             switch (true) {
                 // data validation
                 case (!$username.val().length) :
@@ -25,7 +33,7 @@
                     break;
                 default :
                     $message.addClass('hidden').text('');
-                    // data process
+                    // Process request
                     $.ajax({
                         url: $url,
                         type: 'POST',
@@ -38,12 +46,10 @@
                         success: function (response) {
                             if (!response.error) {
                                 $('#loginModal').modal('hide');
-                                var $form = $('form[data-interact="#loginModal"]');
-                                if ($form.length) {
+                                if ($form.length) { // submit form if exists
                                     $form.submit();
-                                } else {
-                                    location.reload();
                                 }
+                                window.location.reload();
                             } else { // output error messages
                                 $message.removeClass('hidden').text(response.message);
                             }
