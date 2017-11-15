@@ -59,6 +59,16 @@
 #article-author .glyphicon {
     margin-right:.5em;
 }
+#author-follow {
+    font-size:100%;
+}
+    #author-follow form {
+        display:inline;
+        display:inline-block;
+    }
+    #author-follow .btn-xs {
+        font-size:12px;
+    }
 #article-express .btn-group {
     margin-left:0;
 }

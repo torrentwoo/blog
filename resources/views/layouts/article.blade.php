@@ -44,7 +44,15 @@
                                             </a>
                                         </div>
                                         <div class="media-body">
-                                            <h2 class="media-heading">{{ $article->author->name }}<small><a href="#" class="btn btn-success btn-xs" role="button"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i>关注作者</a></small></h2>
+                                            <h2 class="media-heading">{{ $article->author->name }}
+                                                <small id="author-follow">
+                                                    <form method="POST" action="#" id="articleFollowForm">
+                                                        <button type="button" class="btn btn-success btn-xs">
+                                                            <i class="glyphicon glyphicon-plus glyphicon-minus" aria-hidden="true"></i>关注作者
+                                                        </button>
+                                                    </form>
+                                                </small>
+                                            </h2>
                                             <p class="text-muted">发表文章：{{ $article->author->articles()->released()->count() }} 篇，被 xx 人关注，收获 xx 个喜欢</p>
                                         </div>
                                     </li>
