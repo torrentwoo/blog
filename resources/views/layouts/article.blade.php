@@ -12,7 +12,21 @@
                             <h1>{{ $article->title }}</h1>
                             <ul class="list-inline">
                                 <li>发表于：{{ $article->released_at->diffForHumans() }}</li>
-                                <li>作者：{{ $article->author->name or 'Anonymous' }}</li><!-- 关注作者 -->
+                                <li>作者：<a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a>
+@if (Auth::check() && Auth::user()->id !== $article->author->id)
+                                    <small>
+                                        <form method="POST" action="{{ $article->author->hasFan(Auth::user()) ? route('follow.remove', $article->author->id) : route('follow.add', $article->author->id) }}" id="authorFollowForm">
+                                            {{ csrf_field() }}
+@if ($article->author->hasFan(Auth::user()))
+                                            {{ method_field('DELETE') }}
+@endif
+                                            <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-xs" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#authorFollowForm">
+                                                <i class="glyphicon {{ $article->author->hasFan(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>{{ $article->author->hasFan(Auth::user()) ? '取消关注' : '关注作者' }}
+                                            </button>
+                                        </form>
+                                    </small>
+@endif
+                                </li><!-- 关注作者 -->
                                 <li>浏览：{{ $article->views }} 次</li>
                                 <li>评论：{{ $article->comments()->count() }}</li>
                                 <li>喜欢：{{ $article->favorites()->likes()->count() }}</li>
@@ -53,7 +67,7 @@
                                                         {{ method_field('DELETE') }}
 @endif
                                                         <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-xs" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#authorBriefFollowForm">
-                                                            <i class="glyphicon glyphicon-plus glyphicon-minus" aria-hidden="true"></i>关注作者
+                                                            <i class="glyphicon {{ $article->author->hasFan(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>{{ $article->author->hasFan(Auth::user()) ? '取消关注' : '关注作者' }}
                                                         </button>
                                                     </form>
                                                 </small>

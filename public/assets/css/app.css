@@ -88,6 +88,9 @@ footer {
   font-size: 1em;
   color: #999; }
 
+#authorFollowForm {
+  display: inline; }
+
 #preferences {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -103,11 +106,11 @@ footer {
 #author-follow {
   font-size: 100%; }
 
-#author-follow form {
+#authorBriefFollowForm {
   display: inline;
   display: inline-block; }
 
-#author-follow .btn-xs {
+#authorBriefFollowForm .btn-xs {
   font-size: 12px; }
 
 #article-express .btn-group {
