@@ -50,6 +50,9 @@
 #authorFollowForm {
     display:inline;
 }
+    #authorFollowForm .glyphicon {
+        margin-right:.5em;
+    }
 #preferences {
     margin-top:1em;
     margin-bottom:1em;
