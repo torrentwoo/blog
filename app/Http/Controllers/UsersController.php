@@ -245,6 +245,12 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * 列出用户发表过的所有评论
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function comments($id)
     {
         // Retrieve user
