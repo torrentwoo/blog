@@ -10,7 +10,7 @@
         <div class="row row-offcanvas row-offcanvas-right">
             <div class="col-xs-12 col-sm-9">
                 <p class="pull-right visible-xs">
-                    <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">切换至侧边栏</button>
                 </p>
 @yield('content')
             </div><!--/.col-xs-12.col-sm-9-->

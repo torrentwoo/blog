@@ -40,8 +40,7 @@
                     </a>
                 </div>
                 <div class="row">
-@if (isset($articles))
-@foreach ($articles as $article)
+@forelse ($articles as $article)
                     <div class="col-xs-6 col-lg-4">
                         <div class="thumbnail">
                             <a href="{{ route('article', $article->id) }}" title="{{ $article->title }}">
@@ -53,41 +52,18 @@
                                 <p class="text-right"><a class="btn btn-default" href="{{ route('article', $article->id) }}" role="button">View details &raquo;</a></p>
                             </div>
                         </div>
-                    </div><!--/.col-xs-6.col-lg-4-->
-@endforeach
-@endif
-{{--
-                    <div class="col-xs-6 col-lg-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn btn-default" href="{{ route('article', 2) }}" role="button">View details &raquo;</a></p>
-                    </div><!--/.col-xs-6.col-lg-4-->
-                    <div class="col-xs-6 col-lg-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn btn-default" href="{{ route('article', 3) }}" role="button">View details &raquo;</a></p>
-                    </div><!--/.col-xs-6.col-lg-4-->
-                    <div class="col-xs-6 col-lg-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn btn-default" href="{{ route('article', 4) }}" role="button">View details &raquo;</a></p>
-                    </div><!--/.col-xs-6.col-lg-4-->
-                    <div class="col-xs-6 col-lg-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn btn-default" href="{{ route('article', 5) }}" role="button">View details &raquo;</a></p>
-                    </div><!--/.col-xs-6.col-lg-4-->
-                    <div class="col-xs-6 col-lg-4">
-                        <h2>Heading</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn btn-default" href="{{ route('article', 6) }}" role="button">View details &raquo;</a></p>
-                    </div><!--/.col-xs-6.col-lg-4-->
---}}
-                </div><!--/row-->
+                    </div>
+@empty
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <p><strong>提示：</strong>没有找到任何发表过的文章内容</p>
+                    </div>
+@endforelse
+                </div>
 @stop
 
 @section('scripts')
     <script type="text/javascript">
-        console.warn('plugin was launched')
+        console.warn('Here the extra section goes...')
     </script>
 @stop

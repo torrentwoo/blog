@@ -26,7 +26,7 @@
                                         </form>
                                     </small>
 @endif
-                                </li><!-- 关注作者 -->
+                                </li>
                                 <li>浏览：{{ $article->views }} 次</li>
                                 <li>评论：{{ $article->comments()->count() }}</li>
                                 <li>喜欢：{{ $article->favorites()->likes()->count() }}</li>
@@ -41,11 +41,6 @@
 @foreach ($article->tags as $tag)
                             <a href="{{ route('tag', $tag->id) }}" class="label label-default">{{ $tag->name }}</a>
 @endforeach
-{{--
-                            <a href="{{ route('tag', 2) }}" class="label label-default">Testing</a>
-                            <a href="{{ route('tag', 3) }}" class="label label-default">Delta</a>
-                            <a href="{{ route('tag', 4) }}" class="label label-default">Alphabet</a>
---}}
                         </div>
 @endif
                         <div id="preferences" class="row">
@@ -53,12 +48,12 @@
                                 <ul class="media-list">
                                     <li class="media">
                                         <div class="media-left">
-                                            <a href="#">
-                                                <img alt="{{ $article->author->name }}" data-src="holder.js/64x64" class="media-object" src="{{ $article->author->gravatar(64) }}" data-holder-rendered="true">
+                                            <a href="{{ route('user.show', $article->author->id) }}">
+                                                <img alt="{{ $article->author->name }}" data-src="holder.js/64x64" class="media-object" src="{{ $article->author->gravatar(64) }}" data-holder-rendered="true" />
                                             </a>
                                         </div>
                                         <div class="media-body">
-                                            <h2 class="media-heading">{{ $article->author->name }}
+                                            <h2 class="media-heading"><a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
                                                 <small id="author-follow">
                                                     <form method="POST" action="{{ $article->author->hasFan(Auth::user()) ? route('follow.remove', $article->author->id) : route('follow.add', $article->author->id) }}" id="authorBriefFollowForm">
@@ -73,7 +68,7 @@
                                                 </small>
 @endif
                                             </h2>
-                                            <p class="text-muted">发表文章：{{ $article->author->articles()->released()->count() }} 篇，被 xx 人关注，收获 xx 个喜欢</p>
+                                            <p class="text-muted">发表文章：{{ $article->author->articles()->released()->count() }} 篇，被 {{ $article->author->followers()->count() }} 人关注，收获 xx 个喜欢</p>
                                         </div>
                                     </li>
                                 </ul>
@@ -105,8 +100,6 @@
                                         </button>
                                     </form>
                                 </div>
-                                {{--<a href="#" class="btn btn-danger btn-sm" role="button"><span class="glyphicon glyphicon-heart glyphicon-heart-empty" aria-hidden="true"></span>喜欢</a>--}}
-                                {{--<a href="#" class="btn btn-warning btn-sm" role="button"><span class="glyphicon glyphicon-star glyphicon-star-empty" aria-hidden="true"></span>收藏</a>--}}
 @endif
                             </div>
                             <ul id="article-share" class="col-xs-6 col-md-6 list-inline text-right">
@@ -157,28 +150,6 @@
                                 </div>
                             </li>
 @endforeach
-{{--
-                            <li class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img alt="64x64" data-src="holder.js/64x64" class="media-object" style="width: 64px; height: 64px;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWY1YjZmN2M2YSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ZjViNmY3YzZhIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNCIgeT0iMzYuOCI+NjR4NjQ8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">Media heading</h4>
-                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <div class="media-left">
-                                    <img alt="64x64" data-src="holder.js/64x64" class="media-object" style="width: 64px; height: 64px;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWY1YjZmN2M2YSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ZjViNmY3YzZhIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNCIgeT0iMzYuOCI+NjR4NjQ8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">Media heading</h4>
-                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-                                </div>
-                            </li>
---}}
                         </ul>
                         <p class="text-right">
                             <a class="btn btn-info" href="{{ route('comments', $article->id) }}" role="button">查看更多评论</a>

@@ -1,46 +1,41 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Be right back.</title>
-
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
-        <style>
+        <title>Service Unavailable</title>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:400" />
+        <style type="text/css">
             html, body {
                 height: 100%;
             }
-
             body {
                 margin: 0;
                 padding: 0;
                 width: 100%;
-                color: #B0BEC5;
                 display: table;
-                font-weight: 100;
-                font-family: 'Lato';
+                font-weight: 400;
+                font-family: 'Montserrat';
             }
-
             .container {
-                text-align: center;
                 display: table-cell;
+                text-align: center;
                 vertical-align: middle;
             }
-
             .content {
-                text-align: center;
                 display: inline-block;
+                text-align: center;
             }
-
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
+            .heading {
+                margin-bottom: 1em;
+                font-weight: 700;
+                font-size: 36px;
             }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Be right back.</div>
+                <div class="heading">Be right back.</div>
+                <p>The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.</p>
             </div>
         </div>
     </body>

@@ -1,24 +1,44 @@
 @extends('shared.singleton')
 
 @section('content')
-            <div class="col-xs-4 col-sm-3 col-sm-offset-1">
+            <div id="user-avatar" class="col-xs-4 col-sm-3 col-sm-offset-1">
                 <a href="{{ route('user.show', $user->id) }}">
-                    <img class="img-rounded img-responsive" src="{{ $user->gravatar(128) }}" alt="{{ $user->name }}" />
+                    <img class="img-rounded img-responsive" src="{{ $user->gravatar(224) }}" alt="{{ $user->name }}" />
                 </a>
             </div>
-            <div class="col-xs-8 col-sm-8">
+            <div id="user-statistics" class="col-xs-8 col-sm-7">
                 <h1>{{ $user->name }}</h1>
-                <dl>
-                    <dd>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-3">
+                        <span class="count">{{ $user->followers->count() }}</span>
+                        <span class="text-muted">关注</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-3">
+                        <span class="count">{{ $user->followings->count() }}</span>
+                        <span class="text-muted">粉丝</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-3">
+                        <span class="count">{{ $user->articles->count() }}</span>
+                        <span class="text-muted">文章</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-3">
+                        <span class="count">3241</span>
+                        <span class="text-muted">喜欢</span>
+                    </div>
+                </div>
+            </div>
+            <div id="user-brief" class="col-xs-12 col-sm-7">
+                <ul class="list-unstyled">
+                    <li>
                         <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                         <span class="sr-only">来自：</span>
                         <span>Planet Earth</span>
-                    </dd>
-                    <dd>
+                    </li>
+                    <li>
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                         <span>{{ $user->created_at->format('Y-m-d') }} 入驻</span>
-                    </dd>
-                    <dd>
+                    </li>
+                    <li>
                         <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                         <span class="sr-only">个人链接：</span>
                         <span>
@@ -26,11 +46,11 @@
                             <i>微信</i>
                             <i>...</i>
                         </span>
-                    </dd>
-                </dl>
+                    </li>
+                </ul>
             </div>
             <!-- 用户动态展示 -->
-            <div id="moments" class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <div id="user-moments" class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <dl class="well my-moment">
                     <dt>Title.....</dt>
                     <dd class="occurred"><small>2017-11-11 12AM</small></dd>

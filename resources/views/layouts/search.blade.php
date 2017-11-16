@@ -2,11 +2,11 @@
 
 @section('content')
                 <ol class="breadcrumb">
-                    <li><a href="{{ route('home') }}">Home</a></li>
+                    <li><a href="{{ route('home') }}">首页</a></li>
 @if (isset($keyword))
-                    <li><a href="{{ route('search') }}">Search</a></li>
+                    <li><a href="{{ route('search') }}">搜索</a></li>
 @endif
-                    <li class="active">{{ $keyword or 'Search' }}</li>
+                    <li class="active">{{ $keyword or '搜索' }}</li>
                 </ol>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">

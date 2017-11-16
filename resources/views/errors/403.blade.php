@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="renderer" content="webkit" />
     <title>Forbidden</title>
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:100|Tangerine" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:400" />
     <style type="text/css">
         html, body {
             height: 100%;
@@ -16,7 +16,18 @@
             width: 100%;
             display: table;
             font-weight: 100;
-            font-family: 'Lato';
+            font-family: 'Montserrat';
+        }
+        a {
+            /*font-weight: 700;*/
+        }
+        a:link, a:visited {
+            color: #5cb85c;
+            text-decoration: none;
+        }
+        a:hover, a:active {
+            color: #428bca;
+            text-decoration: underline;
         }
         .container {
             display: table-cell;
@@ -29,10 +40,20 @@
         }
         .heading {
             margin-bottom: 1em;
-            font-family: 'Tangerine';
+            font-weight: 700;
             font-size: 36px;
         }
-        .redirect {}
+        .link {
+            margin: 1em 0 0;
+            list-style: none inside none;
+            border-top: 2px solid #efefef;
+            padding: 0;
+        }
+        .link li {
+            display: inline;
+            display: inline-block;
+            margin: 1em 2em;
+        }
     </style>
 {{--
     @link https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
@@ -43,8 +64,13 @@
     <div class="container">
         <div class="content">
             <h1 class="heading">Forbidden</h1>
-            <p>The server understood the request, but is refusing to fulfill it. Authorization will not help and the request SHOULD NOT be repeated. In short: You are not allowed to access this resource, unless you are authenticated.</p>
-            <p>That's all we know, <a class="redirect" href="{{ route('home') }}" title="Redirect to the homepage">Redirect to the homepage</a>.</p>
+            <p>The server understood the request, but is refusing to fulfill it. Authorization will not help and the request SHOULD NOT be repeated.</p>
+            <p>That's all we know.</p>
+            <ul class="link">
+                <li><a href="{{ route('home') }}">Home</a></li>
+                <li><a href="{{ route('help') }}">Help</a></li>
+                <li><a href="{{ route('search') }}">Search</a></li>
+            </ul>
         </div>
     </div>
 </body>

@@ -7,7 +7,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Project name</a>
+                <a class="navbar-brand" href="{{ route('home') }}">Project name</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -19,7 +19,7 @@
 @if (Auth::check())
                     <li><a href="#notification"><i class="glyphicon glyphicon-bell"></i><i class="sr-only">消息通知</i></a></li>
                     <li class="dropdown">
-                        <a id="navUserDropdownMenu" class="dropdown-toggle" data-toggle="dropdown">
+                        <a href="javascript:void(0);" id="navUserDropdownMenu" class="dropdown-toggle" data-toggle="dropdown">
                             {{ Auth::user()->name }}
                             <span class="caret"></span>
                         </a>
@@ -44,17 +44,17 @@
 @endif
                     <li class="{{ $helpActive or 'void' }}"><a href="{{ route('help') }}">帮助</a></li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             <span class="sr-only">搜索</span>
                         </a>
                         <div id="nav-search" class="dropdown-menu">
-                            <form class="navbar-form" action="{{ route('search') }}" method="get" role="search">
+                            <form class="navbar-form" action="{{ route('search') }}" method="GET" role="search">
                                 {{ csrf_field() }}
                                 <div class="input-group">
                                     <input type="text" name="keyword" class="form-control" placeholder="Search for..." />
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="submit">
+                                        <button class="btn btn-default" type="submit" aria-label="Submit">
                                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                         </button>
                                     </span>
@@ -63,19 +63,6 @@
                         </div>
                     </li>
                 </ul>
-{{--
-                <form class="navbar-form navbar-right" action="{{ route('search') }}" method="get">
-                    {{ csrf_field() }}
-                    <div class="input-group">
-                        <input type="text" name="keyword" class="form-control" placeholder="Search for..." />
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                            </button>
-                        </span>
-                    </div>
-                </form>
---}}
             </div><!-- /.nav-collapse -->
         </div><!-- /.container -->
     </nav><!-- /.nav-element -->

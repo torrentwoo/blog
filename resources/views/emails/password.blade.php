@@ -16,7 +16,10 @@
             border-spacing: 0;
             text-align: center;
         }
-        #activationBtn {
+        .msg-guide {
+            text-align: left;
+        }
+        .msg-button {
             padding: 1em;
             display: inline-block;
             text-decoration: none;
@@ -25,9 +28,6 @@
             -webkit-border-radius: 5px;
             -moz-border-radius: 5px;
             border-radius: 5px;
-        }
-        .msg-guide {
-            text-align: left;
         }
     </style>
 </head>
@@ -45,7 +45,7 @@
             <tfoot>
                 <tr>
                     <td>
-                        <p>如果这不是您本人的操作，请忽略此邮件</p>
+                        <p>注：如果这不是您本人的操作，请忽略此邮件，您的账户仍是安全的</p>
                     </td>
                 </tr>
             </tfoot>
@@ -57,7 +57,7 @@
                 </tr>
                 <tr>
                     <td class="msg-feature">
-                        <a id="activationBtn" href="{{ route('password.update') . '/' . $token }}" target="_blank">立即重置密码</a>
+                        <a class="msg-button" href="{{ route('password.update') . '/' . $token }}" target="_blank">立即重置密码</a>
                     </td>
                 </tr>
                 <tr>

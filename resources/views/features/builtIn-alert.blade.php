@@ -4,7 +4,7 @@
 @foreach ($errors->all() as $error)
                                 <li>
                                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                    <span class="sr-only">Error:</span>
+                                    <span class="sr-only">错误：</span>
                                     {{ $error }}
                                 </li>
 @endforeach
