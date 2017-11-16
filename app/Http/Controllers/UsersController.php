@@ -247,6 +247,17 @@ class UsersController extends Controller
 
     public function comments($id)
     {
-        //
+        // Retrieve user
+        $user = User::findOrFail($id);
+        // Authenticate
+        $this->authorize('retrieve', $user);
+        // All comments belong to user
+        $comments = $user->comments()->latest('created_at')->paginate(10);
+        // Something else
+
+        return view('users.comments', [
+            'user'      =>  $user,
+            'comments'  =>  $comments,
+        ]);
     }
 }
