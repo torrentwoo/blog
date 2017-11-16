@@ -15,7 +15,7 @@
                                 <li>作者：<a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
                                     <small>
-                                        <form method="POST" action="{{ $article->author->hasFan(Auth::user()) ? route('follow.remove', $article->author->id) : route('follow.add', $article->author->id) }}" id="authorFollowForm">
+                                        <form method="POST" action="{{ $article->author->hasFan(Auth::user()) ? route('follow.remove', $article->author->id) : route('follow.add', $article->author->id) }}" id="authorFollowForm" class="follow-form">
                                             {{ csrf_field() }}
 @if ($article->author->hasFan(Auth::user()))
                                             {{ method_field('DELETE') }}
@@ -56,7 +56,7 @@
                                             <h2 class="media-heading"><a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
                                                 <small id="author-follow">
-                                                    <form method="POST" action="{{ $article->author->hasFan(Auth::user()) ? route('follow.remove', $article->author->id) : route('follow.add', $article->author->id) }}" id="authorBriefFollowForm">
+                                                    <form method="POST" action="{{ $article->author->hasFan(Auth::user()) ? route('follow.remove', $article->author->id) : route('follow.add', $article->author->id) }}" id="authorBriefFollowForm" class="follow-form">
                                                         {{ csrf_field() }}
 @if ($article->author->hasFan(Auth::user()))
                                                         {{ method_field('DELETE') }}

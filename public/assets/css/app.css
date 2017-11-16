@@ -68,7 +68,7 @@ footer {
   padding: 6px 12px;
   border-radius: 4px; }
 
-.dropdown-menu .glyphicon, #authorFollowForm .glyphicon, #article-author .glyphicon, #article-express .glyphicon {
+.dropdown-menu .glyphicon, .follow-form .glyphicon, #article-express .glyphicon {
   margin-right: .5em; }
 
 .navbar-form .glyphicon-search {
@@ -92,8 +92,9 @@ footer {
   font-size: 1em;
   color: #999; }
 
-#authorFollowForm {
-  display: inline; }
+.follow-form {
+  display: inline;
+  display: inline-block; }
 
 #preferences {
   margin-top: 1em;
@@ -106,10 +107,6 @@ footer {
 
 #author-follow {
   font-size: 100%; }
-
-#authorBriefFollowForm {
-  display: inline;
-  display: inline-block; }
 
 #authorBriefFollowForm .btn-xs {
   font-size: 12px; }
@@ -142,6 +139,11 @@ footer {
 
 #user-brief {
   margin-top: 10px; }
+
+#user-brief .label {
+  font-weight: 600;
+  vertical-align: middle;
+  cursor: pointer; }
 
 #user-moments {
   padding-top: 2em;

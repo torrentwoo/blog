@@ -27,7 +27,7 @@
 }
 
 
-.dropdown-menu .glyphicon, #authorFollowForm .glyphicon, #article-author .glyphicon, #article-express .glyphicon {
+.dropdown-menu .glyphicon, .follow-form .glyphicon, #article-express .glyphicon {
     margin-right:.5em;
 }
 .navbar-form .glyphicon-search {
@@ -54,8 +54,9 @@
     color:#999;
 }
 
-#authorFollowForm {
+.follow-form {
     display:inline;
+    display:inline-block;
 }
 #preferences {
     margin-top:1em;
@@ -69,10 +70,6 @@
 #author-follow {
     font-size:100%;
 }
-    #authorBriefFollowForm {
-        display:inline;
-        display:inline-block;
-    }
     #authorBriefFollowForm .btn-xs {
         font-size:12px;
     }
@@ -108,6 +105,11 @@
 #user-brief {
     margin-top:10px;
 }
+    #user-brief .label {
+        font-weight:600;
+        vertical-align:middle;
+        cursor:pointer;
+    }
 #user-moments {
     padding-top:2em;
     padding-bottom:1em;
