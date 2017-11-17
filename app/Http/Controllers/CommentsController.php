@@ -79,7 +79,7 @@ class CommentsController extends Controller
         $article = Article::findOrFail($id);
         $article->comments()->save($data);
 
-        return redirect()->back(); // redirect()->intended(route('comments', $id));
+        return redirect()->back();
     }
 
     /**
