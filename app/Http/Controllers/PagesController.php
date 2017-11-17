@@ -24,8 +24,8 @@ class PagesController extends Controller
         $articles = Article::released()->latest('released_at')->with('attachment', 'snapshot')->take(6)->get();
         // Sidebar columns list
         $columns  = Category::whereHas('articles', function($query) {
-            $query->where('approval', '<>', 0);
-        })->visible()->orderBy('priority', 'desc')->get();
+            $query->released();
+        })->visible()->orderBy('priority', 'desc')->take(7)->get();
 
         return view('layouts.home', [
             'articles'  =>  $articles,
