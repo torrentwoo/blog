@@ -8,6 +8,7 @@
         @include('features.flash-message')
 
         <div class="row row-offcanvas row-offcanvas-right">
+@yield('carousel')
             <div class="col-xs-12 col-sm-9">
                 <p class="pull-right visible-xs">
                     <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">切换至侧边栏</button>

@@ -84,6 +84,22 @@ footer {
 #home-carousel {
   margin-bottom: 30px; }
 
+#home-columns li {
+  padding-bottom: .5em; }
+
+.btn-hasDiagram {
+  position: relative;
+  padding-left: 46px; }
+
+.btn-diagram {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 4px 0 0 4px;
+  width: 32px;
+  height: 32px; }
+
 #tags {
   padding: 1em 0; }
 
