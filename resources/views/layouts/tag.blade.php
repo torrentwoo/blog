@@ -3,7 +3,7 @@
 @section('content')
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home') }}">首页</a></li>
-                    <li><a href="{{ route('tags') }}">标签</a></li>
+                    <li><a href="{{ route('tag.index') }}">标签</a></li>
                     <li class="active">{{ $tag->name }}</li>
                 </ol>
                 <div class="row">
@@ -11,12 +11,12 @@
 @forelse ($articles as $article)
                         <div class="media">
                             <div class="media-left media-top">
-                                <a href="{{ route('article', $article->id) }}">
+                                <a href="{{ route('article.show', $article->id) }}">
                                     <img class="media-object" src="{{ $article->snapshot->thumbnail_url or $article->attachment->url }}" style="width:64px;height:64px;" data-src="holder.js/64x64" alt="{{ $article->title }}" data-holder-rendered="true" />
                                 </a>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading"><a href="{{ route('article', $article->id) }}">{{ $article->title }}</a></h4>
+                                <h4 class="media-heading"><a href="{{ route('article.show', $article->id) }}">{{ $article->title }}</a></h4>
                                 <p>{{ $article->description }}</p>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="list-group">
 @forelse ($popular as $tag)
-                        <a class="list-group-item {{ isset($id) && $id === $tag->id ? 'active' : null }}" href="{{ route('tag', $tag->id) }}">{{ $tag->name }}</a>
+                        <a class="list-group-item {{ isset($id) && $id === $tag->id ? 'active' : null }}" href="{{ route('tag.show', $tag->id) }}">{{ $tag->name }}</a>
 @empty
                         <p class="list-group-item">暂未出现热门标签</p>
 @endforelse

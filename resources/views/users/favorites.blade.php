@@ -10,7 +10,7 @@
                     <div class="col-xs-12 col-sm-12">
 @forelse ($favorites as $article)
                         <dl class="well my-moment">
-                            <dt><a href="{{ route('article', $article->id) }}" target="_blank">{{ $article->title }}</a></dt>
+                            <dt><a href="{{ route('article.show', $article->id) }}" target="_blank">{{ $article->title }}</a></dt>
                             <dd class="occurred">
                                 <small class="text-muted">
                                     <ul class="list-inline">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="list-group">
 @foreach ($recommend as $article)
-                        <a class="list-group-item" href="{{ route('article', $article->id) }}">{{ $article->title }}</a>
+                        <a class="list-group-item" href="{{ route('article.show', $article->id) }}">{{ $article->title }}</a>
 @endforeach
                     </div>
                 </div>

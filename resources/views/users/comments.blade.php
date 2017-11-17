@@ -10,7 +10,7 @@
                     <div class="col-xs-12 col-sm-12">
 @forelse ($comments as $comment)
                         <dl class="well my-moment">
-                            <dt><a href="{{ route('article', $comment->article_id) }}" target="_blank">{{ $comment->article->title }}</a></dt>
+                            <dt><a href="{{ route('article.show', $comment->article_id) }}" target="_blank">{{ $comment->article->title }}</a></dt>
                             <dd class="occurred">
                                 <small class="text-muted">
                                     <ul class="list-inline">

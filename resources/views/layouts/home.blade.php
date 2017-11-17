@@ -48,7 +48,7 @@
                     <div class="col-xs-12 col-lg-12">
                         <ul id="home-columns" class="list-inline">
 @foreach ($columns as $column)
-                            <li><a href="{{ route('column', $column->id) }}" class="btn btn-default" role="button">{{ $column->name }}</a></li>
+                            <li><a href="{{ route('column.show', $column->id) }}" class="btn btn-default" role="button">{{ $column->name }}</a></li>
 {{--
                             <li><a href="#" class="btn btn-default btn-hasDiagram" role="button">
                                     <img class="media-object btn-diagram" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWY1Nzc5ZDQ1ZCB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ZjU3NzlkNDVkIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNCIgeT0iMzYuOCI+NjR4NjQ8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" alt="...">
@@ -57,7 +57,7 @@
                             </li>
 --}}
 @endforeach
-                            <li><a href="{{ route('columns') }}" class="btn btn-link">
+                            <li><a href="{{ route('column.index') }}" class="btn btn-link">
                                     <i>更多热门栏目</i>
                                     <span class="glyphicon glyphicon-menu-right"></span>
                                 </a>
@@ -68,13 +68,13 @@
 @forelse ($articles as $article)
                     <div class="col-xs-12 col-lg-12 media media-article">
                         <div class="media-left">
-                            <a href="{{ route('article', $article->id) }}">
+                            <a href="{{ route('article.show', $article->id) }}">
                                 <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->snapshot->thumbnail_url or $article->attachment->url }}" data-holder-rendered="true" />
                             </a>
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading media-title">
-                                <a href="{{ route('article', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
+                                <a href="{{ route('article.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
                             </h4>
                             <ul class="list-inline text-muted media-author">
                                 <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
@@ -90,16 +90,16 @@
                             </ul>
                             <p>{{ $article->description }}</p>
                             <ul class="list-inline media-meta">
-                                <li><a class="media-column" href="{{ route('column', $article->category->id) }}">{{ $article->category->name }}</a></li>
+                                <li><a class="media-column" href="{{ route('column.show', $article->category->id) }}">{{ $article->category->name }}</a></li>
                                 <li>
-                                    <a class="text-muted" href="{{ route('article', $article->id) }}">
+                                    <a class="text-muted" href="{{ route('article.show', $article->id) }}">
                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                         <span class="sr-only">浏览：</span>
                                         {{ $article->views }}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="text-muted" href="{{ route('article', $article->id) . '#comments' }}">
+                                    <a class="text-muted" href="{{ route('article.show', $article->id) . '#comments' }}">
                                         <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                         <span class="sr-only">评论：</span>
                                         {{ $article->comments->count() }}

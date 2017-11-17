@@ -11,7 +11,7 @@
 @forelse ($articles as $article)
                         <dl class="well my-moment">
 @if ($article->approval)
-                            <dt><a href="{{ route('article', $article->id) }}" target="_blank">{{ $article->title }}</a></dt>
+                            <dt><a href="{{ route('article.show', $article->id) }}" target="_blank">{{ $article->title }}</a></dt>
 @else
                             <dt><a class="text-muted" href="#" title="这篇文章暂未通过审核，点击链接查看具体原因">{{ $article->title }}</a></dt>
 @endif
@@ -47,7 +47,7 @@
                     </div>
                     <div class="list-group">
 @foreach ($popular as $article)
-                        <a class="list-group-item" href="{{ route('article', $article->id) }}">{{ $article->title }}</a>
+                        <a class="list-group-item" href="{{ route('article.show', $article->id) }}">{{ $article->title }}</a>
 @endforeach
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-                        <form id="embeddedCommentForm" method="POST" action="{{ route('comment', $article->id) }}">
+                        <form id="embeddedCommentForm" method="POST" action="{{ route('article.comment', $article->id) }}">
                             @include('features.builtIn-alert')
 
                             {{ csrf_field() }}

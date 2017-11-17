@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
 @foreach ($tags as $tag)
-                        <a href="{{ route('tag', $tag->id) }}">{{ $tag->name }}</a>
+                        <a href="{{ route('tag.show', $tag->id) }}">{{ $tag->name }}</a>
 @endforeach
                     </div>
                 </div>

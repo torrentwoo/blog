@@ -34,13 +34,13 @@
 @foreach ($articles as $article)
                         <div class="media media-article">
                             <div class="media-left">
-                                <a href="{{ route('article', $article->id) }}">
+                                <a href="{{ route('article.show', $article->id) }}">
                                     <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->snapshot->thumbnail_url or $article->attachment->url }}" data-holder-rendered="true" />
                                 </a>
                             </div>
                             <div class="media-body">
                                 <h2 class="h4 media-heading media-title">
-                                    <a href="{{ route('article', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
+                                    <a href="{{ route('article.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
                                 </h2>
                                 <ul class="list-inline text-muted media-author">
                                     <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
@@ -57,14 +57,14 @@
                                 <p>{{ $article->description }}</p>
                                 <ul class="list-inline media-meta">
                                     <li>
-                                        <a class="text-muted" href="{{ route('article', $article->id) }}">
+                                        <a class="text-muted" href="{{ route('article.show', $article->id) }}">
                                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                             <span class="sr-only">浏览：</span>
                                             {{ $article->views }}
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="text-muted" href="{{ route('article', $article->id) . '#comments' }}">
+                                        <a class="text-muted" href="{{ route('article.show', $article->id) . '#comments' }}">
                                             <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                             <span class="sr-only">评论：</span>
                                             {{ $article->comments->count() }}

@@ -3,7 +3,7 @@
 @section('content')
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home') }}">首页</a></li>
-                    <li><a href="{{ route('column', $article->category->id) }}">{{ $article->category->name }}</a></li>
+                    <li><a href="{{ route('column.show', $article->category->id) }}">{{ $article->category->name }}</a></li>
                     <li class="active">{{ $article->title }}</li>
                 </ol>
                 <div class="row">
@@ -39,7 +39,7 @@
 @if (isset($article->tags) && !$article->tags->isEmpty())
                         <div id="tags">
 @foreach ($article->tags as $tag)
-                            <a href="{{ route('tag', $tag->id) }}" class="label label-default">{{ $tag->name }}</a>
+                            <a href="{{ route('tag.show', $tag->id) }}" class="label label-default">{{ $tag->name }}</a>
 @endforeach
                         </div>
 @endif
@@ -121,14 +121,14 @@
                             <ul class="pager">
                                 <li class="previous">
 @if (isset($prev))
-                                    <a href="{{ route('article', $prev->id) }}" title="{{ $prev->title }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> 上一篇</a>
+                                    <a href="{{ route('article.show', $prev->id) }}" title="{{ $prev->title }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> 上一篇</a>
 @else
                                     <button class="btn btn-default pull-left disabled"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> 上一篇</button>
 @endif
                                 </li>
                                 <li class="next">
 @if (isset($next))
-                                    <a href="{{ route('article', $next->id) }}" title="{{ $next->title }}">下一篇 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                                    <a href="{{ route('article.show', $next->id) }}" title="{{ $next->title }}">下一篇 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
 @else
                                     <button class="btn btn-default pull-right disabled">下一篇 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
 @endif
@@ -152,7 +152,7 @@
 @endforeach
                         </ul>
                         <p class="text-right">
-                            <a class="btn btn-info" href="{{ route('comments', $article->id) }}" role="button">查看更多评论</a>
+                            <a class="btn btn-info" href="{{ route('article.comments', $article->id) }}" role="button">查看更多评论</a>
                         </p>
                     </div>
 @endif
