@@ -27,7 +27,7 @@
 }
 
 
-.dropdown-menu .glyphicon, .follow-form .glyphicon, #article-express .glyphicon, #column-tabs .glyphicon {
+.dropdown-menu .glyphicon, .follow-form .glyphicon, #article-express .glyphicon, #inline-menu .glyphicon {
     margin-right:.5em;
 }
 .navbar-form .glyphicon-search {
@@ -104,25 +104,25 @@ a.text-muted:hover, a.text-muted:active {
 /*
  Column
  */
-#column-header, #column-tabs {
+#column-header, #inline-menu {
     margin:0 0 2em;
 }
-#column-tabs {
+#inline-menu {
     border-bottom-width:2px;
     font-weight:700;
 }
-    #column-tabs li {
+    #inline-menu li {
         margin-bottom:-2px;
     }
-    #column-tabs a {
+    #inline-menu a {
         border:none;
         color:#777;
     }
-    #column-tabs a:focus, #column-tabs a:hover, #column-tabs .active a {
+    #inline-menu a:focus, #inline-menu a:hover, #inline-menu .active a {
         background:none;
         border-bottom:2px solid #000;
     }
-    #column-tabs .active a {
+    #inline-menu .active a {
         color:#444;
     }
 
@@ -148,7 +148,7 @@ a.text-muted:hover, a.text-muted:active {
     padding-top:1em;
     padding-bottom:1em;
 }
-#article-author .btn {
+#article-brief .btn, #article-author .btn {
     margin-left:.5em;
 }
 #author-follow {

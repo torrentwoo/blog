@@ -4,7 +4,7 @@
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home') }}">首页</a></li>
                     <li><a href="{{ route('user.show', $user->id) }}">用户</a></li>
-                    <li class="active">我的文章</li>
+                    <li class="active">我的收藏</li>
                 </ol>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
@@ -14,10 +14,10 @@
                             <dd class="occurred">
                                 <small class="text-muted">
                                     <ul class="list-inline">
-                                        <li>创建于：{{ $article->created_at->format('Y-m-d H:i') }}</li>
+                                        <li>创建于：{{ $article->pivot->created_at->format('Y-m-d H:i') }}</li>
                                         <li>阅读：{{ $article->views }}</li>
                                         <li>评论：{{ $article->comments->count() }}</li>
-                                        <li>喜欢：{{ $article->favorites->count() }}</li>
+                                        <li>喜欢：{{ $article->favorites()->likes()->count() }}</li>
                                     </ul>
                                 </small>
                             </dd>

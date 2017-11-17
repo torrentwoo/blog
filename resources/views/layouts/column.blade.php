@@ -26,7 +26,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
-                        <ul class="nav nav-tabs" id="column-tabs">
+                        <ul class="nav nav-tabs" id="inline-menu">
                             <li role="presentation"><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>新近评论</a></li>
                             <li role="presentation" class="active"><a href="#"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>最新发表</a></li>
                             <li role="presentation"><a href="#"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>栏目热门</a></li>
