@@ -137,7 +137,7 @@
                         </nav>
                     </div>
 @if (isset($article->comments) && !$article->comments->isEmpty())
-                    <div class="col-xs-12">
+                    <div id="comments" class="col-xs-12">
                         <ul class="media-list">
 @foreach ($article->comments as $comment)
                             <li class="media">
