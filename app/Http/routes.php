@@ -47,11 +47,11 @@ Route::post('/auth/ajaxLogin', 'SessionsController@ajaxLogin')->name('ajaxLogin'
 Route::get('/auth/logout', 'SessionsController@destroy')->name('logout');
 
 // Categories routes
-Route::get('/columns', 'ColumnsController@index')->name('columns');
-Route::get('/columns/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->name('column');
+Route::get('/columns', 'ColumnsController@index')->name('column.index');
+Route::get('/columns/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->name('column.show');
 
 // Articles routes
-Route::get('/articles/{id}', 'ArticlesController@show')->where('id', '[a-z\d]+')->name('article');
+Route::get('/articles/{id}', 'ArticlesController@show')->where('id', '[a-z\d]+')->name('article.show');
 
 // Favorites routes
 Route::patch('/articles/{id}/like', 'FavoritesController@addLike')->name('favorite.addLike');
@@ -64,13 +64,13 @@ Route::post('/user/follow/{id}', 'FollowsController@store')->name('follow.add');
 Route::delete('/user/follow/{id}', 'FollowsController@destroy')->name('follow.remove');
 
 // Comments appended to article routes
-Route::get('/articles/{id}/comments', 'CommentsController@show')->name('comments');
-Route::post('/articles/{id}/comments', 'CommentsController@store')->name('comment');
+Route::get('/articles/{id}/comments', 'CommentsController@show')->name('article.comments');
+Route::post('/articles/{id}/comments', 'CommentsController@store')->name('article.comment');
 
 // Tag clouds routes
-Route::get('/tags', 'TagsController@index')->name('tags');
+Route::get('/tags', 'TagsController@index')->name('tag.index');
 // Tags routes
-Route::get('/tags/{id}', 'TagsController@show')->name('tag');
+Route::get('/tags/{id}', 'TagsController@show')->name('tag.show');
 
 
 //--------------------------------------/
