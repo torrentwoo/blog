@@ -81,7 +81,7 @@ class UsersController extends Controller
 
         session()->flash('success', '注册验证通知邮件已经发送到您的注册邮箱，请注意查收');
 
-        return view('layouts.activation')->with('user', $user);
+        return view('users.activation')->with('user', $user);
     }
 
     /**

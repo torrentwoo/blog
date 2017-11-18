@@ -62,7 +62,7 @@ class ColumnsController extends Controller
         })->visible()->orderBy('priority', 'desc')->get();
         $articles = Article::where('category_id', $id)->released()->with('attachment', 'snapshot')->paginate(15);
 
-        return view('layouts.column', [
+        return view('columns.show', [
             'column'    =>  $column,
             'columns'   =>  $columns,
             'articles'  =>  $articles,

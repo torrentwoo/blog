@@ -23,7 +23,7 @@ class TagsController extends Controller
             $query->released();
         })->get()->sortBy('name')->values();
 
-        return view('layouts.tagcloud')->with('tags', $tags);
+        return view('tags.index')->with('tags', $tags);
     }
 
     /**
@@ -72,7 +72,7 @@ class TagsController extends Controller
             return $item->articles->count();
         });
 
-        return view('layouts.tag', [
+        return view('tags.show', [
             'tag'       =>  $tag,
             'articles'  =>  $articles,
             'popular'   =>  $popular,

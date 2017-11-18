@@ -67,7 +67,7 @@ class ArticlesController extends Controller
         // Handle article browse event
         Event::fire(new ArticleBrowseEvent($article));
 
-        return view('layouts.article', [
+        return view('articles.show', [
             'article'   =>  $article,
             'prev'      =>  $previous,
             'next'      =>  $next,

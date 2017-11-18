@@ -99,7 +99,7 @@ class CommentsController extends Controller
             return $item->comments->count();
         })->take(8);
 
-        return view('layouts.comments', [
+        return view('comments.show', [
             'article'   =>  $article,
             'comments'  =>  $comments,
             'popular'   =>  $popular,
