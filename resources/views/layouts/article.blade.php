@@ -89,14 +89,14 @@
                                         {{ csrf_field() }}
                                         {{ method_field($article->isLiked() ? 'DELETE' : 'PATCH') }}
                                         <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-danger btn-sm btn-first" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleLikeForm">
-                                            <span class="glyphicon {{ $article->isLiked() ? 'glyphicon-heart' : 'glyphicon-heart-empty' }}" aria-hidden="true"></span>喜欢
+                                            <i class="glyphicon {{ $article->isLiked() ? 'glyphicon-heart' : 'glyphicon-heart-empty' }}" aria-hidden="true"></i>喜欢
                                         </button>
                                     </form>
                                     <form method="POST" action="{{ $article->isFavorite() ? route('favorite.revokeMark', $article->id) : route('favorite.addMark', $article->id) }}" id="articleFavoriteForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
                                         {{ method_field($article->isFavorite() ? 'DELETE' : 'PATCH') }}
                                         <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-warning btn-sm btn-last" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleFavoriteForm">
-                                            <span class="glyphicon {{ $article->isFavorite() ? 'glyphicon-star' : 'glyphicon-star-empty' }}" aria-hidden="true"></span>收藏
+                                            <i class="glyphicon {{ $article->isFavorite() ? 'glyphicon-star' : 'glyphicon-star-empty' }}" aria-hidden="true"></i>收藏
                                         </button>
                                     </form>
                                 </div>
@@ -121,16 +121,16 @@
                             <ul class="pager">
                                 <li class="previous">
 @if (isset($prev))
-                                    <a href="{{ route('article.show', $prev->id) }}" title="{{ $prev->title }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> 上一篇</a>
+                                    <a href="{{ route('article.show', $prev->id) }}" title="{{ $prev->title }}"><i class="glyphicon glyphicon-menu-left" aria-hidden="true"></i>上一篇</a>
 @else
-                                    <button class="btn btn-default pull-left disabled"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> 上一篇</button>
+                                    <button class="btn btn-default pull-left disabled"><i class="glyphicon glyphicon-menu-left" aria-hidden="true"></i>上一篇</button>
 @endif
                                 </li>
                                 <li class="next">
 @if (isset($next))
-                                    <a href="{{ route('article.show', $next->id) }}" title="{{ $next->title }}">下一篇 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                                    <a href="{{ route('article.show', $next->id) }}" title="{{ $next->title }}">下一篇<span class="glyphicon glyphicon-menu-right offset-right" aria-hidden="true"></span></a>
 @else
-                                    <button class="btn btn-default pull-right disabled">下一篇 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
+                                    <button class="btn btn-default pull-right disabled">下一篇<span class="glyphicon glyphicon-menu-right offset-right" aria-hidden="true"></span></button>
 @endif
                                 </li>
                             </ul>
