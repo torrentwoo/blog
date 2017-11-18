@@ -18,7 +18,13 @@ class ColumnsController extends Controller
      */
     public function index()
     {
-        //
+        $popular = Category::whereHas('articles', function($query) {
+            $query->released();
+        })->visible()->orderBy('priority', 'desc')->get();
+
+        return view('columns.index', [
+            'columns'   =>  $popular,
+        ]);
     }
 
     /**
