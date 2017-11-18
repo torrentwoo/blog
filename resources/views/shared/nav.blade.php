@@ -24,7 +24,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navUserDropdownMenu">
-                            <li><a href="{{ route('user.show', Auth::user()->id) }}"><i class="glyphicon glyphicon-user" aria-hidden="true"></i>个人资料</a></li>
+                            <li><a href="{{ route('user.show', Auth::user()->id) }}"><i class="glyphicon glyphicon-user" aria-hidden="true"></i>我的主页</a></li>
                             <li><a href="{{ route('user.edit', Auth::user()->id) }}"><i class="glyphicon glyphicon-cog" aria-hidden="true"></i>账户设置</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ route('user.articles',  Auth::user()->id) }}"><i class="glyphicon glyphicon-file" aria-hidden="true"></i>我的文章</a></li>

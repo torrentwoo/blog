@@ -1,104 +1,131 @@
-@extends('shared.singleton')
+@extends('shared.origin')
 
 @section('content')
-            <div id="user-avatar" class="col-xs-4 col-sm-3 col-sm-offset-1">
-                <img class="img-rounded img-responsive" src="{{ $user->gravatar(224) }}" alt="{{ $user->name }}" />
-            </div>
-            <div id="user-statistics" class="col-xs-8 col-sm-7">
-                <h1>{{ $user->name }}
-@if (!Auth::check() || (Auth::check() && Auth::user()->id !== $user->id))
-                    <small>
-                        <form method="POST" action="{{ $user->hasFan(Auth::user()) ? route('follow.remove', $user->id) : route('follow.add', $user->id) }}" id="userFollowForm" class="follow-form">
-                            {{ csrf_field() }}
-@if ($user->hasFan(Auth::user()))
-                            {{ method_field('DELETE') }}
-@endif
-                            <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-xs" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#userFollowForm">
-                                <i class="glyphicon {{ $user->hasFan(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>{{ $user->hasFan(Auth::user()) ? '取消关注' : '关注' }}
-                            </button>
-                        </form>
-                    </small>
-@endif
-                </h1>
                 <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-3">
-                        <span class="count">{{ $user->followings->count() }}</span>
-                        <span class="text-muted">关注</span>
+                    <div class="col-xs-12">
+                        <div class="media" id="user-meta">
+                            <div class="media-left" id="user-avatar">
+                                <a href="{{ route('user.show', $user->id) }}">
+                                    <img class="img-rounded" src="{{ $user->gravatar(80) }}" alt="{{ $user->name }}" />
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h1 id="user-name">{{ $user->name }}</h1>
+                                <div class="row" id="user-counts">
+                                    <div class="col-xs-6 col-sm-3">
+                                        <span class="count block-landscape">{{ $user->followings->count() }}</span>
+                                        <span class="text-muted">关注</span>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3">
+                                        <span class="count block-landscape">{{ $user->followers->count() }}</span>
+                                        <span class="text-muted">粉丝</span>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3">
+                                        <span class="count block-landscape">{{ $user->articles->count() }}</span>
+                                        <span class="text-muted">文章</span>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3">
+                                        <span class="count block-landscape">{{ $user->favorites()->where('type', 'like')->get()->count() }}</span>
+                                        <span class="text-muted">喜欢</span>
+                                    </div>
+                                </div>
+                            </div>
+@if (!Auth::check() || (Auth::check() && Auth::user()->id !== $user->id))
+                            <div class="media-right nowrap-landscape" id="user-buttons">
+                                <button type="button" class="btn btn-info btn-xs">发消息</button>
+                                <form method="POST" action="{{ $user->hasFan(Auth::user()) ? route('follow.remove', $user->id) : route('follow.add', $user->id) }}" id="userFollowForm" class="follow-form">
+                                    {{ csrf_field() }}
+@if ($user->hasFan(Auth::user()))
+                                    {{ method_field('DELETE') }}
+@endif
+                                    <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-xs" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#userFollowForm">
+                                        <i class="glyphicon {{ $user->hasFan(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>{{ $user->hasFan(Auth::user()) ? '取消关注' : '关注' }}
+                                    </button>
+                                </form>
+                            </div>
+@endif
+                        </div>
                     </div>
-                    <div class="col-xs-6 col-sm-6 col-md-3">
-                        <span class="count">{{ $user->followers->count() }}</span>
-                        <span class="text-muted">粉丝</span>
+                    <div class="col-xs-12">
+                        <ul class="nav nav-tabs" id="inline-menu">
+                            <li role="presentation" class="active"><a href="#"><i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i><span class="hidden-xs">个人</span>动态</a></li>
+                            <li role="presentation"><a href="#"><i class="glyphicon glyphicon-fire" aria-hidden="true"></i>热门<span class="hidden-xs">内容</span></a></li>
+                        </ul>
                     </div>
-                    <div class="col-xs-6 col-sm-6 col-md-3">
-                        <span class="count">{{ $user->articles->count() }}</span>
-                        <span class="text-muted">文章</span>
+                    <div id="user-moments" class="col-xs-12">
+                        <dl class="well my-moment">
+                            <dt>Title.....</dt>
+                            <dd class="occurred"><small>2017-11-11 12AM</small></dd>
+                            <dd>hello world, hello world....</dd>
+                        </dl>
+                        <dl class="well my-moment">
+                            <dt>Title.....</dt>
+                            <dd class="occurred"><small>2017-11-11 12AM</small></dd>
+                            <dd>hello world, hello world....</dd>
+                        </dl>
+                        <dl class="well my-moment">
+                            <dt>Title.....</dt>
+                            <dd class="occurred"><small>2017-11-11 12AM</small></dd>
+                            <dd>hello world, hello world....</dd>
+                        </dl>
                     </div>
-                    <div class="col-xs-6 col-sm-6 col-md-3">
-                        <span class="count">{{ $user->favorites()->where('type', 'like')->get()->count() }}</span>
-                        <span class="text-muted">喜欢</span>
-                    </div>
+                    <nav class="col-xs-12 text-center" aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="disabled">
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-            </div>
-            <div id="user-brief" class="col-xs-12 col-sm-7">
-                <p>
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                    <span class="sr-only">所在城市：</span>
-                    <span>Planet Earth</span>
-                </p>
-                <p>
-                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                    <span class="sr-only">注册日期：</span>
-                    <span>{{ $user->created_at->format('Y-m-d') }} 入驻</span>
-                </p>
-                <p>
-                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                    <span class="sr-only">个人链接：</span>
-                    <span>
-                        <a class="label label-danger" href="#">微博</a>
-                        <a class="label label-success" href="javascript:void(0);">微信</a>
-                    </span>
-                </p>
-            </div>
-            <!-- 用户动态展示 -->
-            <div id="user-moments" class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <dl class="well my-moment">
-                    <dt>Title.....</dt>
-                    <dd class="occurred"><small>2017-11-11 12AM</small></dd>
-                    <dd>hello world, hello world....</dd>
-                </dl>
-                <dl class="well my-moment">
-                    <dt>Title.....</dt>
-                    <dd class="occurred"><small>2017-11-11 12AM</small></dd>
-                    <dd>hello world, hello world....</dd>
-                </dl>
-                <dl class="well my-moment">
-                    <dt>Title.....</dt>
-                    <dd class="occurred"><small>2017-11-11 12AM</small></dd>
-                    <dd>hello world, hello world....</dd>
-                </dl>
-            </div>
-            <nav class="col-xs-12 col-sm-10 col-sm-offset-1 text-center" aria-label="Page navigation">
-                <ul class="pagination">
-                    <li class="disabled">
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
+@unless (Auth::check())
+                @include('features.modal-login')
+@endunless
+@stop
+
+@section('sidebar')
+                <ul class="list-unstyled" id="user-brief">
                     <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
+                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                        <span class="sr-only">所在城市：</span>
+                        <span>{{ $user->location or 'Planet Earth, Anyway' }}</span>
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                        <span class="sr-only">注册日期：</span>
+                        <span>{{ $user->created_at->format('Y-m-d') }} 入驻</span>
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                        <span class="sr-only">个人链接：</span>
+                        <span>
+                            <a class="label label-danger" href="#">微博</a>
+                            <a class="label label-success" href="javascript:void(0);">微信</a>
+                            <a class="label label-info" href="#">QQ</a>
+                        </span>
                     </li>
                 </ul>
-            </nav>
-@unless (Auth::check())
-            @include('features.modal-login')
-@endunless
+                <hr />
+                <dl id="user-introduction">
+                    <dt class="text-muted">个人简介</dt>
+                    <dd>{{ $user->introduction or '还没有填写“个人简介”...' }}</dd>
+                </dl>
+                <hr />
+                <dl id="user-extensions">
+                    <dt class="text-muted">专题栏目</dt>
+                    <dd>暂无，<a href="#" class="text-info">去创建一个</a></dd>
+                </dl>
 @stop
 
 @section('scripts')

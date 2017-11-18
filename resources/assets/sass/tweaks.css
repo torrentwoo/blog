@@ -24,9 +24,14 @@
         display:none;
     }
 }
-@media only screen and (max-width: 640px) and (orientation: landscape) {
-    .hidden-landscape {
-        display:none;
+@media only screen and (min-width: 480px) and (orientation: landscape) {
+    .nowrap-landscape {
+        white-space:nowrap;
+    }
+}
+@media only screen and (min-width: 768px) and (orientation: landscape) {
+    .block-landscape {
+        display:block;
     }
 }
 .pager li > a, .pager li > span {
@@ -220,30 +225,36 @@ a.text-muted:hover, a.text-muted:active {
 /*
  User home
  */
-#user-avatar a {
-    /*display:inline-block;
-    width:auto;*/
+#user-meta {
+    margin-bottom:2em;
 }
-#user-statistics h1 {
-    margin-top:10px;
-}
-#user-statistics .row div {
-    margin-bottom:6px;
-}
-#user-statistics .count {
-    display:block;
-}
-#user-brief {
-    margin-top:10px;
-}
-    #user-brief .label {
-        font-weight:600;
-        vertical-align:middle;
-        cursor:pointer;
+    #user-avatar a {
+        display:inline-block;
+        width:auto;
     }
+    #user-name {
+        margin:.25em 0 .5em;
+        font-weight:700;
+        font-size:20px;
+    }
+    @media only screen and (max-width: 320px) {
+        #user-counts span:last-child {
+            font-size: 12px;
+        }
+    }
+    #user-meta .media-right {
+        vertical-align:middle;
+    }
+    #user-buttons .btn {
+        margin:.25em;
+    }
+#user-brief .label {
+    font-weight:600;
+    vertical-align:middle;
+    cursor:pointer;
+}
 #user-moments {
-    padding-top:2em;
-    padding-bottom:1em;
+    margin-top:1em;
 }
 .my-moment {
     position:relative;
