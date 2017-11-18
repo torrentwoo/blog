@@ -265,7 +265,7 @@ a.text-muted:hover, a.text-muted:active {
   #user-counts span:last-child {
     font-size: 12px; } }
 
-#user-meta .media-right {
+#user-buttons {
   vertical-align: middle; }
 
 #user-buttons .btn {

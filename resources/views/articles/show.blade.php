@@ -21,7 +21,7 @@
                                             {{ method_field('DELETE') }}
 @endif
                                             <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-xs" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#authorFollowForm">
-                                                <i class="glyphicon {{ $article->author->hasFan(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>{{ $article->author->hasFan(Auth::user()) ? '取消关注' : '关注作者' }}
+                                                <i class="glyphicon {{ $article->author->hasFan(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>关注
                                             </button>
                                         </form>
                                     </small>
@@ -62,7 +62,7 @@
                                                         {{ method_field('DELETE') }}
 @endif
                                                         <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-xs" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#authorBriefFollowForm">
-                                                            <i class="glyphicon {{ $article->author->hasFan(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>{{ $article->author->hasFan(Auth::user()) ? '取消关注' : '关注作者' }}
+                                                            <i class="glyphicon {{ $article->author->hasFan(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>关注
                                                         </button>
                                                     </form>
                                                 </small>

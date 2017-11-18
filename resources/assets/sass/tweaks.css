@@ -242,7 +242,7 @@ a.text-muted:hover, a.text-muted:active {
             font-size: 12px;
         }
     }
-    #user-meta .media-right {
+    #user-buttons {
         vertical-align:middle;
     }
     #user-buttons .btn {

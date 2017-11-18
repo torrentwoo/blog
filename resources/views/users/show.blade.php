@@ -39,7 +39,7 @@
                                     {{ method_field('DELETE') }}
 @endif
                                     <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-xs" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#userFollowForm">
-                                        <i class="glyphicon {{ $user->hasFan(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>{{ $user->hasFan(Auth::user()) ? '取消关注' : '关注' }}
+                                        <i class="glyphicon {{ $user->hasFan(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>关注
                                     </button>
                                 </form>
                             </div>
