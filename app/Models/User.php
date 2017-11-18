@@ -38,7 +38,11 @@ class User extends Model implements AuthenticatableContract,
         'name',
         'email',
         'password',
+        'gender',
+        'location',
         'nickname',
+        'avatar',
+        'introduction',
         'last_login_at', // datetime
         'last_login_ip',
     ];
