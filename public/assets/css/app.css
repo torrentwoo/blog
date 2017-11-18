@@ -64,6 +64,14 @@ footer {
   #nav-search .input-group {
     min-width: 230px; } }
 
+@media only screen and (max-width: 640px) and (orientation: portrait) {
+  .hidden-portrait {
+    display: none; } }
+
+@media only screen and (max-width: 640px) and (orientation: landscape) {
+  .hidden-landscape {
+    display: none; } }
+
 .pager li > a, .pager li > span {
   padding: 6px 12px;
   border-radius: 4px; }

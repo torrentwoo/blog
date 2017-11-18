@@ -27,13 +27,13 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
                         <ul class="nav nav-tabs" id="inline-menu">
-                            <li role="presentation"><a href="#"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i>新近评论</a></li>
-                            <li role="presentation" class="active"><a href="#"><i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i>最新发表</a></li>
-                            <li role="presentation"><a href="#"><i class="glyphicon glyphicon-fire" aria-hidden="true"></i>栏目热门</a></li>
+                            <li role="presentation"><a href="#"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i>热评<span class="hidden-xs">文章</span></a></li>
+                            <li role="presentation" class="active"><a href="#"><i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i>最新<span class="hidden-xs">发表</span></a></li>
+                            <li role="presentation"><a href="#"><i class="glyphicon glyphicon-fire" aria-hidden="true"></i><span class="hidden-xs">栏目</span>热门</a></li>
                         </ul>
 @foreach ($articles as $article)
                         <div class="media media-article">
-                            <div class="media-left">
+                            <div class="media-left hidden-portrait">
                                 <a href="{{ route('article.show', $article->id) }}">
                                     <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->snapshot->thumbnail_url or $article->attachment->url }}" data-holder-rendered="true" />
                                 </a>

@@ -67,7 +67,7 @@
                     </div>
 @forelse ($articles as $article)
                     <div class="col-xs-12 col-lg-12 media media-article">
-                        <div class="media-left">
+                        <div class="media-left hidden-portrait">
                             <a href="{{ route('article.show', $article->id) }}">
                                 <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->snapshot->thumbnail_url or $article->attachment->url }}" data-holder-rendered="true" />
                             </a>
