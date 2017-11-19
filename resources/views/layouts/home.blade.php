@@ -67,11 +67,13 @@
                     </div>
 @forelse ($articles as $article)
                     <div class="col-xs-12 col-lg-12 media media-article">
+@if (!$article->thumbnail->isEmpty())
                         <div class="media-left hidden-portrait">
                             <a href="{{ route('article.show', $article->id) }}">
-                                <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->snapshot->thumbnail_url or $article->attachment->url }}" data-holder-rendered="true" />
+                                <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->thumbnail->first()->url }}" data-holder-rendered="true" />
                             </a>
                         </div>
+@endif
                         <div class="media-body">
                             <h4 class="media-heading media-title">
                                 <a href="{{ route('article.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>

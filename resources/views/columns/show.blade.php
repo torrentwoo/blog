@@ -31,11 +31,13 @@
                         </ul>
 @foreach ($articles as $article)
                         <div class="media media-article">
+@if (!$article->thumbnail->isEmpty())
                             <div class="media-left hidden-portrait">
                                 <a href="{{ route('article.show', $article->id) }}">
-                                    <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->snapshot->thumbnail_url or $article->attachment->url }}" data-holder-rendered="true" />
+                                    <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->thumbnail->first()->url }}" data-holder-rendered="true" />
                                 </a>
                             </div>
+@endif
                             <div class="media-body">
                                 <h2 class="h4 media-heading media-title">
                                     <a href="{{ route('article.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
