@@ -146,6 +146,50 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
+     * 获取用户的粉丝列表
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function fans()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'followable_id')
+                    ->where('followable_type', '=', __CLASS__);
+    }
+
+    /**
+     * 判断用户是否有这个指定的粉丝
+     *
+     * @param $user
+     * @return boolean
+     */
+    public function hasFan($user)
+    {
+        return $this->fans->contains($user);
+    }
+
+    /**
+     * 获取用户的关注列表（关注了哪些人）
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followable_id', 'user_id')
+                    ->where('followable_type', '=', __CLASS__);
+    }
+
+    /**
+     * 判断用户是否关注了某个指定的用户
+     *
+     * @param $user
+     * @return boolean
+     */
+    public function isFollowing($user)
+    {
+        return $this->followings->contains($user);
+    }
+
+    /**
      * 定义用户与喜欢之间的一对多关联
      * 获取某一个用户喜欢着的所有内容
      *
