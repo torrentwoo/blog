@@ -160,6 +160,18 @@ class Article extends Model
     }
 
     /**
+     * 判断文章是否已被当前登录的用户所收藏
+     *
+     * @return bool
+     */
+    public function isFavorite()
+    {
+        return (boolean) $this->favorites()->with('user')->get()->pluck('user')->contains(
+            Auth::check() ? Auth::user() : 0
+        );
+    }
+
+    /**
      * 获取文章的喜欢
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
@@ -167,5 +179,17 @@ class Article extends Model
     public function likes()
     {
         return $this->morphMany(Like::class, 'likable');
+    }
+
+    /**
+     * 判断文章是否已被当前登录的用户所喜欢
+     *
+     * @return bool
+     */
+    public function isLiked()
+    {
+        return (boolean) $this->likes()->with('user')->get()->pluck('user')->contains(
+            Auth::check() ? Auth::user() : 0
+        );
     }
 }
