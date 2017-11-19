@@ -46,12 +46,32 @@ class Comment extends Model
     }
 
     /**
-     * 获取评论地下的子评论
+     * 获取评论的子集评论（可嵌套）
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany|\Illuminate\Database\Eloquent\Builder
      */
     public function comments()
     {
         return $this->morphMany(self::class, 'commentable')->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * 获取评论的赞或踩
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function votes()
+    {
+        return $this->morphMany(Vote::class, 'votable');
+    }
+
+    /**
+     * 获取评论的收藏
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function favorites()
+    {
+        return $this->morphMany(Favorite::class, 'favorable');
     }
 }

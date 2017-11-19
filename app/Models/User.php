@@ -113,59 +113,46 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
-     * 定义用户与收藏之间的多对多关联
-     * 获取某一个用户收藏过的所有文章
+     * 定义用户与赞踩之间的一对多关联
+     * 获取某一个用户赞踩过的所有内容
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function votes()
+    {
+        return $this->hasMany(Vote::class, 'user_id')->with('votable');
+    }
+
+    /**
+     * 定义用户与收藏之间的一对多关联
+     * 获取某一个用户收藏过的所有内容
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function favorites()
     {
-        return $this->belongsToMany(Article::class, 'favorites', 'user_id', 'article_id')
-                    ->withPivot('type')
-                    ->withTimestamps();
+        return $this->hasMany(Favorite::class, 'user_id')->with('favorable');
     }
 
     /**
-     * 获取用户的粉丝列表（被哪些人关注）
+     * 定义用户与关注之间的一对多关联
+     * 获取某一个用户关注了的所有内容
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function followers()
+    public function follows()
     {
-        return $this->belongsToMany(User::class, 'follows', 'user_id', 'fans_id')
-                    ->withTimestamps();
+        return $this->hasMany(Follow::class, 'user_id')->with('followable');
     }
 
     /**
-     * 获取用户的关注列表（关注了哪些人）
+     * 定义用户与喜欢之间的一对多关联
+     * 获取某一个用户喜欢着的所有内容
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function followings()
+    public function likes()
     {
-        return $this->belongsToMany(User::class, 'follows', 'fans_id', 'user_id')
-                    ->withTimestamps();
-    }
-
-    /**
-     * 判断当前用户是否关注了某个指定的用户
-     *
-     * @param $user
-     * @return boolean
-     */
-    public function isFollowing($user)
-    {
-        return $this->followings->contains($user);
-    }
-
-    /**
-     * 判断某个指定的用户是否在一个（模型所指的）用户的粉丝列表内
-     *
-     * @param $user
-     * @return boolean
-     */
-    public function hasFan($user)
-    {
-        return $this->followers->contains($user);
+        return $this->hasMany(Like::class, 'user_id')->with('likable');
     }
 }

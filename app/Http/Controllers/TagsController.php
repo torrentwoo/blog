@@ -60,7 +60,7 @@ class TagsController extends Controller
             $query->released();
         })->where('id', '=', $id)->firstOrFail();
         // Pagination of the articles those applied this tag
-        $articles = Article::with('thumbnail')->whereHas('tags', function($query) use ($id) {
+        $articles = Article::with('thumbnails')->whereHas('tags', function($query) use ($id) {
             $query->where('tags.id', '=', $id);
         })->released()->paginate();
         // Other popular tags

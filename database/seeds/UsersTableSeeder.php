@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
         // 以容器方式调用 Faker\Generator
         $faker = app(Faker\Generator::class);
         // 生成10个测试用户数据
-        $users = factory(App\Models\User::class)->times(10)->make()->each(function($user) use ($faker) {
+        $users = factory(App\Models\User::class)->times(20)->make()->each(function($user) use ($faker) {
             $user->activated = $faker->randomElement([false, true]);
         })->toArray();
         App\Models\User::insert($users);

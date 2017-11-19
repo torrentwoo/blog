@@ -19,9 +19,9 @@ class FavoritesTableSeeder extends Seeder
         $articlesIdArr = App\Models\Article::released()->lists('id')->toArray();
         // 生成 100 个测试的收藏数据
         $favorites = factory(App\Models\Favorite::class)->times(100)->make()->each(function($ele) use ($faker, $usersIdArr, $articlesIdArr) {
-            $ele->type = $faker->randomElement(['like', 'mark']);
             $ele->user_id = $faker->randomElement($usersIdArr);
-            $ele->article_id = $faker->randomElement($articlesIdArr);
+            $ele->favorable_id = $faker->randomElement($articlesIdArr);
+            $ele->favorable_type = 'App\Models\Article';
         })->toArray();
         App\Models\Favorite::insert($favorites);
     }

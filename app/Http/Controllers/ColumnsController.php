@@ -60,7 +60,7 @@ class ColumnsController extends Controller
         $columns  = Category::whereHas('articles', function($query) {
             $query->where('approval', '<>', 0);
         })->visible()->orderBy('priority', 'desc')->get();
-        $articles = Article::where('category_id', $id)->released()->with('thumbnail')->paginate(15);
+        $articles = Article::where('category_id', $id)->released()->with('thumbnails')->paginate(15);
 
         return view('columns.show', [
             'column'    =>  $column,

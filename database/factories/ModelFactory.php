@@ -81,7 +81,14 @@ $factory->define(App\Models\Tag::class, function(Faker\Generator $faker) {
 // Testing data for favorites
 $factory->define(App\Models\Favorite::class, function(Faker\Generator $faker) {
     return [
-        'type'          =>  $faker->randomElement(['like', 'mark']),
+        'created_at'    =>  $faker->dateTime,
+        'updated_at'    =>  $faker->dateTime,
+    ];
+});
+
+// Testing data for follows
+$factory->define(App\Models\Follow::class, function(Faker\Generator $faker) {
+    return [
         'created_at'    =>  $faker->dateTime,
         'updated_at'    =>  $faker->dateTime,
     ];

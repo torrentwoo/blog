@@ -144,7 +144,7 @@ class Article extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function thumbnail()
+    public function thumbnails()
     {
         return $this->morphMany(Snapshot::class, 'snapshotable');
     }
@@ -157,5 +157,15 @@ class Article extends Model
     public function favorites()
     {
         return $this->morphMany(Favorite::class, 'favorable');
+    }
+
+    /**
+     * 获取文章的喜欢
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likable');
     }
 }

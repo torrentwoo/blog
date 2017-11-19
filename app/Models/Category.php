@@ -115,4 +115,14 @@ class Category extends Model
     {
         return $this->hasMany(Article::class, 'category_id');
     }
+
+    /**
+     * 获取栏目分类的关注
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function follows()
+    {
+        return $this->morphMany(Follow::class, 'followable');
+    }
 }
