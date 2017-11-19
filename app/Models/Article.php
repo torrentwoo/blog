@@ -109,14 +109,14 @@ class Article extends Model
     }
 
     /**
-     * 定义文章与文章评论之间的一对多关联
-     * 获取该篇文章下的所有评论
+     * 定义文章与评论之间的关系
+     * 获取所有文章的评论
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'article_id');
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     /**

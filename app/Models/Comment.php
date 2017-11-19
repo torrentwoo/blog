@@ -7,15 +7,32 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     /**
+     * 模型使用的数据库表名称
+     *
+     * @var string
+     */
+    protected $table = 'comments';
+
+    /**
      * 可予批量赋值的数据表字段名称
      *
      * @var array
      */
     protected $fillable = [
         'user_id',    // 用户的 ID 标识符
-        'article_id', // 文章的 ID 标识符
+        'parent_id', // 父级评论的 ID 标识符
         'content',    // 评论的内容
     ];
+
+    /**
+     * 获取所有拥有 commentable 的模型
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function commentable()
+    {
+        return $this->morphTo();
+    }
 
     /**
      * 定义用户与用户评论之间相对的一对多关联
@@ -29,13 +46,12 @@ class Comment extends Model
     }
 
     /**
-     * 定义文章与文章评论之间相对的一对多关联
-     * 获取拥有此评论的文章
+     * 获取评论地下的子评论
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany|\Illuminate\Database\Eloquent\Builder
      */
-    public function article()
+    public function comments()
     {
-        return $this->belongsTo(Article::class, 'article_id');
+        return $this->morphMany(self::class, 'commentable')->orderBy('created_at', 'desc');
     }
 }

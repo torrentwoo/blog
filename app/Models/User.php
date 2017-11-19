@@ -103,13 +103,13 @@ class User extends Model implements AuthenticatableContract,
 
     /**
      * 定义用户与评论之间的一对多关联
-     * 获取某一个用户发表过的所有评论
+     * 获取某一个用户发表过的所有评论（包含评论的具体内容）
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'user_id');
+        return $this->hasMany(Comment::class, 'user_id')->with('commentable');
     }
 
     /**
