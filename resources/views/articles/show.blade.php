@@ -86,14 +86,14 @@
                             <div id="article-express" class="col-xs-6 col-md-6">
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
                                 <div class="btn-toolbar" role="toolbar">
-                                    <form method="POST" action="{{ $article->isLiked() ? route('favorite.revokeLike', $article->id) : route('favorite.addLike', $article->id) }}" id="articleLikeForm" class="btn-group" role="group">
+                                    <form method="POST" action="{{ $article->isLiked() ? route('like.revoke', $article->id) : route('like.add', $article->id) }}" id="articleLikeForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
                                         {{ method_field($article->isLiked() ? 'DELETE' : 'PATCH') }}
                                         <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-danger btn-sm btn-first" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleLikeForm">
                                             <i class="glyphicon {{ $article->isLiked() ? 'glyphicon-heart' : 'glyphicon-heart-empty' }}" aria-hidden="true"></i>喜欢
                                         </button>
                                     </form>
-                                    <form method="POST" action="{{ $article->isFavorite() ? route('favorite.revokeMark', $article->id) : route('favorite.addMark', $article->id) }}" id="articleFavoriteForm" class="btn-group" role="group">
+                                    <form method="POST" action="{{ $article->isFavorite() ? route('favorite.revoke', $article->id) : route('favorite.add', $article->id) }}" id="articleFavoriteForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
                                         {{ method_field($article->isFavorite() ? 'DELETE' : 'PATCH') }}
                                         <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-warning btn-sm btn-last" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleFavoriteForm">
