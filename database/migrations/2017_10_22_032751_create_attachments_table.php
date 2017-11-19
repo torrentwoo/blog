@@ -22,7 +22,7 @@ class CreateAttachmentsTable extends Migration
             $table->string('name', 64)->nullable(); // 附件的名称
             $table->string('type', 32)->default('unknown'); // 附件的类型，诸如：audio, picture, video
             // 扩展属性
-            $table->timestamp();
+            $table->timestamps();
         });
     }
 

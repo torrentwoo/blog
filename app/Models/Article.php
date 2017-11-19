@@ -140,27 +140,13 @@ class Article extends Model
     }
 
     /**
-     * 定义文章与文章引用的缩略图之间的一对多关联
-     * 获取该篇文章下的所有缩略图
+     * 获取文章的缩略图
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function thumbnails()
+    public function thumbnail()
     {
-        return $this->hasMany(Thumbnail::class, 'article_id');
-    }
-
-    /**
-     * 定义文章与文章缩略图之间的一对一关联
-     * 获取该篇文章（对应指定路由名称）的一个缩略图
-     *
-     * @return mixed \Illuminate\Database\Eloquent\Builder
-     */
-    public function snapshot()
-    {
-        return $this->hasOne(Thumbnail::class, 'article_id')
-                    ->where('thumbnail_loc', '=', \Illuminate\Support\Facades\Route::currentRouteName())
-                    ->orderBy('id');
+        return $this->morphMany(Snapshot::class, 'snapshotable');
     }
 
     /**

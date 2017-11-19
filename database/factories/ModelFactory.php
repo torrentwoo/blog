@@ -51,6 +51,14 @@ $factory->define(App\Models\Article::class, function(Faker\Generator $faker) {
 });
 
 // Testing data for snapshots
+$factory->define(App\Models\Snapshot::class, function(Faker\Generator $faker) {
+    return [
+        'loc'           =>  null,
+        'url'           =>  $faker->imageUrl(150, 150),
+        'created_at'    =>  $faker->dateTime,
+        'updated_at'    =>  $faker->dateTime,
+    ];
+});
 
 // Testing data for comments
 $factory->define(App\Models\Comment::class, function(Faker\Generator $faker) {
