@@ -27,7 +27,7 @@
                             </a>
                             <p class="follow"><a class="btn btn-success btn-sm" role="button"><i class="glyphicon glyphicon-plus"></i>关注</a></p>
                             <hr />
-                            <p class="count"><a href="{{ route('column.show', $column->id) }}" class="a">{{ $column->articles->count() }}篇文章</a><i class="divider">&middot;</i>xxx人关注</p>
+                            <p class="count"><a href="{{ route('column.show', $column->id) }}" class="a">{{ $column->articles()->released()->count() }}篇文章</a><i class="divider">&middot;</i>xxx人关注</p>
                         </div>
                     </div>
 @empty
