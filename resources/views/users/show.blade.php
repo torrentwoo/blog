@@ -17,7 +17,7 @@
                                         <span class="text-muted">关注</span>
                                     </div>
                                     <div class="col-xs-6 col-sm-3">
-                                        <span class="count block-landscape">{{ $user->followers->count() }}</span>
+                                        <span class="count block-landscape">{{ $user->fans->count() }}</span>
                                         <span class="text-muted">粉丝</span>
                                     </div>
                                     <div class="col-xs-6 col-sm-3">
@@ -25,7 +25,7 @@
                                         <span class="text-muted">文章</span>
                                     </div>
                                     <div class="col-xs-6 col-sm-3">
-                                        <span class="count block-landscape">{{ $user->favorites()->where('type', 'like')->get()->count() }}</span>
+                                        <span class="count block-landscape">{{ $user->likes->count() }}</span>
                                         <span class="text-muted">喜欢</span>
                                     </div>
                                 </div>

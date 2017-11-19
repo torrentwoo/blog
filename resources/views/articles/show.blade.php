@@ -69,7 +69,7 @@
                                                 </small>
 @endif
                                             </h2>
-                                            <p class="text-muted">发表文章：{{ $article->author->articles()->released()->count() }} 篇，被 {{ $article->author->followers()->count() }} 人关注，收获 xx 个喜欢</p>
+                                            <p class="text-muted">发表文章：{{ $article->author->articles()->released()->count() }} 篇，被 {{ $article->author->fans()->count() }} 人关注，收获 xx 个喜欢</p>
                                         </div>
                                     </li>
                                 </ul>

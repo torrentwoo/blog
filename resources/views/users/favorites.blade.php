@@ -10,14 +10,14 @@
                     <div class="col-xs-12 col-sm-12">
 @forelse ($favorites as $article)
                         <dl class="well my-moment">
-                            <dt><a href="{{ route('article.show', $article->id) }}" target="_blank">{{ $article->title }}</a></dt>
+                            <dt><a href="{{ route('article.show', $article->favorable->id) }}" target="_blank">{{ $article->favorable->title }}</a></dt>
                             <dd class="occurred">
                                 <small class="text-muted">
                                     <ul class="list-inline">
-                                        <li>创建于：{{ $article->pivot->created_at->format('Y-m-d H:i') }}</li>
-                                        <li>阅读：{{ $article->views }}</li>
-                                        <li>评论：{{ $article->comments->count() }}</li>
-                                        <li>喜欢：{{ $article->favorites()->likes()->count() }}</li>
+                                        <li>创建于：@</li>
+                                        <li>阅读：@</li>
+                                        <li>评论：@</li>
+                                        <li>喜欢：@</li>
                                     </ul>
                                 </small>
                             </dd>
