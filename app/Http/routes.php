@@ -54,10 +54,10 @@ Route::get('/columns/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->
 Route::get('/articles/{id}', 'ArticlesController@show')->where('id', '[a-z\d]+')->name('article.show');
 
 // Favorites routes
-Route::patch('/articles/{id}/like', 'FavoritesController@addLike')->name('favorite.addLike');
-Route::delete('/articles/{id}/like', 'FavoritesController@revokeLike')->name('favorite.revokeLike');
-Route::patch('/articles/{id}/mark', 'FavoritesController@addMark')->name('favorite.addMark');
-Route::delete('/articles/{id}/mark', 'FavoritesController@revokeMark')->name('favorite.revokeMark');
+Route::patch('/articles/{id}/like', 'LikesController@add')->name('like.add');
+Route::delete('/articles/{id}/like', 'LikesController@revoke')->name('like.revoke');
+Route::patch('/articles/{id}/favorite', 'FavoritesController@add')->name('favorite.add');
+Route::delete('/articles/{id}/favorite', 'FavoritesController@revoke')->name('favorite.revoke');
 
 // Follows routes
 Route::post('/user/follow/{id}', 'FollowsController@store')->name('follow.add');
