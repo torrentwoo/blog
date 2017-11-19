@@ -21,7 +21,7 @@ class PagesController extends Controller
     {
         // Carousel
         // Articles
-        $articles = Article::released()->latest('released_at')->with('attachment', 'snapshot')->take(6)->get();
+        $articles = Article::released()->latest('released_at')->with('thumbnail')->take(6)->get();
         // Sidebar columns list
         $columns  = Category::whereHas('articles', function($query) {
             $query->released();
