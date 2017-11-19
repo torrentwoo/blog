@@ -16,7 +16,7 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             // 关联属性
             $table->integer('user_id')->unsigned()->default(0)->index(); // 文章的作者，对应用户表的 id
-            $table->integer('category_id')->unsigned()->default(0)->index(); // 类别的 id
+            $table->integer('category_id')->unsigned()->default(0)->index(); // 文章的栏目分类，对应分类表的 id
             // 基本属性
             $table->string('title'); // 文章标题
             $table->string('keywords')->nullable(); // 文章关键词

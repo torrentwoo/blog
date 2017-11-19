@@ -15,7 +15,7 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
             // 关联属性
-            $table->integer('user_id')->unsigned()->default(0)->index(); // 谁发表的这个评论，对应用户表的 id
+            $table->integer('user_id')->unsigned()->default(0)->index(); // 谁发表的评论，对应用户表的 id
             $table->integer('parent_id')->unsigned()->default(0)->index(); // 父级评论的 id
             // 多态关联属性
             $table->integer('commentable_id')->unsigned()->default(0)->index(); // 多态关联模型的主键

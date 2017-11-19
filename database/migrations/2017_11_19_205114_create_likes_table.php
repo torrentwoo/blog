@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFollowsTable extends Migration
+class CreateLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,13 @@ class CreateFollowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('follows', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
             $table->increments('id');
             // 关联属性
-            $table->integer('user_id')->unsigned()->default(0)->index(); // 属于谁的关注，对应用户表的 id
+            $table->integer('user_id')->unsigned()->default(0)->index(); // 谁发起的喜欢，对应用户表的 id
             // 多态关联属性
-            $table->integer('followable_id')->unsigned()->default(0)->index(); // 多态关联模型的主键
-            $table->string('followable_type'); // 多态关联模型的名称（会包含命名空间）
+            $table->integer('likable_id')->unsigned()->default(0)->index(); // 多态关联模型的主键
+            $table->string('likable_type'); // 多态关联模型的名称（会包含命名空间）
             // 基本属性
             // 扩展属性
             $table->timestamps();
@@ -32,6 +32,6 @@ class CreateFollowsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('follows');
+        Schema::drop('likes');
     }
 }

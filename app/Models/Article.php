@@ -150,37 +150,12 @@ class Article extends Model
     }
 
     /**
-     * 定义文章与收藏之间的一对多关联
+     * 获取文章的收藏
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function favorites()
     {
-        return $this->hasMany(Favorite::class, 'article_id')
-                    ->groupBy('user_id'); // 备注：这一行用于过滤测试数据，正式环境不应该存在
-    }
-
-    /**
-     * 判断当前文章是否有被当前登录的用户喜欢过
-     *
-     * @return bool
-     */
-    public function isLiked()
-    {
-        return (boolean) Favorite::likes()->where('article_id', '=', $this->id)
-            ->where('user_id', '=', Auth::check() ? Auth::user()->id : 0)
-            ->first();
-    }
-
-    /**
-     * 判断当前文章是否有被当前登录的用户收藏过
-     *
-     * @return bool
-     */
-    public function isFavorite()
-    {
-        return (boolean) Favorite::favorites()->where('article_id', '=', $this->id)
-            ->where('user_id', '=', Auth::check() ? Auth::user()->id : 0)
-            ->first();
+        return $this->morphMany(Favorite::class, 'favorable');
     }
 }
