@@ -208,9 +208,7 @@ class UsersController extends Controller
         // Authenticate
         $this->authorize('retrieve', $user);
         // All articles
-        $articles = $user->articles()->with(['favorites'  =>  function($query) {
-            $query->likes();
-        }])->latest('created_at')->paginate(6);
+        $articles = $user->articles()->released()->latest('created_at')->paginate(6);
         // The popular articles @TODO be consider more dimension
         $popular = $user->articles()->latest('released_at')->released()->orderBy('views', 'desc')->take(10)->get();
 
