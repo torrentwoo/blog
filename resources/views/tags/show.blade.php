@@ -10,10 +10,10 @@
                     <div class="col-xs-12 col-sm-12">
 @forelse ($articles as $article)
                         <div class="media">
-@if (!$article->thumbnail->isEmpty())
+@if (!$article->thumbnails->isEmpty())
                             <div class="media-left hidden-portrait">
                                 <a href="{{ route('article.show', $article->id) }}">
-                                    <img class="media-object" src="{{ $article->thumbnail->first()->url }}" style="width:64px;height:64px;" data-src="holder.js/64x64" alt="{{ $article->title }}" data-holder-rendered="true" />
+                                    <img class="media-object" src="{{ $article->thumbnails->first()->url }}" style="width:64px;height:64px;" data-src="holder.js/64x64" alt="{{ $article->title }}" data-holder-rendered="true" />
                                 </a>
                             </div>
 @endif

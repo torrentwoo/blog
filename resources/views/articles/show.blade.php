@@ -30,7 +30,7 @@
                                 </li>
                                 <li>浏览：{{ $article->views }} 次</li>
                                 <li>评论：{{ $article->comments()->count() }}</li>
-                                <li>喜欢：{{ $article->favorites()->likes()->get()->count() }}</li>
+                                <li>喜欢：{{ $article->likes()->count() }}</li>
                                 <li>赞赏：</li>
                             </ul>
                         </div>

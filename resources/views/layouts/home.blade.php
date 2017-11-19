@@ -67,10 +67,10 @@
                     </div>
 @forelse ($articles as $article)
                     <div class="col-xs-12 col-lg-12 media media-article">
-@if (!$article->thumbnail->isEmpty())
+@if (!$article->thumbnails->isEmpty())
                         <div class="media-left hidden-portrait">
                             <a href="{{ route('article.show', $article->id) }}">
-                                <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->thumbnail->first()->url }}" data-holder-rendered="true" />
+                                <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" data-holder-rendered="true" />
                             </a>
                         </div>
 @endif
@@ -111,7 +111,7 @@
                                     <span class="text-muted">
                                         <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                                         <span class="sr-only">喜欢：</span>
-                                        {{ $article->favorites()->likes()->count() }}
+                                        {{ $article->likes()->count() }}
                                     </span>
                                 </li>
                             </ul>
