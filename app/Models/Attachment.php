@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Attachment extends Model
 {
     /**
-     * 存储附件数据的数据表名称
+     * 模型使用的数据表名称
      *
      * @var string
      */
@@ -19,28 +19,18 @@ class Attachment extends Model
      * @var array
      */
     protected $fillable = [
-        'article_id',
-        'url',
-        'name',
-        'type',
-        'preview',
+        'url',  // 附件的存储地址
+        'name', // 附件的名称
+        'type', // 附件的类型，诸如：audio, picture, video
     ];
 
     /**
-     * 禁用时间戳记
+     * 获取所有拥有 attachable 的模型
      *
-     * @var bool false
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public $timestamps = false;
-
-    /**
-     * 定义文章与文章引用附件之间相对的一对多关联
-     * 获取引用此附件的文章
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function article()
+    public function attachable()
     {
-        return $this->belongsTo(Article::class, 'article_id');
+        return $this->morphTo();
     }
 }

@@ -109,8 +109,7 @@ class Article extends Model
     }
 
     /**
-     * 定义文章与评论之间的关系
-     * 获取所有文章的评论
+     * 获取文章的所有评论
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
@@ -131,27 +130,13 @@ class Article extends Model
     }
 
     /**
-     * 定义文章与文章引用附件之间的一对多关联
-     * 获取该篇文章下的所有引用附件（包括 audio/picture/video）
+     * 获取文章的所有引用附件（包括 audio/picture/video）
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function attachments()
     {
-        return $this->hasMany(Attachment::class, 'article_id');
-    }
-
-    /**
-     * 定义文章与文章预览附件之间的一对一关联
-     * 获取该篇文章的预览附件（可能是 audio/picture/video）
-     *
-     * @return mixed \Illuminate\Database\Eloquent\Builder
-     */
-    public function attachment()
-    {
-        return $this->hasOne(Attachment::class, 'article_id')
-                    ->where('preview', '<>', 0)
-                    ->orderBy('id');
+        return $this->morphMany(Attachment::class, 'attachable');
     }
 
     /**

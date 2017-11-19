@@ -50,15 +50,7 @@ $factory->define(App\Models\Article::class, function(Faker\Generator $faker) {
     ];
 });
 
-// Testing data for attachments those attached to articles
-$factory->define(App\Models\Attachment::class, function(Faker\Generator $faker) {
-    return [
-        'url'       =>  $faker->imageUrl(),
-        'name'      =>  $faker->word,
-        'type'      =>  'picture',
-        'preview'   =>  $faker->boolean,
-    ];
-});
+// Testing data for snapshots
 
 // Testing data for comments
 $factory->define(App\Models\Comment::class, function(Faker\Generator $faker) {
