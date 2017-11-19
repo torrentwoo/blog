@@ -28,12 +28,12 @@ class FavoritesController extends Controller
         $this->user = Auth::user();
     }
 
-    public function add($relation, $id)
+    public function add($id)
     {
         //
     }
 
-    public function revoke($relation, $id)
+    public function revoke($id)
     {
         //
     }

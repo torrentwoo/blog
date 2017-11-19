@@ -17,12 +17,12 @@ class LikesController extends Controller
         $this->user = \Illuminate\Support\Facades\Auth::user();
     }
 
-    public function add($relation, $id)
+    public function add($id)
     {
         //
     }
 
-    public function revoke($relation, $id)
+    public function revoke($id)
     {
         //
     }
