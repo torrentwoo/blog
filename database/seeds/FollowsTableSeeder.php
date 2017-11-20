@@ -17,11 +17,11 @@ class FollowsTableSeeder extends Seeder
         $users = App\Models\User::activated()->lists('id')->toArray();
         $beFollowed = array_slice($users, (int) count($users) / 2);
         // 获取公开的栏目 id
-        $columns = App\Models\Category::visible()->lists('id')->toArray();
+        $columns = App\Models\Column::visible()->lists('id')->toArray();
         // 组装临时数据
         $tmp = [
-            'App\Models\User'       =>  array_diff($users, $beFollowed),
-            'App\Models\Category'   =>  $columns,
+            'App\Models\User'   =>  array_diff($users, $beFollowed),
+            'App\Models\Column' =>  $columns,
         ];
         // 生成 100 个测试的关注数据
         $follows = factory(App\Models\Follow::class)->times(count($tmp['App\Models\User']))->make()->each(function($ele) use ($faker, $beFollowed, $tmp) {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Models\Category;
+use App\Models\Column;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -23,7 +23,7 @@ class PagesController extends Controller
         // Articles
         $articles = Article::released()->latest('released_at')->with('thumbnails')->take(6)->get();
         // Sidebar columns list
-        $columns  = Category::whereHas('articles', function($query) {
+        $columns  = Column::whereHas('articles', function($query) {
             $query->released();
         })->visible()->orderBy('priority', 'desc')->take(7)->get();
 

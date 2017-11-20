@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call(UsersTableSeeder::class); // 生成测试用户（账号）数据
-        $this->call(CategoriesTableSeeder::class); // 生成测试的类别数据
+        $this->call(ColumnsTableSeeder::class); // 生成测试的栏目数据
         $this->call(ArticlesTableSeeder::class); // 生成测试的文章数据
         $this->call(SnapshotsTableSeeder::class); // 生成测试的缩略图数据
         $this->call(TagsTableSeeder::class); // 生成测试的标签数据

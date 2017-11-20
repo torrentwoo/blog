@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\ArticleBrowseEvent;
 use App\Models\Article;
-use App\Models\Category;
+use App\Models\Column;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -53,15 +53,15 @@ class ArticlesController extends Controller
     public function show($id)
     {
         // Article and items appended to this article
-        $article  = Article::with('category', 'tags')->with(['comments' => function($query) use ($id) {
+        $article  = Article::with('column', 'tags')->with(['comments' => function($query) use ($id) {
             $query->latest('created_at')->take(4);
         }])->released()->find($id);
         // Previous and next
-        $columnId = $article->category->id;
-        $previous = Article::where('category_id', $columnId)->released()->ofPrev($article->id)->first();
-        $next     = Article::where('category_id', $columnId)->released()->ofNext($article->id)->first();
+        $columnId = $article->column->id;
+        $previous = Article::where('column_id', $columnId)->released()->ofPrev($article->id)->first();
+        $next     = Article::where('column_id', $columnId)->released()->ofNext($article->id)->first();
         // Sidebar columns
-        $columns  = Category::whereHas('articles', function($query) {
+        $columns  = Column::whereHas('articles', function($query) {
             $query->where('approval', '<>', 0);
         })->visible()->orderBy('priority', 'desc')->get();
         // Handle article browse event
@@ -72,7 +72,7 @@ class ArticlesController extends Controller
             'prev'      =>  $previous,
             'next'      =>  $next,
             'columns'   =>  $columns,
-            'column'    =>  $article->category, // position of active element in sidebar
+            'column'    =>  $article->column, // position of active element in sidebar
         ]);
     }
 

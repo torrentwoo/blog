@@ -24,8 +24,8 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-// Testing data for category
-$factory->define(App\Models\Category::class, function(Faker\Generator $faker) {
+// Testing data for column
+$factory->define(App\Models\Column::class, function(Faker\Generator $faker) {
     return [
         'name'          =>  $faker->word,
         'description'   =>  $faker->sentence,

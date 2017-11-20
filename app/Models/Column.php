@@ -4,17 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Column extends Model
 {
     /**
-     * 储存分类信息的数据表名称
+     * 模型使用的数据表名称
      *
      * @var string
      */
-    protected $table = 'categories';
+    protected $table = 'columns';
 
     /**
-     * 可予批量赋值的数据表字段名称列表
+     * 可予批量赋值的数据表字段名称
      *
      * @var array
      */
@@ -27,7 +27,7 @@ class Category extends Model
     ];
 
     /**
-     * 查找所有可见的类别
+     * 查找所有可见的栏目
      *
      * @param $query \Illuminate\Database\Eloquent\Builder
      * @return mixed \Illuminate\Database\Eloquent\Builder
@@ -38,19 +38,19 @@ class Category extends Model
     }
 
     /**
-     * 声明类别与子类别之间的一对多关联
-     * 一个类别可拥有多个子类别，获取某一类别下属的直接子类别
+     * 声明栏目与子栏目之间的一对多关联
+     * 一个栏目可拥有多个子栏目，获取某一栏目下属的直接子栏目
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function children()
     {
-        return $this->hasMany(Category::class, 'parent_id', 'id');
+        return $this->hasMany(Column::class, 'parent_id', 'id');
     }
 
     /**
-     * 声明类别与后裔类别之间的一对多关联
-     * 一个类别可拥有多个（递进至无限个）后裔类别，获取某一类别下的完整后裔类别（树）
+     * 声明栏目与后裔栏目之间的一对多关联
+     * 一个栏目可拥有多个（递进至无限个）后裔栏目，获取某一栏目下的完整后裔栏目（树）
      * 注：通过 Eloquent 的模型递归关联实现
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -61,19 +61,19 @@ class Category extends Model
     }
 
     /**
-     * 声明类别与子类别之间相对的一对多关联
-     * 一个类别可拥有多个子类别，一个子类别向上追溯只属于某一个父级类别
+     * 声明栏目与子栏目之间相对的一对多关联
+     * 一个栏目可拥有多个子栏目，一个子栏目向上追溯只属于某一个父级栏目
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parent()
     {
-        return $this->belongsTo(Category::class, 'parent_id', 'id');
+        return $this->belongsTo(Column::class, 'parent_id', 'id');
     }
 
     /**
-     * 声明祖先类别与子类别之间相对的一对多关联
-     * 一个祖先类别可拥有多个后裔类别，某个后裔类别向上追溯只依次属于某一个祖先类别
+     * 声明祖先栏目与子栏目之间相对的一对多关联
+     * 一个祖先栏目可拥有多个后裔栏目，某个后裔栏目向上追溯只依次属于某一个祖先栏目
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -83,8 +83,8 @@ class Category extends Model
     }
 
     /**
-     * 查找某一个类别的兄弟类别
-     * 注：兄弟类别是指拥有同一个直接父级类别的分类
+     * 查找某一个栏目的兄弟栏目
+     * 注：兄弟栏目是指拥有同一个直接父级栏目的栏目
      *
      * @return mixed \Illuminate\Database\Eloquent\Builder
      */
@@ -94,8 +94,8 @@ class Category extends Model
     }
 
     /**
-     * 查找所有主类别
-     * 注：主类别是指往上追溯没有父分类的类别
+     * 查找所有主栏目
+     * 注：主栏目是指往上追溯没有父栏目的栏目
      *
      * @param $query \Illuminate\Database\Eloquent\Builder
      * @return mixed \Illuminate\Database\Eloquent\Builder
@@ -106,18 +106,18 @@ class Category extends Model
     }
 
     /**
-     * 定义类别与文章之间的一对多关联
-     * 该类别下的所有文章
+     * 定义栏目与文章之间的一对多关联
+     * 该栏目下的所有文章
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function articles()
     {
-        return $this->hasMany(Article::class, 'category_id');
+        return $this->hasMany(Article::class, 'column_id');
     }
 
     /**
-     * 获取栏目分类的关注
+     * 获取栏目的关注
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */

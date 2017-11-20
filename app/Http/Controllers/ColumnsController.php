@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Models\Category;
+use App\Models\Column;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,7 +18,7 @@ class ColumnsController extends Controller
      */
     public function index()
     {
-        $popular = Category::whereHas('articles', function($query) {
+        $popular = Column::whereHas('articles', function($query) {
             $query->released();
         })->visible()->orderBy('priority', 'desc')->get();
 
@@ -56,11 +56,11 @@ class ColumnsController extends Controller
      */
     public function show($id)
     {
-        $column   = Category::visible()->findOrFail($id);
-        $columns  = Category::whereHas('articles', function($query) {
+        $column  = Column::visible()->findOrFail($id);
+        $columns = Column::whereHas('articles', function($query) {
             $query->where('approval', '<>', 0);
         })->visible()->orderBy('priority', 'desc')->get();
-        $articles = Article::where('category_id', $id)->released()->with('thumbnails')->paginate(15);
+        $articles = Article::where('column_id', $id)->released()->with('thumbnails')->paginate(15);
 
         return view('columns.show', [
             'column'    =>  $column,

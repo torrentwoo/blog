@@ -21,7 +21,7 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'category_id', // 文章的类别
+        'column_id', // 文章的栏目
         'title', // 文章标题
         'keywords', // 文章关键词
         'description', // 文章描述
@@ -98,14 +98,14 @@ class Article extends Model
     }
 
     /**
-     * 定义类别与文章之间相对的一对多关联
-     * 一个类别下会拥有多篇文章，确定文章归属的类别
+     * 定义栏目与文章之间相对的一对多关联
+     * 一个栏目下会拥有多篇文章，确定文章归属的栏目
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category()
+    public function column()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Column::class, 'column_id');
     }
 
     /**

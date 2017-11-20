@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class ColumnsTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        // 调用测试数据生成器容器
+        $faker     = app(Faker\Generator::class);
+        // 设定栏目的父级栏目 id 范围
+        $parent_id = range(0, 10);
+        // 生成 100 条测试栏目数据
+        $columns = factory(App\Models\Column::class)->times(20)->make()->each(function($i) use ($faker, $parent_id) {
+            $i->parent_id = $faker->randomElement($parent_id);
+        });
+        // 保存测试数据到数据库
+        App\Models\Column::insert($columns->toArray());
+
+        // 无论如何，第一条记录不应该存在父栏目
+        $Column = App\Models\Column::first();
+        $Column->update([
+            'parent_id' => 0
+        ]);
+    }
+}

@@ -92,7 +92,7 @@
                             </ul>
                             <p>{{ $article->description }}</p>
                             <ul class="list-inline media-meta">
-                                <li><a class="media-column" href="{{ route('column.show', $article->category->id) }}">{{ $article->category->name }}</a></li>
+                                <li><a class="media-column" href="{{ route('column.show', $article->column->id) }}">{{ $article->column->name }}</a></li>
                                 <li>
                                     <a class="text-muted" href="{{ route('article.show', $article->id) }}">
                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
