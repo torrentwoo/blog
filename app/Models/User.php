@@ -179,6 +179,27 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
+     * 获取用户关注了哪些人
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function followingUsers()
+    {
+        return $this->morphedByMany(User::class, 'followable', 'follows')
+                    ->withPivot('created_at');
+    }
+
+    // 获取哪些人关注了用户
+    public function followedUsers()
+    {
+        /*
+        $arrUsersId = Follow::where('followable_type', '=', User::class)->where('followable_id', '=', $this->id)
+            ->lists('user_id')->toArray();
+        return User::whereIn('id', $arrUsersId)->get();
+        */
+    }
+
+    /**
      * 判断用户是否关注了某个指定的用户
      *
      * @param $user
