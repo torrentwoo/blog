@@ -182,6 +182,18 @@ class Article extends Model
     }
 
     /**
+     * 获取所有喜欢这篇文章的用户
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function likedUsers()
+    {
+        $arrUserId = Like::where('likable_type', '=', Article::class)->where('likable_id', '=', $this->id)
+            ->lists('user_id')->toArray();
+        return User::whereIn('id', $arrUserId)->get();
+    }
+
+    /**
      * 判断文章是否已被当前登录的用户所喜欢
      *
      * @return bool
