@@ -125,4 +125,26 @@ class Column extends Model
     {
         return $this->morphMany(Follow::class, 'followable');
     }
+
+    /**
+     * 获取所有关注本栏目的用户
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function followingUsers()
+    {
+        return $this->morphToMany(User::class, 'followable', 'follows')
+                    ->withPivot('created_at');
+    }
+
+    /**
+     * 是否被某人关注
+     *
+     * @param mixed $someone 某个被指代的用户，可以是用户模型，用户 id 标识符
+     * @return bool
+     */
+    public function isFollowedBy($someone)
+    {
+        return (boolean) $this->followingUsers->contains($someone);
+    }
 }

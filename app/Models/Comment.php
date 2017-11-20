@@ -19,9 +19,9 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',    // 用户的 ID 标识符
-        'parent_id', // 父级评论的 ID 标识符
-        'content',    // 评论的内容
+        'user_id',   // 用户的 id 标识符
+        'parent_id', // 父级评论的 id 标识符
+        'content',   // 评论的内容
     ];
 
     /**

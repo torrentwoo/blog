@@ -135,80 +135,14 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
-     * 定义用户与关注之间的一对多关联
-     * 获取某一个用户关注了的所有内容
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function follows()
-    {
-        return $this->hasMany(Follow::class, 'user_id')->with('followable');
-    }
-
-    /**
-     * 获取用户的粉丝列表
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function fans()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'user_id', 'followable_id')
-                    ->where('followable_type', '=', __CLASS__);
-    }
-
-    /**
-     * 判断用户是否有这个指定的粉丝
-     *
-     * @param $user
-     * @return boolean
-     */
-    public function hasFan($user)
-    {
-        return $this->fans->contains($user);
-    }
-
-    /**
-     * 获取用户的关注列表（关注了哪些人）
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function followings()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'followable_id', 'user_id')
-                    ->where('followable_type', '=', __CLASS__);
-    }
-
-    /**
-     * 获取用户关注了哪些人（是哪些人的粉丝）
+     * 获取用户收藏过的所有文章
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function followingUsers()
+    public function favoriteArticles()
     {
-        return $this->morphedByMany(User::class, 'followable', 'follows')
+        return $this->morphedByMany(Article::class, 'favorable', 'favorites')
                     ->withPivot('created_at');
-    }
-
-    /**
-     * 获取哪些人关注了用户（哪些人是他的粉丝）
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
-     */
-    public function followedUsers()
-    {
-        return $this->morphToMany(User::class, 'followable', 'follows')
-                    ->withPivot('created_at');
-    }
-
-    /**
-     * 判断用户是否关注了某个指定的用户
-     *
-     * @param $user
-     * @return boolean
-     */
-    public function isFollowing($user)
-    {
-        return $this->followings->contains($user);
     }
 
     /**
@@ -220,5 +154,71 @@ class User extends Model implements AuthenticatableContract,
     public function likes()
     {
         return $this->hasMany(Like::class, 'user_id')->with('likable');
+    }
+
+    /**
+     * 获取用户喜欢的所有文章
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function likedArticles()
+    {
+        return $this->morphedByMany(Article::class, 'likable', 'likes')
+                    ->withPivot('created_at');
+    }
+
+    /**
+     * 定义用户与关注之间的一对多关联
+     * 获取某一个用户关注了的所有内容
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function follows()
+    {
+        return $this->hasMany(Follow::class, 'user_id')->with('followable');
+    }
+
+    /**
+     * 获取用户的关注列表（关注了哪些人）
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function followedUsers()
+    {
+        return $this->morphToMany(User::class, 'followable', 'follows')
+                    ->withPivot('created_at');
+    }
+
+    /**
+     * 获取用户的粉丝列表（被哪些人关注）
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function followingUsers()
+    {
+        return $this->morphedByMany(User::class, 'followable', 'follows')
+                    ->withPivot('created_at');
+    }
+
+    /**
+     * 是否在关注某人
+     *
+     * @param mixed $someone 某个被指代的用户，可以是用户模型，用户 id 标识符
+     * @return bool
+     */
+    public function isFollowed($someone)
+    {
+        return (boolean) $this->followedUsers->contains($someone);
+    }
+
+    /**
+     * 是否被某人关注
+     *
+     * @param mixed $someone 某个被指代的用户，可以是用户模型，用户 id 标识符
+     * @return bool
+     */
+    public function isFollowedBy($someone)
+    {
+        return (boolean) $this->followingUsers->contains($someone);
     }
 }

@@ -140,7 +140,7 @@ class Article extends Model
     }
 
     /**
-     * 获取文章的缩略图
+     * 获取文章的所有缩略图
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
@@ -160,15 +160,25 @@ class Article extends Model
     }
 
     /**
-     * 判断文章是否已被当前登录的用户所收藏
+     * 获取所有收藏这篇文章的用户
      *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function favoriteUsers()
+    {
+        return $this->morphToMany(User::class, 'favorable', 'favorites')
+                    ->withPivot('created_at');
+    }
+
+    /**
+     * 是否被某人收藏
+     *
+     * @param mixed $someone 某个被指代的用户，可以是用户模型，用户 id 标识符
      * @return bool
      */
-    public function isFavorite()
+    public function isFavoriteBy($someone)
     {
-        return (boolean) $this->favorites()->with('user')->get()->pluck('user')->contains(
-            Auth::check() ? Auth::user() : 0
-        );
+        return (boolean) $this->favoriteUsers->contains($someone);
     }
 
     /**
@@ -184,24 +194,22 @@ class Article extends Model
     /**
      * 获取所有喜欢这篇文章的用户
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
     public function likedUsers()
     {
-        $arrUserId = Like::where('likable_type', '=', Article::class)->where('likable_id', '=', $this->id)
-            ->lists('user_id')->toArray();
-        return User::whereIn('id', $arrUserId)->get();
+        return $this->morphToMany(User::class, 'likable', 'likes')
+                    ->withPivot('created_at');
     }
 
     /**
-     * 判断文章是否已被当前登录的用户所喜欢
+     * 是否被某人喜欢
      *
+     * @param mixed $someone 某个被指代的用户，可以是用户模型，用户 id 标识符
      * @return bool
      */
-    public function isLiked()
+    public function isLikedBy($someone)
     {
-        return (boolean) $this->likes()->with('user')->get()->pluck('user')->contains(
-            Auth::check() ? Auth::user() : 0
-        );
+        return (boolean) $this->likedUsers->contains($someone);
     }
 }
