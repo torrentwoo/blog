@@ -117,6 +117,16 @@ class Column extends Model
     }
 
     /**
+     * 获取栏目的缩略图
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function thumbnails()
+    {
+        return $this->morphMany(Snapshot::class, 'snapshotable');
+    }
+
+    /**
      * 获取栏目的关注
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
