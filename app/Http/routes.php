@@ -13,7 +13,7 @@
 
 // The extra routes must located before the resource route
 
-// Static pages routes
+// Inherent pages routes
 Route::get('/', 'PagesController@index')->name('home');
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/contact', 'PagesController@contact')->name('contact');
@@ -54,22 +54,25 @@ Route::get('/columns/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->
 Route::get('/articles/{id}', 'ArticlesController@show')->where('id', '[a-z\d]+')->name('article.show');
 
 // Favorites routes
-Route::patch('/articles/{id}/like', 'LikesController@add')->name('like.add');
-Route::delete('/articles/{id}/like', 'LikesController@revoke')->name('like.revoke');
-Route::patch('/articles/{id}/favorite', 'FavoritesController@add')->name('favorite.add');
+Route::post('/articles/{id}/favorite', 'FavoritesController@add')->name('favorite.add');
 Route::delete('/articles/{id}/favorite', 'FavoritesController@revoke')->name('favorite.revoke');
 
 // Follows routes
-Route::post('/user/follow/{id}', 'FollowsController@store')->name('follow.add');
-Route::delete('/user/follow/{id}', 'FollowsController@destroy')->name('follow.remove');
+Route::post('/columns/{id}/follow', 'FollowsController@add')->name('follow.add');
+Route::delete('/columns/{id}/follow', 'FollowsController@revoke')->name('follow.revoke');
+Route::post('/user/{id}/follow', 'FollowsController@store')->name('follow.add');
+Route::delete('/user/{id}/follow', 'FollowsController@destroy')->name('follow.remove');
 
-// Comments appended to article routes
+// Likes routes
+Route::post('/articles/{id}/like', 'LikesController@add')->name('like.add');
+Route::delete('/articles/{id}/like', 'LikesController@revoke')->name('like.revoke');
+
+// Comments related routes
 Route::get('/articles/{id}/comments', 'CommentsController@show')->name('article.comments');
 Route::post('/articles/{id}/comments', 'CommentsController@store')->name('article.comment');
 
-// Tag clouds routes
-Route::get('/tags', 'TagsController@index')->name('tag.index');
 // Tags routes
+Route::get('/tags', 'TagsController@index')->name('tag.index');
 Route::get('/tags/{id}', 'TagsController@show')->name('tag.show');
 
 
