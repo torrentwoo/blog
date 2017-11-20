@@ -23,8 +23,8 @@ class ColumnsTableSeeder extends Seeder
         App\Models\Column::insert($columns->toArray());
 
         // 无论如何，第一条记录不应该存在父栏目
-        $Column = App\Models\Column::first();
-        $Column->update([
+        $column = App\Models\Column::first();
+        $column->update([
             'parent_id' => 0
         ]);
     }
