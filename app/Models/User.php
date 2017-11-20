@@ -179,7 +179,7 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
-     * 获取用户关注了哪些人
+     * 获取用户关注了哪些人（是哪些人的粉丝）
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
@@ -189,14 +189,15 @@ class User extends Model implements AuthenticatableContract,
                     ->withPivot('created_at');
     }
 
-    // 获取哪些人关注了用户
+    /**
+     * 获取哪些人关注了用户（哪些人是他的粉丝）
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
     public function followedUsers()
     {
-        /*
-        $arrUsersId = Follow::where('followable_type', '=', User::class)->where('followable_id', '=', $this->id)
-            ->lists('user_id')->toArray();
-        return User::whereIn('id', $arrUsersId)->get();
-        */
+        return $this->morphToMany(User::class, 'followable', 'follows')
+                    ->withPivot('created_at');
     }
 
     /**
