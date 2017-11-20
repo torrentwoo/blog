@@ -18,7 +18,31 @@ class Vote extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id', 'type'];
+
+    /**
+     * 限制查找发起者为指定用户的投票
+     *
+     * @param $query    \Illuminate\Database\Eloquent\Builder
+     * @param $user_id  The numeric value of user identifier
+     * @return          \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithVoter($query, $user_id)
+    {
+        return $query->where('user_id', '=', $user_id);
+    }
+
+    /**
+     * 限制查找某一指定类型的投票
+     *
+     * @param $query \Illuminate\Database\Eloquent\Builder
+     * @param $type  The string value of voted type, accept: up, down
+     * @return       \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithType($query, $type)
+    {
+        return $query->where('type', '=', $type);
+    }
 
     /**
      * 获取所有拥有 votable 的模型
