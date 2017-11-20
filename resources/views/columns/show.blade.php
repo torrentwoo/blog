@@ -7,14 +7,16 @@
                     <li class="active">{{ $column->name }}</li>
                 </ol>
                 <div class="media" id="column-header">
+@if (!$column->thumbnails->isEmpty())
                     <div class="media-left">
-                        <a href="#">
-                            <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWZjOWRmYjc3NCB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ZmM5ZGZiNzc0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNS42Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true">
+                        <a href="{{ route('column.show', $column->id) }}">
+                            <img class="media-object" data-src="holder.js/64x64" alt="{{ $column->name }}" src="{{ $column->thumbnails->first()->url }}" data-holder-rendered="true" />
                         </a>
                     </div>
+@endif
                     <div class="media-body">
                         <h1 class="media-heading h2">{{ $column->name }}</h1>
-                        <p>收录文章：{{ $column->articles()->released()->count() }} 篇</p>
+                        <p>收录文章{{ $column->articles()->released()->count() }}篇<i class="divider">&middot;</i>被{{ $column->follows->count() }}人关注</p>
                     </div>
                     <div class="media-right nowrap-landscape" id="user-buttons">
                         <button type="button" class="btn btn-info btn-xs">投稿</button>
@@ -75,7 +77,7 @@
                                     <span class="text-muted">
                                         <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                                         <span class="sr-only">喜欢：</span>
-                                        {{ $article->likes()->count() }}
+                                        {{ $article->likes->count() }}
                                     </span>
                                     </li>
                                 </ul>

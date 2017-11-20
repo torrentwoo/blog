@@ -128,7 +128,8 @@ i.glyphicon, .offset-left {
 .media-preview {
   width: 150px;
   max-height: 120px;
-  height: auto; }
+  height: auto;
+  border-radius: 4px; }
 
 .media-title {
   font-weight: 700; }
@@ -160,6 +161,11 @@ a.text-muted:hover, a.text-muted:active {
  */
 #column-header, #inline-menu {
   margin: 0 0 2em; }
+
+#column-header img {
+  width: 64px;
+  height: 64px;
+  border-radius: 10%; }
 
 #inline-menu {
   border-bottom-width: 2px;
@@ -205,6 +211,10 @@ a.text-muted:hover, a.text-muted:active {
   display: block;
   border-radius: 8px;
   overflow: hidden; }
+
+.column-thumbnail img {
+  width: 64px;
+  height: 64px; }
 
 /*
  Article

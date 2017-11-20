@@ -13,11 +13,11 @@
                                 <h1 id="user-name">{{ $user->name }}</h1>
                                 <div class="row" id="user-counts">
                                     <div class="col-xs-6 col-sm-3">
-                                        <span class="count block-landscape">{{ $user->followings->count() }}</span>
+                                        <span class="count block-landscape">{{ $user->followedUsers->count() }}</span>
                                         <span class="text-muted">关注</span>
                                     </div>
                                     <div class="col-xs-6 col-sm-3">
-                                        <span class="count block-landscape">{{ $user->fans->count() }}</span>
+                                        <span class="count block-landscape">{{ $user->followingUsers->count() }}</span>
                                         <span class="text-muted">粉丝</span>
                                     </div>
                                     <div class="col-xs-6 col-sm-3">
@@ -25,7 +25,7 @@
                                         <span class="text-muted">文章</span>
                                     </div>
                                     <div class="col-xs-6 col-sm-3">
-                                        <span class="count block-landscape">{{ $user->likes->count() }}</span>
+                                        <span class="count block-landscape">@@</span>
                                         <span class="text-muted">喜欢</span>
                                     </div>
                                 </div>
@@ -33,13 +33,13 @@
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $user->id))
                             <div class="media-right nowrap-landscape" id="user-buttons">
                                 <button type="button" class="btn btn-info btn-xs">发消息</button>
-                                <form method="POST" action="{{ $user->hasFan(Auth::user()) ? route('follow.remove', $user->id) : route('follow.add', $user->id) }}" id="userFollowForm" class="follow-form">
+                                <form method="POST" action="{{ $user->isFollowedBy(Auth::user()) ? route('follow.remove', $user->id) : route('follow.add', $user->id) }}" id="userFollowForm" class="follow-form">
                                     {{ csrf_field() }}
-@if ($user->hasFan(Auth::user()))
+@if ($user->isFollowedBy(Auth::user()))
                                     {{ method_field('DELETE') }}
 @endif
                                     <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-xs" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#userFollowForm">
-                                        <i class="glyphicon {{ $user->hasFan(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>关注
+                                        <i class="glyphicon {{ $user->isFollowedBy(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>关注
                                     </button>
                                 </form>
                             </div>

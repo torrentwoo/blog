@@ -15,7 +15,7 @@
                             <dd class="occurred">
                                 <small class="text-muted">
                                     <ul class="list-inline">
-                                        <li>评论于：{{ $comment->created_at->format('Y-m-d H:i') }}</li>
+                                        <li>评论于：{{ $comment->created_at->diffForHumans() }}</li>
                                         <li>总评论：{{ $comment->commentable->comments->count() }}</li>
                                     </ul>
                                 </small>

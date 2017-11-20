@@ -14,7 +14,7 @@
                             <dd class="occurred">
                                 <small class="text-muted">
                                     <ul class="list-inline">
-                                        <li>创建于：@</li>
+                                        <li>收藏于：{{ $article->created_at->diffForHumans() }}</li>
                                         <li>阅读：@</li>
                                         <li>评论：@</li>
                                         <li>喜欢：@</li>
