@@ -168,6 +168,22 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
+     * 获取所有喜欢这个用户发表的文章的用户
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function likedUsers()
+    {
+        // Get all identifiers of articles released by user
+        $temp = $this->articles()->lists('id')->toArray();
+        // Get all identifiers of users those like the specified articles
+        $swap = Like::where('likable_type', '=', Article::class)->whereIn('likable_id', $temp)
+            ->lists('user_id')->toArray();
+        // Get users
+        return User::whereIn('id', $swap)->get();
+    }
+
+    /**
      * 定义用户与关注之间的一对多关联
      * 获取某一个用户关注了的所有内容
      *
