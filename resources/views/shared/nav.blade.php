@@ -25,7 +25,6 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navUserDropdownMenu">
                             <li><a href="{{ route('user.show', Auth::user()->id) }}"><i class="glyphicon glyphicon-user" aria-hidden="true"></i>我的主页</a></li>
-                            <li><a href="{{ route('user.edit', Auth::user()->id) }}"><i class="glyphicon glyphicon-cog" aria-hidden="true"></i>账户设置</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ route('user.articles',  Auth::user()->id) }}"><i class="glyphicon glyphicon-file" aria-hidden="true"></i>我的文章</a></li>
                             <li><a href="{{ route('user.favorites', Auth::user()->id) }}"><i class="glyphicon glyphicon-heart" aria-hidden="true"></i>我的收藏</a></li>
@@ -34,6 +33,8 @@
                             <li><a href="#balance"><i class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></i>我的余额</a></li>
                             <li><a href="#gifts"><i class="glyphicon glyphicon-gift" aria-hidden="true"></i>我的卡券</a></li>
                             <li><a href="#cart"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>我的购物车</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ route('user.edit', Auth::user()->id) }}"><i class="glyphicon glyphicon-cog" aria-hidden="true"></i>账户设置</a></li>
                             <li class="divider"></li>
                             <li><a id="navLogoutLink" href="{{ route('logout') }}"><i class="glyphicon glyphicon-off" aria-hidden="true"></i>注销登录</a></li>
                         </ul>

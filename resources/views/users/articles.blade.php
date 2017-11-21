@@ -3,8 +3,9 @@
 @section('subContent')
                     <div class="col-xs-12">
                         <ul class="nav nav-tabs" id="inline-menu">
-                            <li role="presentation" class="active"><a href="{{ route('user.show', $user->id) }}"><i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i><span class="hidden-xs">个人</span>动态</a></li>
-                            <li role="presentation"><a href="#"><i class="glyphicon glyphicon-fire" aria-hidden="true"></i>热门<span class="hidden-xs">内容</span></a></li>
+                            <li role="presentation" class="active"><a href="#latest-released"><i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i>最新<span class="hidden-xs">发表</span></a></li>
+                            <li role="presentation"><a href="#most-comments"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i>热评<span class="hidden-xs">文章</span></a></li>
+                            <li role="presentation"><a href="#popular"><i class="glyphicon glyphicon-fire" aria-hidden="true"></i>热门<span class="hidden-xs">文章</span></a></li>
                         </ul>
                     </div>
                     <div class="col-xs-12">
