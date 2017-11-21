@@ -148,6 +148,7 @@ a.text-muted:hover, a.text-muted:active {
     #inline-menu a {
         border:none;
         color:#777;
+        cursor:pointer;
     }
     #inline-menu a:focus, #inline-menu a:hover, #inline-menu .active a {
         background:none;
@@ -262,11 +263,36 @@ a.text-muted:hover, a.text-muted:active {
     #user-buttons .btn {
         margin:.25em;
     }
-#user-brief .label {
-    font-weight:600;
-    vertical-align:middle;
-    cursor:pointer;
+.well-quirk { /* extends from well */
+    border:1px solid #eee;
+    border-width:0 0 1px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    padding:0 0 19px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background:none;
 }
+    dl.well-quirk {
+        padding-top:0;
+    }
+    div.well-quirk {
+        margin-bottom:20px;
+    }
+        dl.well-quirk dt, div.well-quirk :first-child {
+            margin-bottom:.5em;
+            font-weight:bold;
+            font-size:18px;
+        }
+    .well-quirk :last-child {
+        margin-top:.5em;
+    }
+    .well-quirk:last-child {
+        margin-bottom:0;
+        border-bottom:none;
+    }
 #user-moments {
     margin-top:1em;
 }
@@ -289,6 +315,19 @@ a.text-muted:hover, a.text-muted:active {
     border-bottom:1px solid #eaeaea;
     padding-bottom:.5em;
 }
+.user-sidebar {}
+    .user-sidebar dt {
+        margin-bottom:.75em;
+    }
+    .user-sidebar dd {
+        margin:.5em 0;
+        vertical-align:middle;
+    }
+    .user-sidebar .label {
+        font-weight:600;
+        vertical-align:middle;
+        cursor:pointer;
+    }
 
 #footer-nav {
     float:right;

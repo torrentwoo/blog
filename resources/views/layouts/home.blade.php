@@ -1,4 +1,4 @@
-@extends('shared.origin')
+@extends('shared.prototype')
 
 @section('carousel')
             <div class="col-xs-12 col-sm-12">

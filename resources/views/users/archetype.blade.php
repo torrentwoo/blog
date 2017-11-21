@@ -46,55 +46,15 @@
 @endif
                         </div>
                     </div>
-                    <div class="col-xs-12">
-                        <ul class="nav nav-tabs" id="inline-menu">
-                            <li role="presentation" class="active"><a href="{{ route('user.show', $user->id) }}"><i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i><span class="hidden-xs">个人</span>动态</a></li>
-                            <li role="presentation"><a href="#"><i class="glyphicon glyphicon-fire" aria-hidden="true"></i>热门<span class="hidden-xs">内容</span></a></li>
-                        </ul>
-                    </div>
-                    <div id="user-moments" class="col-xs-12">
-                        <dl class="well my-moment">
-                            <dt>Title.....</dt>
-                            <dd class="occurred"><small>2017-11-11 12AM</small></dd>
-                            <dd>hello world, hello world....</dd>
-                        </dl>
-                        <dl class="well my-moment">
-                            <dt>Title.....</dt>
-                            <dd class="occurred"><small>2017-11-11 12AM</small></dd>
-                            <dd>hello world, hello world....</dd>
-                        </dl>
-                        <dl class="well my-moment">
-                            <dt>Title.....</dt>
-                            <dd class="occurred"><small>2017-11-11 12AM</small></dd>
-                            <dd>hello world, hello world....</dd>
-                        </dl>
-                    </div>
-                    <nav class="col-xs-12 text-center" aria-label="Page navigation">
-                        <ul class="pagination">
-                            <li class="disabled">
-                                <a href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                                <a href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+@yield('subContent')
+                </div><!-- /div.row -->
 @unless (Auth::check())
                 @include('features.modal-login')
 @endunless
 @stop
 
 @section('sidebar')
+@section('subSidebar')
                 <dl class="user-sidebar" id="user-brief">
                     <dd>
                         <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
@@ -132,10 +92,13 @@
                     <dd><a href="#void" class="text-primary"><i class="glyphicon glyphicon-book" aria-hidden="true"></i>测试专题栏目</a></dd>
                     <dd><a href="#new" class="text-success"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i>创建一个新专题</a></dd>
                 </dl>
+@show
 @stop
 
 @section('scripts')
 @unless (Auth::check())
     <script type="text/javascript" src="{{ asset('/assets/js/ajax-login.js') }}"></script>
 @endunless
+@section('subScripts')
+@show
 @stop

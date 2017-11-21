@@ -1,4 +1,4 @@
-@extends('shared.origin')
+@extends('shared.prototype')
 
 @section('content')
                 <ol class="breadcrumb">
