@@ -3,8 +3,8 @@
 @section('subContent')
                     <div class="col-xs-12">
                         <ul class="nav nav-tabs" id="inline-menu">
-                            <li role="presentation" class="active"><a href="#my-comments"><i class="glyphicon glyphicon-flag" aria-hidden="true"></i>我的<span class="hidden-xs">评论</span></a></li>
-                            <li role="presentation"><a href="#"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i>评论<span class="hidden-xs">我的</span></a></li>
+                            <li role="presentation" class="active"><a href="#oneself"><i class="glyphicon glyphicon-flag" aria-hidden="true"></i>我的<span class="hidden-xs">评论</span></a></li>
+                            <li role="presentation"><a href="#others"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i>评论<span class="hidden-xs">我的</span></a></li>
                         </ul>
                     </div>
                     <div class="col-xs-12">

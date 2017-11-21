@@ -3,8 +3,8 @@
 @section('subContent')
                     <div class="col-xs-12">
                         <ul class="nav nav-tabs" id="inline-menu">
-                            <li role="presentation" class="active"><a href="#latest-released"><i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i>最新<span class="hidden-xs">发表</span></a></li>
-                            <li role="presentation"><a href="#most-comments"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i>热评<span class="hidden-xs">文章</span></a></li>
+                            <li role="presentation" class="active"><a href="#latest"><i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i>最新<span class="hidden-xs">发表</span></a></li>
+                            <li role="presentation"><a href="#commented"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i>热评<span class="hidden-xs">文章</span></a></li>
                             <li role="presentation"><a href="#popular"><i class="glyphicon glyphicon-fire" aria-hidden="true"></i>热门<span class="hidden-xs">文章</span></a></li>
                         </ul>
                     </div>

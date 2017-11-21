@@ -3,7 +3,7 @@
 @section('subContent')
                     <div class="col-xs-12">
                         <ul class="nav nav-tabs" id="inline-menu">
-                            <li role="presentation"><a href="#like"><i class="glyphicon glyphicon-heart" aria-hidden="true"></i><span class="hidden-xs">我</span>喜欢<span class="hidden-xs">的</span></a></li>
+                            <li role="presentation"><a href="#liked"><i class="glyphicon glyphicon-heart" aria-hidden="true"></i><span class="hidden-xs">我</span>喜欢<span class="hidden-xs">的</span></a></li>
                             <li role="presentation" class="active"><a href="#favorites"><i class="glyphicon glyphicon-bookmark" aria-hidden="true"></i><span class="hidden-xs">我</span>收藏<span class="hidden-xs">的</span></a></li>
                         </ul>
                     </div>
