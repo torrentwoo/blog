@@ -134,7 +134,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', [
+        return view('users.home', [
             'user'  =>  $user,
         ])->with('profile', 'active');
     }
