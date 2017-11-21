@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -134,9 +135,19 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+        $activities = [];
+        // Popular articles
+        $popular = $user->articles()->with('likes')->released()->orderBy('views', 'desc')->get()
+            ->sortByDesc('likes')->values();
+        // The most commented articles
+        $comments = $user->articles()->with('comments')->get()->sortByDesc('comments')->values();
+
         return view('users.home', [
-            'user'  =>  $user,
-        ])->with('profile', 'active');
+            'user'          =>  $user,
+            'activities'    =>  $activities,
+            'popular'       =>  $popular,
+            'comments'      =>  $comments,
+        ])->with('userProfileActive', 'active');
     }
 
     /**
@@ -152,7 +163,7 @@ class UsersController extends Controller
         $this->authorize('update', $user);
         return view('users.edit', [
             'user'  =>  $user,
-        ])->with('account', 'active');
+        ])->with('userAccountActive', 'active');
     }
 
     /**
@@ -207,16 +218,19 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         // Authenticate
         $this->authorize('retrieve', $user);
-        // All articles
-        $articles = $user->articles()->released()->latest('created_at')->paginate(6);
-        // The popular articles @TODO be consider more dimension
-        $popular = $user->articles()->latest('released_at')->released()->orderBy('views', 'desc')->take(10)->get();
+        // The latest released articles
+        $latest = $user->articles()->released()->latest('released_at')->get();
+        // The most commented articles
+        $commented = $user->articles()->with('comments')->get()->sortByDesc('comments')->values();
+        // The popular articles
+        $popular = $user->articles()->released()->orderBy('views', 'desc')->with('likes')->get();
 
         return view('users.articles', [
             'user'      =>  $user,
-            'articles'  =>  $articles,
+            'latest'    =>  $latest,
+            'commented' =>  $commented,
             'popular'   =>  $popular,
-        ]);
+        ])->with('userArticlesActive', 'active');
     }
 
     /**
@@ -231,16 +245,16 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         // Authenticate
         $this->authorize('retrieve', $user);
-        // All the favorite articles
-        $favorites = $user->favorites()->latest('favorites.created_at')->paginate(6);
-        // The recommend articles based on user's interest
-        $recommend = $user->articles()->take(10)->get(); // @TODO improve this
+        // All the articles liked by current user
+        $liked = $user->likedArticles()->get();
+        // All the favorites articles collected by current user
+        $favorites = $user->favoriteArticles()->get();
 
         return view('users.favorites', [
             'user'      =>  $user,
+            'liked'     =>  $liked,
             'favorites' =>  $favorites,
-            'recommend' =>  $recommend,
-        ]);
+        ])->with('userFavoritesActive', 'active');
     }
 
     /**
@@ -256,12 +270,15 @@ class UsersController extends Controller
         // Authenticate
         $this->authorize('retrieve', $user);
         // All comments belong to user
-        $comments = $user->comments()->latest('created_at')->paginate(10);
-        // Something else
+        $oneself = $user->comments()->latest('created_at')->get();
+        // All comments appended to stuff those belongs to user
+        // @TODO
+        $others = [];
 
         return view('users.comments', [
             'user'      =>  $user,
-            'comments'  =>  $comments,
-        ]);
+            'oneself'   =>  $oneself,
+            'others'    =>  $others,
+        ])->with('userCommentsActive', 'active');
     }
 }
