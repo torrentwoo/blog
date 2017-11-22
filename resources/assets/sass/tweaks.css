@@ -89,9 +89,17 @@ i.glyphicon, .offset-left {
     width:32px;
     height:32px;
 }
-.media:last-child hr {
-    display:none;
+.media-article {
+    margin:20px 0;
+    border-bottom:1px solid #eee;
+    padding-bottom:20px;
 }
+    .media-article .media-body :last-child {
+        margin-bottom:0;
+    }
+    .media-article:last-child {
+        border-bottom:none;
+    }
 .media-preview {
     width:150px;
     max-height:120px;
@@ -296,9 +304,6 @@ a.text-muted:hover, a.text-muted:active {
         margin-bottom:0;
         border-bottom:none;
     }
-#user-moments {
-    margin-top:1em;
-}
 .my-moment {
     position:relative;
 }

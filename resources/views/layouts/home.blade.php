@@ -65,65 +65,66 @@
                         </ul>
                         <hr />
                     </div>
+                    <div class="col-xs-12 col-lg-12">
 @forelse ($articles as $article)
-                    <div class="col-xs-12 col-lg-12 media media-article">
+                        <div class="media media-article">
 @if (!$article->thumbnails->isEmpty())
-                        <div class="media-left hidden-portrait">
-                            <a href="{{ route('article.show', $article->id) }}">
-                                <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" data-holder-rendered="true" />
-                            </a>
-                        </div>
+                            <div class="media-left hidden-portrait">
+                                <a href="{{ route('article.show', $article->id) }}">
+                                    <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" data-holder-rendered="true" />
+                                </a>
+                            </div>
 @endif
-                        <div class="media-body">
-                            <h4 class="media-heading media-title">
-                                <a href="{{ route('article.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
-                            </h4>
-                            <ul class="list-inline text-muted media-author">
-                                <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
-                                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                        <span class="sr-only">作者：</span>
-                                        {{ $article->author->name }}
-                                    </a>
-                                </li>
-                                <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                    <span class="sr-only">文章发布在：</span>
-                                    {{ $article->released_at->diffForHumans() }}
-                                </li>
-                            </ul>
-                            <p>{{ $article->description }}</p>
-                            <ul class="list-inline media-meta">
-                                <li><a class="media-column" href="{{ route('column.show', $article->column->id) }}">{{ $article->column->name }}</a></li>
-                                <li>
-                                    <a class="text-muted" href="{{ route('article.show', $article->id) }}">
-                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                        <span class="sr-only">浏览：</span>
-                                        {{ $article->views }}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="text-muted" href="{{ route('article.show', $article->id) . '#comments' }}">
-                                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                                        <span class="sr-only">评论：</span>
-                                        {{ $article->comments->count() }}
-                                    </a>
-                                </li>
-                                <li>
-                                    <span class="text-muted">
-                                        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                                        <span class="sr-only">喜欢：</span>
-                                        {{ $article->likes->count() }}
-                                    </span>
-                                </li>
-                            </ul>
+                            <div class="media-body">
+                                <h4 class="media-heading media-title">
+                                    <a href="{{ route('article.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
+                                </h4>
+                                <ul class="list-inline text-muted media-author">
+                                    <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
+                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                            <span class="sr-only">作者：</span>
+                                            {{ $article->author->name }}
+                                        </a>
+                                    </li>
+                                    <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                        <span class="sr-only">文章发布在：</span>
+                                        {{ $article->released_at->diffForHumans() }}
+                                    </li>
+                                </ul>
+                                <p>{{ $article->description }}</p>
+                                <ul class="list-inline media-meta">
+                                    <li><a class="media-column" href="{{ route('column.show', $article->column->id) }}">{{ $article->column->name }}</a></li>
+                                    <li>
+                                        <a class="text-muted" href="{{ route('article.show', $article->id) }}">
+                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                            <span class="sr-only">浏览：</span>
+                                            {{ $article->views }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="text-muted" href="{{ route('article.show', $article->id) . '#comments' }}">
+                                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                                            <span class="sr-only">评论：</span>
+                                            {{ $article->comments->count() }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="text-muted">
+                                            <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                                            <span class="sr-only">喜欢：</span>
+                                            {{ $article->likes->count() }}
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <hr />
-                    </div>
 @empty
-                    <div class="alert alert-warning alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <p><strong>提示：</strong>没有找到任何发表过的文章内容</p>
-                    </div>
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <p><strong>提示：</strong>没有找到任何发表过的文章内容</p>
+                        </div>
 @endforelse
+                    </div>
                 </div>
 @stop
 
