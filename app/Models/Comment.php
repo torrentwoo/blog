@@ -40,19 +40,19 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function commentator()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
-     * 获取评论的子集评论（可嵌套）
+     * 获取评论的回复（子集评论、可嵌套）
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany|\Illuminate\Database\Eloquent\Builder
      */
-    public function comments()
+    public function replies()
     {
-        return $this->morphMany(self::class, 'commentable')->orderBy('created_at', 'desc');
+        return $this->morphMany(self::class, 'commentable')->orderBy('created_at', 'asc');
     }
 
     /**
