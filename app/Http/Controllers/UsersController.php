@@ -225,7 +225,11 @@ class UsersController extends Controller
         // The latest released articles
         $latest = $user->articles()->released()->latest('released_at')->get();
         // The most commented articles
-        $commented = $user->articles()->with('comments')->get()->sortByDesc('comments')->values();
+        $commented = $user->articles()->with(['comments' => function($query) {
+            $query->orderBy('created_at', 'desc');
+        }])->get()->filter(function($item) {
+            return true !== $item->comments->isEmpty();
+        })->values();
         // The popular articles
         $popular = $user->articles()->released()->orderBy('views', 'desc')->with('likes')->get();
 
