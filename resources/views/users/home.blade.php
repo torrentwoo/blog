@@ -99,7 +99,7 @@
                                         <ul class="list-inline text-muted media-meta">
                                             <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                 <span class="sr-only">最新评论日期：</span>
-                                                {{ $article->comments->first()->created_at }}
+                                                {{ $article->comments->first()->created_at->format('Y-m-d h:i A') }}
                                             </li>
                                             <li>
                                                 <a class="text-muted" href="{{ route('article.show', $article->id) }}">
