@@ -17,12 +17,19 @@ class CommentsTableSeeder extends Seeder
         $arrArticlesId = App\Models\Article::released()->lists('id')->toArray();
         // 获取已激活用户的 id
         $arrUsersId = App\Models\User::activated()->lists('id')->toArray();
+        // 组装临时数据
+        $data = [
+            App\Models\Article::class   =>  $arrArticlesId,
+            App\Models\Comment::class   =>  range(0, 20),
+        ];
         // 生成 100 个测试评论数据
         $comments = factory(App\Models\Comment::class)->times(100)->make()
-            ->each(function($ele) use ($faker, $arrUsersId, $arrArticlesId) {
+            ->each(function($ele) use ($faker, $arrUsersId, $data) {
+                $model = array_rand($data);
                 $ele->user_id = $faker->randomElement($arrUsersId);
-                $ele->commentable_id = $faker->randomElement($arrArticlesId);
-                $ele->commentable_type = 'App\Models\Article';
+                $ele->parent_id = $faker->randomElement($data[$model]); // nested comment
+                $ele->commentable_id = $faker->randomElement($data[$model]);
+                $ele->commentable_type = $model;
             })->toArray();
         // 保存测试数据
         App\Models\Comment::insert($comments);
