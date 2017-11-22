@@ -293,7 +293,9 @@ a.text-muted:hover, a.text-muted:active {
         margin-bottom:20px;
     }
         dl.well-quirk dt, div.well-quirk :first-child {
-            margin-bottom:.5em;
+            margin-bottom:.75em;
+        }
+        dl.well-quirk dt {
             font-weight:bold;
             font-size:18px;
         }
