@@ -90,10 +90,10 @@ class CommentsController extends Controller
      */
     public function show($id)
     {
-        // Retrieve article data from model article and column
-        $article  = Article::with('column')->where('id', '=', $id)->released()->firstOrFail();
+        // Retrieve article and its column data
+        $article = Article::with('column')->released()->findOrFail($id);
         // Retrieve comments those comment on this article
-        $comments = $article->comments()->with('commentator')->latest('created_at')->paginate(10);
+        $comments = $article->comments()->with('commentator')->latest('created_at')->paginate(20);
         // Retrieve top 8 popular articles that been commented on
         $popular  = Article::with('comments')->released()->get()->sortByDesc(function($item) {
             return $item->comments->count();
