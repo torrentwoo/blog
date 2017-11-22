@@ -70,7 +70,7 @@
 @endforelse
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="commented" aria-labelledby="commented-tab">
-@forelse ($comments as $article)
+@forelse ($commented as $article)
                                 <div class="media media-article">
 @if (!$article->thumbnails->isEmpty())
                                     <div class="media-left hidden-portrait">
