@@ -52,7 +52,7 @@
 @elseif ($comment->commentable_type === \App\Models\Comment::class)
                                         <p>{{ str_limit($comment->commentable->content, 320) }}</p>
                                         <ul class="list-inline text-muted">
-                                            <li><a href="{{ route('user.show', $comment->commentable->user->id) }}">{{ $comment->commentable->user->name }}</a></li>
+                                            <li><a href="{{ route('user.show', $comment->commentable->commentator->id) }}">{{ $comment->commentable->commentator->name }}</a></li>
                                             <li>
                                                 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                                                 <span class="sr-only">赞：</span>

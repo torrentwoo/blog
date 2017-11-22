@@ -143,10 +143,10 @@
 @foreach ($article->comments as $comment)
                             <li class="media">
                                 <div class="media-left">
-                                    <img alt="{{ $comment->user->name }}" data-src="holder.js/64x64" class="media-object" src="{{ $comment->user->gravatar(64) }}" data-holder-rendered="true">
+                                    <img alt="{{ $comment->commentator->name }}" data-src="holder.js/64x64" class="media-object" src="{{ $comment->commentator->gravatar(64) }}" data-holder-rendered="true">
                                 </div>
                                 <div class="media-body">
-                                    <h4 class="media-heading">{{ $comment->user->name }} <small>{{ $comment->created_at->diffForHumans() }}</small></h4>
+                                    <h4 class="media-heading">{{ $comment->commentator->name }} <small>{{ $comment->created_at->diffForHumans() }}</small></h4>
                                     <p>{{ $comment->content }}</p>
                                 </div>
                             </li>

@@ -13,12 +13,12 @@
 @foreach ($comments as $comment)
                             <li class="media">
                                 <div class="media-left">
-                                    <a href="{{ route('user.show', $comment->user->id) }}">
-                                        <img alt="64x64" data-src="holder.js/64x64" class="media-object" src="{{ $comment->user->gravatar(64) }}" data-holder-rendered="true" />
+                                    <a href="{{ route('user.show', $comment->commentator->id) }}">
+                                        <img alt="64x64" data-src="holder.js/64x64" class="media-object" src="{{ $comment->commentator->gravatar(64) }}" data-holder-rendered="true" />
                                     </a>
                                 </div>
                                 <div class="media-body">
-                                    <h4 class="media-heading">{{ $comment->user->name }} <small>{{ $comment->created_at->diffForHumans() }}</small></h4>
+                                    <h4 class="media-heading">{{ $comment->commentator->name }} <small>{{ $comment->created_at->diffForHumans() }}</small></h4>
                                     <p>{{ $comment->content }}</p>
                                 </div>
                             </li>
