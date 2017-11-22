@@ -140,7 +140,11 @@ class UsersController extends Controller
         $popular = $user->articles()->with('likes')->released()->orderBy('views', 'desc')->get()
             ->sortByDesc('likes')->values();
         // The most commented articles
-        $comments = $user->articles()->with('comments')->get()->sortByDesc('comments')->values();
+        $comments = $user->articles()->with(['comments' => function($query) {
+            $query->orderBy('created_at', 'desc');
+        }])->get()->filter(function($item) {
+            return true !== $item->comments->isEmpty();
+        })->values();
 
         return view('users.home', [
             'user'          =>  $user,
