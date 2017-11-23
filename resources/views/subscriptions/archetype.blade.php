@@ -5,7 +5,7 @@
                 <dl id="aside-menu">
                     <dt class="header">我的关注</dt>
                     <dd class="extend">
-                        <a href="#recommendation" class="small">
+                        <a href="{{ route('subscription.recommend') }}" class="small">
                             <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>加关注
                         </a>
                     </dd>

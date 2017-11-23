@@ -83,8 +83,8 @@
                 </dl>
                 <hr />
                 <dl class="user-sidebar" id="user-subscriptions">
-                    <dd><a href="#subscriptions"><i class="glyphicon glyphicon-headphones" aria-hidden="true"></i>我关注的栏目</a></dd>
-                    <dd><a href="#favorites"><i class="glyphicon glyphicon-heart" aria-hidden="true"></i>我喜欢的文章</a></dd>
+                    <dd><a href="{{ route('subscription.index') }}"><i class="glyphicon glyphicon-headphones" aria-hidden="true"></i>我关注的栏目</a></dd>
+                    <dd><a href="{{ route('user.favorites', $user->id) }}"><i class="glyphicon glyphicon-heart" aria-hidden="true"></i>我喜欢的文章</a></dd>
                 </dl>
                 <hr />
                 <dl class="user-sidebar" id="user-extensions">
