@@ -18,10 +18,9 @@ class SubscriptionsController extends Controller
     public function index()
     {
         // Get following list
-        $followings = Auth::user()->follows()->get();
+        $followings = Auth::user()->follows()->latest('created_at')->get();
         // Get the first element, retrieve its data, to put them into default view
         $first = $origin = $followings->first()->followable;
-        $origin = collect(array_merge($origin->toArray(), ['followable_type' => $followings->first()->followable_type]));
         // The latest based on the first
         $latest = $first->articles()->with('author')->released()->latest('released_at')->get();
         // The most commented --articles-- based on the first
