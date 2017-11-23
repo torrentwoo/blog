@@ -2,7 +2,7 @@
 
 @section('content')
             <div class="col-xs-12 col-sm-12">
-                <div class="well" id="column-header">
+                <div class="well">
                     <h1>热门栏目</h1>
                 </div>
             </div>

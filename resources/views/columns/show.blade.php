@@ -6,7 +6,7 @@
                     <li><a href="{{ route('column.index') }}">热门栏目</a></li>
                     <li class="active">{{ $column->name }}</li>
                 </ol>
-                <div class="media" id="column-header">
+                <div class="media header-media">
 @if (!$column->thumbnails->isEmpty())
                     <div class="media-left">
                         <a href="{{ route('column.show', $column->id) }}">

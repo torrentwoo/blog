@@ -170,10 +170,10 @@ a.text-muted:hover, a.text-muted:active {
 /*
  Column
  */
-#column-header, #inline-menu {
+.header-media, #inline-menu {
   margin: 0 0 2em; }
 
-#column-header img {
+.header-media img {
   width: 64px;
   height: 64px;
   border-radius: 10%; }
@@ -288,9 +288,6 @@ a.text-muted:hover, a.text-muted:active {
 #aside-menu .preview {
   width: 64px;
   height: 64px; }
-
-.header-media {
-  margin-bottom: 2em; }
 
 /*
  User home
