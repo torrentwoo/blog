@@ -77,6 +77,7 @@ Route::get('/tags/{id}', 'TagsController@show')->name('tag.show');
 
 // Subscription routes
 Route::get('/subscriptions', 'SubscriptionsController@index')->name('subscription.index');
+Route::get('/subscriptions/recommendation', 'SubscriptionsController@recommend')->name('subscription.recommend');
 Route::get('/subscriptions/column/{id}', 'SubscriptionsController@followingColumns')->name('subscription.column');
 Route::get('/subscriptions/user/{id}', 'SubscriptionsController@followingUsers')->name('subscription.user');
 
