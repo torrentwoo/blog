@@ -265,6 +265,10 @@ a.text-muted:hover, a.text-muted:active {
     right:15px;
     top:1em;
 }
+#aside-menu .preview {
+    width:64px;
+    height:64px;
+}
 .header-media {
     margin-bottom:2em;
 }
