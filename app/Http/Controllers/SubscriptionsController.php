@@ -19,6 +19,11 @@ class SubscriptionsController extends Controller
         return view('subscriptions.index')->with('subscriptionActive', 'active');
     }
 
+    public function recommend()
+    {
+        return view('subscriptions.recommendation')->with('subscriptionActive', 'active');
+    }
+
     public function followingColumns($id)
     {
         return view('subscriptions.column')->with('subscriptionActive', 'active');
