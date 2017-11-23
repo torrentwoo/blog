@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Column;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,33 +17,41 @@ class SubscriptionsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    protected function retrieve($origin = null)
     {
-        // Get following list
+        // The following list
         $followings = Auth::user()->follows()->latest('created_at')->get();
-        // Get the first element, retrieve its data, to put them into default view
-        $first = $origin = $followings->first()->followable;
-        // The latest based on the first
-        $latest = $first->articles()->with('author')->released()->latest('released_at')->get();
-        // The most commented --articles-- based on the first
-        $commented = $first->articles()->released()->with('author', 'comments')->get()->filter(function($item) {
+        if (true !== isset($origin)) { // instance of Column or User
+            $origin = $followings->first()->followable;
+        }
+        // The latest articles
+        $latest = $origin->articles()->released()->with('author')->latest('released_at')->get();
+        // The most commented articles
+        $commented = $origin->articles()->released()->with('author', 'comments')->get()->filter(function($item) {
             return $item->comments->isEmpty() !== true;
         })->sortByDesc('comments')->values();
-        // The popular --articles-- based on the first
-        $popular = $first->articles()->released()->with('author', 'likes', 'comments')->get()->sort(function($a, $b) {
+        // The popular articles
+        $popular = $origin->articles()->released()->with('author', 'likes', 'comments')->get()->sort(function($a, $b) {
             if ($a->likes->count() === $b->likes->count()) {
                 return 0;
             }
             return $a->views + $a->comments->count() < $b->views + $b->comments->count() ? -1 : 1;
         })->values();
 
-        return view('subscriptions.index', [
+        return [
             'followings'    =>  $followings,
             'origin'        =>  $origin,
             'latest'        =>  $latest,
             'commented'     =>  $commented,
             'popular'       =>  $popular,
-        ])->with('subscriptionActive', 'active');
+        ];
+    }
+
+    public function index()
+    {
+        $data = $this->retrieve();
+
+        return view('subscriptions.index', $data)->with('subscriptionActive', 'active');
     }
 
     public function recommend()
@@ -49,13 +59,21 @@ class SubscriptionsController extends Controller
         return view('subscriptions.recommendation')->with('subscriptionActive', 'active');
     }
 
-    public function followingColumns($id)
+    public function followingColumn($id)
     {
-        return view('subscriptions.column')->with('subscriptionActive', 'active');
+        // The specified column
+        $origin = Column::visible()->findOrFail($id);
+        $data   = $this->retrieve($origin);
+
+        return view('subscriptions.column', $data)->with('subscriptionActive', 'active');
     }
 
-    public function followingUsers($id)
+    public function followingUser($id)
     {
-        return view('subscriptions.user')->with('subscriptionActive', 'active');
+        // The specified user
+        $origin = User::activated()->findOrFail($id);
+        $data   = $this->retrieve($origin);
+
+        return view('subscriptions.user', $data)->with('subscriptionActive', 'active');
     }
 }
