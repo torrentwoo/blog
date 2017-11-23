@@ -99,6 +99,5 @@
 @unless (Auth::check())
     <script type="text/javascript" src="{{ asset('/assets/js/ajax-login.js') }}"></script>
 @endunless
-@section('subScripts')
-@show
+@yield('subScripts')
 @stop

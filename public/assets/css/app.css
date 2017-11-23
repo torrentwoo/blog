@@ -269,6 +269,26 @@ a.text-muted:hover, a.text-muted:active {
   border-bottom-left-radius: 0; }
 
 /*
+ Subscription
+ */
+#aside-menu {
+  /*border-right:1px solid #eee;*/
+  position: relative; }
+
+#aside-menu .header {
+  margin-bottom: 1em;
+  border-bottom: 1px solid #eee;
+  padding: 1em 15px; }
+
+#aside-menu .extend {
+  position: absolute;
+  right: 15px;
+  top: 1em; }
+
+.header-media {
+  margin-bottom: 2em; }
+
+/*
  User home
  */
 #user-meta {
