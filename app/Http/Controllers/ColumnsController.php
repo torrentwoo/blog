@@ -56,16 +56,25 @@ class ColumnsController extends Controller
      */
     public function show($id)
     {
-        $column  = Column::visible()->findOrFail($id);
-        $columns = Column::whereHas('articles', function($query) {
-            $query->where('approval', '<>', 0);
-        })->visible()->orderBy('priority', 'desc')->get();
-        $articles = Article::where('column_id', $id)->released()->with('thumbnails')->paginate(15);
+        // Column itself
+        $column = Column::visible()->findOrFail($id);
+        // The most commented articles in this very column
+        $commented = $column->articles()->released()->with('author', 'comments')->get()->filter(function($item) {
+            return true !== $item->comments->isEmpty();
+        })->sortByDesc('comments')->values();
+        // Latest articles in this very column
+        $latest = $column->articles()->released()->with('author')->latest('released_at')->paginate(10);
+        // The popular articles in this column, [considering dimension: views, comments, likes
+        $popular = $column->articles()->released()->with('author', 'comments', 'likes')->orderBy('views', 'desc')->get()
+            ->filter(function($item) {
+                return true !== $item->likes->isEmpty() && $item->views > 0;
+            })->sortByDesc('comments')->sortByDesc('likes')->values();
 
         return view('columns.show', [
             'column'    =>  $column,
-            'columns'   =>  $columns,
-            'articles'  =>  $articles,
+            'commented' =>  $commented,
+            'latest'    =>  $latest,
+            'popular'   =>  $popular,
         ]);
     }
 
