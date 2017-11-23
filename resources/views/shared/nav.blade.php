@@ -11,13 +11,13 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="{{ $homeActive or 'void' }}"><a href="{{ route('home') }}">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li class="{{ $homeActive or 'void' }}"><a href="{{ route('home') }}">首页</a></li>
+                    <li><a href="#discover">发现</a></li>
+                    <li class="{{ $subscriptionActive or 'void' }}"><a href="{{ route('subscription.index') }}">关注</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 @if (Auth::check())
-                    <li><a href="#notification"><span class="glyphicon glyphicon-bell"></span><i class="sr-only">消息通知</i></a></li>
+                    <li class="{{ $notificationActive or 'void' }}"><a href="#notification"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span><i class="sr-only">消息通知</i></a></li>
                     <li class="dropdown">
                         <a href="javascript:void(0);" id="navUserDropdownMenu" class="dropdown-toggle" data-toggle="dropdown">
                             {{ Auth::user()->name }}
@@ -39,6 +39,7 @@
                             <li><a id="navLogoutLink" href="{{ route('logout') }}"><i class="glyphicon glyphicon-off" aria-hidden="true"></i>注销登录</a></li>
                         </ul>
                     </li>
+                    <li class="{{ $writeActive or 'void' }}"><a href="#write" title="写文章" target="_blank"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><i class="sr-only">写文章</i></a></li>
 @else
                     <li class="{{ $loginActive or 'void' }}"><a href="{{ route('login') }}">登陆</a></li>
                     <li class="{{ $registerActive or 'void' }}"><a href="{{ route('register') }}">注册</a></li>
