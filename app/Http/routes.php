@@ -75,6 +75,11 @@ Route::post('/articles/{id}/comments', 'CommentsController@store')->name('articl
 Route::get('/tags', 'TagsController@index')->name('tag.index');
 Route::get('/tags/{id}', 'TagsController@show')->name('tag.show');
 
+// Subscription routes
+Route::get('/subscriptions', 'SubscriptionsController@index')->name('subscription.index');
+Route::get('/subscriptions/column/{id}', 'SubscriptionsController@followingColumns')->name('subscription.column');
+Route::get('/subscriptions/user/{id}', 'SubscriptionsController@followingUsers')->name('subscription.user');
+
 
 //--------------------------------------/
 //----    Administration routes     ----/
