@@ -211,7 +211,7 @@
                     </div>
                 </div>
                 <nav class="text-center" aria-label="Page navigation">
-                    {!! $articles->render() !!}
+                    {!! $latest->render() !!}
                 </nav>
 @stop
 
