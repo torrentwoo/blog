@@ -1,7 +1,7 @@
 @extends('shared.singleton')
 
 @section('content')
-            <div id="subscription-aside" class="col-xs-10 col-sm-4">
+            <div id="subscription-aside" class="{{ $followings->isEmpty() ? 'col-xs-12 col-sm-12' : 'col-xs-10 col-sm-4' }}">
                 <dl id="aside-menu">
                     <dt class="header">我的关注</dt>
                     <dd class="extend">

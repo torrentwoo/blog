@@ -1,5 +1,6 @@
 @extends('subscriptions.archetype')
 
+@if (!$followings->isEmpty())
 @section('rightContent')
             <div class="col-xs-12 col-sm-8">
 @if ($followings->first()->followable_type === App\Models\User::class)
@@ -213,9 +214,4 @@
                 </div>
             </div>
 @stop
-
-@section('subScripts')
-    <script type="text/javascript">
-        console.log('document loaded');
-    </script>
-@stop
+@endif
