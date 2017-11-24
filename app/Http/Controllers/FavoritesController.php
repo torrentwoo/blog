@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use App\Models\Favorite;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -28,13 +30,38 @@ class FavoritesController extends Controller
         $this->user = Auth::user();
     }
 
-    public function add($id)
+    /**
+     * 用户收藏一篇文章
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addFavoriteArticle($id)
     {
-        //
+        $article = Article::findOrFail($id);
+        if (!$article->isFavoriteBy($this->user)) {
+            $article->favorites()->save(
+                new Favorite(['user_id' => $this->user->id])
+            );
+        }
+        return redirect()->back();
     }
 
-    public function revoke($id)
+    /**
+     * 用户取消收藏一篇文章
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function revokeFavoriteArticle($id)
     {
-        //
+        $article = Article::findOrFail($id);
+        if ($article->isFavoriteBy($this->user)) {
+            Favorite::where('user_id', '=', $this->user->id)
+                    ->where('favorable_id', '=', $article->id)
+                    ->where('favorable_type', '=', Article::class)
+                    ->delete();
+        }
+        return redirect()->back();
     }
 }
