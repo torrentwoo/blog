@@ -54,18 +54,18 @@ Route::get('/columns/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->
 Route::get('/articles/{id}', 'ArticlesController@show')->where('id', '[a-z\d]+')->name('article.show');
 
 // Favorites routes
-Route::post('/articles/{id}/favorite', 'FavoritesController@add')->name('favorite.add');
-Route::delete('/articles/{id}/favorite', 'FavoritesController@revoke')->name('favorite.revoke');
+Route::post('/articles/{id}/favorite', 'FavoritesController@addFavoriteArticle')->name('favorite.article');
+Route::delete('/articles/{id}/favorite', 'FavoritesController@revokeFavoriteArticle')->name('favorite.article');
 
 // Follows routes
-Route::post('/columns/{id}/follow', 'FollowsController@add')->name('follow.add');
-Route::delete('/columns/{id}/follow', 'FollowsController@revoke')->name('follow.revoke');
-Route::post('/user/{id}/follow', 'FollowsController@store')->name('follow.add');
-Route::delete('/user/{id}/follow', 'FollowsController@destroy')->name('follow.remove');
+Route::post('/columns/{id}/follow', 'FollowsController@followColumn')->name('follow.column');
+Route::delete('/columns/{id}/follow', 'FollowsController@revokeFollowColumn')->name('follow.column');
+Route::post('/user/{id}/follow', 'FollowsController@followUser')->name('follow.user');
+Route::delete('/user/{id}/follow', 'FollowsController@revokeFollowUser')->name('follow.user');
 
 // Likes routes
-Route::post('/articles/{id}/like', 'LikesController@add')->name('like.add');
-Route::delete('/articles/{id}/like', 'LikesController@revoke')->name('like.revoke');
+Route::post('/articles/{id}/like', 'LikesController@addLikeArticle')->name('like.article');
+Route::delete('/articles/{id}/like', 'LikesController@revokeLikeArticle')->name('like.article');
 
 // Comments related routes
 Route::get('/articles/{id}/comments', 'CommentsController@show')->name('article.comments');
