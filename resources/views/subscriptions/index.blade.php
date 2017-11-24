@@ -1,9 +1,8 @@
 @extends('subscriptions.archetype')
 
-@if (!$followings->isEmpty())
 @section('rightContent')
             <div class="col-xs-12 col-sm-8">
-@if ($followings->first()->followable_type === App\Models\User::class)
+@if ($followings->isEmpty() !== true && $followings->first()->followable_type === App\Models\User::class)
                 <div class="media header-media">
                     <div class="media-left">
                         <a href="{{ route('user.show', $origin->id) }}">
@@ -23,7 +22,7 @@
                         </a>
                     </div>
                 </div>
-@elseif ($followings->first()->followable_type === App\Models\Column::class)
+@elseif ($followings->isEmpty() !== true && $followings->first()->followable_type === App\Models\Column::class)
                 <div class="media header-media">
 @if (!$origin->thumbnails->isEmpty())
                     <div class="media-left">
@@ -49,7 +48,11 @@
                 <ul class="nav nav-tabs" id="inline-menu">
                     <li role="presentation" class="active">
                         <a href="#latest" id="latest-tab" data-toggle="tab" aria-controls="latest" aria-expanded="true" role="tab">
-                            <i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i>最新<span class="hidden-xs">@if ($followings->first()->followable_type === App\Models\Column::class)收录@else发表@endif</span>
+@if ($followings->isEmpty() !== true && $followings->first()->followable_type === App\Models\Column::class)
+                            <i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i>最新<span class="hidden-xs">收录</span>
+@else
+                            <i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i>最新<span class="hidden-xs">发表</span>
+@endif
                         </a>
                     </li>
                     <li role="presentation">
@@ -214,4 +217,3 @@
                 </div>
             </div>
 @stop
-@endif

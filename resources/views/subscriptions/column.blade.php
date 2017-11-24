@@ -191,9 +191,3 @@
                 </div>
             </div>
 @stop
-
-@section('subScripts')
-    <script type="text/javascript">
-        console.log('document loaded');
-    </script>
-@stop
