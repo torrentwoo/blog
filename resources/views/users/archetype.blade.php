@@ -33,7 +33,7 @@
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $user->id))
                             <div class="media-right nowrap-landscape" id="user-buttons">
                                 <button type="button" class="btn btn-info btn-xs">发消息</button>
-                                <form method="POST" action="{{ $user->isFollowedBy(Auth::user()) ? route('follow.remove', $user->id) : route('follow.add', $user->id) }}" id="userFollowForm" class="follow-form">
+                                <form method="POST" action="{{ route('follow.user', $user->id) }}" id="userFollowForm" class="follow-form">
                                     {{ csrf_field() }}
 @if ($user->isFollowedBy(Auth::user()))
                                     {{ method_field('DELETE') }}

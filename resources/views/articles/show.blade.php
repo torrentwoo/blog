@@ -16,7 +16,7 @@
                                 <li>作者：<a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
                                     <small>
-                                        <form method="POST" action="{{ $article->author->isFollowedBy(Auth::user()) ? route('follow.remove', $article->author->id) : route('follow.add', $article->author->id) }}" id="authorFollowForm" class="follow-form">
+                                        <form method="POST" action="{{ route('follow.user', $article->author->id) }}" id="authorFollowForm" class="follow-form">
                                             {{ csrf_field() }}
 @if ($article->author->isFollowedBy(Auth::user()))
                                             {{ method_field('DELETE') }}
@@ -57,7 +57,7 @@
                                             <h2 class="media-heading"><a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
                                                 <small id="author-follow">
-                                                    <form method="POST" action="{{ $article->author->isFollowedBy(Auth::user()) ? route('follow.remove', $article->author->id) : route('follow.add', $article->author->id) }}" id="authorBriefFollowForm" class="follow-form">
+                                                    <form method="POST" action="{{ route('follow.user', $article->author->id) }}" id="authorBriefFollowForm" class="follow-form">
                                                         {{ csrf_field() }}
 @if ($article->author->isFollowedBy(Auth::user()))
                                                         {{ method_field('DELETE') }}
@@ -86,14 +86,14 @@
                             <div id="article-express" class="col-xs-6 col-md-6">
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
                                 <div class="btn-toolbar" role="toolbar">
-                                    <form method="POST" action="{{ $article->isLikedBy(Auth::user()) ? route('like.revoke', $article->id) : route('like.add', $article->id) }}" id="articleLikeForm" class="btn-group" role="group">
+                                    <form method="POST" action="{{ route('like.article', $article->id) }}" id="articleLikeForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
                                         {{ method_field($article->isLikedBy(Auth::user()) ? 'DELETE' : 'PATCH') }}
                                         <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-danger btn-sm btn-first" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleLikeForm">
                                             <i class="glyphicon {{ $article->isLikedBy(Auth::user()) ? 'glyphicon-heart' : 'glyphicon-heart-empty' }}" aria-hidden="true"></i>喜欢
                                         </button>
                                     </form>
-                                    <form method="POST" action="{{ $article->isFavoriteBy(Auth::user()) ? route('favorite.revoke', $article->id) : route('favorite.add', $article->id) }}" id="articleFavoriteForm" class="btn-group" role="group">
+                                    <form method="POST" action="{{ route('favorite.article', $article->id) }}" id="articleFavoriteForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
                                         {{ method_field($article->isFavoriteBy(Auth::user()) ? 'DELETE' : 'PATCH') }}
                                         <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-warning btn-sm btn-last" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleFavoriteForm">
