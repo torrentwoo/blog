@@ -21,22 +21,26 @@ class SubscriptionsController extends Controller
     {
         // The following list
         $followings = Auth::user()->follows()->latest('created_at')->get();
-        if (true !== isset($origin)) { // instance of Column or User
-            $origin = $followings->first()->followable;
-        }
-        // The latest articles
-        $latest = $origin->articles()->released()->with('author')->latest('released_at')->get();
-        // The most commented articles
-        $commented = $origin->articles()->released()->with('author', 'comments')->get()->filter(function($item) {
-            return $item->comments->isEmpty() !== true;
-        })->sortByDesc('comments')->values();
-        // The popular articles
-        $popular = $origin->articles()->released()->with('author', 'likes', 'comments')->get()->sort(function($a, $b) {
-            if ($a->likes->count() === $b->likes->count()) {
-                return 0;
+        if ($followings->isEmpty()) {
+            $origin = $latest = $commented = $popular = [];
+        } else {
+            if (true !== isset($origin)) { // instance of Column or User
+                $origin = $followings->first()->followable;
             }
-            return $a->views + $a->comments->count() < $b->views + $b->comments->count() ? -1 : 1;
-        })->values();
+            // The latest articles
+            $latest = $origin->articles()->released()->with('author')->latest('released_at')->get();
+            // The most commented articles
+            $commented = $origin->articles()->released()->with('author', 'comments')->get()->filter(function ($item) {
+                return $item->comments->isEmpty() !== true;
+            })->sortByDesc('comments')->values();
+            // The popular articles
+            $popular = $origin->articles()->released()->with('author', 'likes', 'comments')->get()->sort(function ($a, $b) {
+                if ($a->likes->count() === $b->likes->count()) {
+                    return 0;
+                }
+                return $a->views + $a->comments->count() < $b->views + $b->comments->count() ? -1 : 1;
+            })->values();
+        }
 
         return [
             'followings'    =>  $followings,
