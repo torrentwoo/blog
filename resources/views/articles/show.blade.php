@@ -88,14 +88,18 @@
                                 <div class="btn-toolbar" role="toolbar">
                                     <form method="POST" action="{{ route('like.article', $article->id) }}" id="articleLikeForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
-                                        {{ method_field($article->isLikedBy(Auth::user()) ? 'DELETE' : 'PATCH') }}
+@if ($article->isLikedBy(Auth::user()))
+                                        {{ method_field('DELETE') }}
+@endif
                                         <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-danger btn-sm btn-first" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleLikeForm">
                                             <i class="glyphicon {{ $article->isLikedBy(Auth::user()) ? 'glyphicon-heart' : 'glyphicon-heart-empty' }}" aria-hidden="true"></i>喜欢
                                         </button>
                                     </form>
                                     <form method="POST" action="{{ route('favorite.article', $article->id) }}" id="articleFavoriteForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
-                                        {{ method_field($article->isFavoriteBy(Auth::user()) ? 'DELETE' : 'PATCH') }}
+@if ($article->isFavoriteBy(Auth::user()))
+                                        {{ method_field('DELETE') }}
+@endif
                                         <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-warning btn-sm btn-last" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#articleFavoriteForm">
                                             <i class="glyphicon {{ $article->isFavoriteBy(Auth::user()) ? 'glyphicon-star' : 'glyphicon-star-empty' }}" aria-hidden="true"></i>收藏
                                         </button>
