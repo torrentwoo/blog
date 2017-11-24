@@ -31,11 +31,16 @@ class FollowsController extends Controller
         $this->user = Auth::user();
     }
 
+    /**
+     * 关注某个栏目
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function followColumn($id)
     {
         $column = Column::findOrFail($id);
         if (!$column->isFollowedBy($this->user)) {
-            //$column->follows()->sync([$this->user->id], false);
             $column->follows()->save(
                 new Follow(['user_id' => $this->user->id])
             );
@@ -43,9 +48,20 @@ class FollowsController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * 取消关注某个（或者某些）栏目
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function revokeFollowColumn($id)
     {
-        //
+        $id = !is_array($id) ? compact('id') : $id;
+        Follow::whereIn('followable_id', $id)
+              ->where('user_id', '=', $this->user->id)
+              ->where('followable_type', '=', Column::class)
+              ->delete();
+
+        return redirect()->back();
     }
 
     /**
@@ -59,22 +75,21 @@ class FollowsController extends Controller
         $user = User::findOrFail($id);
         if ($this->user->id !== $user->id && !$this->user->isFollowed($user)) {
             $this->user->followedUsers()->sync([$user->id], false);
-            //$user->followingUsers()->sync([$this->user->id], false);
         }
         return redirect()->back();
     }
 
     /**
-     * 取消关注某个（或一些）用户
+     * 取消关注某个（或者某些）用户
      *
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function revokeFollowUser($id)
     {
-        $user = User::findOrFail($id);
         $id = true !== is_array($id) ? compact('id') : $id;
         $this->user->followedUsers()->detach($id);
+
         return redirect()->back();
     }
 }
