@@ -10,7 +10,7 @@
                     </div>
                     <div class="media-body">
                         <h1 class="media-heading h2">{{ $origin->name }}</h1>
-                        <p>发表文章{{ $origin->articles->count() }}篇<i class="divider">&middot;</i>获得{{ $origin->likes->count() }}个喜欢</p>
+                        <p>发表文章{{ $origin->articles->count() }}篇<i class="divider">&middot;</i>获得{{ $origin->likedUsers()->count() }}个喜欢</p>
                     </div>
                     <div class="media-right nowrap-landscape" id="user-buttons">
                         <button type="button" class="btn btn-info btn-xs">
