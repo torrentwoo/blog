@@ -20,9 +20,15 @@
                     </div>
                     <div class="media-right nowrap-landscape" id="user-buttons">
                         <button type="button" class="btn btn-info btn-xs">投稿</button>
-                        <button type="button" class="btn btn-success btn-xs">
-                            <i class="glyphicon glyphicon-minus glyphicon-plus" aria-hidden="true"></i>关注
-                        </button>
+                        <form method="POST" action="{{ route('follow.column', $column->id) }}" class="follow-form" id="columnFollowForm">
+                            {{ csrf_field() }}
+@if ($column->isFollowedBy(Auth::user()))
+                            {{ method_field('DELETE') }}
+@endif
+                            <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-xs" {!! !Auth::check() ? 'data-toggle="modal" data-target="#loginModal"' : null !!} data-trigger="#columnFollowForm">
+                                <i class="glyphicon {{ $column->isFollowedBy(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>关注
+                            </button>
+                        </form>
                     </div>
                 </div>
                 <div class="row">
@@ -215,6 +221,10 @@
                 </nav>
 @stop
 
+@unless (Auth::check())
+                @include('features.modal-login')
+@endunless
+
 @section('sidebar')
                 <h5 class="text-muted">栏目简介</h5>
                 <p>aa</p>
@@ -223,4 +233,10 @@
                 <hr />
 
                 <p>高产作者</p>
+@stop
+
+@section('scripts')
+@unless (Auth::check())
+    <script type="text/javascript" src="{{ asset('/assets/js/ajax-login.js') }}"></script>
+@endunless
 @stop

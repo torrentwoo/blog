@@ -29,7 +29,17 @@
                                 <h2 class="heading">{{ $column->name }}</h2>
                                 <p class="brief hidden-xs">{{ str_limit($column->description, 32) }}</p>
                             </a>
-                            <p class="follow"><a class="btn btn-success btn-sm" role="button"><i class="glyphicon glyphicon-plus"></i>关注</a></p>
+                            <div class="follow">
+                                <form method="POST" action="{{ route('follow.column', $column->id) }}" class="follow-form" id="columnFollowForm-{{ $column->id }}">
+                                    {{ csrf_field() }}
+@if ($column->isFollowedBy(Auth::user()))
+                                    {{ method_field('DELETE') }}
+@endif
+                                    <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-sm" {!! !Auth::check() ? 'data-toggle="modal" data-target="#loginModal"' : null !!} data-trigger="#columnFollowForm-{{ $column->id }}">
+                                        <i class="glyphicon {{ $column->isFollowedBy(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}"></i>关注
+                                    </button>
+                                </form>
+                            </div>
                             <hr />
                             <p class="count"><a href="{{ route('column.show', $column->id) }}" class="a">{{ $column->articles()->released()->count() }}篇文章</a><i class="divider">&middot;</i>{{ $column->follows()->count() }}人关注</p>
                         </div>
@@ -41,5 +51,14 @@
                     </div>
 @endforelse
                 </div>
+@unless (Auth::check())
+                @include('features.modal-login')
+@endunless
             </div>
+@stop
+
+@section('scripts')
+@unless (Auth::check())
+    <script type="text/javascript" src="{{ asset('/assets/js/ajax-login.js') }}"></script>
+@endunless
 @stop
