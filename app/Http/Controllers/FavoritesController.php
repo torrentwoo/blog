@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class FavoritesController extends Controller
 {
     /**
-     * 用户模型
+     * 已登录用户的模型
      *
      * @var
      */
@@ -31,7 +31,7 @@ class FavoritesController extends Controller
     }
 
     /**
-     * 用户收藏一篇文章
+     * 用户收藏某篇文章
      *
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
@@ -48,20 +48,18 @@ class FavoritesController extends Controller
     }
 
     /**
-     * 用户取消收藏一篇文章
+     * 用户取消收藏某篇（或多篇）文章
      *
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function revokeFavoriteArticle($id)
     {
-        $article = Article::findOrFail($id);
-        if ($article->isFavoriteBy($this->user)) {
-            Favorite::where('user_id', '=', $this->user->id)
-                    ->where('favorable_id', '=', $article->id)
-                    ->where('favorable_type', '=', Article::class)
-                    ->delete();
-        }
+        $id = true !== is_array($id) ? compact('id') : $id;
+        Favorite::where('user_id', '=', $this->user->id)
+                ->whereIn('favorable_id', $id)
+                ->where('favorable_type', '=', Article::class)
+                ->delete();
         return redirect()->back();
     }
 }

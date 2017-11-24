@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class FollowsController extends Controller
 {
     /**
-     * 用户模型
+     * 已登录用户的模型
      *
      * @var
      */
@@ -32,7 +32,7 @@ class FollowsController extends Controller
     }
 
     /**
-     * 关注某个栏目
+     * 用户关注某个栏目
      *
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
@@ -49,16 +49,17 @@ class FollowsController extends Controller
     }
 
     /**
-     * 取消关注某个（或者某些）栏目
+     * 用户取消关注某个（或者某些）栏目
+     *
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function revokeFollowColumn($id)
     {
         $id = !is_array($id) ? compact('id') : $id;
-        Follow::whereIn('followable_id', $id)
-              ->where('user_id', '=', $this->user->id)
+        Follow::where('user_id', '=', $this->user->id)
               ->where('followable_type', '=', Column::class)
+              ->whereIn('followable_id', $id)
               ->delete();
 
         return redirect()->back();
