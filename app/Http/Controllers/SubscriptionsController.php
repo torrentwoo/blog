@@ -12,20 +12,22 @@ use Illuminate\Support\Facades\Auth;
 
 class SubscriptionsController extends Controller
 {
+    protected $followings;
+
     public function __construct()
     {
         $this->middleware('auth');
+        // The data of user following list
+        $this->followings = Auth::user()->follows()->latest('created_at')->get();
     }
 
     protected function retrieve($origin = null)
     {
-        // The following list
-        $followings = Auth::user()->follows()->latest('created_at')->get();
-        if ($followings->isEmpty()) {
+        if ($this->followings->isEmpty()) {
             $origin = $latest = $commented = $popular = [];
         } else {
-            if (true !== isset($origin)) { // instance of Column or User
-                $origin = $followings->first()->followable;
+            if (true !== isset($origin)) { // must be the instance of Column or User
+                $origin = $this->followings->first()->followable;
             }
             // The latest articles
             $latest = $origin->articles()->released()->with('author')->latest('released_at')->get();
@@ -43,7 +45,7 @@ class SubscriptionsController extends Controller
         }
 
         return [
-            'followings'    =>  $followings,
+            'followings'    =>  $this->followings,
             'origin'        =>  $origin,
             'latest'        =>  $latest,
             'commented'     =>  $commented,
@@ -51,30 +53,56 @@ class SubscriptionsController extends Controller
         ];
     }
 
+    /**
+     * 响应对 GET /subscriptions 的请求
+     *
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function index()
     {
-        $data = $this->retrieve();
+        if ($this->followings->isEmpty()) {
+            return redirect()->route('subscription.recommend');
+        } else {
+            $data = $this->retrieve();
 
-        return view('subscriptions.index', $data)->with('subscriptionActive', 'active');
+            return view('subscriptions.index', $data)->with('subscriptionActive', 'active');
+        }
     }
 
+    /**
+     * 响应对 GET /subscriptions/recommendation 的请求
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function recommend()
     {
-        return view('subscriptions.recommendation')->with('subscriptionActive', 'active');
+        return view('subscriptions.recommendation', [
+            'followings'    =>  $this->followings,
+        ])->with('subscriptionActive', 'active');
     }
 
+    /**
+     * 显示某个被关注的栏目其可供订阅的内容
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function followingColumn($id)
     {
-        // The specified column
         $origin = Column::visible()->findOrFail($id);
         $data   = $this->retrieve($origin);
 
         return view('subscriptions.column', $data)->with('subscriptionActive', 'active');
     }
 
+    /**
+     * 显示某个被关注的用户其可供订阅的内容
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function followingUser($id)
     {
-        // The specified user
         $origin = User::activated()->findOrFail($id);
         $data   = $this->retrieve($origin);
 
