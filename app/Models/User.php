@@ -201,7 +201,7 @@ class User extends Model implements AuthenticatableContract,
      */
     public function followedUsers()
     {
-        return $this->morphToMany(User::class, 'followable', 'follows')
+        return $this->morphedByMany(User::class, 'followable', 'follows')
                     ->withPivot('created_at');
     }
 
@@ -212,7 +212,7 @@ class User extends Model implements AuthenticatableContract,
      */
     public function followingUsers()
     {
-        return $this->morphedByMany(User::class, 'followable', 'follows')
+        return $this->morphToMany(User::class, 'followable', 'follows')
                     ->withPivot('created_at');
     }
 
