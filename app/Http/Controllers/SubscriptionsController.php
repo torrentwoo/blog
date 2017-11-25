@@ -79,6 +79,7 @@ class SubscriptionsController extends Controller
     {
         // Recommend authors
         $authors = User::activated()->with('articles', 'favoriteArticles', 'likedArticles')->get()->filter(function($e) {
+            //return $e->id !== Auth::id() && true !== $e->isFollowedBy(Auth::user());
             return $e->id !== Auth::id();
         })->sort(function($a, $b) {
             $a1Amount = $a->articles->count();
