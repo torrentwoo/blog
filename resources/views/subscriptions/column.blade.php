@@ -57,6 +57,12 @@
                                 </h4>
                                 <p>{{ $article->description }}</p>
                                 <ul class="list-inline text-muted media-meta">
+                                    <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
+                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                            <span class="sr-only">作者：</span>
+                                            {{ $article->author->name }}
+                                        </a>
+                                    </li>
                                     <li>
                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                         <span class="sr-only">文章发布日期：</span>
@@ -86,7 +92,7 @@
 @empty
                         <div class="alert alert-warning alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <p><strong>提示：</strong>Ta 还没有发表任何文章</p>
+                            <p><strong>提示：</strong>本栏目还没有收录任何文章哦</p>
                         </div>
 @endforelse
                     </div>
@@ -106,6 +112,12 @@
                                 </h4>
                                 <p>{{ $article->description }}</p>
                                 <ul class="list-inline text-muted media-meta">
+                                    <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
+                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                            <span class="sr-only">作者：</span>
+                                            {{ $article->author->name }}
+                                        </a>
+                                    </li>
                                     <li>
                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                         <span class="sr-only">文章发布日期：</span>
@@ -135,7 +147,7 @@
 @empty
                         <div class="alert alert-warning alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <p><strong>提示：</strong>Ta 还没有得到过任何评论哦</p>
+                            <p><strong>提示：</strong>本栏目的文章还没有得到过任何评论哦</p>
                         </div>
 @endforelse
                     </div>
@@ -155,6 +167,12 @@
                                 </h4>
                                 <p>{{ $article->description }}</p>
                                 <ul class="list-inline text-muted media-meta">
+                                    <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
+                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                            <span class="sr-only">作者：</span>
+                                            {{ $article->author->name }}
+                                        </a>
+                                    </li>
                                     <li>
                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                         <span class="sr-only">文章发布日期：</span>
@@ -184,7 +202,7 @@
 @empty
                         <div class="alert alert-warning alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <p><strong>提示：</strong>Ta 还没有出现任何热门文章哦</p>
+                            <p><strong>提示：</strong>本栏目还没有出现任何热门文章哦</p>
                         </div>
 @endforelse
                     </div>

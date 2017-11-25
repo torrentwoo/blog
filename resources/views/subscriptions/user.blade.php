@@ -84,7 +84,7 @@
 @empty
                         <div class="alert alert-warning alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <p><strong>提示：</strong>Ta 还没有发表任何文章</p>
+                            <p><strong>提示：</strong>Ta 还没有发表任何文章哦</p>
                         </div>
 @endforelse
                     </div>
@@ -182,7 +182,7 @@
 @empty
                         <div class="alert alert-warning alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <p><strong>提示：</strong>Ta 还没有出现任何热门文章哦</p>
+                            <p><strong>提示：</strong>Ta 还没有发表任何热门文章哦</p>
                         </div>
 @endforelse
                     </div>
