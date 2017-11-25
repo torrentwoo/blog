@@ -18,7 +18,7 @@ class SubscriptionsController extends Controller
     {
         $this->middleware('auth');
         // The data of user following list
-        $this->followings = Auth::user()->follows()->latest('created_at')->get();
+        Auth::check() && $this->followings = Auth::user()->follows()->latest('created_at')->get();
     }
 
     protected function retrieve($origin = null)
