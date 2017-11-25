@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Events\ArticleBrowseEvent;
 use App\Models\Article;
-use App\Models\Column;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -52,18 +51,19 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        // Article and items appended to this article
+        // Article and related that appended to
         $article  = Article::with('column', 'tags')->with(['comments' => function($query) use ($id) {
             $query->latest('created_at')->take(4);
-        }])->released()->find($id);
-        // Previous and next
+        }])->released()->findOrFail($id);
+        // Previous and next of this very article
         $columnId = $article->column->id;
         $previous = Article::where('column_id', $columnId)->released()->ofPrev($article->id)->first();
         $next     = Article::where('column_id', $columnId)->released()->ofNext($article->id)->first();
-        // Sidebar columns
-        $columns  = Column::whereHas('articles', function($query) {
-            $query->where('approval', '<>', 0);
-        })->visible()->orderBy('priority', 'desc')->get();
+        // Related articles recommendation
+        $keywords = $article->keywords;
+        $tags     = $article->tags->lists('name')->toArray();
+        $recommend= [];
+
         // Handle article browse event
         Event::fire(new ArticleBrowseEvent($article));
 
@@ -71,8 +71,7 @@ class ArticlesController extends Controller
             'article'   =>  $article,
             'prev'      =>  $previous,
             'next'      =>  $next,
-            'columns'   =>  $columns,
-            'column'    =>  $article->column, // position of active element in sidebar
+            'recommend' =>  $recommend,
         ]);
     }
 

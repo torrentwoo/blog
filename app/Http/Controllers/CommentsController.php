@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserLoginEvent;
 use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -10,10 +9,20 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Event;
 
 class CommentsController extends Controller
 {
+    /**
+     * CommentsController constructor.
+     */
+    public function __construct()
+    {
+        // 应用 Authenticate 中间件，并应用到控制器的所有方法中，除了 show
+        $this->middleware('auth', [
+            'except'  =>  ['show'],
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -43,41 +52,26 @@ class CommentsController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $loginState   = Auth::check();
-        $requireLogin = $loginState ? [] : [
-            'username'  =>  'required',
-            'password'  =>  'required',
-        ];
+        // 定位文章
+        $article = Article::released()->findOrFail($id);
+        // 用户输入验证
+        $requireLogin = [];
         $this->validate($request, array_merge($requireLogin, [
             'comment'   =>  'required|min:15',
+            'parent_id' =>  'numeric|exists:comments,id',
         ]), [
             'comment.required'  =>  '评论 不能为空',
             'comment.min'       =>  '评论 至少为 15 个字符',
+            'parent_id.numeric' =>  '被引用的 评论 无效',
+            'parent_id.exists'  =>  '被引用的 评论 无效，该评论或以被删除',
         ]);
-        if (!$loginState) {
-            $credentials = [
-                'name'      =>  $request->username,
-                'password'  =>  $request->password,
-            ];
-            if (Auth::attempt($credentials, $request->has('remember'))) {
-                if (!Auth::user()->activated) { // Account have not been activated
-                    Auth::logout();
-                    session()->flash('warning', '您的账户未激活，请登陆您的注册邮箱，检查注册验证邮件以便激活您的账户');
-                    return redirect()->back();
-                }
-                Event::fire(new UserLoginEvent(Auth::user()));
-            } else { // Authenticate failed
-                session()->flash('danger', '帐号和密码不匹配，登录失败，发表评论失败');
-                return redirect()->back();
-            }
-        }
-        // Handle inserting related models
-        $data = new Comment([
-            'user_id'   =>  Auth::user()->id,
+        // 构造评论数据
+        $comment = new Comment([
+            'user_id'   =>  Auth::id(),
             'content'   =>  $request->comment,
         ]);
-        $article = Article::findOrFail($id);
-        $article->comments()->save($data);
+        // 为文章保存评论数据
+        $article->comments()->save($comment);
 
         return redirect()->back();
     }
@@ -94,10 +88,12 @@ class CommentsController extends Controller
         $article = Article::with('column')->released()->findOrFail($id);
         // Retrieve comments those comment on this article
         $comments = $article->comments()->with('commentator')->latest('created_at')->paginate(20);
-        // Retrieve top 8 popular articles that been commented on
-        $popular  = Article::with('comments')->released()->get()->sortByDesc(function($item) {
+        // Retrieve the top 8 most commented articles that got same column with specified article
+        $popular  = Article::with('comments')->released()->get()->filter(function($e) use ($article) {
+            return $e->column_id === $article->column_id;
+        })->sortByDesc(function($item) {
             return $item->comments->count();
-        })->take(8);
+        })->values()->take(8);
 
         return view('comments.show', [
             'article'   =>  $article,

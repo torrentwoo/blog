@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -136,14 +135,18 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $activities = [];
-        // Popular articles
-        $popular = $user->articles()->with('likes')->released()->orderBy('views', 'desc')->get()
-            ->sortByDesc('likes')->values();
-        // The most commented articles
-        $comments = $user->articles()->with(['comments' => function($query) {
-            $query->orderBy('created_at', 'desc');
-        }])->get()->filter(function($item) {
-            return true !== $item->comments->isEmpty();
+        // 热门文章，排序规则：文章喜欢数（倒序）>文章评论数（倒序）>文章阅读量（倒序）
+        $popular = $user->articles()->released()->with('comments', 'likes')->get()->sort(function($a, $b) {
+            $factor1 = $b->likes->count() - $a->likes->count();
+            $factor2 = $b->comments->count() - $a->comments->count();
+            $factor3 = $b->views - $a->views;
+            return $factor1 + $factor2 + $factor3;
+        })->values();
+        // 热评文章，必须被人评论过，按评论数量倒序整理
+        $comments = $user->articles()->with('comments')->get()->filter(function($item) {
+            return $item->comments->count() > 0;
+        })->sortByDesc(function($item) {
+            return $item->comments->count();
         })->values();
 
         return view('users.home', [
@@ -224,14 +227,19 @@ class UsersController extends Controller
         $this->authorize('retrieve', $user);
         // The latest released articles
         $latest = $user->articles()->released()->latest('released_at')->get();
-        // The most commented articles
-        $commented = $user->articles()->with(['comments' => function($query) {
-            $query->orderBy('created_at', 'desc');
-        }])->get()->filter(function($item) {
-            return true !== $item->comments->isEmpty();
+        // 热评文章，上热评条件：有被评论；排序规则：评论数量（倒序）
+        $commented = $user->articles()->with('comments')->get()->filter(function($item) {
+            return $item->comments->count() > 0;
+        })->sortByDesc(function($item) {
+            return $item->comments->count();
         })->values();
-        // The popular articles
-        $popular = $user->articles()->released()->orderBy('views', 'desc')->with('likes')->get();
+        // 热门文章，排序规则：文章喜欢数（倒序）>文章评论数（倒序）>文章阅读量（倒序）
+        $popular = $user->articles()->released()->with('comments', 'likes')->get()->sort(function($a, $b) {
+            $factor1 = $b->likes->count() - $a->likes->count();
+            $factor2 = $b->comments->count() - $a->comments->count();
+            $factor3 = $b->views - $a->views;
+            return $factor1 + $factor2 + $factor3;
+        })->values();
 
         return view('users.articles', [
             'user'      =>  $user,
@@ -254,9 +262,13 @@ class UsersController extends Controller
         // Authenticate
         $this->authorize('retrieve', $user);
         // All the articles liked by current user
-        $liked = $user->likedArticles()->get();
-        // All the favorites articles collected by current user
-        $favorites = $user->favoriteArticles()->get();
+        $liked = $user->likedArticles()->get()->sort(function($a, $b) {
+            return strcmp($b->pivot->created_at, $a->pivot->created_at);
+        })->values();
+        // All the articles collected by current user
+        $favorites = $user->favoriteArticles()->get()->sort(function($a, $b) {
+            return strcmp($b->pivot->created_at, $a->pivot->created_at);
+        })->values();
 
         return view('users.favorites', [
             'user'      =>  $user,

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
 use App\Models\Column;
 use Illuminate\Http\Request;
 
@@ -18,9 +17,16 @@ class ColumnsController extends Controller
      */
     public function index()
     {
-        $popular = Column::whereHas('articles', function($query) {
+        // 总栏目索引，排序规则：排序权值（倒序）>文章数量（倒序）>关注人数（倒序）
+        $popular = Column::with('follows', 'thumbnails')->with(['articles' => function($query) {
             $query->released();
-        })->visible()->orderBy('priority', 'desc')->get();
+        }])->visible()->get()->filter(function($e) { // 过滤没有正式发布文章的栏目
+            return $e->articles->count() > 0;
+        })->sort(function($a, $b) {
+            $factor1 = $b->articles->count() - $a->articles->count();
+            $factor2 = $b->follows->count() - $a->follows->count();
+            return $factor1 + $factor2;
+        })->sortByDesc('priority')->values();
 
         return view('columns.index', [
             'columns'   =>  $popular,
@@ -58,17 +64,22 @@ class ColumnsController extends Controller
     {
         // Column itself
         $column = Column::visible()->findOrFail($id);
-        // The most commented articles in this very column
-        $commented = $column->articles()->released()->with('author', 'comments')->get()->filter(function($item) {
-            return true !== $item->comments->isEmpty();
+        // The most commented articles in this column
+        $commented = $column->articles()->released()->with('author', 'comments')->get()->filter(function($e) {
+            return true !== $e->comments->isEmpty();
         })->sortByDesc('comments')->values();
-        // Latest articles in this very column
+        // 最新收录（文章），排序规则：文章发表的日期时间（倒序）
         $latest = $column->articles()->released()->with('author')->latest('released_at')->paginate(10);
-        // The popular articles in this column, [considering dimension: views, comments, likes
-        $popular = $column->articles()->released()->with('author', 'comments', 'likes')->orderBy('views', 'desc')->get()
-            ->filter(function($item) {
-                return true !== $item->likes->isEmpty() && $item->views > 0;
-            })->sortByDesc('comments')->sortByDesc('likes')->values();
+        // 栏目热门（文章），排序规则：喜欢数量（倒序）>评论数量（倒序）>阅读量（倒序）>发表日期时间（倒序）
+        $popular = $column->articles()->released()->with('author', 'comments', 'likes')->get()->filter(function($e) {
+            return $e->views > 0 && $e->likes->count() || $e->comments->count();
+        })->sort(function($a, $b) {
+            $factor1 = $b->likes->count() - $a->likes->count();
+            $factor2 = $b->comments->count() - $a->comments->count();
+            $factor3 = $b->views - $a->views;
+            $factor4 = strcmp($b->released_at, $a->released_at);
+            return $factor1 + $factor2 + $factor3 + $factor4;
+        })->values();
 
         return view('columns.show', [
             'column'    =>  $column,

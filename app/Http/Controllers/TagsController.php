@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
-use Carbon\Carbon;
 use App\Models\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use \Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TagsController extends Controller
 {
@@ -55,14 +56,26 @@ class TagsController extends Controller
      */
     public function show($id)
     {
-        // Querying relationship existence
+        // Get the specified tag that has one released article at least
         $tag = Tag::whereHas('articles', function($query) {
             $query->released();
-        })->where('id', '=', $id)->firstOrFail();
-        // Pagination of the articles those applied this tag
-        $articles = Article::with('thumbnails')->whereHas('tags', function($query) use ($id) {
-            $query->where('tags.id', '=', $id);
-        })->released()->paginate();
+        })->findOrFail($id);
+        // Get the articles those applied current tag, and paginate them
+        $data = $tag->with('articles.thumbnails')->get()->filter(function($item) use ($tag) {
+            return $item->id = $tag->id && $item->name === $tag->name;
+        })->first()->articles->filter(function($item) {
+            return $item->approval != 0 && $item->released_at <= Carbon::now();
+        })->values();
+        // Paginate by manual
+        $perPage = 15;
+        $currentPage = Paginator::resolveCurrentPage();
+        $totalArticles = $data->count();
+        $articles = $data->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        $pagination = new LengthAwarePaginator($articles, $totalArticles, $perPage, $currentPage, [
+            'path'      =>  Paginator::resolveCurrentPath(),
+            'pageName'  =>  'page',
+        ]); // -- manual pagination end --
+
         // Other popular tags
         $popular = Tag::with(['articles' => function($query) {
             $query->released();
@@ -75,6 +88,7 @@ class TagsController extends Controller
         return view('tags.show', [
             'tag'       =>  $tag,
             'articles'  =>  $articles,
+            'pagination'=>  $pagination,
             'popular'   =>  $popular,
         ])->with('id', (int) $id);
     }

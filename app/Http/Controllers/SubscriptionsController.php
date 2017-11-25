@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
 use App\Models\Column;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,7 +17,7 @@ class SubscriptionsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        // The data of user following list
+
         Auth::check() && $this->followings = Auth::user()->follows()->latest('created_at')->get();
     }
 
@@ -35,13 +34,17 @@ class SubscriptionsController extends Controller
             // The most commented articles
             $commented = $origin->articles()->released()->with('author', 'comments')->get()->filter(function ($item) {
                 return $item->comments->isEmpty() !== true;
-            })->sortByDesc('comments')->values();
-            // The popular articles
-            $popular = $origin->articles()->released()->with('author', 'likes', 'comments')->get()->sort(function ($a, $b) {
-                if ($a->likes->count() === $b->likes->count()) {
-                    return 0;
-                }
-                return $a->views + $a->comments->count() < $b->views + $b->comments->count() ? -1 : 1;
+            })->sortByDesc(function($item) {
+                return $item->comments->count();
+            })->values();
+            // 热门文章，至少有人喜欢或被评论才能上热门；排序规则：喜欢数量（倒序）>评论数量（倒序）>文章阅读量（倒序）
+            $popular = $origin->articles()->released()->with('author', 'likes', 'comments')->get()->filter(function($e) {
+                return $e->views > 0 && $e->likes->count() || $e->comments->count();
+            })->sort(function ($a, $b) {
+                $factor1 = $b->likes->count() - $a->likes->count();
+                $factor2 = $b->comments->count() - $a->comments->count();
+                $factor3 = $b->views - $a->views;
+                return $factor1 + $factor2 + $factor3;
             })->values();
         }
 
@@ -77,54 +80,27 @@ class SubscriptionsController extends Controller
      */
     public function recommend()
     {
-        // Recommend authors
-        $authors = User::activated()->with('articles', 'favoriteArticles', 'likedArticles')->get()->filter(function($e) {
-            //return $e->id !== Auth::id() && true !== $e->isFollowedBy(Auth::user());
-            return $e->id !== Auth::id();
+        // 推荐作者，推荐条件：有被收藏或喜欢的文章；排序规则：喜欢数（倒序）>已发表文章数（倒序）>被收藏文章数（倒序）
+        $authors = User::activated()->with(['articles'  => function($query) {
+            $query->released();
+        }])->with('favoriteArticles', 'likedArticles')->get()->filter(function($e) {
+            return $e->articles->count() > 0 && $e->id !== Auth::id();
         })->sort(function($a, $b) {
-            $a1Amount = $a->articles->count();
-            $a2Amount = $a->favoriteArticles->count();
-            $a3Amount = $a->likedArticles->count();
-
-            $b1Amount = $b->articles->count();
-            $b2Amount = $b->favoriteArticles->count();
-            $b3Amount = $b->likedArticles->count();
-
-            switch (true) {
-                case ($a3Amount === $b3Amount) :
-                case ($a2Amount === $b2Amount) :
-                case ($a1Amount === $b1Amount) :
-                    return 0;
-                    break;
-                case ($a3Amount > $b3Amount) :
-                case ($a2Amount > $b2Amount) :
-                //case ($a1Amount > $b1Amount) :
-                    return 1;
-                    break;
-                default :
-                    return -1;
-                    break;
-            }
+            $factor1 = $b->likedArticles->count() - $a->likedArticles->count();
+            $factor2 = $b->articles->count() - $a->articles->count();
+            $factor3 = $b->favoriteArticles->count() - $a->favoriteArticles->count();
+            return $factor1 + $factor2 + $factor3;
         })->values();
-        // Recommend columns
-        $columns = Column::visible()->with('articles', 'follows')->get()->sort(function($a, $b) {
-            $a1Amount = $a->articles->count(); $a2Amount = $a->follows->count();
-            $b1Amount = $b->articles->count(); $b2Amount = $b->follows->count();
-
-            switch (true) {
-                case ($a1Amount === $b1Amount) :
-                //case ($a1Amount+$a2Amount === $b1Amount+$b2Amount) :
-                    return 0;
-                    break;
-                case ($a1Amount > $b1Amount) :
-                case ($a1Amount+$a2Amount > $b1Amount+$b2Amount) :
-                    return 1;
-                    break;
-                default :
-                    return -1;
-                    break;
-            }
-        })->reverse()->values();
+        // 推荐栏目，推荐条件：有收录文章；排序规则：收录文章数（倒序）>被关注数量（倒序）
+        $columns = Column::visible()->with(['articles'  =>  function($query) {
+            $query->released();
+        }])->with('follows')->get()->filter(function($item) {
+            return $item->articles->count() > 0;
+        })->sort(function($a, $b) {
+            $factor1 = $b->articles->count() - $a->articles->count();
+            $factor2 = $b->follows->count() - $a->follows->count();
+            return $factor1 + $factor2;
+        })->values();
 
         return view('subscriptions.recommendation', [
             'followings'    =>  $this->followings,
