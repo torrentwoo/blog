@@ -31,7 +31,7 @@
                     </div>
                 </div><!-- /row -->
                 <nav class="text-center" aria-label="Page navigation">
-                    {!! $articles->render() !!}
+                    {!! $pagination->render() !!}
                 </nav>
 @stop
 
