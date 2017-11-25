@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Column;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -76,8 +77,56 @@ class SubscriptionsController extends Controller
      */
     public function recommend()
     {
+        // Recommend authors
+        $authors = User::activated()->with('articles', 'favoriteArticles', 'likedArticles')->get()->sort(function($a, $b) {
+            $a1Amount = $a->articles->count();
+            $a2Amount = $a->favoriteArticles->count();
+            $a3Amount = $a->likedArticles->count();
+
+            $b1Amount = $b->articles->count();
+            $b2Amount = $b->favoriteArticles->count();
+            $b3Amount = $b->likedArticles->count();
+
+            switch (true) {
+                case ($a3Amount === $b3Amount) :
+                case ($a2Amount === $b2Amount) :
+                case ($a1Amount === $b1Amount) :
+                    return 0;
+                    break;
+                case ($a3Amount > $b3Amount) :
+                case ($a2Amount > $b2Amount) :
+                //case ($a1Amount > $b1Amount) :
+                    return 1;
+                    break;
+                default :
+                    return -1;
+                    break;
+            }
+        })->values();
+        // Recommend columns
+        $columns = Column::visible()->with('articles', 'follows')->get()->sort(function($a, $b) {
+            $a1Amount = $a->articles->count(); $a2Amount = $a->follows->count();
+            $b1Amount = $b->articles->count(); $b2Amount = $b->follows->count();
+
+            switch (true) {
+                case ($a1Amount === $b1Amount) :
+                //case ($a1Amount+$a2Amount === $b1Amount+$b2Amount) :
+                    return 0;
+                    break;
+                case ($a1Amount > $b1Amount) :
+                case ($a1Amount+$a2Amount > $b1Amount+$b2Amount) :
+                    return 1;
+                    break;
+                default :
+                    return -1;
+                    break;
+            }
+        })->reverse()->values();
+
         return view('subscriptions.recommendation', [
             'followings'    =>  $this->followings,
+            'authors'       =>  $authors,
+            'columns'       =>  $columns,
         ])->with('subscriptionActive', 'active');
     }
 
