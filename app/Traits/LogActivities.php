@@ -8,13 +8,6 @@ use Illuminate\Support\Facades\Auth;
 trait LogActivities
 {
     /**
-     * Determine whether record the activity or not
-     *
-     * @var bool
-     */
-    protected $logModelEvents = true;
-
-    /**
      * Record user activities via model events
      */
     public static function bootLogActivities()
@@ -73,36 +66,16 @@ trait LogActivities
     }
 
     /**
-     * Enable to record user activities
-     *
-     * @return $this
-     */
-    public function enable()
-    {
-        $this->logModelEvents = true;
-
-        return $this;
-    }
-
-    /**
-     * Disable to record user activities
-     *
-     * @return $this
-     */
-    public function disable()
-    {
-        $this->logModelEvents = false;
-
-        return $this;
-    }
-
-    /**
      * Determine whether record the events or not
      *
      * @return bool
      */
     protected function shouldLogModelEvents()
     {
-        return $this->logModelEvents;
+        if (property_exists($this, 'logModelEvents')) {
+            return (boolean) $this->logModelEvents;
+        }
+
+        return true;
     }
 }

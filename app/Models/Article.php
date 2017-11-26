@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\LogActivities;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 class Article extends Model
 {
+    use LogActivities;
+
     /**
      * 文章模型使用的数据库表的名称
      *

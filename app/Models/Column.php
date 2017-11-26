@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\LogActivities;
 use Illuminate\Database\Eloquent\Model;
 
 class Column extends Model
 {
+    use LogActivities;
+
     /**
      * 模型使用的数据表名称
      *

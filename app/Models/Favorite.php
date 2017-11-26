@@ -2,10 +2,20 @@
 
 namespace App\Models;
 
+use App\Traits\LogActivities;
 use Illuminate\Database\Eloquent\Model;
 
 class Favorite extends Model
 {
+    use LogActivities;
+
+    /**
+     * 是否记录用户对 Favorite 模型上的事件
+     *
+     * @var bool
+     */
+    protected $logModelEvents = false;
+
     /**
      * 模型使用的数据表名称
      *

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\LogActivities;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -15,6 +16,7 @@ class User extends Model implements AuthenticatableContract,
                                     CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword;
+    use LogActivities;
 
     /**
      * The database table used by the model.
