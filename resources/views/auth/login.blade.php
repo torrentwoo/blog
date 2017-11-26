@@ -11,6 +11,7 @@
 
                         <form method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
+                            <input type="hidden" name="redirect_back" value="{{ request('redirect_back') }}" readonly="readonly" />
                             <div class="form-group">
                                 <label for="username">您的帐号</label>
                                 <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}" />

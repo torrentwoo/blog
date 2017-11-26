@@ -11,7 +11,7 @@
                             </div>
 @else
                             <div class="well text-center">
-                                <a href="{{ route('login') }}" class="btn btn-primary" role="button">登录</a>
+                                <a href="{{ route('login') }}?redirect_back={{ URL::current() }}" class="btn btn-primary" role="button">登录</a>
                                 <span class="offset-right">后发表评论</span>
                             </div>
 @endif
