@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -290,15 +292,29 @@ class UsersController extends Controller
         // Authenticate
         $this->authorize('retrieve', $user);
         // All comments belong to user
-        $oneself = $user->comments()->latest('created_at')->get();
-        // All comments appended to stuff those belongs to user
-        // @TODO
-        $others = [];
+        $myComments = $user->comments()->latest('created_at')->get();
+        // 他人的评论（在我发表的文章上）
+        $othersComments = Comment::where('commentable_type', '=', Article::class)
+                                 ->whereIn('commentable_id', $user->articles()->released()->get()->pluck('id')->all())
+                                 ->orderBy('created_at', 'desc')
+                                 ->get()
+                                 ->groupBy('commentable_id')
+                                 ->values();
+        //dd($othersComments->toArray());
+        // 他人的回复（在我发表的评论上）
+        $othersReplies = Comment::where('commentable_type', '=', Comment::class)
+                                ->whereIn('commentable_id', $myComments->pluck('id')->all())
+                                ->orderBy('created_at', 'desc')
+                                ->get()
+                                ->groupBy('commentable_id')
+                                ->values();
+        //dd($othersReplies->toArray());
 
         return view('users.comments', [
-            'user'      =>  $user,
-            'oneself'   =>  $oneself,
-            'others'    =>  $others,
+            'user'          =>  $user,
+            'myComments'    =>  $myComments,
+            'othersComments'=>  $othersComments,
+            'othersReplies' =>  $othersReplies,
         ])->with('userCommentsActive', 'active');
     }
 }
