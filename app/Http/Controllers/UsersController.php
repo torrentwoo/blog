@@ -291,30 +291,25 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         // Authenticate
         $this->authorize('retrieve', $user);
-        // All comments belong to user
+        // All comments that belongs to current user
         $myComments = $user->comments()->latest('created_at')->get();
-        // 他人的评论（在我发表的文章上）
+        // All comments (replies included) that attached to user articles (or comment)
         $othersComments = Comment::with('commentator')
-                                 ->where('commentable_type', '=', Article::class)
-                                 ->whereIn('commentable_id', $user->articles()->released()->get()->pluck('id')->all())
-                                 ->orderBy('created_at', 'desc')
-                                 ->get()
-                                 ->groupBy('commentable_id')
-                                 ->values();
-        // 他人的回复（在我发表的评论上）
-        $othersReplies = Comment::with('commentator')
-                                ->where('commentable_type', '=', Comment::class)
-                                ->whereIn('commentable_id', $myComments->pluck('id')->all())
-                                ->orderBy('created_at', 'desc')
-                                ->get()
-                                ->groupBy('commentable_id')
-                                ->values();
+            ->orWhere(function($query) use ($user) {
+                $query->where('commentable_type', '=', Article::class)
+                      ->whereIn('commentable_id', $user->articles()->released()->get()->pluck('id')->all());
+            })->orWhere(function($query) use ($myComments) {
+                $query->where('commentable_type', '=', Comment::class)
+                      ->whereIn('commentable_id', $myComments->pluck('id')->all());
+            })->orderBy('created_at', 'desc')
+            ->get()
+            ->groupBy('commentable_id')
+            ->values();
 
         return view('users.comments', [
             'user'          =>  $user,
             'myComments'    =>  $myComments,
             'othersComments'=>  $othersComments,
-            'othersReplies' =>  $othersReplies,
         ])->with('userCommentsActive', 'active');
     }
 }
