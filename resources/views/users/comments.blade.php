@@ -82,7 +82,41 @@
 
                             <div role="tabpanel" class="tab-pane fade" id="others" aria-labelledby="others-tab">
 @forelse ($othersComments as $comment)
-                                <div>1</div>
+                                <div class="well well-quirk">
+@foreach ($comment as $item)
+                                    <ul class="list-inline">
+                                        <li><a href="{{ route('user.show', $item->commentator->id) }}">{{ $item->commentator->name }}</a></li>
+                                        <li>评论了您的文章</li>
+                                        <li class="text-muted">{{ $item->created_at->format('n/j h:s a') }}</li>
+                                    </ul>
+                                    <p>{{ $item->content }}</p>
+@endforeach
+                                    <blockquote class="small text-muted">
+                                        <h4><a href="{{ route('article.show', $comment->first()->commentable->id) }}">{{ $comment->first()->commentable->title }}</a></h4>
+                                        <p>{{ str_limit($comment->first()->commentable->content, 320) }}</p>
+                                        <ul class="list-inline text-muted">
+                                            <li><a href="{{ route('user.show', $comment->first()->commentable->author->id) }}">{{ $comment->first()->commentable->author->name }}</a></li>
+                                            <li>
+                                                <a class="text-muted" href="{{ route('article.show', $comment->first()->commentable->id) }}">
+                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                    <span class="sr-only">浏览：</span>
+                                                    {{ $comment->first()->commentable->views }}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="text-muted" href="{{ route('article.show', $comment->first()->commentable->id) . '#comments' }}">
+                                                    <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                                                    <span class="sr-only">评论：</span>
+                                                    {{ $comment->first()->commentable->comments->count() }}
+                                                </a>
+                                            </li>
+                                            <li><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                                                <span class="sr-only">喜欢：</span>
+                                                {{ $comment->first()->commentable->likes->count() }}
+                                            </li>
+                                        </ul>
+                                    </blockquote>
+                                </div>
 @empty
                                 <div class="alert alert-warning alert-dismissible" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -92,7 +126,36 @@
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="replies" aria-labelledby="replies-tab">
 @forelse ($othersReplies as $comment)
-                                <div>2</div>
+                                <div class="well well-quirk">
+@foreach ($comment as $item)
+                                    <ul class="list-inline">
+                                        <li><a href="{{ route('user.show', $item->commentator->id) }}">{{ $item->commentator->name }}</a></li>
+                                        <li>回复了您的评论</li>
+                                        <li class="text-muted">{{ $item->created_at->format('n/j h:s a') }}</li>
+                                    </ul>
+                                    <p>{{ $item->content }}</p>
+@endforeach
+                                    <blockquote class="small text-muted">
+@if ($comment->first()->commentable->commentable_type === App\Models\Article::class)
+                                        <p><a href="{{ route('article.comments', $comment->first()->commentable->commentable_id) }}#comment-{{ $comment->first()->commentable->id }}">{{ str_limit($comment->first()->commentable->content, 320) }}</a></p>
+@else
+                                        <p>{{ str_limit($comment->first()->commentable->content, 320) }}</p>
+@endif
+                                        <ul class="list-inline text-muted">
+                                            <li><a href="{{ route('user.show', $comment->first()->commentable->commentator->id) }}">{{ $comment->first()->commentable->commentator->name }}</a></li>
+                                            <li>
+                                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                                                <span class="sr-only">赞：</span>
+                                                0
+                                            </li>
+                                            <li>
+                                                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                                                <span class="sr-only">踩：</span>
+                                                0
+                                            </li>
+                                        </ul>
+                                    </blockquote>
+                                </div>
 @empty
                                 <div class="alert alert-warning alert-dismissible" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
