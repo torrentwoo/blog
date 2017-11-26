@@ -136,7 +136,8 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $activities = [];
+        // 用户动态
+        $activities = $user->activities()->latest('created_at')->get();
         // 热门文章，排序规则：文章喜欢数（倒序）>文章评论数（倒序）>文章阅读量（倒序）
         $popular = $user->articles()->released()->with('comments', 'likes')->get()->sort(function($a, $b) {
             $factor1 = $b->likes->count() - $a->likes->count();

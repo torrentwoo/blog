@@ -21,16 +21,69 @@
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade active in" id="activities" aria-labelledby="activities-tab">
+@forelse ($activities as $activity)
+@if ($activity->activable_type === App\Models\Article::class)
                                 <dl class="well my-moment">
-                                    <dt>Title.....</dt>
-                                    <dd class="occurred"><small>2017-11-11 12AM</small></dd>
-                                    <dd>hello world, hello world....</dd>
+                                    <dt><a href="{{ route('article.show', $activity->activable->id) }}">{{ $activity->activable->title }}</a></dt>
+                                    <dd class="occurred">发表了一篇文章<small class="offset-right">{{ $activity->created_at->diffForHumans() }}</small></dd>
+                                    <dd>{{ $activity->activable->description }}</dd>
                                 </dl>
+@elseif ($activity->activable_type === App\Models\Column::class)
                                 <dl class="well my-moment">
-                                    <dt>Title.....</dt>
-                                    <dd class="occurred"><small>2017-11-11 12AM</small></dd>
-                                    <dd>hello world, hello world....</dd>
+                                    <dt><a href="{{ route('column.show', $activity->activable->id) }}">{{ $activity->activable->name }}</a></dt>
+                                    <dd class="occurred">创建了一个栏目<small class="offset-right">{{ $activity->created_at->diffForHumans() }}</small></dd>
+                                    <dd>{{ $activity->activable->description }}</dd>
                                 </dl>
+@elseif ($activity->activable_type === App\Models\Comment::class)
+@if ($activity->activable->commentable_type === App\Models\Article::class)
+                                <dl class="well my-moment">
+                                    <dt><a href="{{ route('article.comments', $activity->activable->commentable_id) }}#mark-{{ $activity->activable->id }}">{{ App\Models\Article::find($activity->activable->commentable_id)->title }}</a></dt>
+                                    <dd class="occurred">发表了一个评论<small class="offset-right">{{ $activity->created_at->diffForHumans() }}</small></dd>
+                                    <dd>{{ str_limit($activity->activable->content, 140) }}</dd>
+                                </dl>
+@elseif ($activity->activable->commentable_type === App\Models\Comment::class)
+                                <dl class="well my-moment">
+                                    <dt><a href="{{ route('article.comments', $activity->activable->commentable_id) }}#mark-{{ $activity->activable->id }}">{{ App\Models\Article::find($activity->activable->commentable_id)->title }}</a></dt>
+                                    <dd class="occurred">回复了一个评论<small class="offset-right">{{ $activity->created_at->diffForHumans() }}</small></dd>
+                                    <dd>{{ str_limit($activity->activable->content, 140) }}</dd>
+                                </dl>
+@endif
+@elseif ($activity->activable_type === App\Models\Favorite::class)
+                                <dl class="well my-moment">
+                                    <dt><a href="{{ route('article.show', $activity->activable->favorable_id) }}">{{ App\Models\Article::find($activity->activable->favorable_id)->title }}</a></dt>
+                                    <dd class="occurred">收藏了一篇文章<small class="offset-right">{{ $activity->created_at->diffForHumans() }}</small></dd>
+                                    <dd>{{ $activity->activable->description }}</dd>
+                                </dl>
+@elseif ($activity->activable_type === App\Models\Follow::class)
+@if ($activity->activable->followable_type === App\Models\User::class)
+                                <dl class="well my-moment">
+                                    <dt><a href="{{ route('user.show', $activity->activable->followable_id) }}">{{ App\Models\User::find($activity->activable->followable_id)->name }}</a></dt>
+                                    <dd class="occurred">关注了一个作者<small class="offset-right">{{ $activity->created_at->diffForHumans() }}</small></dd>
+                                    <dd>{{ App\Models\User::find($activity->activable->followable_id)->introduction }}</dd>
+                                </dl>
+@elseif ($activity->activable->followable_type === App\Models\Column::class)
+                                <dl class="well my-moment">
+                                    <dt><a href="{{ route('column.show', $activity->activable->followable_id) }}">{{ App\Models\Column::find($activity->activable->followable_id)->name }}</a></dt>
+                                    <dd class="occurred">关注了一个栏目<small class="offset-right">{{ $activity->created_at->diffForHumans() }}</small></dd>
+                                    <dd>{{ App\Models\Column::find($activity->activable->followable_id)->description }}</dd>
+                                </dl>
+@endif
+@elseif ($activity->activable_type === App\Models\Like::class)
+                                <dl class="well my-moment">
+                                    <dt><a href="{{ route('article.show', $activity->activable->likable_id) }}">{{ App\Models\Article::find($activity->activable->likable_id)->title }}</a></dt>
+                                    <dd class="occurred">喜欢了一篇文章<small class="offset-right">{{ $activity->created_at->diffForHumans() }}</small></dd>
+                                    <dd>{{ App\Models\Article::find($activity->activable->likable_id)->description }}</dd>
+                                </dl>
+@elseif ($activity->activable_type === App\Models\User::class)
+                                <dl class="well my-moment">
+                                    <dd><b>{{ $activity->activable->name }}</b><span class="divider offset-left offset-right">入驻本站</span><small>{{ $user->created_at->format('Y-m-d h:i a') }}</small></dd>
+                                </dl>
+@endif
+@empty
+                                <dl class="well my-moment">
+                                    <dd><b>{{ Auth::user()->nickname or Auth::user()->name }}</b><span class="divider offset-left offset-right">入驻本站</span><small>{{ Auth::user()->created_at->format('Y-m-d h:i a') }}</small></dd>
+                                </dl>
+@endforelse
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="popular" aria-labelledby="popular-tab">
 @forelse ($popular as $article)
