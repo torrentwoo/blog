@@ -22,6 +22,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 --}}
     <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-3.3.7.min.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/ie10-viewport-bug-workaround.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/app.css" />
 {{--
     extra control sections via meta definition
@@ -44,4 +45,8 @@
 @endforeach
 @endif
 @endif
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="/assets/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="/assets/js/respond.min.js"></script>
+<![endif]-->
 </head>
