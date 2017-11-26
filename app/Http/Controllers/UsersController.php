@@ -294,21 +294,21 @@ class UsersController extends Controller
         // All comments belong to user
         $myComments = $user->comments()->latest('created_at')->get();
         // 他人的评论（在我发表的文章上）
-        $othersComments = Comment::where('commentable_type', '=', Article::class)
+        $othersComments = Comment::with('commentator')
+                                 ->where('commentable_type', '=', Article::class)
                                  ->whereIn('commentable_id', $user->articles()->released()->get()->pluck('id')->all())
                                  ->orderBy('created_at', 'desc')
                                  ->get()
                                  ->groupBy('commentable_id')
                                  ->values();
-        //dd($othersComments->toArray());
         // 他人的回复（在我发表的评论上）
-        $othersReplies = Comment::where('commentable_type', '=', Comment::class)
+        $othersReplies = Comment::with('commentator')
+                                ->where('commentable_type', '=', Comment::class)
                                 ->whereIn('commentable_id', $myComments->pluck('id')->all())
                                 ->orderBy('created_at', 'desc')
                                 ->get()
                                 ->groupBy('commentable_id')
                                 ->values();
-        //dd($othersReplies->toArray());
 
         return view('users.comments', [
             'user'          =>  $user,
