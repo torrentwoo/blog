@@ -20,6 +20,8 @@ class Activity extends Model
      */
     protected $fillable = [
         'user_id',
+        'activable_id',
+        'activable_type',
         'log_name',
         'description',
         'properties',
