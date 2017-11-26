@@ -13,10 +13,15 @@
                                     <i class="glyphicon glyphicon-comment" aria-hidden="true"></i>评论<span class="hidden-xs">我的</span>
                                 </a>
                             </li>
+                            <li role="presentation">
+                                <a href="#replies" id="replies-tab" data-toggle="tab" aria-controls="replies" aria-expanded="false" role="tab">
+                                    <i class="glyphicon glyphicon-retweet" aria-hidden="true"></i>回复<span class="hidden-xs">我的</span>
+                                </a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade active in" id="oneself" aria-labelledby="oneself-tab">
-@forelse ($oneself as $comment)
+@forelse ($myComments as $comment)
                                 <div class="well well-quirk">
                                     <ul class="list-inline">
                                         <li><a href="{{ route('user.show', $user->id) }}">{{ $user->name }}</a></li>
@@ -76,11 +81,22 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane fade" id="others" aria-labelledby="others-tab">
-@forelse ($others as $comment)
+@forelse ($othersComments as $comment)
+                                <div>1</div>
 @empty
                                 <div class="alert alert-warning alert-dismissible" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <p><strong>提示：</strong>您还没有得到过任何评论哦</p>
+                                </div>
+@endforelse
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="replies" aria-labelledby="replies-tab">
+@forelse ($othersReplies as $comment)
+                                <div>2</div>
+@empty
+                                <div class="alert alert-warning alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <p><strong>提示：</strong>还没有任何人回复过您的评论哦</p>
                                 </div>
 @endforelse
                             </div>
