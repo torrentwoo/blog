@@ -237,4 +237,9 @@ class User extends Model implements AuthenticatableContract,
     {
         return (boolean) $this->followingUsers->contains($someone);
     }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class, 'user_id')->with('activable');
+    }
 }
