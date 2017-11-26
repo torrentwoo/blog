@@ -13,11 +13,6 @@
                                     <i class="glyphicon glyphicon-comment" aria-hidden="true"></i>评论<span class="hidden-xs">我的</span>
                                 </a>
                             </li>
-                            <li role="presentation">
-                                <a href="#replies" id="replies-tab" data-toggle="tab" aria-controls="replies" aria-expanded="false" role="tab">
-                                    <i class="glyphicon glyphicon-retweet" aria-hidden="true"></i>回复<span class="hidden-xs">我的</span>
-                                </a>
-                            </li>
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade active in" id="oneself" aria-labelledby="oneself-tab">
@@ -55,7 +50,7 @@
                                             </li>
                                         </ul>
 @elseif ($comment->commentable_type === \App\Models\Comment::class)
-                                        <p>{{ str_limit($comment->commentable->content, 320) }}</p>
+                                        <p><a href="{{ route('article.comments', $comment->commentable->commentable_id) }}#mark-{{ $comment->commentable->id }}">{{ str_limit($comment->commentable->content, 320) }}</a></p>
                                         <ul class="list-inline text-muted">
                                             <li><a href="{{ route('user.show', $comment->commentable->commentator->id) }}">{{ $comment->commentable->commentator->name }}</a></li>
                                             <li>
@@ -86,12 +81,17 @@
 @foreach ($comment as $item)
                                     <ul class="list-inline">
                                         <li><a href="{{ route('user.show', $item->commentator->id) }}">{{ $item->commentator->name }}</a></li>
+@if ($item->commentable_type === App\Models\Article::class)
                                         <li>评论了您的文章</li>
+@elseif ($item->commentable_type === App\Models\Comment::class)
+                                        <li>回复了您的评论</li>
+@endif
                                         <li class="text-muted">{{ $item->created_at->format('n/j h:s a') }}</li>
                                     </ul>
                                     <p>{{ $item->content }}</p>
 @endforeach
                                     <blockquote class="small text-muted">
+@if ($comment->first()->commentable_type === \App\Models\Article::class)
                                         <h4><a href="{{ route('article.show', $comment->first()->commentable->id) }}">{{ $comment->first()->commentable->title }}</a></h4>
                                         <p>{{ str_limit($comment->first()->commentable->content, 320) }}</p>
                                         <ul class="list-inline text-muted">
@@ -115,32 +115,8 @@
                                                 {{ $comment->first()->commentable->likes->count() }}
                                             </li>
                                         </ul>
-                                    </blockquote>
-                                </div>
-@empty
-                                <div class="alert alert-warning alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <p><strong>提示：</strong>您还没有得到过任何评论哦</p>
-                                </div>
-@endforelse
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="replies" aria-labelledby="replies-tab">
-@forelse ($othersReplies as $comment)
-                                <div class="well well-quirk">
-@foreach ($comment as $item)
-                                    <ul class="list-inline">
-                                        <li><a href="{{ route('user.show', $item->commentator->id) }}">{{ $item->commentator->name }}</a></li>
-                                        <li>回复了您的评论</li>
-                                        <li class="text-muted">{{ $item->created_at->format('n/j h:s a') }}</li>
-                                    </ul>
-                                    <p>{{ $item->content }}</p>
-@endforeach
-                                    <blockquote class="small text-muted">
-@if ($comment->first()->commentable->commentable_type === App\Models\Article::class)
-                                        <p><a href="{{ route('article.comments', $comment->first()->commentable->commentable_id) }}#comment-{{ $comment->first()->commentable->id }}">{{ str_limit($comment->first()->commentable->content, 320) }}</a></p>
-@else
-                                        <p>{{ str_limit($comment->first()->commentable->content, 320) }}</p>
-@endif
+@elseif ($comment->first()->commentable_type === \App\Models\Comment::class)
+                                        <p><a href="{{ route('article.comments', $comment->first()->commentable->commentable_id) }}#mark-{{ $comment->first()->commentable->id }}">{{ str_limit($comment->first()->commentable->content, 320) }}</a></p>
                                         <ul class="list-inline text-muted">
                                             <li><a href="{{ route('user.show', $comment->first()->commentable->commentator->id) }}">{{ $comment->first()->commentable->commentator->name }}</a></li>
                                             <li>
@@ -154,12 +130,13 @@
                                                 0
                                             </li>
                                         </ul>
+@endif
                                     </blockquote>
                                 </div>
 @empty
                                 <div class="alert alert-warning alert-dismissible" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <p><strong>提示：</strong>还没有任何人回复过您的评论哦</p>
+                                    <p><strong>提示：</strong>您还没有得到过任何评论哦</p>
                                 </div>
 @endforelse
                             </div>
