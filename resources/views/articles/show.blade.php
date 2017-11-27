@@ -50,7 +50,7 @@
                                     <li class="media">
                                         <div class="media-left">
                                             <a href="{{ route('user.show', $article->author->id) }}">
-                                                <img alt="{{ $article->author->name }}" data-src="holder.js/64x64" class="media-object" src="{{ $article->author->gravatar(64) }}" data-holder-rendered="true" />
+                                                <img alt="{{ $article->author->name }}" data-src="holder.js/64x64" class="media-object img-circle avatar-sm" src="{{ $article->author->gravatar(64) }}" data-holder-rendered="true" />
                                             </a>
                                         </div>
                                         <div class="media-body">
@@ -147,7 +147,7 @@
 @foreach ($article->comments as $comment)
                             <li class="media">
                                 <div class="media-left">
-                                    <img alt="{{ $comment->commentator->name }}" data-src="holder.js/64x64" class="media-object" src="{{ $comment->commentator->gravatar(64) }}" data-holder-rendered="true">
+                                    <img alt="{{ $comment->commentator->name }}" class="media-object img-circle avatar-sm" src="{{ $comment->commentator->gravatar(64) }}" data-holder-rendered="true">
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading">{{ $comment->commentator->name }} <small>{{ $comment->created_at->diffForHumans() }}</small></h4>

@@ -13,7 +13,7 @@
 @if ($following->followable_type === App\Models\User::class)
                     <dd class="list-group">
                         <a href="{{ route('subscription.user', $following->followable->id) }}" class="list-group-item">
-                            <img class="img-circle preview offset-left" src="{{ $following->followable->gravatar(64) }}" />
+                            <img class="img-circle avatar-sm offset-left" src="{{ $following->followable->gravatar(64) }}" />
                             <span>{{ $following->followable->name }}</span>
                         </a>
                     </dd>
@@ -21,7 +21,7 @@
                     <dd class="list-group">
                         <a href="{{ route('subscription.column', $following->followable->id) }}" class="list-group-item">
 @if (!$following->followable->thumbnails->isEmpty())
-                            <img class="img-rounded preview offset-left" src="{{ $following->followable->thumbnails->first()->url }}" />
+                            <img class="img-rounded avatar-sm offset-left" src="{{ $following->followable->thumbnails->first()->url }}" />
 @endif
                             <span>{{ $following->followable->name }}</span>
                         </a>

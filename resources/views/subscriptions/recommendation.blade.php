@@ -27,7 +27,7 @@
                         <div class="media header-media">
                             <div class="media-left">
                                 <a href="{{ route('user.show', $author->id) }}">
-                                    <img class="media-object" data-src="holder.js/64x64" alt="{{ $author->name }}" src="{{ $author->gravatar(64) }}" data-holder-rendered="true" />
+                                    <img class="media-object img-circle avatar-sm" alt="{{ $author->name }}" src="{{ $author->gravatar(64) }}" data-holder-rendered="true" />
                                 </a>
                             </div>
                             <div class="media-body">
@@ -62,7 +62,7 @@
 @if (!$column->thumbnails->isEmpty())
                                 <div class="media-left">
                                     <a href="{{ route('column.show', $column->id) }}">
-                                        <img class="media-object" data-src="holder.js/64x64" alt="{{ $column->name }}" src="{{ $column->thumbnails->first()->url }}" data-holder-rendered="true" />
+                                        <img class="media-object img-rounded avatar-sm" alt="{{ $column->name }}" src="{{ $column->thumbnails->first()->url }}" data-holder-rendered="true" />
                                     </a>
                                 </div>
 @endif

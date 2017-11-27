@@ -103,6 +103,22 @@ i.glyphicon, .offset-left {
   background: #d9534f;
   color: #fff; }
 
+.avatar-xs {
+  width: 32px;
+  height: 32px; }
+
+.avatar-sm {
+  width: 64px;
+  height: 64px; }
+
+.avatar-md {
+  width: 128px;
+  height: 128px; }
+
+.avatar-lg {
+  width: 256px;
+  height: 256px; }
+
 /*
  Home
  */
@@ -148,6 +164,11 @@ i.glyphicon, .offset-left {
 .media-title a:visited {
   color: #777; }
 
+.media-labels {
+  font-weight: 600;
+  vertical-align: middle;
+  cursor: pointer; }
+
 a.text-muted:hover, a.text-muted:active {
   color: #5e5e5e;
   text-decoration: none; }
@@ -172,11 +193,6 @@ a.text-muted:hover, a.text-muted:active {
  */
 .header-media, #inline-menu {
   margin: 0 0 2em; }
-
-.header-media img {
-  width: 64px;
-  height: 64px;
-  border-radius: 10%; }
 
 #inline-menu {
   border-bottom-width: 2px;
@@ -223,10 +239,6 @@ a.text-muted:hover, a.text-muted:active {
   display: block;
   border-radius: 8px;
   overflow: hidden; }
-
-.column-thumbnail img {
-  width: 64px;
-  height: 64px; }
 
 /*
  Article
@@ -284,10 +296,6 @@ a.text-muted:hover, a.text-muted:active {
   right: 15px;
   top: 1em; }
 
-#aside-menu .preview {
-  width: 64px;
-  height: 64px; }
-
 /*
  User home
  */
@@ -298,10 +306,12 @@ a.text-muted:hover, a.text-muted:active {
   display: inline-block;
   width: auto; }
 
-#user-name {
-  margin: .25em 0 .5em;
-  font-weight: 700;
-  font-size: 20px; }
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  #user-avatar {
+    vertical-align: middle; }
+  #user-avatar .avatar-md {
+    width: 80px;
+    height: 80px; } }
 
 @media only screen and (max-width: 320px) {
   #user-counts span:last-child {
@@ -350,10 +360,8 @@ dl.well-quirk dt {
 .my-moment:last-child {
   border-bottom: none; }
 
-.my-moment .moment-driver .img-circle {
-  border: 1px solid #eaeaea;
-  width: 32px;
-  height: 32px; }
+.my-moment .moment-driver .avatar-xs {
+  border: 1px solid #eaeaea; }
 
 .my-moment .media, .my-moment .well, .my-moment blockquote {
   margin: 0;
@@ -378,10 +386,24 @@ dl.well-quirk dt {
   margin: .5em 0;
   vertical-align: middle; }
 
-.user-sidebar .label {
-  font-weight: 600;
-  vertical-align: middle;
-  cursor: pointer; }
+/*
+ Tags
+ */
+ul#tags-label li {
+  margin: 1em 0;
+  font-size: 1em; }
+
+.label-xs {
+  font-size: 100%; }
+
+.label-sm {
+  font-size: 120%; }
+
+.label-md {
+  font-size: 175%; }
+
+.label-lg {
+  font-size: 200%; }
 
 #footer-nav {
   float: right;

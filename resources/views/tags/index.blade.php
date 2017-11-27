@@ -7,9 +7,12 @@
                 </ol>
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
+                        <ul class="list-inline" id="tags-label">
 @foreach ($tags as $tag)
-                        <a href="{{ route('tag.show', $tag->id) }}">{{ $tag->name }}</a>
+                                <li><a href="{{ route('tag.show', $tag->id) }}" class="label label-{{ collect(['default', 'primary', 'success', 'info', 'warning', 'danger'])->random() }}">{{ $tag->name }}</a></li>
+
 @endforeach
+                        </ul>
                     </div>
                 </div>
 @stop

@@ -21,7 +21,7 @@
                                     <ul class="list-inline">
                                         <li><a href="{{ route('user.show', $user->id) }}">{{ $user->name }}</a></li>
                                         <li>@if (!$comment->parent_id)发表@else回复@endif了评论</li>
-                                        <li class="text-muted">{{ $comment->created_at->format('n/j h:s a') }}</li>
+                                        <li class="small text-muted">{{ $comment->created_at->format('n/j h:s a') }}</li>
                                     </ul>
                                     <p>{{ $comment->content }}</p>
                                     <blockquote class="small text-muted">
@@ -86,7 +86,7 @@
 @elseif ($item->commentable_type === App\Models\Comment::class)
                                         <li>回复了您的评论</li>
 @endif
-                                        <li class="text-muted">{{ $item->created_at->format('n/j h:s a') }}</li>
+                                        <li class="small text-muted">{{ $item->created_at->format('n/j h:s a') }}</li>
                                     </ul>
                                     <p>{{ $item->content }}</p>
 @endforeach

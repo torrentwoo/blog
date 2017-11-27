@@ -26,7 +26,7 @@
 @if ($activity->activable)
                                 <div class="my-moment"><!-- 发表文章 -->
                                     <ul class="list-inline moment-driver">
-                                        <li><img class="img-circle" src="{{ $activity->driver->gravatar(32) }}" /></li>
+                                        <li><img class="img-circle avatar-xs" src="{{ $activity->driver->gravatar(32) }}" /></li>
                                         <li>{{ $activity->driver->name }}</li>
                                         <li class="text-muted">发表了文章</li>
                                         <li class="small text-muted">{{ $activity->created_at->format('Y-m-d g:i a') }}</li>
@@ -72,7 +72,7 @@
 @if ($activity->activable)
                                 <div class="my-moment"><!-- 喜欢文章 -->
                                     <ul class="list-inline moment-driver">
-                                        <li><img class="img-circle" src="{{ $activity->driver->gravatar(32) }}" /></li>
+                                        <li><img class="img-circle avatar-xs" src="{{ $activity->driver->gravatar(32) }}" /></li>
                                         <li>{{ $activity->driver->name }}</li>
                                         <li class="text-muted">喜欢了文章</li>
                                         <li class="small text-muted">{{ $activity->created_at->format('Y-m-d g:i a') }}</li>
@@ -121,7 +121,7 @@
 @if ($activity->activable)
                                 <div class="my-moment"><!-- 收藏文章 -->
                                     <ul class="list-inline moment-driver">
-                                        <li><img class="img-circle" src="{{ $activity->driver->gravatar(32) }}" /></li>
+                                        <li><img class="img-circle avatar-xs" src="{{ $activity->driver->gravatar(32) }}" /></li>
                                         <li>{{ $activity->driver->name }}</li>
                                         <li class="text-muted">收藏了文章</li>
                                         <li class="small text-muted">{{ $activity->created_at->format('Y-m-d g:i a') }}</li>
@@ -170,7 +170,7 @@
 @if ($activity->activable)
                                 <div class="my-moment"><!-- 点赞评论 -->
                                     <ul class="list-inline moment-driver">
-                                        <li><img class="img-circle" src="{{ $activity->driver->gravatar(32) }}" /></li>
+                                        <li><img class="img-circle avatar-xs" src="{{ $activity->driver->gravatar(32) }}" /></li>
                                         <li>{{ $activity->driver->name }}</li>
                                         <li class="text-muted">点赞了评论</li>
                                         <li class="small text-muted">{{ $activity->created_at->format('Y-m-d g:i a') }}</li>
@@ -190,7 +190,7 @@
 @if ($activity->activable->commentable_type === App\Models\Article::class)
                                 <div class="my-moment"><!-- 发表评论 -->
                                     <ul class="list-inline moment-driver">
-                                        <li><img class="img-circle" src="{{ $activity->driver->gravatar(32) }}" /></li>
+                                        <li><img class="img-circle avatar-xs" src="{{ $activity->driver->gravatar(32) }}" /></li>
                                         <li>{{ $activity->driver->name }}</li>
                                         <li class="text-muted">发表了评论</li>
                                         <li class="small text-muted">{{ $activity->created_at->format('Y-m-d g:i a') }}</li>
@@ -227,7 +227,7 @@
 @elseif ($activity->activable->commentable_type === App\Models\Comment::class)
                                 <div class="my-moment"><!-- 回复评论 -->
                                     <ul class="list-inline moment-driver">
-                                        <li><img class="img-circle" src="{{ $activity->driver->gravatar(32) }}" /></li>
+                                        <li><img class="img-circle avatar-xs" src="{{ $activity->driver->gravatar(32) }}" /></li>
                                         <li>{{ $activity->driver->name }}</li>
                                         <li class="text-muted">回复了评论</li>
                                         <li class="small text-muted">{{ $activity->created_at->format('Y-m-d g:i a') }}</li>
@@ -249,7 +249,7 @@
 @if ($activity->activable->followable_type === App\Models\Column::class)
                                 <div class="my-moment"><!-- 关注栏目 -->
                                     <ul class="list-inline moment-driver">
-                                        <li><img class="img-circle" src="{{ $activity->driver->gravatar(32) }}" /></li>
+                                        <li><img class="img-circle avatar-xs" src="{{ $activity->driver->gravatar(32) }}" /></li>
                                         <li>{{ $activity->driver->name }}</li>
                                         <li class="text-muted">关注了专栏</li>
                                         <li class="small text-muted">{{ $activity->created_at->format('Y-m-d g:i a') }}</li>
@@ -275,7 +275,7 @@
 @elseif ($activity->activable->followable_type === App\Models\User::class)
                                 <div class="my-moment"><!-- 关注作者 -->
                                     <ul class="list-inline moment-driver">
-                                        <li><img class="img-circle" src="{{ $activity->driver->gravatar(32) }}" /></li>
+                                        <li><img class="img-circle avatar-xs" src="{{ $activity->driver->gravatar(32) }}" /></li>
                                         <li>{{ $activity->driver->name }}</li>
                                         <li class="text-muted">关注了作者</li>
                                         <li class="small text-muted">{{ $activity->created_at->format('Y-m-d g:i a') }}</li>

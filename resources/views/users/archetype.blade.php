@@ -6,11 +6,11 @@
                         <div class="media" id="user-meta">
                             <div class="media-left" id="user-avatar">
                                 <a href="{{ route('user.show', $user->id) }}">
-                                    <img class="img-rounded" src="{{ $user->gravatar(80) }}" alt="{{ $user->name }}" />
+                                    <img class="media-object img-circle avatar-md" src="{{ $user->gravatar(128) }}" alt="{{ $user->name }}" />
                                 </a>
                             </div>
                             <div class="media-body">
-                                <h1 id="user-name">{{ $user->name }}</h1>
+                                <h1 class="h3">{{ $user->name }}</h1>
                                 <div class="row" id="user-counts">
                                     <div class="col-xs-6 col-sm-3">
                                         <span class="count block-landscape">{{ $user->followedUsers->count() }}</span>
@@ -69,7 +69,7 @@
                     <dd>
                         <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                         <span class="sr-only">个人链接：</span>
-                        <span>
+                        <span class="media-labels">
                             <a class="label label-danger" href="#">微博</a>
                             <a class="label label-success" href="javascript:void(0);">微信</a>
                             <a class="label label-info" href="#">QQ</a>

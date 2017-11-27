@@ -9,17 +9,60 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
 @forelse ($articles as $article)
-                        <div class="media">
+                        <div class="media media-article">
 @if (!$article->thumbnails->isEmpty())
                             <div class="media-left hidden-portrait">
                                 <a href="{{ route('article.show', $article->id) }}">
-                                    <img class="media-object" src="{{ $article->thumbnails->first()->url }}" style="width:64px;height:64px;" data-src="holder.js/64x64" alt="{{ $article->title }}" data-holder-rendered="true" />
+                                    <img class="media-object media-preview" src="{{ $article->thumbnails->first()->url }}" alt="{{ $article->title }}" data-holder-rendered="true" />
                                 </a>
                             </div>
 @endif
                             <div class="media-body">
-                                <h4 class="media-heading"><a href="{{ route('article.show', $article->id) }}">{{ $article->title }}</a></h4>
+                                <h4 class="media-heading media-title"><a href="{{ route('article.show', $article->id) }}">{{ $article->title }}</a></h4>
+                                <ul class="list-inline text-muted media-author">
+                                    <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
+                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                            <span class="sr-only">作者：</span>
+                                            {{ $article->author->name }}
+                                        </a>
+                                    </li>
+                                    <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                        <span class="sr-only">文章发布在：</span>
+                                        {{ $article->released_at->diffForHumans() }}
+                                    </li>
+                                </ul>
                                 <p>{{ $article->description }}</p>
+@if ($article->tags->isEmpty() !== true)
+                                <ul class="list-inline media-labels">
+@foreach ($article->tags as $tag)
+                                    <li><a href="{{ route('tag.show', $tag->id) }}" class="label label-{{ collect(['default', 'primary', 'success', 'info', 'warning', 'danger'])->random() }}">{{ $tag->name }}</a></li>
+@endforeach
+                                </ul>
+@endif
+                                <ul class="list-inline media-meta">
+                                    <li><a class="media-column" href="{{ route('column.show', $article->column->id) }}">{{ $article->column->name }}</a></li>
+                                    <li>
+                                        <a class="text-muted" href="{{ route('article.show', $article->id) }}">
+                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                            <span class="sr-only">浏览：</span>
+                                            {{ $article->views }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="text-muted" href="{{ route('article.show', $article->id) . '#comments' }}">
+                                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                                            <span class="sr-only">评论：</span>
+                                            {{ $article->comments->count() }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="text-muted">
+                                            <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                                            <span class="sr-only">喜欢：</span>
+                                            {{ $article->likes->count() }}
+                                        </span>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
 @empty
