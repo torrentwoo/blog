@@ -341,23 +341,35 @@ dl.well-quirk dt {
   border-bottom: none; }
 
 .my-moment {
-  position: relative; }
-
-.my-moment:after {
-  content: '';
-  width: 4px;
-  height: 120%;
-  display: block;
-  position: absolute;
-  left: 1em;
-  top: -10%;
-  background: #daddee;
-  z-index: -1; }
-
-.my-moment .occurred {
-  margin-bottom: 1em;
+  position: relative;
+  margin-bottom: 20px;
   border-bottom: 1px solid #eaeaea;
-  padding-bottom: .5em; }
+  padding-bottom: 20px;
+  background: #fff; }
+
+.my-moment:last-child {
+  border-bottom: none; }
+
+.my-moment .moment-driver .img-circle {
+  border: 1px solid #eaeaea;
+  width: 32px;
+  height: 32px; }
+
+.my-moment .media, .my-moment .well, .my-moment blockquote {
+  margin: 0;
+  font-size: 1em; }
+
+.my-moment .well-media-preview {
+  border: 1px solid #eaeaea;
+  width: 48px;
+  height: 48px; }
+
+.my-moment .media-meta {
+  font-size: 80%; }
+
+.my-moment hr {
+  margin: 1em auto;
+  border-color: #eaeaea; }
 
 .user-sidebar dt {
   margin-bottom: .75em; }
