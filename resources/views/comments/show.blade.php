@@ -11,7 +11,7 @@
                     <div class="col-xs-12">
                         <ul class="media-list">
 @foreach ($comments as $comment)
-                            <li class="media">
+                            <li class="media" id="mark-{{ $comment->id }}">
                                 <div class="media-left">
                                     <a href="{{ route('user.show', $comment->commentator->id) }}">
                                         <img alt="64x64" data-src="holder.js/64x64" class="media-object" src="{{ $comment->commentator->gravatar(64) }}" data-holder-rendered="true" />
