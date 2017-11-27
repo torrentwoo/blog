@@ -19,13 +19,13 @@ class FollowsTableSeeder extends Seeder
         $columns = App\Models\Column::visible()->lists('id')->toArray();
         // 组装临时数据
         $data = [
-            'App\Models\User'   =>  $users,
-            'App\Models\Column' =>  $columns,
+            App\Models\User::class   =>  $users,
+            App\Models\Column::class =>  $columns,
         ];
         // 生成 100 个测试的关注数据
         $follows = factory(App\Models\Follow::class)->times(100)->make()->each(function($ele) use ($faker, $data) {
             $model = array_rand($data);
-            $ele->user_id = $faker->randomElement($data['App\Models\User']);
+            $ele->user_id = $faker->randomElement($data[App\Models\User::class]);
             $ele->followable_id = $faker->randomElement($data[$model]);
             $ele->followable_type = $model;
         })->toArray();

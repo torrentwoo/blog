@@ -13,20 +13,15 @@ class LikesTableSeeder extends Seeder
     {
         // Invoke Faker via app container
         $faker = app(Faker\Generator::class);
-        // Get released articles identifiers
-        $arrArticlesId = App\Models\Article::lists('id')->toArray();
         // Get activated users identifiers
-        $arrUsersId = App\Models\User::lists('id')->toArray();
-        // Prepare the temporary data for faker
-        $data = [
-            'users'     =>  $arrUsersId,
-            'articles'  =>  $arrArticlesId,
-        ];
+        $users = App\Models\User::activated()->lists('id')->toArray();
+        // Get released articles identifiers
+        $articles = App\Models\Article::released()->lists('id')->toArray();
         // Generate the testing data
-        $likes = factory(App\Models\Like::class)->times(100)->make()->each(function($e) use ($faker, $data) {
-            $e->user_id = $faker->randomElement($data['users']);
-            $e->likable_id = $faker->randomElement($data['articles']);
-            $e->likable_type = 'App\Models\Article';
+        $likes = factory(App\Models\Like::class)->times(100)->make()->each(function($e) use ($faker, $articles, $users) {
+            $e->user_id = $faker->randomElement($users);
+            $e->likable_id = $faker->randomElement($articles);
+            $e->likable_type = App\Models\Article::class;
         })->toArray();
         // Save the testing data
         App\Models\Like::insert($likes);

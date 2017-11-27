@@ -20,8 +20,8 @@ class ArticlesTableSeeder extends Seeder
         $articles = factory(App\Models\Article::class)->times(100)->make()->each(function($ele) use ($faker, $authors, $columns) {
             $ele->user_id = $faker->randomElement($authors);
             $ele->column_id = $faker->randomElement($columns);
-        });
+        })->toArray();
         // 保存测试数据
-        App\Models\Article::insert($articles->toArray());
+        App\Models\Article::insert($articles);
     }
 }

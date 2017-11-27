@@ -19,14 +19,14 @@ class TagsTableSeeder extends Seeder
         // 调用测试数据生成器容器
         $faker = app(Faker\Generator::class);
         // 获取已创建标签的 id
-        $tagsIdArr = App\Models\Tag::lists('id')->toArray();
+        $tags = App\Models\Tag::lists('id')->toArray();
         // 获取已发布文章的 id
-        $articlesIdArr = App\Models\Article::lists('id')->toArray(); // 以文章的数量为准
-        if (!empty($articlesIdArr) && !empty($tagsIdArr)) {
+        $articles = App\Models\Article::released()->lists('id')->toArray(); // 以文章的数量为准
+        if (!empty($articles) && !empty($tags)) {
             $data = [];
-            foreach ($articlesIdArr as $article_id) {
+            foreach ($articles as $article_id) {
                 $data[] = array(
-                    'tag_id'    =>  $faker->randomElement($tagsIdArr),
+                    'tag_id'    =>  $faker->randomElement($tags),
                     'article_id'=>  $article_id,
                 );
             }
