@@ -296,7 +296,10 @@
 @endif
 @endif
 @empty
-                                <p class="text-muted">自入驻以来，您就没有做过任何事；在动态这件事上，我们无能为力……</p>
+                                <div class="alert alert-warning alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <p><strong>提示：</strong>找不到 {{ $user->name }} 的任何相关动态……</p>
+                                </div>
 @endforelse
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="popular" aria-labelledby="popular-tab">
