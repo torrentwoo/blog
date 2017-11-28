@@ -36,13 +36,15 @@
                                 <div class="text-muted">{{ $author->introduction }}</div>
 @endif
                                 <div class="row">
-@foreach ($author->articles as $article)
+@foreach ($author->articles as $index => $article)
+@if ($index < 2)
                                     <div class="col-xs-12 col-sm-6">
                                         <a class="small text-muted" href="{{ route('article.show', $article->id) }}" target="_blank" title="{{ $article->title }}">
                                             <i class="glyphicon glyphicon-link" aria-hidden="true"></i>
                                             <i class="sr-only">最新文章：</i>{{ str_limit($article->title, 32) }}
                                         </a>
                                     </div>
+@endif
 @endforeach
                                 </div>
 {{--
