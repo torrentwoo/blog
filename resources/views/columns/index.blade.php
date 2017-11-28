@@ -91,7 +91,7 @@
 @empty
                         <div class="alert alert-warning alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <p><strong>提示：</strong>还没有出现任何热门的栏目，<a href="#">去创建一个吧</a></p>
+                            <p><strong>提示：</strong>还没有出现任何热门的栏目，<em>去看看有什么推荐栏目吧</em></p>
                         </div>
 @endforelse
                     </div>
