@@ -12,7 +12,7 @@
                         <div class="page-header">
                             <h1>{{ $article->title }}</h1>
                             <ul id="article-brief" class="list-inline">
-                                <li>发表于：{{ $article->released_at->diffForHumans() }}</li>
+                                <li>发表在：{{ $article->released_at->diffForHumans() }}</li>
                                 <li>作者：<a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
                                     <small>

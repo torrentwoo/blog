@@ -73,7 +73,7 @@
                                                 </a>
                                             </li>
                                             <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                <span class="sr-only">文章发布在：</span>
+                                                <span class="sr-only">发布日期：</span>
                                                 {{ $article->released_at->diffForHumans() }}
                                             </li>
                                         </ul>
@@ -127,7 +127,7 @@
                                                 </a>
                                             </li>
                                             <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                <span class="sr-only">文章发布在：</span>
+                                                <span class="sr-only">发布日期：</span>
                                                 {{ $article->released_at->diffForHumans() }}
                                             </li>
                                         </ul>
@@ -181,7 +181,7 @@
                                                 </a>
                                             </li>
                                             <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                <span class="sr-only">文章发布在：</span>
+                                                <span class="sr-only">发布日期：</span>
                                                 {{ $article->released_at->diffForHumans() }}
                                             </li>
                                         </ul>

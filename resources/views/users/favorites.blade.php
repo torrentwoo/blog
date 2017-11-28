@@ -33,7 +33,7 @@
                                         <ul class="list-inline text-muted media-meta">
                                             <li>
                                                 <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                <span class="sr-only">文章发布日期：</span>
+                                                <span class="sr-only">发布日期：</span>
                                                 {{ $article->released_at->diffForHumans() }}
                                             </li>
                                             <li>
@@ -83,7 +83,7 @@
                                         <ul class="list-inline text-muted media-meta">
                                             <li>
                                                 <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                <span class="sr-only">文章发布日期：</span>
+                                                <span class="sr-only">发布日期：</span>
                                                 {{ $article->released_at->diffForHumans() }}
                                             </li>
                                             <li>
