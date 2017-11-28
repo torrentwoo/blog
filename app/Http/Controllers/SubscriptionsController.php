@@ -82,7 +82,7 @@ class SubscriptionsController extends Controller
     {
         // 推荐作者，评定标准：有被收藏或喜欢的文章；排序规则：喜欢数（倒序）>已发表文章数（倒序）>被收藏文章数（倒序）
         $authors = User::activated()->with(['articles'  => function($query) {
-            $query->released();
+            $query->released()->orderBy('released_at', 'desc');
         }])->with('favoriteArticles', 'likedArticles')->get()->filter(function($e) {
             return $e->articles->count() > 0 && $e->id !== Auth::id();
         })->sort(function($a, $b) {
