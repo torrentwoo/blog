@@ -119,6 +119,10 @@ i.glyphicon, .offset-left {
   width: 256px;
   height: 256px; }
 
+.radio-label {
+  display: inline-block;
+  vertical-align: middle; }
+
 /*
  Home
  */
