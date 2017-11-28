@@ -39,7 +39,7 @@
                                             <li>
                                                 <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                 <span class="sr-only">文章发布日期：</span>
-                                                {{ $article->released_at->diffForHumans() }}
+                                                {{ $article->released_at->format('Y-m-d g:i a') }}
                                             </li>
                                             <li>
                                                 <a class="text-muted" href="{{ route('article.show', $article->id) }}">
@@ -87,7 +87,7 @@
                                         <ul class="list-inline text-muted media-meta">
                                             <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                                 <span class="sr-only">最新评论日期：</span>
-                                                {{ $article->comments->first()->created_at->format('Y-m-d h:i A') }}
+                                                {{ $article->comments->first()->created_at->diffForHumans() }}
                                             </li>
                                             <li>
                                                 <a class="text-muted" href="{{ route('article.show', $article->id) }}">

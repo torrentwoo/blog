@@ -10,7 +10,7 @@
 @if (!$column->thumbnails->isEmpty())
                     <div class="media-left">
                         <a href="{{ route('column.show', $column->id) }}">
-                            <img class="media-object" data-src="holder.js/64x64" alt="{{ $column->name }}" src="{{ $column->thumbnails->first()->url }}" data-holder-rendered="true" />
+                            <img class="media-object img-rounded avatar-sm" alt="{{ $column->name }}" src="{{ $column->thumbnails->first()->url }}" data-holder-rendered="true" />
                         </a>
                     </div>
 @endif
