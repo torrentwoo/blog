@@ -15,6 +15,13 @@ class Favorite extends Model
      * @var bool
      */
     protected $logModelEvents = false;
+    /**
+     * 可被触发的 Eloquent 模型上的事件的名称集合
+     *
+     * @see https://laravel.com/docs/5.1/eloquent#events
+     * @var array
+     */
+    protected static $logEvents = ['created'];
 
     /**
      * 模型使用的数据表名称
