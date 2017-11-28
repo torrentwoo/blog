@@ -17,19 +17,34 @@ class ColumnsController extends Controller
      */
     public function index()
     {
-        // 总栏目索引，排序规则：排序权值（倒序）>文章数量（倒序）>关注人数（倒序）
+        // 推荐栏目，评定标准：已发布文章；排序规则：排序权值（倒序）>文章数量（倒序）
+        $recommend = Column::with('follows', 'thumbnails')->with(['articles' => function($query) {
+            $query->released();
+        }])->visible()->get()->filter(function($e) {
+            return $e->articles->count() > 0;
+        })->sort(function($a, $b) {
+            $factor1 = $b->priority - $a->priority;
+            $factor2 = $b->articles->count() - $a->articles->count();
+            $factor3 = strcmp($b->created_at, $a->created_at);
+            return $factor1 + $factor2 + $factor3;
+        })->values();
+        // 热门栏目，评定标准：已发布文章，有人关注；排序规则：文章数量（倒序）>关注人数（倒序）
         $popular = Column::with('follows', 'thumbnails')->with(['articles' => function($query) {
             $query->released();
         }])->visible()->get()->filter(function($e) { // 过滤没有正式发布文章的栏目
-            return $e->articles->count() > 0;
+            return $e->articles->count() && $e->follows->count();
         })->sort(function($a, $b) {
             $factor1 = $b->articles->count() - $a->articles->count();
             $factor2 = $b->follows->count() - $a->follows->count();
             return $factor1 + $factor2;
-        })->sortByDesc('priority')->values();
+        })->values();
+        // 地区专属栏目 @TODO
+        $region = [];
 
         return view('columns.index', [
-            'columns'   =>  $popular,
+            'recommend' =>  $recommend,
+            'popular'   =>  $popular,
+            'region'    =>  $region,
         ]);
     }
 
