@@ -75,7 +75,15 @@ class FollowsController extends Controller
     {
         $user = User::findOrFail($id);
         if ($this->user->id !== $user->id && !$this->user->isFollowed($user)) {
-            $this->user->followedUsers()->sync([$user->id], false);
+            //$this->user->followedUsers()->sync([$user->id], false); // method sync cannot trigger Eloquent model event
+            // But method save and create can trigger Eloquent model events
+            $follow = new Follow;
+
+            $follow->user_id = $this->user->id;
+            $follow->followable_id = $user->id;
+            $follow->followable_type = User::class;
+
+            $follow->save();
         }
         return redirect()->back();
     }
