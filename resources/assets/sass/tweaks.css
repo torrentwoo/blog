@@ -357,10 +357,6 @@ a.text-muted:hover, a.text-muted:active {
     .my-moment .media-meta {
         font-size:80%;
     }
-    .my-moment hr {
-        margin:1em auto;
-        border-color:#eaeaea;
-    }
 .user-sidebar {}
     .user-sidebar dt {
         margin-bottom:.75em;

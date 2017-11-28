@@ -254,22 +254,19 @@
                                         <li class="text-muted">关注了专栏</li>
                                         <li class="small text-muted">{{ $activity->created_at->format('Y-m-d g:i a') }}</li>
                                     </ul>
-                                    <div class="well">
-                                        <div class="media">
+                                    <div class="well media">
 @if ($activity->activable->followable->thumbnails->isEmpty() !== true)
-                                            <div class="media-left">
-                                                <a href="{{ route('column.show', $activity->activable->followable->id) }}">
-                                                    <img class="media-object img-rounded well-media-preview" src="{{ $activity->activable->followable->thumbnails->first()->url }}" />
-                                                </a>
-                                            </div>
-@endif
-                                            <div class="media-body">
-                                                <h4 class="media-heading">{{ $activity->activable->followable->name }}</h4>
-                                                <small class="text-muted">收录文章 {{ $activity->activable->followable->articles->count() }} 篇<i class="divider">&middot;</i>被 {{ $activity->activable->followable->follows->count() }} 人关注</small>
-                                            </div>
+                                        <div class="media-left">
+                                            <a href="{{ route('column.show', $activity->activable->followable->id) }}">
+                                                <img class="media-object img-rounded well-media-preview" src="{{ $activity->activable->followable->thumbnails->first()->url }}" />
+                                            </a>
                                         </div>
-                                        <hr />
-                                        <p class="text-muted">{{ $activity->activable->followable->description }}</p>
+@endif
+                                        <div class="media-body">
+                                            <h4 class="media-heading">{{ $activity->activable->followable->name }}</h4>
+                                            <small class="text-muted">收录文章 {{ $activity->activable->followable->articles->count() }} 篇<i class="divider">&middot;</i>被 {{ $activity->activable->followable->follows->count() }} 人关注</small>
+                                        </div>
+                                        <div class="media-bottom text-muted">{{ $activity->activable->followable->description }}</div>
                                     </div>
                                 </div>
 @elseif ($activity->activable->followable_type === App\Models\User::class)
@@ -280,20 +277,19 @@
                                         <li class="text-muted">关注了作者</li>
                                         <li class="small text-muted">{{ $activity->created_at->format('Y-m-d g:i a') }}</li>
                                     </ul>
-                                    <div class="well">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <a href="{{ route('user.show', $activity->activable->followable->id) }}">
-                                                    <img class="media-object img-circle well-media-preview" src="{{ $activity->activable->followable->gravatar(48) }}" />
-                                                </a>
-                                            </div>
-                                            <div class="media-body">
-                                                <h4 class="media-heading">{{ $activity->activable->followable->name }}</h4>
-                                                <small class="text-muted">发布了 {{ $activity->activable->followable->articles->count() }} 篇文章，被 {{ $activity->activable->followable->followingUsers->count() }} 人关注，获得 {{ $activity->activable->followable->likedUsers()->count() }} 个喜欢</small>
-                                            </div>
+                                    <div class="well media">
+                                        <div class="media-left">
+                                            <a href="{{ route('user.show', $activity->activable->followable->id) }}">
+                                                <img class="media-object img-circle well-media-preview" src="{{ $activity->activable->followable->gravatar(48) }}" />
+                                            </a>
                                         </div>
-                                        <hr />
-                                        <p class="text-muted">{{ $activity->activable->followable->introduction or '作者没有填写“个人简介”...' }}</p>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">{{ $activity->activable->followable->name }}</h4>
+                                            <small class="text-muted">发布了 {{ $activity->activable->followable->articles->count() }} 篇文章，被 {{ $activity->activable->followable->followingUsers->count() }} 人关注，获得 {{ $activity->activable->followable->likedUsers()->count() }} 个喜欢</small>
+                                        </div>
+@if ($activity->activable->followable->introduction)
+                                        <div class="media-bottom text-muted">{{ $activity->activable->followable->introduction }}</div>
+@endif
                                     </div>
                                 </div>
 @endif
