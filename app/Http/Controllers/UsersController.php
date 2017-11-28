@@ -193,11 +193,20 @@ class UsersController extends Controller
             'password'  =>  'confirmed|min:6',
         ]);
         $data = [];
+        if ($request->has('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
+        if ($request->has('gender')) {
+            $data['gender'] = $request->gender;
+        }
+        if ($request->has('location')) {
+            $data['location'] = $request->location;
+        }
         if ($request->has('nickname')) {
             $data['nickname'] = $request->nickname;
         }
-        if ($request->has('password')) {
-            $data['password'] = bcrypt($request->password);
+        if ($request->has('introduction')) {
+            $data['introduction'] = $request->introduction;
         }
         if (empty($data) !== true) {
             $user->update($data);
