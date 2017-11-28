@@ -261,14 +261,10 @@ a.text-muted:hover, a.text-muted:active {
   padding-top: 1em;
   padding-bottom: 1em; }
 
-#article-brief .btn, #article-author .btn {
-  margin-left: .5em; }
-
-#author-follow {
-  font-size: 100%; }
-
-#authorBriefFollowForm .btn-xs {
-  font-size: 12px; }
+.well .media-bottom {
+  margin-top: 1em;
+  border-top: 1px solid #eaeaea;
+  padding-top: 1em; }
 
 #article-express .btn-group {
   margin-left: 0; }

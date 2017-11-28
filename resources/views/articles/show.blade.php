@@ -15,7 +15,7 @@
                                 <li>发表在：{{ $article->released_at->diffForHumans() }}</li>
                                 <li>作者：<a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
-                                    <small>
+                                    <small class="offset-right">
                                         <form method="POST" action="{{ route('follow.user', $article->author->id) }}" id="authorFollowForm" class="follow-form">
                                             {{ csrf_field() }}
 @if ($article->author->isFollowedBy(Auth::user()))
@@ -46,33 +46,35 @@
 @endif
                         <div id="preferences" class="row">
                             <div id="article-author" class="col-xs-12 col-md-10 col-md-offset-1">
-                                <ul class="media-list">
-                                    <li class="media">
-                                        <div class="media-left">
-                                            <a href="{{ route('user.show', $article->author->id) }}">
-                                                <img alt="{{ $article->author->name }}" data-src="holder.js/64x64" class="media-object img-circle avatar-sm" src="{{ $article->author->gravatar(64) }}" data-holder-rendered="true" />
-                                            </a>
-                                        </div>
-                                        <div class="media-body">
-                                            <h2 class="media-heading"><a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a>
+                                <div class="well media">
+                                    <div class="media-left">
+                                        <a href="{{ route('user.show', $article->author->id) }}">
+                                            <img alt="{{ $article->author->name }}" data-src="holder.js/64x64" class="media-object img-circle avatar-sm" src="{{ $article->author->gravatar(64) }}" data-holder-rendered="true" />
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h2 class="media-heading"><a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a></h2>
+                                        <p class="text-muted">发表文章 {{ $article->author->articles()->released()->count() }} 篇，被 {{ $article->author->followingUsers->count() }} 人关注，收获 {{ $article->author->likedUsers()->count() }} 个喜欢</p>
+                                    </div>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
-                                                <small id="author-follow">
-                                                    <form method="POST" action="{{ route('follow.user', $article->author->id) }}" id="authorBriefFollowForm" class="follow-form">
-                                                        {{ csrf_field() }}
+                                    <div class="media-right" id="user-buttons">
+                                        <form method="POST" action="{{ route('follow.user', $article->author->id) }}" id="authorBriefFollowForm" class="follow-form">
+                                            {{ csrf_field() }}
 @if ($article->author->isFollowedBy(Auth::user()))
-                                                        {{ method_field('DELETE') }}
+                                            {{ method_field('DELETE') }}
 @endif
-                                                        <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-xs" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#authorBriefFollowForm">
-                                                            <i class="glyphicon {{ $article->author->isFollowedBy(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>关注
-                                                        </button>
-                                                    </form>
-                                                </small>
+                                            <button type="{{ Auth::check() ? 'submit' : 'button' }}" class="btn btn-success btn-xs" {!! Auth::check() ? null : 'data-toggle="modal" data-target="#loginModal"' !!} data-trigger="#authorBriefFollowForm">
+                                                <i class="glyphicon {{ $article->author->isFollowedBy(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>关注
+                                            </button>
+                                        </form>
+                                    </div>
 @endif
-                                            </h2>
-                                            <p class="text-muted">发表文章 {{ $article->author->articles()->released()->count() }} 篇，被 {{ $article->author->followingUsers->count() }} 人关注，收获 {{ $article->author->likedUsers()->count() }} 个喜欢</p>
-                                        </div>
-                                    </li>
-                                </ul>
+@if ($article->author->introduction)
+                                    <div class="media-bottom text-muted">
+                                        {{ $article->author->introduction }}
+                                    </div>
+@endif
+                                </div>
                             </div>
                             <div id="article-rewards" class="col-xs-12 col-md-12 text-center">
                                 <p><a href="javascript:void(0);" class="btn btn-primary btn-sm" role="button">赞赏支持</a></p>

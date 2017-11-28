@@ -227,7 +227,7 @@
 
 @section('sidebar')
                 <h5 class="text-muted">栏目简介</h5>
-                <p>aa</p>
+                <p>{{ $column->description }}</p>
                 <p class="h5">投稿须知</p>
 
                 <hr />
