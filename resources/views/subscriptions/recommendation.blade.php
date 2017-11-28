@@ -35,7 +35,19 @@
 @if (empty($author->introduction) !== true)
                                 <div class="text-muted">{{ $author->introduction }}</div>
 @endif
+                                <div class="row">
+@foreach ($author->articles as $article)
+                                    <div class="col-xs-12 col-sm-6">
+                                        <a class="small text-muted" href="{{ route('article.show', $article->id) }}" target="_blank" title="{{ $article->title }}">
+                                            <i class="glyphicon glyphicon-link" aria-hidden="true"></i>
+                                            <i class="sr-only">最新文章：</i>{{ str_limit($article->title, 32) }}
+                                        </a>
+                                    </div>
+@endforeach
+                                </div>
+{{--
                                 <small class="text-muted">发表文章{{ $author->articles()->released()->count() }}篇<i class="divider">&middot;</i>被{{ $author->follows->count() }}人关注</small>
+--}}
                             </div>
                             <div class="media-right nowrap-landscape" id="user-buttons">
                                 <form method="POST" action="{{ route('follow.user', $author->id) }}" class="follow-form">
