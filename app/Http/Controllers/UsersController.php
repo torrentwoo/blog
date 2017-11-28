@@ -145,7 +145,7 @@ class UsersController extends Controller
             $factor3 = $b->views - $a->views;
             return $factor1 + $factor2 + $factor3;
         })->values();
-        // 热评文章，必须被人评论过，按评论数量倒序整理
+        // 热评文章，评定标准：必须被人评论过；排序规则：按评论数量倒序排列
         $comments = $user->articles()->with('comments')->get()->filter(function($item) {
             return $item->comments->count() > 0;
         })->sortByDesc(function($item) {

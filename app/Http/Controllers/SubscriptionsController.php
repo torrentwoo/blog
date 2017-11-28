@@ -37,7 +37,7 @@ class SubscriptionsController extends Controller
             })->sortByDesc(function($item) {
                 return $item->comments->count();
             })->values();
-            // 热门文章，至少有人喜欢或被评论才能上热门；排序规则：喜欢数量（倒序）>评论数量（倒序）>文章阅读量（倒序）
+            // 热门文章，评定标准：有人喜欢或被评论；排序规则：喜欢数量（倒序）>评论数量（倒序）>文章阅读量（倒序）
             $popular = $origin->articles()->released()->with('author', 'likes', 'comments')->get()->filter(function($e) {
                 return $e->views > 0 && $e->likes->count() || $e->comments->count();
             })->sort(function ($a, $b) {
@@ -80,7 +80,7 @@ class SubscriptionsController extends Controller
      */
     public function recommend()
     {
-        // 推荐作者，推荐条件：有被收藏或喜欢的文章；排序规则：喜欢数（倒序）>已发表文章数（倒序）>被收藏文章数（倒序）
+        // 推荐作者，评定标准：有被收藏或喜欢的文章；排序规则：喜欢数（倒序）>已发表文章数（倒序）>被收藏文章数（倒序）
         $authors = User::activated()->with(['articles'  => function($query) {
             $query->released();
         }])->with('favoriteArticles', 'likedArticles')->get()->filter(function($e) {
@@ -91,7 +91,7 @@ class SubscriptionsController extends Controller
             $factor3 = $b->favoriteArticles->count() - $a->favoriteArticles->count();
             return $factor1 + $factor2 + $factor3;
         })->values();
-        // 推荐栏目，推荐条件：有收录文章；排序规则：收录文章数（倒序）>被关注数量（倒序）
+        // 推荐栏目，评定标准：有收录文章；排序规则：收录文章数（倒序）>被关注数量（倒序）
         $columns = Column::visible()->with(['articles'  =>  function($query) {
             $query->released();
         }])->with('follows')->get()->filter(function($item) {
