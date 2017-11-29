@@ -11,6 +11,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class UsersController extends Controller
 {
@@ -19,14 +21,14 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        // Invoke middleware via constructor
+        // 通过构造方法调用中间件，使得下列页面（方法）只能由已登录的用户访问
         $this->middleware('auth', [
             'only'  =>  [
-                'showProfile',
-                'showSocials',
-                'showPrivacy',
-                'showAssists',
-                'showAccount',
+                'showProfile', 'updateProfile',
+                'showSocials', 'updateSocials',
+                'showPrivacy', 'updatePrivacy',
+                'showAssists', 'updateAssists',
+                'showAccount', 'updateAccount',
                 'destroy',
                 'articles', // 用户的文章
                 'favorites', // 用户的收藏
@@ -36,7 +38,7 @@ class UsersController extends Controller
                 //'cart', // 用户的购物车
             ],
         ]);
-        // 通过构造方法调用中间件，只让未登录用户访问用户注册、用户激活页面
+        // 通过构造方法调用中间件，使得用户注册页面、用户激活页面只能由未登录的用户访问
         $this->middleware('guest', [
             'only'  =>  ['create', 'activate'],
         ]);
@@ -190,6 +192,8 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
+        $this->authorize('update', $user);
+
         return view('users.profile', [
             'user'              =>  $user,
             'userAccountActive' =>  'active',
@@ -199,15 +203,37 @@ class UsersController extends Controller
     public function updateProfile(Request $request, $id)
     {
         $user = User::findOrFail($id);
+
         // Make sure user can only edit profile belongs himself
         $this->authorize('update', $user);
+
         $this->validate($request, [
-            'nickname'  =>  "min:2|unique:users,nickname,{$user->id}",
-            'password'  =>  'confirmed|min:6',
+            'avatar'        =>  "image|max:2048", // unit:kb
+            'location'      =>  "min:2|max:32",
+            'nickname'      =>  "min:4|max:32|unique:users,nickname,{$user->id}",
+            'introduction'  =>  "min:15|max:140",
+        ], [
+            'avatar.image'      =>  '头像 必须为有效的图片',
+            'avatar.max'        =>  '头像 不能大于 2M',
+            'location.min'      =>  '所在地 至少为 2 个字符',
+            'location.max'      =>  '所在地 不能大于 32 个字符',
+            'nickname.min'      =>  '用户昵称 至少为 4 个字符',
+            'nickname.max'      =>  '用户昵称 不能大于 32 个字符',
+            'nickname.unique'   =>  '用户昵称 已被占用',
+            'introduction.min'  =>  '个人简介 至少为 15 个字符',
+            'introduction.max'  =>  '个人简介 不能大于 140 个字符',
         ]);
         $data = [];
-        if ($request->has('password')) {
-            $data['password'] = bcrypt($request->password);
+        // 处理头像上传
+        if ($request->hasFile('avatar')) {
+            $path = 'avatars';
+            Storage::makeDirectory($path); // @see /config/filesystems.php
+            $filename = 'app/' . $path . '/user-' . $user->id . '.jpg';
+            $filepath = storage_path($filename);
+            $avatar = Image::make($request->file('avatar'))->resize(256, 256)->save($filepath);
+            if ($avatar->basename) {
+                $data['avatar'] = $filename;
+            }
         }
         if ($request->has('gender')) {
             $data['gender'] = $request->gender;
@@ -223,7 +249,7 @@ class UsersController extends Controller
         }
         if (empty($data) !== true) {
             $user->update($data);
-            session()->flash('success', '您的账户更新成功');
+            session()->flash('success', '您的个人资料更新成功');
         }
         return redirect()->route('user.show', $user->id);
     }
@@ -231,6 +257,8 @@ class UsersController extends Controller
     public function showSocials($id)
     {
         $user = User::findOrFail($id);
+
+        $this->authorize('update', $user);
 
         return view('users.socials', compact('user'))->with('updateSocials', true);
     }
@@ -244,6 +272,8 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
+        $this->authorize('update', $user);
+
         return view('users.privacy', compact('user'))->with('updatePrivacy', true);
     }
 
@@ -255,6 +285,8 @@ class UsersController extends Controller
     public function showAssists($id)
     {
         $user = User::findOrFail($id);
+
+        $this->authorize('update', $user);
 
         return view('users.assists', compact('user'))->with('updateAssists', true);
     }
@@ -268,12 +300,29 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
+        $this->authorize('update', $user);
+
         return view('users.account', compact('user'))->with('updateAccount', true);
     }
 
     public function updateAccount(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $this->authorize('update', $user);
+
+        $this->validate($request, [
+            'password'  =>  'confirmed|min:6',
+        ]);
+        $data = [];
+        if ($request->has('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
+        if (empty($data) !== true) {
+            $user->update($data);
+            session()->flash('success', '您的账号密码更新成功');
+        }
+        return redirect()->route('user.show', $user->id);
     }
 
     /**
