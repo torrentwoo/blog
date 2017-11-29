@@ -25,8 +25,18 @@ Route::get('/auth/register', 'UsersController@create')->name('register');
 Route::post('/user', 'UsersController@store')->name('user.store');
 Route::get('/user/activate/{token}', 'UsersController@activate')->name('user.activate');
 Route::get('/user/{id}', 'UsersController@show')->name('user.show');
-Route::get('/user/{id}/edit', 'UsersController@edit')->name('user.edit');
-Route::patch('/user/{id}', 'UsersController@update')->name('user.update');
+
+Route::get('/user/{id}/profile',   'UsersController@showProfile')->name('user.updateProfile');
+Route::patch('/user/{id}/profile', 'UsersController@updateProfile')->name('user.updateProfile');
+Route::get('/user/{id}/socials',   'UsersController@showSocials')->name('user.updateSocials');
+Route::patch('/user/{id}/socials', 'UsersController@updateSocials')->name('user.updateSocials');
+Route::get('/user/{id}/privacy',   'UsersController@showPrivacy')->name('user.updatePrivacy');
+Route::patch('/user/{id}/privacy', 'UsersController@updatePrivacy')->name('user.updatePrivacy');
+Route::get('/user/{id}/assists',   'UsersController@showAssists')->name('user.updateAssists');
+Route::patch('/user/{id}/assists', 'UsersController@updateAssists')->name('user.updateAssists');
+Route::get('/user/{id}/account',   'UsersController@showAccount')->name('user.updateAccount');
+Route::patch('/user/{id}/account', 'UsersController@updateAccount')->name('user.updateAccount');
+
 Route::get('/user/{id}/articles', 'UsersController@articles')->name('user.articles');
 Route::get('/user/{id}/favorites', 'UsersController@favorites')->name('user.favorites');
 Route::get('/user/{id}/comments', 'UsersController@comments')->name('user.comments');
