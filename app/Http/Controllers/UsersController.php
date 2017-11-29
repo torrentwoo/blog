@@ -22,8 +22,11 @@ class UsersController extends Controller
         // Invoke middleware via constructor
         $this->middleware('auth', [
             'only'  =>  [
-                'edit',
-                'update',
+                'showProfile',
+                'showSocials',
+                'showPrivacy',
+                'showAssists',
+                'showAccount',
                 'destroy',
                 'articles', // 用户的文章
                 'favorites', // 用户的收藏
@@ -168,12 +171,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        // Make sure user can only edit profile belongs himself
-        $this->authorize('update', $user);
-        return view('users.edit', [
-            'user'  =>  $user,
-        ])->with('userAccountActive', 'active');
+        //
     }
 
     /**
@@ -184,6 +182,21 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+    {
+        //
+    }
+
+    public function showProfile($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('users.profile', [
+            'user'              =>  $user,
+            'userAccountActive' =>  'active',
+        ])->with('updateProfile', true);
+    }
+
+    public function updateProfile(Request $request, $id)
     {
         $user = User::findOrFail($id);
         // Make sure user can only edit profile belongs himself
@@ -213,6 +226,54 @@ class UsersController extends Controller
             session()->flash('success', '您的账户更新成功');
         }
         return redirect()->route('user.show', $user->id);
+    }
+
+    public function showSocials($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('users.socials', compact('user'))->with('updateSocials', true);
+    }
+
+    public function updateSocials(Request $request, $id)
+    {
+        //
+    }
+
+    public function showPrivacy($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('users.privacy', compact('user'))->with('updatePrivacy', true);
+    }
+
+    public function updatePrivacy(Request $request, $id)
+    {
+        //
+    }
+
+    public function showAssists($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('users.assists', compact('user'))->with('updateAssists', true);
+    }
+
+    public function updateAssists(Request $request, $id)
+    {
+        //
+    }
+
+    public function showAccount($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('users.account', compact('user'))->with('updateAccount', true);
+    }
+
+    public function updateAccount(Request $request, $id)
+    {
+        //
     }
 
     /**
