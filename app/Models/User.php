@@ -88,6 +88,13 @@ class User extends Model implements AuthenticatableContract,
      */
     public function gravatar($size = 100)
     {
+        if ($this->avatar) {
+            $file = storage_path($this->avatar);
+            if (false !== ($size = getimagesize($file)) && false !== ($data = file_get_contents($file))) {
+                $data = "data:{$size['mime']};base64," . base64_encode($data);
+                return $data;
+            }
+        }
         $hash = md5(strtolower(trim($this->email)));
         return "https://www.gravatar.com/avatar/{$hash}?s={$size}&d=mm&r=pg";
     }
