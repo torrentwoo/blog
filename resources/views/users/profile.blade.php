@@ -18,7 +18,7 @@
                                         <img class="media-object img-rounded avatar-md" src="{{ $user->gravatar(128) }}" alt="头像" />
                                     </p>
                                     <input type="file" name="avatar" />
-                                    <p class="help-block">Example block-level help text here.</p>
+                                    <p class="help-block">正方形最佳，256x256 像素</p>
                                 </div>
                             </div>
 

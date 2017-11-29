@@ -24,17 +24,17 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navUserDropdownMenu">
-                            <li><a class="{{ $userProfileActive or 'void' }}" href="{{ route('user.show', Auth::user()->id) }}"><i class="glyphicon glyphicon-user" aria-hidden="true"></i>我的主页</a></li>
+                            <li><a class="{{ $userProfileActive or 'void' }}" href="{{ route('user.show', Auth::id()) }}"><i class="glyphicon glyphicon-user" aria-hidden="true"></i>我的主页</a></li>
                             <li class="divider"></li>
-                            <li><a class="{{ $userArticlesActive or 'void' }}" href="{{ route('user.articles',  Auth::user()->id) }}"><i class="glyphicon glyphicon-file" aria-hidden="true"></i>我的文章</a></li>
-                            <li><a class="{{ $userFavoritesActive or 'void' }}" href="{{ route('user.favorites', Auth::user()->id) }}"><i class="glyphicon glyphicon-heart" aria-hidden="true"></i>我的收藏</a></li>
-                            <li><a class="{{ $userCommentsActive or 'void' }}" href="{{ route('user.comments',  Auth::user()->id) }}"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i>我的评论</a></li>
+                            <li><a class="{{ $userArticlesActive or 'void' }}" href="{{ route('user.articles',  Auth::id()) }}"><i class="glyphicon glyphicon-file" aria-hidden="true"></i>我的文章</a></li>
+                            <li><a class="{{ $userFavoritesActive or 'void' }}" href="{{ route('user.favorites', Auth::id()) }}"><i class="glyphicon glyphicon-heart" aria-hidden="true"></i>我的收藏</a></li>
+                            <li><a class="{{ $userCommentsActive or 'void' }}" href="{{ route('user.comments',  Auth::id()) }}"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i>我的评论</a></li>
                             <li class="divider"></li>
                             <li><a class="{{ $userBalanceActive or 'void' }}" href="#balance"><i class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></i>我的余额</a></li>
                             <li><a class="{{ $userGiftsActive or 'void' }}" href="#gifts"><i class="glyphicon glyphicon-gift" aria-hidden="true"></i>我的卡券</a></li>
                             <li><a class="{{ $userCartActive or 'void' }}" href="#cart"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>我的购物车</a></li>
                             <li class="divider"></li>
-                            <li><a class="{{ $userAccountActive or 'void' }}" href="{{ route('user.edit', Auth::user()->id) }}"><i class="glyphicon glyphicon-cog" aria-hidden="true"></i>账户设置</a></li>
+                            <li><a class="{{ $userAccountActive or 'void' }}" href="{{ route('user.updateProfile', Auth::id()) }}"><i class="glyphicon glyphicon-cog" aria-hidden="true"></i>账户设置</a></li>
                             <li class="divider"></li>
                             <li><a id="navLogoutLink" href="{{ route('logout') }}"><i class="glyphicon glyphicon-off" aria-hidden="true"></i>注销登录</a></li>
                         </ul>

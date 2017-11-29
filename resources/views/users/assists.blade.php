@@ -42,17 +42,17 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
+                                <div class="col-sm-offset-2 col-sm-4">
                                     <button type="submit" class="btn btn-primary">更新辅助设置</button>
+                                </div>
+                                <hr class="visible-xs-block" />
+                                <div class="col-sm-4">
+                                    <a class="btn btn-success" href="#" role="button">
+                                        <i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i>下载我的所有文章
+                                    </a>
                                 </div>
                             </div>
                         </form>
-
-                        <hr />
-
-                        <a class="btn btn-success" href="#" role="button">
-                            <i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i>下载我的所有文章
-                        </a>
                     </div>
                 </div>
 @stop

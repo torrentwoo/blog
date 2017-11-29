@@ -24,7 +24,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">邮件通知</label>
-                                <div class="col-sm-6">
+                                <div class="col-sm-10">
                                     <label class="radio-inline">
                                         <input name="notification" id="notification1" value="all" type="radio" /><span class="radio-label offset-right">所有动态</span>
                                     </label>

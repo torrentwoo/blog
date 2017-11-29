@@ -38,17 +38,18 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
+                                <div class="col-sm-offset-2 col-sm-4">
                                     <button type="submit" class="btn btn-primary">更新账户设置</button>
+                                </div>
+
+                                <hr class="visible-xs-block" />
+                                <div class="col-sm-4">
+                                    <a href="#" class="btn btn-danger" role="button">
+                                        <i class="glyphicon glyphicon-warning-sign" aria-hidden="true"></i>删除我的账户
+                                    </a>
                                 </div>
                             </div>
                         </form>
-
-                        <hr />
-
-                        <a href="#" class="btn btn-danger" role="button">
-                            <i class="glyphicon glyphicon-warning-sign" aria-hidden="true"></i>删除我的账户
-                        </a>
                     </div>
                 </div>
 @stop
