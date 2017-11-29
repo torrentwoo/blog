@@ -41,15 +41,20 @@
                                 <div class="col-sm-offset-2 col-sm-4">
                                     <button type="submit" class="btn btn-primary">更新账户设置</button>
                                 </div>
-
-                                <hr class="visible-xs-block" />
-                                <div class="col-sm-4">
-                                    <a href="#" class="btn btn-danger" role="button">
-                                        <i class="glyphicon glyphicon-warning-sign" aria-hidden="true"></i>删除我的账户
-                                    </a>
-                                </div>
                             </div>
                         </form>
+
+                        <div class="row">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="page-header">
+                                    <h2 class="text-danger">删除账户</h2>
+                                </div>
+                                <p class="help-block">警告：账户一旦被删除，将无法恢复，请务必确认您的操作</p>
+                                <a href="#destroy" class="btn btn-danger" role="button">
+                                    <i class="glyphicon glyphicon-warning-sign" aria-hidden="true"></i>删除我的账户
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 @stop

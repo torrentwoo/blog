@@ -29,10 +29,10 @@
                                         <input name="notification" id="notification1" value="all" type="radio" /><span class="radio-label offset-right">所有动态</span>
                                     </label>
                                     <label class="radio-inline">
-                                        <input name="notification" id="notification2" value="follow" type="radio" /><span class="radio-label offset-right">我关注的</span>
+                                        <input name="notification" id="notification2" value="followed" type="radio" /><span class="radio-label offset-right">我关注的</span>
                                     </label>
                                     <label class="radio-inline">
-                                        <input name="notification" id="notification3" value="me" type="radio" /><span class="radio-label offset-right">提及我的</span>
+                                        <input name="notification" id="notification3" value="mentioned" type="radio" /><span class="radio-label offset-right">提及我的</span>
                                     </label>
                                     <label class="radio-inline">
                                         <input name="notification" id="notification4" value="none" type="radio" /><span class="radio-label offset-right">不接收任何通知</span>
@@ -42,8 +42,8 @@
                             <div class="form-group">
                                 <label for="blacklist" class="col-sm-2 control-label">黑名单</label>
                                 <div class="col-sm-6">
-                                    <textarea name="blacklist" id="blacklist" class="form-control" rows="3" placeholder="被屏蔽的用户，一行一个"></textarea>
-                                    <p class="help-block">在“黑名单”中的用户，无法评论您的文章，无法在评论中<mark>艾特您</mark>，无法给您发站内信，也无法关注您</p>
+                                    <textarea name="blacklist" id="blacklist" class="form-control" rows="3" placeholder="请填入您想列入黑名单的用户（一行一个）"></textarea>
+                                    <p class="help-block">在您“黑名单”中的用户：无法评论您的文章，无法在其他评论中艾特您，无法给您发站内信，同时自动从您的粉丝列表中移除，并无法再关注您</p>
                                 </div>
                             </div>
 

@@ -4,7 +4,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <div class="page-header">
-                            <h1>关联设置<small class="offset-right">社交帐号绑定</small></h1>
+                            <h1>关联设置<small class="offset-right">社交帐号</small></h1>
                         </div>
                         @include('features.builtIn-alert')
 
@@ -12,31 +12,33 @@
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label for="weibo" class="col-sm-2 control-label">绑定微博</label>
+                                <label for="weibo" class="col-sm-2 control-label">微博</label>
                                 <div class="col-sm-4">
-                                    <input type="text" name="weibo" id="weibo" class="form-control" value="" placeholder="其实是您微博的个人页面" />
+                                    <input type="text" name="weibo" id="weibo" class="form-control" value="" placeholder="您在微博的主页地址" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="weixin" class="col-sm-2 control-label">绑定微信</label>
+                                <label for="weixin" class="col-sm-2 control-label">微信</label>
                                 <div class="col-sm-6">
+@if (empty($user->socials->weixin) !== true)
                                     <p>
                                         <img src="#" class="media-object avatar-md" />
                                     </p>
+@endif
                                     <input type="file" name="weixin" id="weixin" />
-                                    <p class="help-block">请上传您个人的微信二维码图片</p>
+                                    <p class="help-block">请上传您的微信账号的二维码图片</p>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="qq" class="col-sm-2 control-label">绑定 QQ</label>
+                                <label for="qq" class="col-sm-2 control-label">QQ 号码</label>
                                 <div class="col-sm-4">
-                                    <input type="text" name="qq" id="qq" class="form-control" value="" />
+                                    <input type="text" name="qq" id="qq" class="form-control" placeholder="您的 QQ 号码" value="" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="douban" class="col-sm-2 control-label">绑定豆瓣</label>
+                                <label for="douban" class="col-sm-2 control-label">豆瓣</label>
                                 <div class="col-sm-4">
-                                    <input type="text" name="douban" id="douban" class="form-control" value="" />
+                                    <input type="text" name="douban" id="douban" class="form-control" placeholder="您在豆瓣的主页地址" value="" />
                                 </div>
                             </div>
 

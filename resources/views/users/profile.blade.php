@@ -13,12 +13,12 @@
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="avatar" class="col-sm-2 control-label">头像</label>
-                                <div class="col-sm-6">
+                                <div class="col-xs-12 col-sm-10">
                                     <p>
                                         <img class="media-object img-rounded avatar-md" src="{{ $user->gravatar(128) }}" alt="头像" />
                                     </p>
                                     <input type="file" name="avatar" />
-                                    <p class="help-block">正方形最佳，256x256 像素</p>
+                                    <p class="help-block">正方形图片最佳，推荐尺寸：256x256 像素</p>
                                 </div>
                             </div>
 
@@ -52,19 +52,19 @@
                             <div class="form-group">
                                 <label for="location" class="col-sm-2 control-label">所在地</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="location" id="location" class="form-control" value="{{ $user->location }}" />
+                                    <input type="text" name="location" id="location" class="form-control" placeholder="您目前所在的城市" value="{{ $user->location }}" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="nickname" class="col-sm-2 control-label">用户昵称</label>
                                 <div class="col-sm-4">
-                                    <input type="text" name="nickname" id="nickname" class="form-control" value="{{ $user->nickname }}" />
+                                    <input type="text" name="nickname" id="nickname" class="form-control" placeholder="替代用户名显示的昵称" value="{{ $user->nickname }}" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="introduction" class="col-sm-2 control-label">个人简介</label>
                                 <div class="col-sm-6">
-                                    <textarea name="introduction" id="introduction" class="form-control" rows="3" placeholder="您的个人简介">{{ $user->introduction }}</textarea>
+                                    <textarea name="introduction" id="introduction" class="form-control" rows="3" placeholder="对您自己的简短介绍">{{ $user->introduction }}</textarea>
                                 </div>
                             </div>
 
