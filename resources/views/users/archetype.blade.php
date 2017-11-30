@@ -10,7 +10,7 @@
                                 </a>
                             </div>
                             <div class="media-body">
-                                <h1 class="h3">{{ $user->name }}</h1>
+                                <h1 class="heading-username">{{ $user->name }}</h1>
                                 <div class="row" id="user-counts">
                                     <div class="col-xs-6 col-sm-3">
                                         <span class="count block-landscape">{{ $user->followedUsers->count() }}</span>

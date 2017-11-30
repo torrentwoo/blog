@@ -12,13 +12,13 @@
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label for="avatar" class="col-sm-2 control-label">头像</label>
-                                <div class="col-xs-12 col-sm-10">
+                                <div class="col-xs-12 col-sm-offset-2 col-sm-10">
+                                    <label for="avatar" class="sr-only">头像</label>
                                     <p>
                                         <img class="media-object img-circle avatar-xl" src="{{ $user->gravatar(128) }}" alt="头像" />
                                     </p>
                                     <input type="file" name="avatar" />
-                                    <p class="help-block">正方形图片最佳，推荐尺寸：128x128 像素</p>
+                                    <p class="help-block"><b>头像</b>：正方形图片最佳，推荐尺寸：128x128 像素</p>
                                 </div>
                             </div>
 

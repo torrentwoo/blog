@@ -356,6 +356,12 @@ a.text-muted:hover, a.text-muted:active {
 #user-meta {
     margin-bottom:2em;
 }
+    .heading-username {
+        margin:5px 0 10px;
+        padding:0;
+        font-weight:700;
+        line-height:1em;
+    }
     #user-avatar a {
         display:inline-block;
         width:auto;
