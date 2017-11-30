@@ -6,7 +6,7 @@
                 <div class="media header-media">
                     <div class="media-left">
                         <a href="{{ route('user.show', $origin->id) }}">
-                            <img class="img-rounded" src="{{ $origin->gravatar(64) }}" />
+                            <img class="media-object img-circle avatar-md" src="{{ $origin->gravatar(64) }}" />
                         </a>
                     </div>
                     <div class="media-body">
@@ -27,7 +27,7 @@
 @if (!$origin->thumbnails->isEmpty())
                     <div class="media-left">
                         <a href="{{ route('column.show', $origin->id) }}">
-                            <img class="img-rounded" src="{{ $origin->thumbnails->first()->url }}" />
+                            <img class="media-object img-rounded avatar-md" src="{{ $origin->thumbnails->first()->url }}" />
                         </a>
                     </div>
 @endif
@@ -73,7 +73,7 @@
 @if (!$article->thumbnails->isEmpty())
                             <div class="media-left hidden-portrait">
                                 <a href="{{ route('article.show', $article->id) }}">
-                                    <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" data-holder-rendered="true" />
+                                    <img alt="{{ $article->title }}" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" />
                                 </a>
                             </div>
 @endif
@@ -122,7 +122,7 @@
 @if (!$article->thumbnails->isEmpty())
                             <div class="media-left hidden-portrait">
                                 <a href="{{ route('article.show', $article->id) }}">
-                                    <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" data-holder-rendered="true" />
+                                    <img alt="{{ $article->title }}" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" />
                                 </a>
                             </div>
 @endif
@@ -171,7 +171,7 @@
 @if (!$article->thumbnails->isEmpty())
                             <div class="media-left hidden-portrait">
                                 <a href="{{ route('article.show', $article->id) }}">
-                                    <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" data-holder-rendered="true" />
+                                    <img alt="{{ $article->title }}" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" />
                                 </a>
                             </div>
 @endif

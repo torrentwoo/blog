@@ -13,7 +13,7 @@
 @if (!$article->thumbnails->isEmpty())
                             <div class="media-left hidden-portrait">
                                 <a href="{{ route('article.show', $article->id) }}">
-                                    <img class="media-object media-preview" src="{{ $article->thumbnails->first()->url }}" alt="{{ $article->title }}" data-holder-rendered="true" />
+                                    <img class="media-object media-preview" src="{{ $article->thumbnails->first()->url }}" alt="{{ $article->title }}" />
                                 </a>
                             </div>
 @endif

@@ -15,10 +15,10 @@
                                 <label for="avatar" class="col-sm-2 control-label">头像</label>
                                 <div class="col-xs-12 col-sm-10">
                                     <p>
-                                        <img class="media-object img-rounded avatar-md" src="{{ $user->gravatar(128) }}" alt="头像" />
+                                        <img class="media-object img-circle avatar-xl" src="{{ $user->gravatar(128) }}" alt="头像" />
                                     </p>
                                     <input type="file" name="avatar" />
-                                    <p class="help-block">正方形图片最佳，推荐尺寸：256x256 像素</p>
+                                    <p class="help-block">正方形图片最佳，推荐尺寸：128x128 像素</p>
                                 </div>
                             </div>
 

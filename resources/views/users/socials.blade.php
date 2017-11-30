@@ -22,7 +22,7 @@
                                 <div class="col-sm-6">
 @if (empty($user->socials->weixin) !== true)
                                     <p>
-                                        <img src="#" class="media-object avatar-md" />
+                                        <img src="#" class="media-object avatar-xl" />
                                     </p>
 @endif
                                     <input type="file" name="weixin" id="weixin" />

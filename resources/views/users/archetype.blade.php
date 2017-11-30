@@ -6,7 +6,7 @@
                         <div class="media" id="user-meta">
                             <div class="media-left" id="user-avatar">
                                 <a href="{{ route('user.show', $user->id) }}">
-                                    <img class="media-object img-circle avatar-md" src="{{ $user->gravatar(128) }}" alt="{{ $user->name }}" />
+                                    <img class="media-object img-circle avatar-lg" src="{{ $user->gravatar(96) }}" alt="{{ $user->name }}" />
                                 </a>
                             </div>
                             <div class="media-body">

@@ -105,19 +105,28 @@ i.glyphicon, .offset-left {
 
 .avatar-xs {
   width: 32px;
-  height: 32px; }
+  height: 32px;
+  border: 1px solid #eaeaea; }
 
 .avatar-sm {
-  width: 64px;
-  height: 64px; }
+  width: 48px;
+  height: 48px;
+  border: 1px solid #eaeaea; }
 
 .avatar-md {
-  width: 128px;
-  height: 128px; }
+  width: 64px;
+  height: 64px;
+  border: 1px solid #eaeaea; }
 
 .avatar-lg {
-  width: 256px;
-  height: 256px; }
+  width: 96px;
+  height: 96px;
+  border: 1px solid #eaeaea; }
+
+.avatar-xl {
+  width: 128px;
+  height: 128px;
+  border: 1px solid #eaeaea; }
 
 .radio-label {
   display: inline-block;
@@ -143,6 +152,10 @@ i.glyphicon, .offset-left {
 .page-content a:hover:before, a.animated:hover:before {
   transform: scaleX(1);
   visibility: visible; }
+
+/* remove dotted outline */
+a:hover, a:active, a:focus {
+  outline: none; }
 
 /*
  Home
@@ -178,6 +191,7 @@ i.glyphicon, .offset-left {
   border-bottom: none; }
 
 .media-preview {
+  border: 1px solid #eaeaea;
   width: 150px;
   max-height: 120px;
   height: auto;
@@ -224,16 +238,31 @@ a.text-muted:hover, a.text-muted:active {
   font-weight: 700; }
 
 #inline-menu li {
-  margin-bottom: -2px; }
+  margin-bottom: 0; }
 
 #inline-menu a {
+  position: relative;
+  margin-right: 0;
   border: none;
+  background: none;
   color: #777;
   cursor: pointer; }
 
-#inline-menu a:focus, #inline-menu a:hover, #inline-menu .active a {
-  background: none;
-  border-bottom: 2px solid #000; }
+#inline-menu a:before {
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  content: '';
+  width: 100%;
+  height: 2px;
+  background-color: #444;
+  transform: scaleX(0);
+  transition: all .3s ease-in-out 0s;
+  visibility: hidden; }
+
+#inline-menu a:hover:before, #inline-menu .active a:before {
+  transform: scaleX(1);
+  visibility: visible; }
 
 #inline-menu .active a {
   color: #444; }
@@ -387,11 +416,6 @@ dl.well-quirk dt {
 .my-moment .media, .my-moment .well, .my-moment blockquote {
   margin: 0;
   font-size: 1em; }
-
-.my-moment .well-media-preview {
-  border: 1px solid #eaeaea;
-  width: 48px;
-  height: 48px; }
 
 .my-moment .media-meta {
   font-size: 80%; }

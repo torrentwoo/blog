@@ -13,7 +13,7 @@
 @if ($following->followable_type === App\Models\User::class)
                     <dd class="list-group">
                         <a href="{{ route('subscription.user', $following->followable->id) }}" class="list-group-item">
-                            <img class="img-circle avatar-sm offset-left" src="{{ $following->followable->gravatar(64) }}" />
+                            <img class="img-circle avatar-sm offset-left" src="{{ $following->followable->gravatar(48) }}" />
                             <span>{{ $following->followable->name }}</span>
                         </a>
                     </dd>

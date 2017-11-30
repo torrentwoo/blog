@@ -26,7 +26,7 @@
 @if (!$article->thumbnails->isEmpty())
                                     <div class="media-left hidden-portrait">
                                         <a href="{{ route('article.show', $article->id) }}">
-                                            <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" data-holder-rendered="true" />
+                                            <img alt="{{ $article->title }}" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" />
                                         </a>
                                     </div>
 @endif
@@ -75,7 +75,7 @@
 @if (!$article->thumbnails->isEmpty())
                                     <div class="media-left hidden-portrait">
                                         <a href="{{ route('article.show', $article->id) }}">
-                                            <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" data-holder-rendered="true" />
+                                            <img alt="{{ $article->title }}" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" />
                                         </a>
                                     </div>
 @endif
@@ -123,7 +123,7 @@
 @if (!$article->thumbnails->isEmpty())
                                     <div class="media-left hidden-portrait">
                                         <a href="{{ route('article.show', $article->id) }}">
-                                            <img alt="{{ $article->title }}" data-src="holder.js/150x120" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" data-holder-rendered="true" />
+                                            <img alt="{{ $article->title }}" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" />
                                         </a>
                                     </div>
 @endif

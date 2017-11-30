@@ -31,7 +31,7 @@
                             <div class="thumbnail text-center column-thumbnail">
                                 <a href="{{ route('column.show', $column->id) }}" class="a icon">
 @if ($column->thumbnails->isEmpty() !== true)
-                                    <img class="media-object img-rounded avatar-sm" src="{{ $column->thumbnails->first()->url }}" alt="{{ $column->name }}" />
+                                    <img class="media-object img-rounded avatar-md" src="{{ $column->thumbnails->first()->url }}" alt="{{ $column->name }}" />
 @endif
                                 </a>
                                 <a href="{{ route('column.show', $column->id) }}" class="a">
@@ -66,7 +66,7 @@
                             <div class="thumbnail text-center column-thumbnail">
                                 <a href="{{ route('column.show', $column->id) }}" class="a icon">
 @if ($column->thumbnails->isEmpty() !== true)
-                                    <img class="media-object img-rounded avatar-sm" src="{{ $column->thumbnails->first()->url }}" alt="{{ $column->name }}" />
+                                    <img class="media-object img-rounded avatar-md" src="{{ $column->thumbnails->first()->url }}" alt="{{ $column->name }}" />
 @endif
                                 </a>
                                 <a href="{{ route('column.show', $column->id) }}" class="a">
@@ -101,7 +101,7 @@
                             <div class="thumbnail text-center column-thumbnail">
                                 <a href="{{ route('column.show', $column->id) }}" class="a icon">
                                     @if ($column->thumbnails->isEmpty() !== true)
-                                        <img class="media-object img-rounded avatar-sm" src="{{ $column->thumbnails->first()->url }}" alt="{{ $column->name }}" />
+                                        <img class="media-object img-rounded avatar-md" src="{{ $column->thumbnails->first()->url }}" alt="{{ $column->name }}" />
                                     @endif
                                 </a>
                                 <a href="{{ route('column.show', $column->id) }}" class="a">
