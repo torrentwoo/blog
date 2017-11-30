@@ -81,16 +81,20 @@ class User extends Model implements AuthenticatableContract,
 
     /**
      * 利用 Gravatar 替用户生成头像
+     * 备注：用户自定义的头像优先显示
      *
      * @link https://cn.gravatar.com/site/implement/images/
-     * @param int $size 头像的尺寸（像素）
+     * @param int $size 头像的输出尺寸（单位：像素）
      * @return string   可予显示的头像（图像）资源地址
      */
     public function gravatar($size = 100)
     {
-        if ($this->avatar) {
+        if (true !== empty($this->avatar)) {
             $file = storage_path($this->avatar);
-            if (false !== ($size = getimagesize($file)) && false !== ($data = file_get_contents($file))) {
+            if (is_readable($file) &&
+                false !== ($size = getimagesize($file)) &&
+                false !== ($data = file_get_contents($file))) {
+
                 $data = "data:{$size['mime']};base64," . base64_encode($data);
                 return $data;
             }
