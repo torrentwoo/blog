@@ -91,6 +91,10 @@ Route::get('/subscriptions/recommendation', 'SubscriptionsController@recommend')
 Route::get('/subscriptions/column/{id}', 'SubscriptionsController@followingColumn')->name('subscription.column');
 Route::get('/subscriptions/user/{id}', 'SubscriptionsController@followingUser')->name('subscription.user');
 
+// Files routes
+Route::get('/file/{filename}', 'FilesController@show')->name('file.show');
+Route::get('/file/download/{filename}', 'FilesController@download')->name('file.download');
+
 
 //--------------------------------------/
 //----    Administration routes     ----/
