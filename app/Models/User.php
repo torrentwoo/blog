@@ -89,8 +89,8 @@ class User extends Model implements AuthenticatableContract,
      */
     public function gravatar($size = 100)
     {
-        if (true !== empty($this->avatar)) {
-            $file = storage_path($this->avatar);
+        if (true !== empty($this->avatar) && config('filesystems.default') === 'local') {
+            $file = realpath(config('filesystems.disks.local.root') . '/' . $this->avatar);
             if (is_readable($file) &&
                 false !== ($size = getimagesize($file)) &&
                 false !== ($data = file_get_contents($file))) {
