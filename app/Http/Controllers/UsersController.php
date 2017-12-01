@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -225,15 +226,20 @@ class UsersController extends Controller
         ]);
         $data = [];
         // 处理头像上传
-        if ($request->hasFile('avatar')) {
-            $path = 'avatars';
-            Storage::makeDirectory($path); // @see /config/filesystems.php
-            $filename = 'app/' . $path . '/user-' . $user->id . '.jpg';
-            $filepath = storage_path($filename);
-            $avatar = Image::make($request->file('avatar'))->resize(256, 256)->save($filepath);
-            if ($avatar->basename) {
-                $data['avatar'] = $filename;
+        if ($request->hasFile('avatar') && config('filesystems.default') === 'local') {
+            $root = config('filesystems.disks.local.root');
+            $pathname = 'avatars';
+            $basename = "user-{$user->id}-avatar.jpg";
+            if (empty($pathname) !== true) {
+                Storage::makeDirectory($pathname);
+                $filename = "{$pathname}/{$basename}";
+            } else {
+                $filename = $basename;
             }
+
+            $image = Image::make($request->file('avatar'))->resize(128, 128)->save("{$root}/{$filename}");
+
+            $data['avatar'] = $filename;
         }
         if ($request->has('gender')) {
             $data['gender'] = $request->gender;
@@ -265,7 +271,57 @@ class UsersController extends Controller
 
     public function updateSocials(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $this->authorize('update', $user);
+
+        $this->validate($request, [
+            'weibo'     =>  'url',
+            'weixin'    =>  'image|max:1024',
+            'qq'        =>  'numeric',
+            'douban'    =>  'url',
+            'linkedin'  =>  'url',
+            'facebook'  =>  'url',
+            'twitter'   =>  'url',
+        ], [
+            'weibo.url'     =>  '微博 不是有效的网址',
+            'weixin.image'  =>  '微信 必须是有效的图片',
+            'weixin.max'    =>  '微信 不能大于 1M',
+            'qq.numeric'    =>  'QQ 只能是数字',
+            'douban.url'    =>  '豆瓣 不是有效的网址',
+            'linkedin.url'  =>  'LinkedIn (领英) 不是有效的网址',
+            'facebook.url'  =>  'Facebook 不是有效的网址',
+            'twitter.url'   =>  'Twitter (推特) 不是有效的网址',
+        ]);
+        $data = [];
+        if ($request->has('weibo')) {
+            $data['weibo'] = $request->weibo;
+        }
+        if ($request->hasFile('weixin') && config('filesystems.default') === 'local') {
+            $root = config('filesystems.disks.local.root');
+            $pathname = 'socials';
+            $basename = "user-{$user->id}-weixin.jpg";
+            if (empty($pathname) !== true) {
+                Storage::makeDirectory($pathname);
+                $filename = "{$pathname}/{$basename}";
+            } else {
+                $filename = $basename;
+            }
+
+            $image = Image::make($request->file('weixin'))->resize(128, 128)->save("{$root}/{$filename}");
+
+            $data['weixin'] = $filename;
+        }
+        if ($request->has('qq')) {
+            $data['qq'] = $request->qq;
+        }
+        if ($request->has('douban')) {
+            $data['douban'] = $request->douban;
+        }
+        if (empty($data) !== true) {
+            empty($user->socials) ? $user->socials()->create($data) : $user->socials->update($data);
+        }
+        return redirect()->back();
     }
 
     public function showPrivacy($id)
