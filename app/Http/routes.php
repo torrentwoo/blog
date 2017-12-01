@@ -92,8 +92,8 @@ Route::get('/subscriptions/column/{id}', 'SubscriptionsController@followingColum
 Route::get('/subscriptions/user/{id}', 'SubscriptionsController@followingUser')->name('subscription.user');
 
 // Files routes
-Route::get('/file/{filename}', 'FilesController@show')->name('file.show');
-Route::get('/file/download/{filename}', 'FilesController@download')->name('file.download');
+Route::get('/file/{filename}', 'FilesController@show')->where('filename', '[^\n\r\s]+')->name('file.show');
+Route::get('/file/download/{filename}', 'FilesController@download')->where('filename', '[^\s]+')->name('file.download');
 
 
 //--------------------------------------/
