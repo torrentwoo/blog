@@ -14,7 +14,7 @@
                             <div class="form-group">
                                 <label for="weibo" class="col-sm-2 control-label">微博</label>
                                 <div class="col-sm-4">
-                                    <input type="text" name="weibo" id="weibo" class="form-control" value="" placeholder="您在微博的主页地址" />
+                                    <input type="text" name="weibo" id="weibo" class="form-control" placeholder="您在微博的主页地址" value="{{ $user->socials->weibo }}" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -22,7 +22,7 @@
                                 <div class="col-sm-6">
 @if (empty($user->socials->weixin) !== true)
                                     <p>
-                                        <img src="#" class="media-object avatar-xl" />
+                                        <img src="{{ route('file.show', $user->socials->weixin) }}" class="media-object avatar-xl" />
                                     </p>
 @endif
                                     <input type="file" name="weixin" id="weixin" />
@@ -32,13 +32,13 @@
                             <div class="form-group">
                                 <label for="qq" class="col-sm-2 control-label">QQ 号码</label>
                                 <div class="col-sm-4">
-                                    <input type="text" name="qq" id="qq" class="form-control" placeholder="您的 QQ 号码" value="" />
+                                    <input type="text" name="qq" id="qq" class="form-control" placeholder="您的 QQ 号码" value="{{ $user->socials->qq }}" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="douban" class="col-sm-2 control-label">豆瓣</label>
                                 <div class="col-sm-4">
-                                    <input type="text" name="douban" id="douban" class="form-control" placeholder="您在豆瓣的主页地址" value="" />
+                                    <input type="text" name="douban" id="douban" class="form-control" placeholder="您在豆瓣的主页地址" value="{{ $user->socials->douban }}" />
                                 </div>
                             </div>
 
