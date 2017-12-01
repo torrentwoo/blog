@@ -66,16 +66,42 @@
                         <span class="sr-only">注册日期：</span>
                         <span>{{ $user->created_at->format('Y-m-d') }} 入驻</span>
                     </dd>
+@if (empty($user->socials) !== true)
                     <dd>
                         <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                         <span class="sr-only">个人链接：</span>
                         <span class="media-labels">
-                            <a class="label label-danger" href="#">微博</a>
-                            <a class="label label-success" href="javascript:void(0);">微信</a>
-                            <a class="label label-info" href="#">QQ</a>
+@if (empty($user->socials->weibo) !== true)
+                            <a class="label label-danger" target="_blank" href="{{ $user->socials->weibo }}">微博</a>
+@endif
+@if (empty($user->socials->weixin) !== true)
+                            <a class="label label-success" href="javascript:void(0);" data-toggle="modal" data-target="#weixinModal">微信</a>
+                            <!-- weixin display modal -->
+                            <div class="modal fade" id="weixinModal" tabindex="-1" role="dialog" aria-labelledby="weixinModalLabel">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="weixinModalLabel">{{ $user->name }} 的微信二维码</h4>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <img src="{{ route('file.show', $user->socials->weixin) }}" class="img-rounded avatar-xl" />
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+@endif
+@if (empty($user->socials->qq) !== true)
+                            <a class="label label-info" target="_blank" href="http://{{ $user->socials->qq }}.qzone.qq.com">QQ</a>
+@endif
                         </span>
                     </dd>
+@endif
                 </dl>
+
                 <hr />
                 <dl class="user-sidebar" id="user-introduction">
                     <dt class="text-muted">个人简介</dt>
