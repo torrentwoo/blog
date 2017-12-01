@@ -13,7 +13,7 @@
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="weibo" class="col-sm-2 control-label">微博</label>
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <input type="text" name="weibo" id="weibo" class="form-control" placeholder="您在微博的主页地址" value="{{ $user->socials->weibo or null }}" />
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="douban" class="col-sm-2 control-label">豆瓣</label>
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <input type="text" name="douban" id="douban" class="form-control" placeholder="您在豆瓣的主页地址" value="{{ $user->socials->douban or null }}" />
                                 </div>
                             </div>
