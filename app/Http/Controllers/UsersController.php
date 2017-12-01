@@ -257,7 +257,7 @@ class UsersController extends Controller
             $user->update($data);
             session()->flash('success', '您的个人资料更新成功');
         }
-        return redirect()->route('user.show', $user->id);
+        return redirect()->back();
     }
 
     public function showSocials($id)
@@ -320,6 +320,7 @@ class UsersController extends Controller
         }
         if (empty($data) !== true) {
             empty($user->socials) ? $user->socials()->create($data) : $user->socials->update($data);
+            session()->flash('success', '您的社交帐号更新成功');
         }
         return redirect()->back();
     }
