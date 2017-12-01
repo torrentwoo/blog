@@ -251,8 +251,23 @@ class User extends Model implements AuthenticatableContract,
         return (boolean) $this->followingUsers->contains($someone);
     }
 
+    /**
+     * 获取用户被记录的各类活动
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function activities()
     {
         return $this->hasMany(Activity::class, 'user_id')->with('activable');
+    }
+
+    /**
+     * 获取用户的社交资料
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function socials()
+    {
+        return $this->hasOne(Social::class, 'user_id');
     }
 }
