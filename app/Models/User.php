@@ -104,7 +104,7 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
-     * 定义用户（作者）与文章之间的一对多关联
+     * 定义作者（用户）与文章之间的一对多关联
      * 获取作者发表过的所有文章
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -112,6 +112,17 @@ class User extends Model implements AuthenticatableContract,
     public function articles()
     {
         return $this->hasMany(Article::class, 'user_id');
+    }
+
+    /**
+     * 定义作者（用户）与偏好设定之间的一对一关联
+     * 获取作者的（文章编辑相关）偏好设定项
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function preference()
+    {
+        return $this->hasOne(Preference::class, 'user_id');
     }
 
     /**

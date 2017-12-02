@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePrivaciesTable extends Migration
+class CreatePreferencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,14 @@ class CreatePrivaciesTable extends Migration
      */
     public function up()
     {
-        Schema::create('privacies', function (Blueprint $table) {
+        Schema::create('preferences', function (Blueprint $table) {
             $table->increments('id');
             // 关联属性
             $table->integer('user_id')->unsigned()->default(0)->index();
             // 基本属性
-            $table->enum('broadcast', ['yes', 'no'])->default('yes'); // 个人动态广播设置
-            $table->enum('message', ['any', 'only', 'none'])->default('any'); // 站内信接收设置
-            $table->enum('email', ['any', 'only', 'none'])->default('any'); // 邮件通知接收设置
+            $table->enum('editor', ['CKEditor', 'Markdown'])->default('CKEditor');
+            $table->enum('reward', ['yes', 'no'])->default('yes');
+            $table->string('reward_description')->nullable(); // only take effect when reward option is yes
             // 扩展属性
             $table->timestamps();
         });
@@ -32,6 +32,6 @@ class CreatePrivaciesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('privacies');
+        Schema::drop('preferences');
     }
 }

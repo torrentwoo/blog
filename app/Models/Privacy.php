@@ -19,6 +19,7 @@ class Privacy extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'broadcast', // 个人动态广播与否的设置，可选：yes|no，默认：yes
         'message', // 站内信接收设置，可选：any|only|none，所有人、仅相关、拒绝；默认：any
         'email', // 邮件通知接收设置，可选：any|only|none，所有人、仅相关、拒绝；默认：any
