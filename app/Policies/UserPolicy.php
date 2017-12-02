@@ -72,11 +72,11 @@ class UserPolicy
      *
      * @param User $commentator 评论用户
      * @param User $author      作者
-     * @return bool             注：最终返回结果必须取反，以实现授权策略
+     * @return bool             若在黑名单上，返回布尔值假，表示评论用户没有对应权限
      */
     public function comment(User $commentator, User $author)
     {
-        return !$this->isOnBlacklist($commentator, $author);
+        return false === $this->isOnBlacklist($commentator, $author);
     }
 
     /**
@@ -88,7 +88,7 @@ class UserPolicy
      */
     public function mention(User $commentator, User $user)
     {
-        return !$this->isOnBlacklist($commentator, $user);
+        return false === $this->isOnBlacklist($commentator, $user);
     }
 
     /**
@@ -100,7 +100,7 @@ class UserPolicy
      */
     public function message(User $from, User $to)
     {
-        return !$this->isOnBlacklist($from, $to);
+        return false === $this->isOnBlacklist($from, $to);
     }
 
     /**
@@ -112,6 +112,6 @@ class UserPolicy
      */
     public function follow(User $follower, User $user)
     {
-        return !$this->isOnBlacklist($follower, $user);
+        return false === $this->isOnBlacklist($follower, $user);
     }
 }
