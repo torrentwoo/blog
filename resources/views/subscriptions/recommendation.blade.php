@@ -57,7 +57,7 @@
 @if ($author->isFollowedBy(Auth::user()))
                                     {{ method_field('DELETE') }}
 @endif
-                                    <button type="submit" class="btn btn-success btn-xs">
+                                    <button type="submit" class="btn btn-success btn-xs" @can ('follow', $author) @else style="visibility:hidden!important;" @endcan >
                                         <i class="glyphicon {{ $author->isFollowedBy(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>关注
                                     </button>
                                 </form>

@@ -15,6 +15,7 @@
                                 <li>发表在：{{ $article->released_at->diffForHumans() }}</li>
                                 <li>作者：<a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
+@can ('follow', $article->author)
                                     <small class="offset-right">
                                         <form method="POST" action="{{ route('follow.user', $article->author->id) }}" id="authorFollowForm" class="follow-form">
                                             {{ csrf_field() }}
@@ -26,6 +27,7 @@
                                             </button>
                                         </form>
                                     </small>
+@endcan
 @endif
                                 </li>
                                 <li>浏览：{{ $article->views }} 次</li>
@@ -57,6 +59,7 @@
                                         <p class="text-muted">发表文章 {{ $article->author->articles()->released()->count() }} 篇，被 {{ $article->author->followingUsers->count() }} 人关注，收获 {{ $article->author->likedUsers()->count() }} 个喜欢</p>
                                     </div>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
+@can ('follow', $article->author)
                                     <div class="media-right" id="user-buttons">
                                         <form method="POST" action="{{ route('follow.user', $article->author->id) }}" id="authorBriefFollowForm" class="follow-form">
                                             {{ csrf_field() }}
@@ -68,6 +71,7 @@
                                             </button>
                                         </form>
                                     </div>
+@endcan
 @endif
 @if ($article->author->introduction)
                                     <div class="media-bottom text-muted">
@@ -163,9 +167,11 @@
                         </p>
                     </div>
 @endif
+@can ('comment', $article->author)
                     <div class="col-xs-12">
                         @include('features.comment-form', ['modalLogin' => isset($modalLogin) ? $modalLogin : false])
                     </div>
+@endcan
 @unless (Auth::check())
                     @include('features.modal-login')
 @endunless

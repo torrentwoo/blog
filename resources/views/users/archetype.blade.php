@@ -32,7 +32,10 @@
                             </div>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $user->id))
                             <div class="media-right nowrap-landscape" id="user-buttons">
+@can ('message', $user)
                                 <button type="button" class="btn btn-info btn-xs">发消息</button>
+@endcan
+@can ('follow', $user)
                                 <form method="POST" action="{{ route('follow.user', $user->id) }}" id="userFollowForm" class="follow-form">
                                     {{ csrf_field() }}
 @if ($user->isFollowedBy(Auth::user()))
@@ -42,6 +45,7 @@
                                         <i class="glyphicon {{ $user->isFollowedBy(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>关注
                                     </button>
                                 </form>
+@endcan
                             </div>
 @endif
                         </div>

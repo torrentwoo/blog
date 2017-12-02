@@ -122,9 +122,11 @@
                         </nav>
                     </div>
 
+@can ('comment', $article->author)
                     <div class="col-xs-12">
                         @include('features.comment-form', ['modalLogin' => isset($modalLogin) ? $modalLogin : false])
                     </div>
+@endcan
 @if (isset($modalLogin) && $modalLogin)
 @unless (Auth::check())
                     @include('features.modal-login')

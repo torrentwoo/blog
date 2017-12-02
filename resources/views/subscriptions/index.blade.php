@@ -14,9 +14,11 @@
                         <p>发表文章{{ $origin->articles->count() }}篇<i class="divider">&middot;</i>获得{{ $origin->likedUsers()->count() }}个喜欢</p>
                     </div>
                     <div class="media-right nowrap-landscape" id="user-buttons">
+@can ('message', $origin)
                         <button type="button" class="btn btn-info btn-xs">
                             <i class="glyphicon glyphicon-send" aria-hidden="true"></i>发站内信
                         </button>
+@endcan
                         <a href="{{ route('user.show', $origin->id) }}" class="btn btn-success btn-xs" role="button">
                             个人主页<span class="glyphicon glyphicon-chevron-right offset-right" aria-hidden="true"></span>
                         </a>
