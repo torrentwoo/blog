@@ -21,9 +21,8 @@
                                 <input type="password" name="password" id="password" class="form-control" value="{{ old('password') }}" />
                             </div>
                             <div class="form-group">
-                                <label>
-                                    <input type="checkbox" name="remember" /> 记住我
-                                </label>
+                                <input type="checkbox" name="remember" id="remember" />
+                                <label for="remember" class="form-label">记住我</label>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">登录</button>
                             <a class="btn btn-link" href="{{ route('password.rescue') }}">忘记密码了？</a>
