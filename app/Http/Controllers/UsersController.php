@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\Follow;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -393,7 +393,10 @@ class UsersController extends Controller
                     $user->blacklist()->sync($increment, false);
                     $blacklistUpdate = true;
                     // 从粉丝列表内移除这些被加入黑名单的用户
-                    $user->followedUsers()->detach($increment);
+                    Follow::where('followable_type', '=', User::class)
+                          ->where('followable_id',   '=', $user->id)
+                          ->whereIn('user_id', $increment)
+                          ->delete();
                 }
                 if (!empty($decrement)) {
                     $user->blacklist()->detach($decrement);
