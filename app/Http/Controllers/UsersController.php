@@ -189,6 +189,12 @@ class UsersController extends Controller
         //
     }
 
+    /**
+     * 显示用户的个人资料设置表单
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showProfile($id)
     {
         $user = User::findOrFail($id);
@@ -201,6 +207,13 @@ class UsersController extends Controller
         ])->with('updateProfile', true);
     }
 
+    /**
+     * 处理用户提交的个人资料设定项
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateProfile(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -260,6 +273,12 @@ class UsersController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * 显示用户的社交资料设置表单
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showSocials($id)
     {
         $user = User::findOrFail($id);
@@ -269,6 +288,13 @@ class UsersController extends Controller
         return view('users.socials', compact('user'))->with('updateSocials', true);
     }
 
+    /**
+     * 处理用户提交的社交资料设置项
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateSocials(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -416,6 +442,12 @@ class UsersController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * 显示用户的文章相关辅助设置表单
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showAssists($id)
     {
         $user = User::findOrFail($id);
@@ -425,11 +457,54 @@ class UsersController extends Controller
         return view('users.assists', compact('user'))->with('updateAssists', true);
     }
 
+    /**
+     * 处理用户提交的文章相关辅助设置项
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateAssists(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $this->authorize('update', $user);
+
+        $this->validate($request, [
+            'editor'                =>  'in:CKEditor,Markdown',
+            'reward'                =>  'in:yes,no',
+            'reward_description'    =>  'min:4|max:140',
+        ], [
+            'editor.in'             =>  '编辑器 偏好设定 选项值非法',
+            'reward.in'             =>  '文章赞赏 选项值非法',
+            'reward_description.min'=>  '赞赏描述 至少为 4 个字符',
+            'reward_description.max'=>  '赞赏描述 不能大于 140 个字符',
+        ]);
+
+        $data = [];
+        if ($request->has('editor')) {
+            $data['editor'] = $request->editor;
+        }
+        if ($request->has('reward')) {
+            $data['reward'] = $request->reward;
+        }
+        if ($request->has('reward_description')) {
+            $data['reward_description'] = $request->reward_description;
+        }
+        if (empty($data) !== true) {
+            empty($user->preference) ? $user->preference()->create($data) : $user->preference->update($data);
+            session()->flash('success', '您的文章相关设置更新成功');
+        }
+
+        return redirect()->back();
     }
 
+    /**
+     * 显示用户的账户设置表单
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showAccount($id)
     {
         $user = User::findOrFail($id);
@@ -439,6 +514,13 @@ class UsersController extends Controller
         return view('users.account', compact('user'))->with('updateAccount', true);
     }
 
+    /**
+     * 处理用户提交的账户设置项
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateAccount(Request $request, $id)
     {
         $user = User::findOrFail($id);
