@@ -64,7 +64,7 @@ class UserPolicy
      */
     protected function isOnBlacklist(User $subject, User $object)
     {
-        return (boolean) $object->blacklists->contains($subject);
+        return (boolean) $object->blacklist->contains($subject);
     }
 
     /**

@@ -325,18 +325,92 @@ class UsersController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * 显示用户的隐私设置表单
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showPrivacy($id)
     {
         $user = User::findOrFail($id);
 
         $this->authorize('update', $user);
 
-        return view('users.privacy', compact('user'))->with('updatePrivacy', true);
+        // The blacklist
+        $blacklist = implode("\r\n", $user->blacklist->lists('name')->all());
+
+        return view('users.privacy', compact('user', 'blacklist'))->with('updatePrivacy', true);
     }
 
+    /**
+     * 处理用户提交的隐私设置项
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updatePrivacy(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $this->authorize('update', $user);
+
+        $this->validate($request, [
+            'message'           =>  'in:any,only,none',
+            'email'             =>  'in:any,only,none',
+            'blacklist'         =>  'regex:/^[a-z][^$]+/im',
+        ], [
+            'message.in'        =>  '站内信 选项值非法',
+            'email.in'          =>  '邮件通知 选项值非法',
+            'blacklist.regex'   =>  '黑名单 不符合指定格式',
+        ]);
+
+        $data = [];
+        if ($request->has('message')) {
+            $data['message'] = $request->message;
+        }
+        if ($request->has('email')) {
+            $data['email'] = $request->email;
+        }
+        if (empty($data) !== true) {
+            empty($user->privacy) ? $user->privacy()->create($data) : $user->privacy->update($data);
+            $privacyUpdate = true;
+        }
+        // Get the original blacklist
+        $blacklist = $user->blacklist->lists('id')->all(); // always returns an array
+        // Update blacklist
+        if ($request->has('blacklist')) {
+            $names = explode("\r\n", $request->blacklist);
+            if (empty($names) !== true) {
+                $users = User::whereNotIn('id', [$user->id])->whereIn('name', $names)->lists('id')->all();
+                // Blacklist increment
+                $increment = array_diff($users, $blacklist);
+                // Blacklist decrement
+                $decrement = array_diff($blacklist, $users);
+                //dd($increment, $decrement);
+                if (!empty($increment)) {
+                    $user->blacklist()->sync($increment, false);
+                    $blacklistUpdate = true;
+                    // 从粉丝列表内移除这些被加入黑名单的用户
+                    $user->followedUsers()->detach($increment);
+                }
+                if (!empty($decrement)) {
+                    $user->blacklist()->detach($decrement);
+                    $blacklistUpdate = true;
+                }
+            }
+        } else { // if there has $blacklist, remove it
+            if (empty($blacklist) !== true) {
+                $user->blacklist()->detach($blacklist);
+                $blacklistUpdate = true;
+            }
+        }
+
+        if (isset($privacyUpdate) || isset($blacklistUpdate)) {
+            session()->flash('success', '您的隐私设置更新成功');
+        }
+        return redirect()->back();
     }
 
     public function showAssists($id)

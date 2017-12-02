@@ -297,8 +297,9 @@ class User extends Model implements AuthenticatableContract,
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function blacklists()
+    public function blacklist()
     {
-        return $this->belongsToMany(Blacklist::class, 'blacklists', 'user_id', 'blocked_id');
+        return $this->belongsToMany(User::class, 'blacklists', 'user_id', 'blocked_id')
+                    ->withTimestamps();
     }
 }
