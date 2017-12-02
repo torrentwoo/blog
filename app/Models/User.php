@@ -270,4 +270,14 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasOne(Social::class, 'user_id');
     }
+
+    /**
+     * 获取用户的黑名单列表
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function blacklists()
+    {
+        return $this->belongsToMany(Blacklist::class, 'blacklists', 'user_id', 'blocked_id');
+    }
 }
