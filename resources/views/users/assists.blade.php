@@ -15,10 +15,10 @@
                                 <label class="col-sm-2 control-label">偏好设定</label>
                                 <div class="col-sm-6">
                                     <label class="radio-inline">
-                                        <input name="editor" id="editor1" value="CKEditor" type="radio" /><span class="radio-label offset-right">富文本</span>
+                                        <input name="editor" id="editor1" value="CKEditor" type="radio" /><span class="radio-label" title="使用“所见即所的”的方式撰写文章">常规</span>
                                     </label>
                                     <label class="radio-inline">
-                                        <input name="editor" id="editor2" value="Markdown" type="radio" /><span class="radio-label offset-right">Markdown</span>
+                                        <input name="editor" id="editor2" value="Markdown" type="radio" /><span class="radio-label">Markdown</span>
                                     </label>
                                     <p class="help-block">在您撰写文章时使用何种编辑器<a href="javascript:void(0)" class="offset-right" data-toggle="modal" data-target="#markdownModal"><i class="glyphicon glyphicon-question-sign" aria-hidden="true"></i>什么是 Markdown</a></p>
                                 </div>
@@ -27,17 +27,17 @@
                                 <label class="col-sm-2 control-label">文章赞赏</label>
                                 <div class="col-sm-6">
                                     <label class="radio-inline">
-                                        <input name="reward" id="reward1" value="enable" type="radio" /><span class="radio-label offset-right">开启</span>
+                                        <input name="reward" id="reward1" value="yes" type="radio" /><span class="radio-label">开启</span>
                                     </label>
                                     <label class="radio-inline">
-                                        <input name="reward" id="reward2" value="disable" type="radio" /><span class="radio-label offset-right">关闭</span>
+                                        <input name="reward" id="reward2" value="no" type="radio" /><span class="radio-label">关闭</span>
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="reward-description" class="col-sm-2 control-label">赞赏描述</label>
+                                <label for="reward_description" class="col-sm-2 control-label">赞赏描述</label>
                                 <div class="col-sm-6">
-                                    <textarea name="description" id="reward-description" class="form-control" rows="3" placeholder="对于您文章赞赏的描述"></textarea>
+                                    <textarea name="reward_description" id="reward_description" class="form-control" rows="3" placeholder="您对于文章赞赏的描述"></textarea>
                                 </div>
                             </div>
 

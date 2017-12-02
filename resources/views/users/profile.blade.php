@@ -39,13 +39,13 @@
                                 <label class="col-sm-2 control-label">性别</label>
                                 <div class="col-sm-4">
                                     <label class="radio-inline">
-                                        <input name="gender" id="gender1" value="male" type="radio" @if ($user->gender === 'male') checked="checked" @endif /><span class="radio-label offset-right">男</span>
+                                        <input name="gender" id="gender1" value="male" type="radio" @if ($user->gender === 'male') checked="checked" @endif /><span class="radio-label">男</span>
                                     </label>
                                     <label class="radio-inline">
-                                        <input name="gender" id="gender2" value="female" type="radio" @if ($user->gender === 'female') checked="checked" @endif /><span class="radio-label offset-right">女</span>
+                                        <input name="gender" id="gender2" value="female" type="radio" @if ($user->gender === 'female') checked="checked" @endif /><span class="radio-label">女</span>
                                     </label>
                                     <label class="radio-inline">
-                                        <input name="gender" id="gender3" value="secret" type="radio" @if ($user->gender === 'secret') checked="checked" @endif /><span class="radio-label offset-right">保密</span>
+                                        <input name="gender" id="gender3" value="secret" type="radio" @if ($user->gender === 'secret') checked="checked" @endif /><span class="radio-label">保密</span>
                                     </label>
                                 </div>
                             </div>
