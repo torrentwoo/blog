@@ -31,7 +31,7 @@ class Social extends Model
 
     /**
      * 定义与用户模型相对的一对一关联
-     * 获取是哪个用户拥有这些社交自资料
+     * 获取是哪个用户拥有这些社交资料
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

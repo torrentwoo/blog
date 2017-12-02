@@ -272,6 +272,16 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
+     * 获取用户的隐私设置项
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function privacy()
+    {
+        return $this->hasOne(Privacy::class, 'user_id');
+    }
+
+    /**
      * 获取用户的黑名单列表
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
