@@ -30,4 +30,16 @@ class MessagesController extends Controller
 
         return view('messages.index', compact('user', 'messages'))->with('notificationActive', 'active');
     }
+
+    /**
+     * 响应对 GET /notification/messages/{id} 的请求
+     * 显示由某个用户发起的会话详情页面
+     *
+     * @param int $id 某个用户的 id 标识符
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($id)
+    {
+        return view('messages.show')->with('notificationActive', 'active');
+    }
 }
