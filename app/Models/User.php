@@ -312,4 +312,14 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany(Message::class, 'recipient_id');
     }
+
+    /**
+     * 获取用户的所有消息通知
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function notification()
+    {
+        return $this->hasMany(Notification::class, 'recipient_id')->with('notifiable');
+    }
 }

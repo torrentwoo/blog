@@ -67,4 +67,14 @@ class Vote extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    /**
+     * 获取点赞的通知
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function notification()
+    {
+        return $this->morphMany(Notification::class, 'notifiable');
+    }
 }

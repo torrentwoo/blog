@@ -42,4 +42,14 @@ class Like extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    /**
+     * 获取喜欢的通知
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function notification()
+    {
+        return $this->morphMany(Notification::class, 'notifiable');
+    }
 }

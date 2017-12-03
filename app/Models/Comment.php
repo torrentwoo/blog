@@ -77,4 +77,14 @@ class Comment extends Model
     {
         return $this->morphMany(Favorite::class, 'favorable');
     }
+
+    /**
+     * 获取评论的通知
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function notification()
+    {
+        return $this->morphMany(Notification::class, 'notifiable');
+    }
 }

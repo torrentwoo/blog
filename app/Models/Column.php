@@ -160,4 +160,14 @@ class Column extends Model
     {
         return (boolean) $this->followingUsers->contains($someone);
     }
+
+    /**
+     * 获取栏目投稿邀约的通知
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function notification()
+    {
+        return $this->morphMany(Notification::class, 'notifiable');
+    }
 }
