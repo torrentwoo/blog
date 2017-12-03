@@ -480,6 +480,77 @@ ul#tags-label li {
 .media-quirk:nth-last-of-type(1) {
   border: none; }
 
+.page-header .header-back {
+  font-size: 12px; }
+
+.dialog-box {
+  margin-bottom: 1em;
+  height: auto;
+  padding: 1em;
+  overflow: hidden; }
+
+.dialog-box .dialog-import, .dialog-box .dialog-export {
+  float: left;
+  max-width: 80%;
+  margin-bottom: 1em;
+  clear: both; }
+
+.dialog-box .dialog-export {
+  float: right; }
+
+.dialog-import .dialog-avatar, .dialog-import .dialog-content {
+  float: left; }
+
+.dialog-export .dialog-avatar, .dialog-export .dialog-content, .dialog-export .dialog-timestamp {
+  float: right; }
+
+.dialog-import .dialog-content, .dialog-export .dialog-content {
+  position: relative;
+  padding-left: 46px; }
+
+.dialog-export .dialog-content {
+  padding-left: 0;
+  padding-right: 46px; }
+
+.dialog-import .dialog-message, .dialog-export .dialog-message {
+  position: relative; }
+
+.dialog-import .dialog-message:after, .dialog-export .dialog-message:after {
+  position: absolute;
+  left: -7px;
+  top: 15px;
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid #e3e3e3; }
+
+.dialog-export .dialog-message:after {
+  left: auto;
+  right: -7px;
+  border: none;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 7px solid #e3e3e3; }
+
+.dialog-avatar {
+  position: absolute;
+  left: 0;
+  top: .5em; }
+
+.dialog-export .dialog-avatar {
+  left: auto;
+  right: 0; }
+
+.dialog-message {
+  margin-bottom: 4px;
+  padding: 1em; }
+
+.dialog-form {
+  margin-top: 1em; }
+
 #footer-nav {
   float: right;
   list-style: none;

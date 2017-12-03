@@ -12,7 +12,12 @@
                                 <img class="media-object img-circle avatar-sm" src="{{ $message->first()->sender->gravatar(48) }}" />
                             </div>
                             <div class="media-body">
-                                <h3 class="media-heading h4">{{ $message->first()->sender->name }}<small class="offset-right">{{ $message->max('created_at')->format('Y-m-d g:i a') }}</small></h3>
+                                <h3 class="media-heading h4">{{ $message->first()->sender->name }}
+                                    <small class="offset-right">{{ $message->max('created_at')->format('Y-m-d g:i a') }}</small>
+@if ($message->where('read', 0)->count() > 0)
+                                    <small class="offset-right"><span class="badge">{{ $message->where('read', 0)->count() }}</span></small>
+@endif
+                                </h3>
                                 <p class="text-muted">{{ $message->last()->content }}</p>
                             </div>
                             <div class="media-right">
@@ -22,7 +27,7 @@
                                         <span class="sr-only">操作：</span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                                        <li><a class="caution bg-primary" href="#show-{{ $message->first()->sender->id }}"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>回复</a></li>
+                                        <li><a class="caution bg-primary" href="{{ route('message.show', $message->first()->sender->id) }}"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>回复</a></li>
                                         <li><a class="caution bg-danger" href="#delete-{{ $message->first()->sender->id }}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i>删除对话</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a class="caution bg-danger" href="#blacklist-{{ $message->first()->sender->id }}"><i class="glyphicon glyphicon-ban-circle" aria-hidden="true"></i>加入黑名单</a></li>
