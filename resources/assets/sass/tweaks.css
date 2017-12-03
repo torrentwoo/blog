@@ -58,13 +58,30 @@ i.glyphicon, .offset-left {
 .dropdown-menu > li > a.active {
     background:#f5f5f5;
 }
-#navLogoutLink {
+a.caution {
+    background:none;
+}
+.dropdown-menu a.bg-danger {
     color:#d9534f;
 }
-#navLogoutLink:hover{
-    background:#d9534f;
-    color:#fff;
+    .dropdown-menu a.bg-danger:hover {
+        background:#d9534f;
+        color:#fff;
+    }
+.dropdown-menu a.bg-primary {
+    color:#337ab7;
 }
+    .dropdown-menu a.bg-primary:hover {
+        background:#337ab7;
+        color:#fff;
+    }
+.dropdown-menu a.bg-success {
+    color:#5cb85c;
+}
+    .dropdown-menu a.bg-success:hover {
+        background:#5cb85c;
+        color:#fff;
+    }
 .avatar-xs {
     width:32px;
     height:32px;
@@ -465,6 +482,18 @@ ul#tags-label li {
     }
     .label-lg {
         font-size:200%;
+    }
+
+/*
+ Notification and messages
+ */
+.media-quirk {
+    overflow:visible;
+    border-bottom:1px solid #eaeaea;
+    padding-bottom:.5em;
+}
+    .media-quirk:nth-last-of-type(1) {
+        border:none;
     }
 
 #footer-nav {

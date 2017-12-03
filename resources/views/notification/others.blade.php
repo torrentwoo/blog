@@ -4,11 +4,11 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <div class="page-header">
-                            <h1>收到的关注<small class="offset-right">全部</small></h1>
+                            <h1>其他消息</h1>
                         </div>
-@forelse ($follows as $notification)
+@forelse ($others as $notification)
                         <div>
-                            某某关注了您
+                            某某喜欢了您的文章
                         </div>
 @empty
                         <div class="alert alert-warning alert-dismissible" role="alert">

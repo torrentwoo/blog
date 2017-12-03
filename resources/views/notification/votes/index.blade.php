@@ -6,9 +6,16 @@
                         <div class="page-header">
                             <h1>收到的点赞<small class="offset-right">全部</small></h1>
                         </div>
+@forelse ($votes as $notification)
                         <div>
                             某某点赞了您的评论
                         </div>
+@empty
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <p><strong>提示：</strong>您还没有收到任何此类消息通知</p>
+                        </div>
+@endforelse
                         <nav class="text-center" aria-label="Page navigation">
                             <ul class="pagination">
                                 <li class="disabled">

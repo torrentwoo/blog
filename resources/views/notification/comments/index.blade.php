@@ -6,6 +6,7 @@
                         <div class="page-header">
                             <h1>收到的评论<small class="offset-right">全部</small></h1>
                         </div>
+@forelse ($comments as $notification)
                         <div class="well well-quirk">
                             <ul class="list-inline">
                                 <li>某某</li>
@@ -17,17 +18,12 @@
                                 <p>这里是被评论的主体内容</p>
                             </blockquote>
                         </div>
-                        <div class="well well-quirk">
-                            <ul class="list-inline">
-                                <li>某某</li>
-                                <li>评论了您的文章/回复了您的评论</li>
-                                <li class="small text-muted">日期时间</li>
-                            </ul>
-                            <p>这里是评论的内容</p>
-                            <blockquote class="small text-muted">
-                                <p>这里是被评论的主体内容</p>
-                            </blockquote>
+@empty
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <p><strong>提示：</strong>您还没有收到任何此类消息通知</p>
                         </div>
+@endforelse
                         <nav class="text-center" aria-label="Page navigation">
                             <ul class="pagination">
                                 <li class="disabled">

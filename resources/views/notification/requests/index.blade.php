@@ -6,6 +6,7 @@
                         <div class="page-header">
                             <h1>投稿邀约<small class="offset-right">全部</small></h1>
                         </div>
+@forelse ($requests as $notification)
                         <div class="my-moment">
                             <ul class="list-inline moment-driver">
                                 <li>邀约人的头像</li>
@@ -26,6 +27,12 @@
                                 <div class="media-bottom text-muted">栏目的简介</div>
                             </div>
                         </div>
+@empty
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <p><strong>提示：</strong>您还没有收到任何此类消息通知</p>
+                        </div>
+@endforelse
                         <nav class="text-center" aria-label="Page navigation">
                             <ul class="pagination">
                                 <li class="disabled">
