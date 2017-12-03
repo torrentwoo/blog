@@ -302,4 +302,14 @@ class User extends Model implements AuthenticatableContract,
         return $this->belongsToMany(User::class, 'blacklists', 'user_id', 'blocked_id')
                     ->withTimestamps();
     }
+
+    /**
+     * 获取用户的所有站内信
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'recipient_id');
+    }
 }
