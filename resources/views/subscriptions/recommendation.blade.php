@@ -24,6 +24,7 @@
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade active in" id="authors" aria-labelledby="authors-tab">
 @forelse ($authors as $author)
+@can ('follow', $author)
                         <div class="media header-media">
                             <div class="media-left">
                                 <a href="{{ route('user.show', $author->id) }}">
@@ -57,12 +58,13 @@
 @if ($author->isFollowedBy(Auth::user()))
                                     {{ method_field('DELETE') }}
 @endif
-                                    <button type="submit" class="btn btn-success btn-xs" @can ('follow', $author) @else style="visibility:hidden!important;" @endcan >
+                                    <button type="submit" class="btn btn-success btn-xs">
                                         <i class="glyphicon {{ $author->isFollowedBy(Auth::user()) ? 'glyphicon-minus' : 'glyphicon-plus' }}" aria-hidden="true"></i>关注
                                     </button>
                                 </form>
                             </div>
                         </div>
+@endcan
 @empty
                         <div class="alert alert-warning alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
