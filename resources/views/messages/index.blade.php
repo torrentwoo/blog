@@ -77,7 +77,8 @@
                         <a href="{{ route('notification.vote') }}" class="list-group-item">点赞</a>
                         <a href="{{ route('notification.like') }}" class="list-group-item">喜欢</a>
                         <a href="{{ route('notification.follow') }}" class="list-group-item">关注</a>
-                        <a href="{{ route('notification.reward') }}" class="list-group-item">文章赞赏</a>
+                        <a href="{{ route('notification.reward') }}" class="list-group-item">赞赏</a>
+                        <a href="{{ route('notification.others') }}" class="list-group-item">其他</a>
                     </div>
                 </div>
 @stop
