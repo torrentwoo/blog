@@ -17,7 +17,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 @if (Auth::check())
-                    <li class="{{ $notificationActive or 'void' }}"><a href="#notification"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span><i class="sr-only">消息通知</i></a></li>
+                    <li class="{{ $notificationActive or 'void' }}"><a href="{{ route('notification.index') }}"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span><i class="sr-only">消息通知</i></a></li>
                     <li class="dropdown">
                         <a href="javascript:void(0);" id="navUserDropdownMenu" class="dropdown-toggle" data-toggle="dropdown">
                             {{ Auth::user()->name }}
