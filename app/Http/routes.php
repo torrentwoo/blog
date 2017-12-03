@@ -119,6 +119,8 @@ Route::delete('/notification/follow/{id}', 'NotificationController@destoryFollow
 Route::get('/notification/rewards', 'NotificationController@reward')->name('notification.reward');
 Route::get('/notification/rewards/{id}', 'NotificationController@showReward')->name('notification.showReward');
 Route::delete('/notification/rewards/{id}', 'NotificationController@destoryReward')->name('notification.deleteReward');
+Route::get('/notification/others', 'NotificationController@others')->name('notification.others');
+Route::delete('/notification/others/{id}', 'NotificationController@destoryOthers')->name('notification.deleteOthers');
 
 
 //--------------------------------------/
