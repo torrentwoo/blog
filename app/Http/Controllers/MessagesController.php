@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
+use App\Models\User;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -40,6 +42,16 @@ class MessagesController extends Controller
      */
     public function show($id)
     {
-        return view('messages.show')->with('notificationActive', 'active');
+        $import = User::findOrFail($id);
+        $export = Auth::user();
+        $messages = Message::with('sender')
+            ->orWhere(function($query) use ($import, $export) {
+                $query->where('from_id', '=', $import->id)->where('recipient_id', '=', $export->id);
+            })->orWhere(function($query) use ($import, $export) {
+                $query->where('from_id', '=', $export->id)->where('recipient_id', '=', $import->id);
+            })->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('messages.show', compact('import', 'messages'))->with('notificationActive', 'active');
     }
 }
