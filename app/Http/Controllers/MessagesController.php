@@ -54,4 +54,41 @@ class MessagesController extends Controller
 
         return view('messages.show', compact('import', 'messages'))->with('notificationActive', 'active');
     }
+
+    /**
+     * 响应对 POST /notification/messages/{id} 的请求
+     * 处理用户发送的站内信
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function send(Request $request, $id)
+    {
+        $recipient = User::findOrFail($id);
+        $myself = Auth::user();
+        // Check blacklist
+        if ($recipient->blacklist->contains($myself)) {
+            session()->flash('warning', "您暂时无法给 {$recipient->name} 发送站内信");
+            return redirect()->back();
+        }
+        // Input validation
+        $this->validate($request, [
+            'message'   =>  'required|max:140',
+        ], [
+            'message.required'  =>  '站内信 的内容不可为空',
+            'message.max'       =>  '站内信 的内容不能大于 140 个字符',
+        ]);
+        $message = Message::create([
+            'from_id'       =>  $myself->id,
+            'recipient_id'  =>  $recipient->id,
+            'content'       =>  $request->message,
+        ]);
+        /*
+        if ($message instanceof Message) {
+            session()->flash('success', '站内信发送成功');
+        }*/
+
+        return redirect()->back();
+    }
 }

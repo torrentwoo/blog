@@ -31,13 +31,14 @@
 @endif
 @endforeach
                         </div>
+@can ('message', $import)
                         <div class="dialog-form">
                             <form method="POST" action="{{ route('message.send', $import->id) }}">
                                 @include('features.builtIn-alert')
 
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <textarea name="comment" class="form-control" rows="3" placeholder="请在此输入站内信"></textarea>
+                                    <textarea name="message" class="form-control" rows="3" placeholder="请在此输入站内信"></textarea>
                                 </div>
                                 <div class="form-group text-right">
                                     <button type="submit" class="btn btn-primary">
@@ -46,6 +47,7 @@
                                 </div>
                             </form>
                         </div>
+@endcan
                     </div>
                 </div>
 @stop
