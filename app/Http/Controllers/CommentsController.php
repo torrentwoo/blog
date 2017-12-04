@@ -47,31 +47,68 @@ class CommentsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int                       $id      the value of article identifier
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-        // 定位文章
+        //
+    }
+
+    /**
+     * 处理用户对文章的评论
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function comment(Request $request, $id)
+    {
+        // 定位被评论的文章
         $article = Article::released()->findOrFail($id);
-        // 用户输入验证
-        $requireLogin = [];
-        $this->validate($request, array_merge($requireLogin, [
+        // 验证用户端的输入
+        $this->validate($request, [
             'comment'   =>  'required|min:15',
-            'parent_id' =>  'numeric|exists:comments,id',
-        ]), [
-            'comment.required'  =>  '评论 不能为空',
-            'comment.min'       =>  '评论 至少为 15 个字符',
-            'parent_id.numeric' =>  '被引用的 评论 无效',
-            'parent_id.exists'  =>  '被引用的 评论 无效，该评论或以被删除',
+        ], [
+            'comment.required'  =>  '评论内容 不能为空',
+            'comment.min'       =>  '评论内容 至少为 15 个字符',
         ]);
-        // 构造评论数据
+        // 构造文章评论数据
         $comment = new Comment([
             'user_id'   =>  Auth::id(),
             'content'   =>  $request->comment,
         ]);
         // 为文章保存评论数据
         $article->comments()->save($comment);
+
+        return redirect()->back();
+    }
+
+    /**
+     * 处理用户对评论的回复
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function reply(Request $request, $id)
+    {
+        // 定位被回复的评论
+        $comment = Comment::findOrFail($id);
+        // 验证用户端的输入
+        $this->validate($request, [
+            'reply' =>  'required|min:15',
+        ], [
+            'reply.required'    =>  '回复内容 不能为空',
+            'reply.min'         =>  '回复内容 至少为 15 个字符',
+        ]);
+        // 构造评论回复数据
+        $reply = new Comment([
+            'user_id'   =>  Auth::id(),
+            'parent_id' =>  $comment->id,
+            'content'   =>  $request->reply,
+        ]);
+        // 为评论保存回复数据
+        $comment->replies()->save($reply);
 
         return redirect()->back();
     }
