@@ -8,7 +8,7 @@
                     <li class="active">评论</li>
                 </ol>
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div id="comments" class="col-xs-12">
                         <ul class="media-list">
 @foreach ($comments as $comment)
                             <li class="media" id="mark-{{ $comment->id }}">
@@ -17,9 +17,54 @@
                                         <img alt="{{ $comment->commentator->name }}" class="media-object img-circle avatar-sm" src="{{ $comment->commentator->gravatar(48) }}" />
                                     </a>
                                 </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">{{ $comment->commentator->name }} <small>{{ $comment->created_at->diffForHumans() }}</small></h4>
+                                <div class="media-body" id="mark-{{ $comment->id }}-body">
+                                    <p class="h4 media-heading">{{ $comment->commentator->name }}<small class="offset-right">{{ $comment->created_at->diffForHumans() }}</small></p>
                                     <p>{{ $comment->content }}</p>
+@can ('comment', $article->author)
+                                    <ul class="list-inline">
+                                        <li>
+                                            <form method="POST" action="#"><!-- vote up -->
+                                                {{ csrf_field() }}
+                                                <button type="button" class="btn btn-default btn-xs">
+                                                    <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i><!--20人-->赞
+                                                </button>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="btn btn-default btn-xs btn-reply" data-src="{{ $comment->id }}" data-url="{{ route('comment.reply', $comment->id) }}">
+                                                <i class="glyphicon glyphicon-retweet" aria-hidden="true"></i>回复
+                                            </button>
+                                        </li>
+                                    </ul>
+@endcan
+@foreach ($comment->replies as $reply)
+                                    <div class="media" id="mark-{{ $reply->id }}">
+                                        <div class="media-left">
+                                            <a href="{{ route('user.show', $reply->commentator->id) }}">
+                                                <img class="media-object img-circle avatar-sm" src="{{ $reply->commentator->gravatar(48) }}" />
+                                            </a>
+                                        </div>
+                                        <div class="media-body" id="mark-{{ $reply->id }}-body">
+                                            <p class="h4 media-heading">{{ $reply->commentator->name }}<small class="offset-right">{{ $reply->created_at->diffForHumans() }}</small></p>
+                                            <p>{{ $reply->content }}</p>
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <form method="POST" action="#"><!-- vote up -->
+                                                        {{ csrf_field() }}
+                                                        <button type="button" class="btn btn-default btn-xs">
+                                                            <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i><!--20人-->赞
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-default btn-xs btn-reply" data-src="{{ $reply->id }}" data-url="{{ route('comment.reply', $reply->id) }}">
+                                                        <i class="glyphicon glyphicon-retweet" aria-hidden="true"></i>回复
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+@endforeach
                                 </div>
                             </li>
 @endforeach
@@ -124,14 +169,9 @@
 
 @can ('comment', $article->author)
                     <div class="col-xs-12">
-                        @include('features.comment-form', ['modalLogin' => isset($modalLogin) ? $modalLogin : false])
+                        @include('features.comment-form')
                     </div>
 @endcan
-@if (isset($modalLogin) && $modalLogin)
-@unless (Auth::check())
-                    @include('features.modal-login')
-@endunless
-@endif
                 </div>
 @stop
 
@@ -150,8 +190,71 @@
                 </div>
 @stop
 
-@if (isset($modalLogin) && $modalLogin && !Auth::check())
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('/assets/js/ajax-login.js') }}"></script>
+    <script type="text/javascript">
+        $('.btn-reply').bind('click', function() {
+            var $btn = $(this);
+            var $src = $btn.data('src');
+            var $url = $btn.data('url');
+            var $template = $('<div class="appendage" style="margin-top:1em;">' +
+                '<div class="alert alert-danger" id="reply-alert' + $src + '" style="display:none;" role="alert"></div>' +
+                '<div class="form-group"><textarea name="reply" id="reply-control' + $src + '" class="form-control" rows="3" placeholder="请在此写下您的回复"></textarea></div>' +
+                '<div class="form-group"><button type="button" class="btn btn-primary" data-man="#reply-alert' + $src + '" data-hook="#reply-control' + $src + '" data-post="' + $url + '">回复评论</button></div>' +
+                '</div>');
+            var $wrap = $('#mark-' + $src + '-body');
+            //console.log($wrap.children('.appendage').length);
+            //$('div.appendage').remove();
+            if ($wrap.children('.appendage').length) {
+                $wrap.children('.appendage').remove();
+            } else {
+                $template.appendTo($wrap);
+            }
+        });
+        $('.media-body').on('click', 'button[data-hook][data-post]', function() {
+            var $this = $(this);
+            var $url = $this.data('post');
+            var $textarea = $($this.data('hook'));
+            var $content = $textarea.val();
+            var $alert = $($this.data('man'));
+            if ($.trim($content).length < 15) {
+                $alert.text('回复内容 至少为 15 个字符').show();
+            } else {
+                $alert.text('').hide();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: $url,
+                    type: 'POST',
+                    data: {
+                        'reply': $content
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (!response.error) {
+                            //window.location.reload();
+                            $('.media-body .appendage').remove();
+                            //console.log(response.data.commentator);
+                            $html = $('<div class="media">' +
+                                '<div class="media-left">' +
+                                '<a href="' + response.data.url + '">' +
+                                '<img class="media-object img-circle avatar-sm" src="' + response.data.avatar + '" />' +
+                                '</a>' +
+                                '</div>' +
+                                '<div class="media-body">' +
+                                '<h4 class="media-heading">' + response.data.commentator + '<small class="offset-right">' + response.data.datetime + '</small></h4>' +
+                                '<p>' + response.data.reply + '</p>' +
+                                '</div>' +
+                                '</div>');
+                            $html.appendTo($('#mark-' + response.data.id + '-body'));
+                        } else { // output error messages
+                            $alert.text(response.message).show();
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 @stop
-@endif

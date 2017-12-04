@@ -147,7 +147,7 @@
                             </ul>
                         </nav>
                     </div>
-@if (isset($article->comments) && !$article->comments->isEmpty())
+@if ($article->comments->isEmpty() !== true)
                     <div id="comments" class="col-xs-12">
                         <ul class="media-list">
 @foreach ($article->comments as $comment)
@@ -156,7 +156,7 @@
                                     <img alt="{{ $comment->commentator->name }}" class="media-object img-circle avatar-sm" src="{{ $comment->commentator->gravatar(48) }}" />
                                 </div>
                                 <div class="media-body">
-                                    <h4 class="media-heading">{{ $comment->commentator->name }} <small>{{ $comment->created_at->diffForHumans() }}</small></h4>
+                                    <p class="h4 media-heading">{{ $comment->commentator->name }}<small class="offset-right">{{ $comment->created_at->diffForHumans() }}</small></p>
                                     <p>{{ $comment->content }}</p>
                                 </div>
                             </li>
@@ -169,7 +169,7 @@
 @endif
 @can ('comment', $article->author)
                     <div class="col-xs-12">
-                        @include('features.comment-form', ['modalLogin' => isset($modalLogin) ? $modalLogin : false])
+                        @include('features.comment-form')
                     </div>
 @endcan
 @unless (Auth::check())
