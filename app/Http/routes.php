@@ -80,6 +80,7 @@ Route::delete('/articles/{id}/like', 'LikesController@revokeLikeArticle')->name(
 // Comments related routes
 Route::get('/articles/{id}/comments', 'CommentsController@show')->name('article.comments');
 Route::post('/articles/{id}/comments', 'CommentsController@store')->name('article.comment');
+Route::post('/articles/comments/{id}', 'CommentsController@reply')->name('comment.reply');
 
 // Tags routes
 Route::get('/tags', 'TagsController@index')->name('tag.index');
