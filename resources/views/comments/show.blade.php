@@ -47,8 +47,9 @@
                                         </div>
                                         <form method="POST" action="{{ route('comment.reply', $comment->id) }}">
                                             {{ csrf_field() }}
+                                            <input type="hidden" name="articleId" value="{{ $article->id }}" />
                                             <div class="form-group">
-                                                <textarea name="reply" class="form-control" rows="3" placeholder="请在此写下您的回复" required minlength="15" maxlength="140"></textarea>
+                                                <textarea name="reply" class="form-control" rows="3" placeholder="请在此写下您的回复" aria-required="true"></textarea>
                                             </div>
                                             <div class="form-group text-right">
                                                 <button type="button" class="btn btn-default btn-sm offset-left" data-toggle="#reply-form{{ $comment->id }}">取消</button>
@@ -59,18 +60,12 @@
 @endcan
 @endcan
 @if ($comment->replies->isEmpty() !== true)
-                                    @include('features.nested-comment', ['replies' => $comment->replies])
+                                    @include('features.nested-comment', ['replies' => $comment->replies, 'article' => $article])
 @endif
                                 </div>
                             </li>
 @endforeach
                         </ul>
-                    </div>
-
-                    <div class="col-xs-12 text-center">
-                        <nav aria-label="Page navigation">
-                            {!! $comments->render() !!}
-                        </nav>
                     </div>
 
 @can ('comment', $article->author)

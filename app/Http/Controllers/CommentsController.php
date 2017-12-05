@@ -110,7 +110,12 @@ class CommentsController extends Controller
         // 为评论保存回复数据
         $comment->replies()->save($reply);
 
-        return redirect()->back();
+        if ($request->has('articleId')) {
+            $url = route('article.comments', $request->articleId) . '#mark-' . $comment->id;
+            return redirect($url);
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -124,7 +129,7 @@ class CommentsController extends Controller
         // Retrieve article and its column data
         $article = Article::with('column')->released()->findOrFail($id);
         // Retrieve comments those comment on this article
-        $comments = $article->comments()->with('commentator')->latest('created_at')->paginate(20);
+        $comments = $article->comments()->with('commentator')->latest('created_at')->get();
         // Retrieve the top 8 most commented articles that got same column with specified article
         $popular  = Article::with('comments')->released()->get()->filter(function($e) use ($article) {
             return $e->column_id === $article->column_id;
