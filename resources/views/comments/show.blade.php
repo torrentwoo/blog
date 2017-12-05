@@ -39,17 +39,20 @@
 @endcan
                                     </ul>
 @can ('comment', $comment->commentator)
-                                    <div class="reply-form" id="reply-form{{ $comment->id }}">
-                                        @include('features.builtIn-alert')
-
+                                    <div class="reply-form reply-form-hidden" id="reply-form{{ $comment->id }}">
+                                        <div class="alert alert-danger" role="alert">
+                                            <i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i>
+                                            <span class="sr-only">错误：</span>
+                                            <span class="alert-response"></span>
+                                        </div>
                                         <form method="POST" action="{{ route('comment.reply', $comment->id) }}">
                                             {{ csrf_field() }}
                                             <div class="form-group">
-                                                <textarea name="reply" class="form-control" rows="3" placeholder="请在此写下您的回复"></textarea>
+                                                <textarea name="reply" class="form-control" rows="3" placeholder="请在此写下您的回复" required minlength="15" maxlength="140"></textarea>
                                             </div>
                                             <div class="form-group text-right">
                                                 <button type="button" class="btn btn-default btn-sm offset-left" data-toggle="#reply-form{{ $comment->id }}">取消</button>
-                                                <button type="submit" class="btn btn-primary btn-sm">回复评论</button>
+                                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="#reply-form{{ $comment->id }}">回复评论</button>
                                             </div>
                                         </form>
                                     </div>
@@ -95,69 +98,38 @@
 
 @section('scripts')
     <script type="text/javascript">
-        $('.btn-reply').bind('click', function() {
-            var $btn = $(this);
-            var $src = $btn.data('src');
-            var $url = $btn.data('url');
-            var $template = $('<div class="appendage" style="margin-top:1em;">' +
-                '<div class="alert alert-danger" id="reply-alert' + $src + '" style="display:none;" role="alert"></div>' +
-                '<div class="form-group"><textarea name="reply" id="reply-control' + $src + '" class="form-control" rows="3" placeholder="请在此写下您的回复"></textarea></div>' +
-                '<div class="form-group"><button type="button" class="btn btn-primary" data-man="#reply-alert' + $src + '" data-hook="#reply-control' + $src + '" data-post="' + $url + '">回复评论</button></div>' +
-                '</div>');
-            var $wrap = $('#mark-' + $src + '-body');
-            //console.log($wrap.children('.appendage').length);
-            //$('div.appendage').remove();
-            if ($wrap.children('.appendage').length) {
-                $wrap.children('.appendage').remove();
-            } else {
-                $template.appendTo($wrap);
-            }
-        });
-        $('.media-body').on('click', 'button[data-hook][data-post]', function() {
-            var $this = $(this);
-            var $url = $this.data('post');
-            var $textarea = $($this.data('hook'));
-            var $content = $textarea.val();
-            var $alert = $($this.data('man'));
-            if ($.trim($content).length < 15) {
-                $alert.text('回复内容 至少为 15 个字符').show();
-            } else {
-                $alert.text('').hide();
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    url: $url,
-                    type: 'POST',
-                    data: {
-                        'reply': $content
-                    },
-                    dataType: 'json',
-                    success: function (response) {
-                        if (!response.error) {
-                            //window.location.reload();
-                            $('.media-body .appendage').remove();
-                            //console.log(response.data.commentator);
-                            $html = $('<div class="media">' +
-                                '<div class="media-left">' +
-                                '<a href="' + response.data.url + '">' +
-                                '<img class="media-object img-circle avatar-sm" src="' + response.data.avatar + '" />' +
-                                '</a>' +
-                                '</div>' +
-                                '<div class="media-body">' +
-                                '<h4 class="media-heading">' + response.data.commentator + '<small class="offset-right">' + response.data.datetime + '</small></h4>' +
-                                '<p>' + response.data.reply + '</p>' +
-                                '</div>' +
-                                '</div>');
-                            $html.appendTo($('#mark-' + response.data.id + '-body'));
-                        } else { // output error messages
-                            $alert.text(response.message).show();
-                        }
-                    }
-                });
-            }
-        });
+        $(function() {
+            $('.btn-reply').bind('click', function() {
+                var $btn = $(this);
+                var $form = $($btn.data('toggle'));
+                $('.reply-form').addClass('reply-form-hidden').filter($form).toggleClass('reply-form-active');
+                $('div.alert', $form).hide();
+            });
+            // Revoke
+            $('.reply-form').on('click', 'button[type="button"][data-toggle]', function() {
+                var $form = $($(this).data('toggle'));
+                $('.reply-form').addClass('reply-form-hidden').filter($form).removeClass('reply-form-active');
+                $('div.alert', $form).hide();
+            });
+            // Submit
+            $('.reply-form').on('click', 'button[type="submit"][data-toggle]', function() {
+                var $form = $($(this).data('toggle'));
+                var $alarm = $('div.alert', $form);
+                var $response = $('span.alert-response', $form);
+                var $reply = $('textarea[name="reply"]', $form);
+                if (!$.trim($reply.val()).length) {
+                    $alarm.show().find($response).text('回复内容 不能为空');
+                    return false;
+                }
+                if ($reply.val().length < 15) {
+                    $alarm.show().find($response).text('回复内容 至少为 15 个字符');
+                    return false;
+                }
+                if ($reply.val().length > 140) {
+                    $alarm.show().find($response).text('回复内容 不能大于 140 个字符');
+                    return false;
+                }
+            });
+        })
     </script>
 @stop

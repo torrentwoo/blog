@@ -351,6 +351,22 @@ a.text-muted:hover, a.text-muted:active {
 }
 
 /*
+ Comment
+ */
+.reply-form {
+    margin-top:1em;
+}
+    .reply-form .alert {
+        display:none;
+    }
+.reply-form-hidden {
+    display:none;
+}
+.reply-form-active {
+    display:block;
+}
+
+/*
  Subscription
  */
 #aside-menu {

@@ -26,17 +26,20 @@
 @endcan
                                             </ul>
 @can ('comment', $reply->commentator)
-                                            <div class="reply-form" id="reply-form{{ $reply->id }}">
-                                                @include('features.builtIn-alert')
-
+                                            <div class="reply-form reply-form-hidden" id="reply-form{{ $reply->id }}">
+                                                <div class="alert alert-danger" role="alert">
+                                                    <i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i>
+                                                    <span class="sr-only">错误：</span>
+                                                    <span class="alert-response"></span>
+                                                </div>
                                                 <form method="POST" action="{{ route('comment.reply', $reply->id) }}">
                                                     {{ csrf_field() }}
                                                     <div class="form-group">
-                                                        <textarea name="reply" class="form-control" rows="3" placeholder="请在此写下您的回复"></textarea>
+                                                        <textarea name="reply" class="form-control" rows="3" placeholder="请在此写下您的回复" required minlength="15" maxlength="140"></textarea>
                                                     </div>
                                                     <div class="form-group text-right">
                                                         <button type="button" class="btn btn-default btn-sm offset-left" data-toggle="#reply-form{{ $reply->id }}">取消</button>
-                                                        <button type="submit" class="btn btn-primary btn-sm">回复评论</button>
+                                                        <button type="submit" class="btn btn-primary btn-sm" data-toggle="#reply-form{{ $reply->id }}">回复评论</button>
                                                     </div>
                                                 </form>
                                             </div>
