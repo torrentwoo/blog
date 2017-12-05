@@ -17,7 +17,7 @@
                                         <img alt="{{ $comment->commentator->name }}" class="media-object img-circle avatar-sm" src="{{ $comment->commentator->gravatar(48) }}" />
                                     </a>
                                 </div>
-                                <div class="media-body" id="mark-{{ $comment->id }}-body">
+                                <div class="media-body">
                                     <p class="h4 media-heading">{{ $comment->commentator->name }}<small class="offset-right">{{ $comment->created_at->diffForHumans() }}</small></p>
                                     <p>{{ $comment->content }}</p>
 @can ('comment', $article->author)
@@ -32,15 +32,31 @@
                                         </li>
 @can ('comment', $comment->commentator)
                                         <li>
-                                            <button type="button" class="btn btn-default btn-xs btn-reply" data-src="{{ $comment->id }}" data-url="{{ route('comment.reply', $comment->id) }}">
+                                            <button type="button" class="btn btn-default btn-xs btn-reply" data-toggle="#reply-form{{ $comment->id }}">
                                                 <i class="glyphicon glyphicon-retweet" aria-hidden="true"></i>回复
                                             </button>
                                         </li>
 @endcan
                                     </ul>
+@can ('comment', $comment->commentator)
+                                    <div class="reply-form" id="reply-form{{ $comment->id }}">
+                                        @include('features.builtIn-alert')
+
+                                        <form method="POST" action="{{ route('comment.reply', $comment->id) }}">
+                                            {{ csrf_field() }}
+                                            <div class="form-group">
+                                                <textarea name="reply" class="form-control" rows="3" placeholder="请在此写下您的回复"></textarea>
+                                            </div>
+                                            <div class="form-group text-right">
+                                                <button type="button" class="btn btn-default btn-sm offset-left" data-toggle="#reply-form{{ $comment->id }}">取消</button>
+                                                <button type="submit" class="btn btn-primary btn-sm">回复评论</button>
+                                            </div>
+                                        </form>
+                                    </div>
+@endcan
 @endcan
 @if ($comment->replies->isEmpty() !== true)
-                                    @include('features.nested-comment', ['replies' => $comment->replies, 'commentator' => $comment->commentator])
+                                    @include('features.nested-comment', ['replies' => $comment->replies])
 @endif
                                 </div>
                             </li>
