@@ -72,7 +72,7 @@
                         </div>
 @endforelse
                     </div>
-                </div><!-- /row -->
+                </div>
                 <nav class="text-center" aria-label="Page navigation">
                     {!! $pagination->render() !!}
                 </nav>

@@ -19,4 +19,4 @@
                     </a>
                 </div>
 @show
-            </div><!--/.sidebar-offcanvas-->
+            </div>

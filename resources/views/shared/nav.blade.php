@@ -65,6 +65,6 @@
                         </div>
                     </li>
                 </ul>
-            </div><!-- /.nav-collapse -->
-        </div><!-- /.container -->
-    </nav><!-- /.nav-element -->
+            </div>
+        </div>
+    </nav>

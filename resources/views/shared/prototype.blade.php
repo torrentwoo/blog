@@ -14,22 +14,25 @@
                     <button type="button" class="pull-right btn btn-primary btn-xs" data-toggle="offcanvas">切换至侧边栏</button>
                 </p>
 @yield('content')
-            </div><!--/.col-xs-12.col-sm-9-->
+            </div>
 
             @include('shared.sidebar')
 
-        </div><!--/row-->
+        </div>
 
         <hr>
 
         @include('shared.footer')
-{{--
-        <aside id="aside-widget" class="hidden-xs hidden-sm">
-            <p>aside widget goes here...</p>
-        </aside>
---}}
 
-    </div><!--/.container-->
+    </div>
+
+    <aside id="aside-widget" class="hidden-xs hidden-sm">
+    </aside>
+
+    <a href="javascript:void(0);" class="text-center" id="scrollToTop" role="button">
+        <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+    </a>
+
     <script type="text/javascript" src="/assets/js/app.js"></script>
     <script type="text/javascript" src="/assets/js/ie10-viewport-bug-workaround.js"></script>
 {{-- extra scripts, third-party plugins located here --}}

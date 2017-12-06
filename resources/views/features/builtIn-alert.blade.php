@@ -9,5 +9,5 @@
                                 </li>
 @endforeach
                             </ul>
-                        </div><!-- /.alert -->
+                        </div>
 @endif

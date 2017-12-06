@@ -51,7 +51,7 @@
                         </div>
                     </div>
 @yield('subContent')
-                </div><!-- /div.row -->
+                </div>
 @unless (Auth::check())
                 @include('features.modal-login')
 @endunless
