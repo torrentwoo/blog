@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserCommentNotificationEvent;
+use Auth;
+use Event;
+
 use App\Models\Article;
 use App\Models\Comment;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
@@ -79,6 +83,12 @@ class CommentsController extends Controller
         ]);
         // 为文章保存评论数据
         $article->comments()->save($comment);
+        // 触发评论的通知事件，通知作者其文章被评论了
+        $message = [
+            'subject'   =>  '您有文章被评论',
+            'content'   =>  '您的文章《' . $article->title . '》被用户：' . Auth::user()->name . '评论了',
+        ];
+        Event::fire(new UserCommentNotificationEvent($comment, $article->author, $message));
 
         return redirect()->back();
     }

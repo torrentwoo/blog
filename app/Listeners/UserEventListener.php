@@ -2,8 +2,10 @@
 
 namespace App\Listeners;
 
+use App\Models\Notification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -52,6 +54,10 @@ class UserEventListener
     {
         $event->listen('App\Events\UserLoginEvent', 'App\Listeners\UserEventListener@onUserLogin');
         $event->listen('App\Events\UserCommentEvent', 'App\Listeners\UserEventListener@onUserComment');
+        $event->listen(
+            'App\Events\UserCommentNotificationEvent',
+            'App\Listeners\UserEventListener@onUserComment'
+        );
     }
 
     /**
@@ -74,6 +80,13 @@ class UserEventListener
      */
     public function onUserComment($event)
     {
-        //
+        // Tell the author that his article been commented
+        $message = new Notification([
+            'recipient_id'  =>  $event->recipient->id,
+            'type'          =>  $event->message['type'],
+            'subject'       =>  isset($event->message['subject']) ? $event->message['subject'] : null,
+            'content'       =>  isset($event->comment['content']) ? $event->message['content'] : null,
+        ]);
+        $event->comment->notification()->save($message);
     }
 }
