@@ -6,7 +6,7 @@
                         <div class="page-header">
                             <h1>站内信<small class="offset-right">全部</small></h1>
                         </div>
-@forelse ($messages as $message)
+@forelse ($messages as $index => $message)
                         <div class="media media-quirk">
                             <div class="media-left">
                                 <img class="media-object img-circle avatar-sm" src="{{ $message->first()->sender->gravatar(48) }}" />
@@ -22,11 +22,11 @@
                             </div>
                             <div class="media-right">
                                 <div class="dropdown">
-                                    <a href="javascript:void(0);" class="btn btn-xs" id="dropdownMenu1" data-toggle="dropdown" role="button">
+                                    <a href="javascript:void(0);" class="btn btn-xs" id="dropdownMenu{{ $index }}" data-toggle="dropdown" role="button">
                                         <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
                                         <span class="sr-only">操作：</span>
                                     </a>
-                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu{{ $index }}">
                                         <li><a class="caution bg-primary" href="{{ route('message.show', $message->first()->sender->id) }}"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>回复</a></li>
                                         <li><a class="caution bg-danger" href="#delete-{{ $message->first()->sender->id }}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i>删除对话</a></li>
                                         <li role="separator" class="divider"></li>
