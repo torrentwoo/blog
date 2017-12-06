@@ -19,12 +19,19 @@ class UsersTableSeeder extends Seeder
         })->toArray();
         App\Models\User::insert($users);
 
-        // 修改第一个用户信息（以便登录测试）
-        $user  = App\Models\User::find(1);
-        $user->name     = 'torrent';
-        $user->email    = 'gobacker@163.com';
-        $user->password = bcrypt('test');
-        $user->activated= true;
-        $user->save();
+        // 修改前两个用户信息（以便测试及交互）
+        $a = App\Models\User::find(1);
+        $a->name     = 'torrent';
+        $a->email    = 'gobacker@163.com';
+        $a->password = bcrypt('test');
+        $a->activated= true;
+        $a->save();
+
+        $a = App\Models\User::find(2);
+        $a->name     = 'slash';
+        $a->email    = 'slash@devel.local';
+        $a->password = bcrypt('test');
+        $a->activated= true;
+        $a->save();
     }
 }
