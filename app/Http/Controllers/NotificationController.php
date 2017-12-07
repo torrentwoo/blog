@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use Auth;
-
-use Illuminate\Http\Request;
+use Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -55,7 +54,7 @@ class NotificationController extends Controller
      * 响应对 GET /notification/comments/{id} 的请求
      * 显示用户收到的评论的通知详情页面
      *
-     * @param int $id 通知的标识符
+     * @param int $id 通知消息的标识符
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showComment($id)
@@ -75,15 +74,15 @@ class NotificationController extends Controller
      * 响应对 DELETE/POST /notification/comments/{id} 的请求
      * 删除有关评论的指定通知消息
      *
-     * @param int $id 某一条通知消息的标识符
+     * @param int $id 通知消息的标识符
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function deleteComment($id)
+    public function destroyComment($id)
     {
         if (Request::ajax()) { // Ajax request
             $response = ['error' => true];
             $notification = Notification::find($id);
-            if ($notification->isEmpty()) {
+            if (empty($notification)) {
                 $response['message'] = '删除失败，找不到这一条记录';
             } else {
                 $notification->delete();
