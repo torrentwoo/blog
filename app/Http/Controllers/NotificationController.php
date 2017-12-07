@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -48,6 +49,55 @@ class NotificationController extends Controller
             // Data
             'comments'              =>  $comments,
         ]);
+    }
+
+    /**
+     * 响应对 GET /notification/comments/{id} 的请求
+     * 显示用户收到的评论的通知详情页面
+     *
+     * @param int $id 通知的标识符
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showComment($id)
+    {
+        $notification = Notification::findOrFail($id);
+
+        return view('notification.comments.show', [
+            // Navigation and position
+            'notificationActive'    =>  'active',
+            'commentActive'         =>  true,
+            // Data
+            'notification'          =>  $notification,
+        ]);
+    }
+
+    /**
+     * 响应对 DELETE/POST /notification/comments/{id} 的请求
+     * 删除有关评论的指定通知消息
+     *
+     * @param int $id 某一条通知消息的标识符
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function deleteComment($id)
+    {
+        if (Request::ajax()) { // Ajax request
+            $response = ['error' => true];
+            $notification = Notification::find($id);
+            if ($notification->isEmpty()) {
+                $response['message'] = '删除失败，找不到这一条记录';
+            } else {
+                $notification->delete();
+                $response = [
+                    'error'     =>  false,
+                    'message'   =>  '成功删除一条通知消息',
+                ];
+            }
+            return response()->json($response);
+        } else { // via DELETE request
+            $notification = Notification::findOrFail($id);
+            $notification->delete();
+            return redirect()->back();
+        }
     }
 
     /**
