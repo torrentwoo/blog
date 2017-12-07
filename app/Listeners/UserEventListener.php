@@ -12,11 +12,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class UserEventListener
 {
     /**
+     * Http 请求实例
+     *
      * @var \Illuminate\Http\Request
      */
     protected $request;
 
     /**
+     * Carbon 对象实例
+     *
      * @var \Carbon\Carbon
      */
     protected $carbon;
@@ -24,13 +28,13 @@ class UserEventListener
     /**
      * Create the event listener.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \Carbon\Carbon $carbon
+     * @param \Illuminate\Http\Request $request
      */
-    public function __construct(Request $request, Carbon $carbon)
+    public function __construct(Carbon $carbon, Request $request)
     {
-        $this->request = $request;
         $this->carbon = $carbon;
+        $this->request = $request;
     }
 
     /**

@@ -13,14 +13,14 @@ class UserCommentEvent extends Event
     use SerializesModels;
 
     /**
-     * 用户模型
+     * 用户的实例
      *
      * @var User
      */
     public $user;
 
     /**
-     * 评论模型
+     * 评论的实例
      *
      * @var Comment
      */
@@ -31,7 +31,6 @@ class UserCommentEvent extends Event
      *
      * @param \App\Models\User $user
      * @param \App\Models\Comment $comment
-     * @return void
      */
     public function __construct(User $user, Comment $comment)
     {

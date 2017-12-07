@@ -12,18 +12,37 @@ class UserCommentNotificationEvent extends Event
 {
     use SerializesModels;
 
+    /**
+     * 评论的实例
+     *
+     * @var Comment
+     */
     public $comment;
+
+    /**
+     * 通知接收者（用户）的实例
+     *
+     * @var User
+     */
     public $recipient;
+
+    /**
+     * 通知消息的主体内容
+     *
+     * @var array
+     */
     public $message = [
         'type'  =>  'comment',
     ];
 
     /**
-     * Create a new event instance.
+     * Create a new event instance
      *
-     * @return void
+     * @param Comment $comment
+     * @param User $recipient
+     * @param array $message
      */
-    public function __construct(Comment $comment, User $recipient, array $message)
+    public function __construct(Comment $comment, User $recipient, array $message = [])
     {
         $this->comment = $comment;
         $this->recipient = $recipient;

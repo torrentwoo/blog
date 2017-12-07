@@ -12,7 +12,7 @@ class ArticleBrowseEvent extends Event
     use SerializesModels;
 
     /**
-     * 文章模型
+     * 文章的实例
      *
      * @var Article
      */

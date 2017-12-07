@@ -86,7 +86,7 @@ class CommentsController extends Controller
         // 触发评论的通知事件，通知作者其文章被评论了
         $message = [
             'subject'   =>  '您有文章被评论',
-            'content'   =>  '您的文章《' . $article->title . '》被用户：' . Auth::user()->name . '评论了',
+            'content'   =>  '您的文章《' . $article->title . '》被用户：' . Auth::user()->name . ' 评论了',
         ];
         Event::fire(new UserCommentNotificationEvent($comment, $article->author, $message));
 

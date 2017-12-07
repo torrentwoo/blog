@@ -12,7 +12,7 @@ class UserLoginEvent extends Event
     use SerializesModels;
 
     /**
-     * 用户模型
+     * 用户的实例
      *
      * @var User
      */
