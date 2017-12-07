@@ -138,6 +138,55 @@ class NotificationController extends Controller
     }
 
     /**
+     * 响应对 GET /notification/likes/{id} 的请求
+     * 显示用户收到的喜欢的通知详情页面
+     *
+     * @param int $id 通知消息的标识符
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showLike($id)
+    {
+        $notification = Notification::findOrFail($id);
+
+        return view('notification.likes.show', [
+            // Navigation and position
+            'notificationActive'    =>  'active',
+            'commentActive'         =>  true,
+            // Data
+            'notification'          =>  $notification,
+        ]);
+    }
+
+    /**
+     * 响应对 DELETE/POST /notification/likes/{id} 的请求
+     * 删除有关喜欢的指定通知消息
+     *
+     * @param int $id 通知消息的标识符
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function destroyLike($id)
+    {
+        if (Request::ajax()) { // Ajax request
+            $response = ['error' => true];
+            $notification = Notification::find($id);
+            if (empty($notification)) {
+                $response['message'] = '删除失败，找不到这一条记录';
+            } else {
+                $notification->delete();
+                $response = [
+                    'error'     =>  false,
+                    'message'   =>  '成功删除一条通知消息',
+                ];
+            }
+            return response()->json($response);
+        } else { // via DELETE request
+            $notification = Notification::findOrFail($id);
+            $notification->delete();
+            return redirect()->back();
+        }
+    }
+
+    /**
      * 显示对 GET /notification/votes 的请求
      * 显示用户收到的点赞的通知页面
      *
