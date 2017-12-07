@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserLikeNotificationEvent;
+use Auth;
+use Event;
+
 use App\Models\Article;
 use App\Models\Like;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class LikesController extends Controller
 {
     /**
-     * 已登录用户的模型
+     * 已登录用户的实例
      *
      * @var
      */
@@ -39,9 +42,14 @@ class LikesController extends Controller
     {
         $article = Article::findOrFail($id);
         if (!$article->isLikedBy($this->user)) {
-            $article->likes()->save(
-                new Like(['user_id' =>  $this->user->id])
-            );
+            $like = new Like(['user_id' =>  $this->user->id]);
+            $article->likes()->save($like);
+            // 触发喜欢的通知事件，通知作者其文章被人喜欢了
+            $message = [
+                'subject'   =>  '您有文章被喜欢',
+                'content'   =>  '您的文章《' . $article->title . '》被用户：' . $this->user->name . ' 喜欢了',
+            ];
+            Event::fire(new UserLikeNotificationEvent($like, $article->author, $message));
         }
         return redirect()->back();
     }

@@ -62,6 +62,10 @@ class UserEventListener
             'App\Events\UserCommentNotificationEvent',
             'App\Listeners\UserEventListener@onUserComment'
         );
+        $event->listen(
+            'App\Events\UserLikeNotificationEvent',
+            'App\Listeners\UserEventListener@onUserLike'
+        );
     }
 
     /**
@@ -80,7 +84,7 @@ class UserEventListener
     /**
      * 处理用户评论事件
      *
-     * @param \App\Events\UserCommentEvent $event
+     * @param \App\Events\UserCommentNotificationEvent $event
      */
     public function onUserComment($event)
     {
@@ -89,8 +93,25 @@ class UserEventListener
             'recipient_id'  =>  $event->recipient->id,
             'type'          =>  $event->message['type'],
             'subject'       =>  isset($event->message['subject']) ? $event->message['subject'] : null,
-            'content'       =>  isset($event->comment['content']) ? $event->message['content'] : null,
+            'content'       =>  isset($event->message['content']) ? $event->message['content'] : null,
         ]);
         $event->comment->notification()->save($message);
+    }
+
+    /**
+     * 处理用户喜欢事件
+     *
+     * @param \App\Events\UserLikeNotificationEvent $event
+     */
+    public function onUserLike($event)
+    {
+        // Tell the author that his article been liked
+        $message = new Notification([
+            'recipient_id'  =>  $event->recipient->id,
+            'type'          =>  $event->message['type'],
+            'subject'       =>  isset($event->message['subject']) ? $event->message['subject'] : null,
+            'content'       =>  isset($event->message['content']) ? $event->message['content'] : null,
+        ]);
+        $event->like->notification()->save($message);
     }
 }
