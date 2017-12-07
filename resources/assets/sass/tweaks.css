@@ -178,10 +178,11 @@ a:hover, a:active, a:focus {
     border-bottom:1px solid #eee;
     padding-bottom:20px;
 }
-    .media-article .media-body :last-child {
+    .media-article .media-body ul:last-child {
         margin-bottom:0;
     }
-    .media-article:last-child {
+    .media-article:nth-last-of-type(1) {
+        margin-bottom:0;
         border-bottom:none;
     }
 .media-preview {
@@ -432,21 +433,18 @@ a.text-muted:hover, a.text-muted:active {
     box-shadow: none;
     background:none;
 }
-    dl.well-quirk {
-        padding-top:0;
-    }
     div.well-quirk {
         margin-bottom:20px;
+    }
+    dl.well-quirk {
+        padding-top:0;
     }
         dl.well-quirk dt {
             margin-bottom:.75em;
             font-weight:bold;
             font-size:18px;
         }
-    .well-quirk :last-child {
-        margin-top:.5em;
-    }
-    .well-quirk:last-child {
+    .well-quirk:nth-last-of-type(1) {
         margin-bottom:0;
         border-bottom:none;
     }
@@ -457,13 +455,9 @@ a.text-muted:hover, a.text-muted:active {
     padding-bottom:20px;
     background:#fff;
 }
-    .my-moment:last-child {
+    .my-moment:nth-last-of-type(1) {
         border-bottom:none;
     }
-    .my-moment .moment-driver {}
-        .my-moment .moment-driver .avatar-xs {
-            border:1px solid #eaeaea;
-        }
     .my-moment .media, .my-moment .well, .my-moment blockquote {
         margin:0;
         font-size:1em;

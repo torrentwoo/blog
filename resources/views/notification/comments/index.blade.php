@@ -7,24 +7,6 @@
                             <h1>收到的评论<small class="offset-right">全部</small></h1>
                         </div>
 @forelse ($comments as $notification)
-{{--
-                        <div class="well well-quirk">
-                            <ul class="list-inline">
-                                <li>{{ $notification->notifiable->commentator->name }}</li>
-@if ($notification->notifiable_type === App\Models\Comment::class)
-                                <li>评论了您的文章</li>
-@else
-                                <li>回复了您的评论</li>
-@endif
-                                <li class="small text-muted">{{ $notification->notifiable->created_at->format('Y-m-d g:i a') }}</li>
-                            </ul>
-                            <p>{{ $notification->notifiable->content }}</p>
-                            <blockquote class="small text-muted">
-                                <p>{{ $notification->notifiable->commentable->title }}</p>
-                                <p>{{ $notification->notifiable->commentable->description }}</p>
-                            </blockquote>
-                        </div>
---}}
                         <div class="media media-quirk" id="notification{{ $notification->id }}">
                             <div class="media-left">
                                 <img class="media-object img-circle avatar-sm" src="{{ $notification->notifiable->commentator->gravatar(48) }}" />
@@ -56,29 +38,40 @@
                             <p><strong>提示：</strong>您还没有收到任何此类消息通知</p>
                         </div>
 @endforelse
-                        <nav class="text-center" aria-label="Page navigation">
-                            <ul class="pagination">
-                                <li class="disabled">
-                                    <a href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
                     </div>
                 </div>
 @stop
 
 @section('sidebar')
                 @include('notification.menu')
+@stop
+
+@section('scripts')
+    <script type="text/javascript">
+        $(function() {
+            // Delete notification
+            $('.media-quirk').on('click', 'a[data-toggle][data-handler]', function() {
+                if (!confirm('是否确认删除这条通知消息')) {
+                    return false;
+                }
+                var $btn = $(this);
+                var $wrap = $($btn.data('toggle'));
+                var $url = $btn.data('handler');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.post($url, {
+                    '_method': 'DELETE'
+                }, function(response) {
+                    if (!response.error) {
+                        $wrap.remove();
+                    } else {
+                        window.alert(response.message);
+                    }
+                }, 'json');
+            });
+        });
+    </script>
 @stop
