@@ -104,24 +104,24 @@ Route::post('/notification/messages/{id}', 'MessagesController@send')->name('mes
 Route::delete('/notification/messages/{id}', 'MessagesController@destroy')->name('message.delete');
 Route::get('/notification/comments', 'NotificationController@comment')->name('notification.comment');
 Route::get('/notification/comments/{id}', 'NotificationController@showComment')->name('notification.showComment');
-Route::delete('/notification/comments/{id}', 'NotificationController@destoryComment')->name('notification.deleteComment');
+Route::delete('/notification/comments/{id}', 'NotificationController@destroyComment')->name('notification.deleteComment');
 Route::get('/notification/requests', 'NotificationController@request')->name('notification.request');
 Route::get('/notification/requests/{id}', 'NotificationController@showRequest')->name('notification.showRequest');
-Route::delete('/notification/requests/{id}', 'NotificationController@destoryRequest')->name('notification.deleteRequest');
+Route::delete('/notification/requests/{id}', 'NotificationController@destroyRequest')->name('notification.deleteRequest');
 Route::get('/notification/likes', 'NotificationController@like')->name('notification.like');
 Route::get('/notification/likes/{id}', 'NotificationController@showLike')->name('notification.showLike');
-Route::delete('/notification/likes/{id}', 'NotificationController@destoryLike')->name('notification.deleteLike');
+Route::delete('/notification/likes/{id}', 'NotificationController@destroyLike')->name('notification.deleteLike');
 Route::get('/notification/votes', 'NotificationController@vote')->name('notification.vote');
 Route::get('/notification/votes/{id}', 'NotificationController@showVote')->name('notification.showVote');
-Route::delete('/notification/votes/{id}', 'NotificationController@destoryVote')->name('notification.deleteVote');
+Route::delete('/notification/votes/{id}', 'NotificationController@destroyVote')->name('notification.deleteVote');
 Route::get('/notification/follow', 'NotificationController@follow')->name('notification.follow');
 Route::get('/notification/follow/{id}', 'NotificationController@showFollow')->name('notification.showFollow');
-Route::delete('/notification/follow/{id}', 'NotificationController@destoryFollow')->name('notification.deleteFollow');
+Route::delete('/notification/follow/{id}', 'NotificationController@destroyFollow')->name('notification.deleteFollow');
 Route::get('/notification/rewards', 'NotificationController@reward')->name('notification.reward');
 Route::get('/notification/rewards/{id}', 'NotificationController@showReward')->name('notification.showReward');
-Route::delete('/notification/rewards/{id}', 'NotificationController@destoryReward')->name('notification.deleteReward');
+Route::delete('/notification/rewards/{id}', 'NotificationController@destroyReward')->name('notification.deleteReward');
 Route::get('/notification/others', 'NotificationController@others')->name('notification.others');
-Route::delete('/notification/others/{id}', 'NotificationController@destoryOthers')->name('notification.deleteOthers');
+Route::delete('/notification/others/{id}', 'NotificationController@destroyOthers')->name('notification.deleteOthers');
 
 
 //--------------------------------------/
