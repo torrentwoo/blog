@@ -66,6 +66,10 @@ class UserEventListener
             'App\Events\UserLikeNotificationEvent',
             'App\Listeners\UserEventListener@onUserLike'
         );
+        $event->listen(
+            'App\Events\UserFollowNotificationEvent',
+            'App\Listeners\UserEventListener@onUserFollow'
+        );
     }
 
     /**
@@ -113,5 +117,22 @@ class UserEventListener
             'content'       =>  isset($event->message['content']) ? $event->message['content'] : null,
         ]);
         $event->like->notification()->save($message);
+    }
+
+    /**
+     * 处理用户的关注事件
+     *
+     * @param \App\Events\UserFollowNotificationEvent $event
+     */
+    public function onUserFollow($event)
+    {
+        // Tell the user that he has been followed
+        $message = new Notification([
+            'recipient_id'  =>  $event->recipient->id,
+            'type'          =>  $event->message['type'],
+            'subject'       =>  isset($event->message['subject']) ? $event->message['subject'] : null,
+            'content'       =>  isset($event->message['content']) ? $event->message['content'] : null,
+        ]);
+        $event->follow->notification()->save($message);
     }
 }

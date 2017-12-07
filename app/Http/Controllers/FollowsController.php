@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserFollowNotificationEvent;
+use Auth;
+use Event;
+
 use App\Models\Column;
 use App\Models\Follow;
 use App\Models\User;
@@ -9,7 +13,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class FollowsController extends Controller
 {
@@ -84,6 +87,12 @@ class FollowsController extends Controller
             $follow->followable_type = User::class;
 
             $follow->save();
+            // Notify the user that he has been "added to the following list" by someone
+            $message = [
+                'subject'   =>  '您被人关注啦',
+                'content'   =>  '用户：' . $this->user->name . ' 关注了您',
+            ];
+            Event::fire(new UserFollowNotificationEvent($follow, $user, $message));
         }
         return redirect()->back();
     }

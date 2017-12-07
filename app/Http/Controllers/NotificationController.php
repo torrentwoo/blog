@@ -151,7 +151,7 @@ class NotificationController extends Controller
         return view('notification.likes.show', [
             // Navigation and position
             'notificationActive'    =>  'active',
-            'commentActive'         =>  true,
+            'likeActive'            =>  true,
             // Data
             'notification'          =>  $notification,
         ]);
@@ -222,6 +222,55 @@ class NotificationController extends Controller
             'followActive'          =>  true,
             'follows'               =>  $follows,
         ]);
+    }
+
+    /**
+     * 响应对 GET /notification/follow/{id} 的请求
+     * 显示用户收到被人关注的通知页面
+     *
+     * @param int $id 通知消息的标识符
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showFollow($id)
+    {
+        $notification = Notification::findOrFail($id);
+
+        return view('notification.follow.show', [
+            // Navigation and position
+            'notificationActive'    =>  'active',
+            'followActive'          =>  true,
+            // Data
+            'notification'          =>  $notification,
+        ]);
+    }
+
+    /**
+     * 响应对 DELETE/POST /notification/follow/{id} 的请求
+     * 删除用户的被关注的指定通知消息
+     *
+     * @param int $id 通知消息的标识符
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function destroyFollow($id)
+    {
+        if (Request::ajax()) { // Ajax request
+            $response = ['error' => true];
+            $notification = Notification::find($id);
+            if (empty($notification)) {
+                $response['message'] = '删除失败，找不到这一条记录';
+            } else {
+                $notification->delete();
+                $response = [
+                    'error'     =>  false,
+                    'message'   =>  '成功删除一条通知消息',
+                ];
+            }
+            return response()->json($response);
+        } else { // via DELETE request
+            $notification = Notification::findOrFail($id);
+            $notification->delete();
+            return redirect()->back();
+        }
     }
 
     /**
