@@ -31,7 +31,7 @@ class Privacy extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function individual()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

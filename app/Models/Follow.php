@@ -34,12 +34,12 @@ class Follow extends Model
     }
 
     /**
-     * 定义用于与关注之间相对的一对多关联
-     * 获取此关注归属的用户
+     * 定义用户与关注之间相对的一对多关联
+     * 获取此关注归属于哪一个用户
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function holder()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
