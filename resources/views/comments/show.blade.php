@@ -23,20 +23,20 @@
 @can ('comment', $article->author)
                                     <ul class="list-inline">
                                         <li>
-                                            <button type="button" class="btn btn-default btn-xs btn-vote{{ in_array(Auth::id(), $comment->votes->pluck('user_id')->all()) ? ' active' : null }}" data-handler="{{ route('vote.up', $comment->id) }}">
-                                                <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i><span class="vote-result{{ $comment->votes()->withType('up')->count() > 0 ? ' vote-result-active' : null }}"><span class="vote-amount">{{ $comment->votes()->withType('up')->count() }}</span>人</span>赞
+                                            <button type="button" class="btn btn-default btn-xs btn-vote" data-handler="{{ route('vote.up', $comment->id) }}" aria-voted="{{ in_array(Auth::id(), $comment->votes->pluck('user_id')->all()) !== true ? 'false' : 'true' }}">
+                                                <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i><span class="vote-result"><span class="vote-amount">{{ $comment->votes()->withType('up')->count() }}</span>人</span>赞
                                             </button>
                                         </li>
 @can ('comment', $comment->commentator)
                                         <li>
-                                            <button type="button" class="btn btn-default btn-xs btn-reply" data-toggle="#reply-form{{ $comment->id }}">
+                                            <button type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-target="#reply-form{{ $comment->id }}" aria-expanded="false" aria-controls="reply-form{{ $comment->id }}">
                                                 <i class="glyphicon glyphicon-retweet" aria-hidden="true"></i>回复
                                             </button>
                                         </li>
 @endcan
                                     </ul>
 @can ('comment', $comment->commentator)
-                                    <div class="reply-form reply-form-hidden" id="reply-form{{ $comment->id }}">
+                                    <div class="reply-form collapse" id="reply-form{{ $comment->id }}">
                                         <div class="alert alert-danger" role="alert">
                                             <i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i>
                                             <span class="sr-only">错误：</span>
@@ -49,8 +49,8 @@
                                                 <textarea name="reply" class="form-control" rows="3" placeholder="请在此写下您的回复" aria-required="true"></textarea>
                                             </div>
                                             <div class="form-group text-right">
-                                                <button type="button" class="btn btn-default btn-sm offset-left" data-toggle="#reply-form{{ $comment->id }}">取消</button>
-                                                <button type="submit" class="btn btn-primary btn-sm" data-toggle="#reply-form{{ $comment->id }}">回复评论</button>
+                                                <button type="button" class="btn btn-default btn-sm offset-left" data-toggle="collapse" data-target="#reply-form{{ $comment->id }}" aria-expanded="false" aria-controls="reply-form{{ $comment->id }}">取消</button>
+                                                <button type="submit" class="btn btn-primary btn-sm" data-target="#reply-form{{ $comment->id }}">回复评论</button>
                                             </div>
                                         </form>
                                     </div>
@@ -91,21 +91,9 @@
 @section('scripts')
     <script type="text/javascript">
         $(function() {
-            $('.btn-reply').bind('click', function() {
-                var $btn = $(this);
-                var $form = $($btn.data('toggle'));
-                $('.reply-form').addClass('reply-form-hidden').filter($form).toggleClass('reply-form-active');
-                $('div.alert', $form).hide();
-            });
-            // Revoke
-            $('.reply-form').on('click', 'button[type="button"][data-toggle]', function() {
-                var $form = $($(this).data('toggle'));
-                $('.reply-form').addClass('reply-form-hidden').filter($form).removeClass('reply-form-active');
-                $('div.alert', $form).hide();
-            });
-            // Submit
-            $('.reply-form').on('click', 'button[type="submit"][data-toggle]', function() {
-                var $form = $($(this).data('toggle'));
+            // Reply comment
+            $('.reply-form').on('click', 'button[type="submit"][data-target]', function() {
+                var $form = $($(this).data('target'));
                 var $alarm = $('div.alert', $form);
                 var $response = $('span.alert-response', $form);
                 var $reply = $('textarea[name="reply"]', $form);
@@ -130,14 +118,13 @@
                 $amount = $('.vote-amount', $btn);
                 $number = parseInt($amount.text(), 10) || 0; // number
 
-                if ($btn.hasClass('active') !== true) { // vote
+                if ($btn.attr('aria-voted') !== 'true') { // vote
                     $.post($url, {
                         '_token': $('meta[name="csrf-token"]').attr('content')
                     }, function(response) {
                         if (!response.error) {
-                            $btn.addClass('active');
                             $amount.text($number + 1);
-                            $result.addClass('vote-result-active');
+                            $btn.attr('aria-voted', 'true');
                         }
                     }, 'json');
                 } else { // revoke a vote
@@ -146,10 +133,9 @@
                         '_method': 'DELETE'
                     }, function(response) {
                         if (!response.error) {
-                            $btn.removeClass('active');
                             $amount.text($number - 1);
                             if (0 >= ($number - 1)) {
-                                $result.removeClass('vote-result-active');
+                                $btn.attr('aria-voted', 'false');
                             }
                         }
                     }, 'json');
@@ -158,3 +144,13 @@
         })
     </script>
 @stop
+
+{{--
+    Bootstrap data api:
+
+    data-toggle=[class] 用于切换、唤醒某个标具 class 类名的 DOM 元素
+    data-target=#[id]   用于指向（链接）某个具有 id 名的 DOM 元素，并且它一定是以 # 符号开头
+    data-type=[event]   用于监听某个 event 名称的事件，而 event 是指已经定义的事件名称（不是随意书写的）
+
+    Bootstrap aria-* attributes 用于自定义一些属性
+--}}
