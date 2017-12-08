@@ -8,6 +8,7 @@
                                         <div class="media-body">
                                             <p class="h4 media-heading">{{ $reply->commentator->name }}<small class="offset-right">{{ $reply->created_at->diffForHumans() }}</small></p>
                                             <p>{{ $reply->content }}</p>
+@can ('comment', $article->author)
                                             <ul class="list-inline">
                                                 <li>
                                                     <form method="POST" action="#"><!-- vote up -->
@@ -44,6 +45,7 @@
                                                     </div>
                                                 </form>
                                             </div>
+@endcan
 @endcan
 @if ($reply->replies->isEmpty() !== true)
                                             @include('features.nested-comment', ['replies' => $reply->replies, 'article' => $article])

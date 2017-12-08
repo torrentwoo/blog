@@ -23,12 +23,9 @@
 @can ('comment', $article->author)
                                     <ul class="list-inline">
                                         <li>
-                                            <form method="POST" action="#"><!-- vote up -->
-                                                {{ csrf_field() }}
-                                                <button type="button" class="btn btn-default btn-xs">
-                                                    <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i><!--20人-->赞
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn btn-default btn-xs btn-vote{{ in_array(Auth::id(), $comment->votes->pluck('user_id')->all()) ? ' active' : null }}" data-toggle="{{ route('vote.up', $comment->id) }}" data-count="{{ $comment->votes()->withType('up')->count() }}">
+                                                <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i><span class="vote-result{{ $comment->votes()->withType('up')->count() > 0 ? ' vote-result-active' : null }}"><span class="vote-amount">{{ $comment->votes()->withType('up')->count() }}</span>人</span>赞
+                                            </button>
                                         </li>
 @can ('comment', $comment->commentator)
                                         <li>
@@ -123,6 +120,40 @@
                 if ($reply.val().length > 140) {
                     $alarm.show().find($response).text('回复内容 不能大于 140 个字符');
                     return false;
+                }
+            });
+            // Vote
+            $('.btn-vote').bind('click', function() {
+                $btn = $(this);
+                $url = $btn.data('toggle');
+                //$count = $btn.data('count');
+                $result = $('.vote-result', $btn);
+                $amount = $('.vote-amount', $btn);
+                $number = Math.abs($amount.text()) || 0; // number
+
+                if ($btn.hasClass('active') !== true) { // vote
+                    $.post($url, {
+                        '_token': $('meta[name="csrf-token"]').attr('content')
+                    }, function(response) {
+                        if (!response.error) {
+                            $btn.addClass('active');
+                            $amount.text($number + 1);
+                            $result.addClass('vote-result-active');
+                        }
+                    }, 'json');
+                } else { // revoke a vote
+                    $.post($url, {
+                        '_token': $('meta[name="csrf-token"]').attr('content'),
+                        '_method': 'DELETE'
+                    }, function(response) {
+                        if (!response.error) {
+                            $btn.removeClass('active');
+                            $amount.text($number - 1);
+                            if (0 >= ($number - 1)) {
+                                $result.removeClass('vote-result-active');
+                            }
+                        }
+                    }, 'json');
                 }
             });
         })

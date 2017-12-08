@@ -354,6 +354,12 @@ a.text-muted:hover, a.text-muted:active {
 /*
  Comment
  */
+span.vote-result {
+    display:none;
+}
+    span.vote-result-active {
+        display:inline;
+    }
 .reply-form {
     margin-top:1em;
 }
