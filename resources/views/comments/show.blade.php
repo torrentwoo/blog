@@ -23,7 +23,7 @@
 @can ('comment', $article->author)
                                     <ul class="list-inline">
                                         <li>
-                                            <button type="button" class="btn btn-default btn-xs btn-vote" data-handler="{{ route('vote.up', $comment->id) }}" aria-voted="{{ in_array(Auth::id(), $comment->votes->pluck('user_id')->all()) !== true ? 'false' : 'true' }}">
+                                            <button type="button" class="btn btn-default btn-xs btn-vote" data-handler="{{ route('vote.up', $comment->id) }}" aria-voted="{{ $comment->votes()->withType('up')->count() === 0 ? 'false' : 'true' }}" aria-mine="{{ in_array(Auth::id(), $comment->votes->pluck('user_id')->all()) !== true ? 'false' : 'true' }}">
                                                 <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i><span class="vote-result"><span class="vote-amount">{{ $comment->votes()->withType('up')->count() }}</span>人</span>赞
                                             </button>
                                         </li>
@@ -118,12 +118,13 @@
                 $amount = $('.vote-amount', $btn);
                 $number = parseInt($amount.text(), 10) || 0; // number
 
-                if ($btn.attr('aria-voted') !== 'true') { // vote
+                if ($btn.attr('aria-mine') !== 'true') { // vote
                     $.post($url, {
                         '_token': $('meta[name="csrf-token"]').attr('content')
                     }, function(response) {
                         if (!response.error) {
                             $amount.text($number + 1);
+                            $btn.attr('aria-mine', 'true');
                             $btn.attr('aria-voted', 'true');
                         }
                     }, 'json');
@@ -134,6 +135,7 @@
                     }, function(response) {
                         if (!response.error) {
                             $amount.text($number - 1);
+                            $btn.attr('aria-mine', 'false');
                             if (0 >= ($number - 1)) {
                                 $btn.attr('aria-voted', 'false');
                             }

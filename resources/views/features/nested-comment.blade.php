@@ -11,7 +11,7 @@
 @can ('comment', $article->author)
                                             <ul class="list-inline">
                                                 <li>
-                                                    <button type="button" class="btn btn-default btn-xs btn-vote" data-handler="{{ route('vote.up', $reply->id) }}" aria-voted="{{ in_array(Auth::id(), $reply->votes->pluck('user_id')->all()) !== true ? 'false' : 'true' }}">
+                                                    <button type="button" class="btn btn-default btn-xs btn-vote" data-handler="{{ route('vote.up', $reply->id) }}" aria-voted="{{ $reply->votes()->withType('up')->count() === 0 ? 'false' : 'true' }}" aria-mine="{{ in_array(Auth::id(), $reply->votes->pluck('user_id')->all()) !== true ? 'false' : 'true' }}">
                                                         <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i><span class="vote-result"><span class="vote-amount">{{ $reply->votes()->withType('up')->count() }}</span>人</span>赞
                                                     </button>
                                                 </li>

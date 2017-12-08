@@ -354,7 +354,7 @@ a.text-muted:hover, a.text-muted:active {
 /*
  Comment
  */
-.btn-vote[aria-voted="true"] .glyphicon {
+.btn-vote[aria-mine="true"] .glyphicon {
     color:#d9534f;
 }
 .vote-result {
