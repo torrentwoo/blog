@@ -70,6 +70,10 @@ class UserEventListener
             'App\Events\UserFollowNotificationEvent',
             'App\Listeners\UserEventListener@onUserFollow'
         );
+        $event->listen(
+            'App\Events\UserVoteNotificationEvent',
+            'App\Listeners\UserEventListener@onUserVote'
+        );
     }
 
     /**
@@ -134,5 +138,22 @@ class UserEventListener
             'content'       =>  isset($event->message['content']) ? $event->message['content'] : null,
         ]);
         $event->follow->notification()->save($message);
+    }
+
+    /**
+     * 处理用户的投票（点赞）事件
+     *
+     * @param \App\Events\UserVoteNotificationEvent $event
+     */
+    public function onUserVote($event)
+    {
+        // Tell the user that his comment has been get favour vote
+        $message = new Notification([
+            'recipient_id'  =>  $event->recipient->id,
+            'type'          =>  $event->message['type'],
+            'subject'       =>  isset($event->message['subject']) ? $event->message['subject'] : null,
+            'content'       =>  isset($event->message['content']) ? $event->message['content'] : null,
+        ]);
+        $event->vote->notification()->save($message);
     }
 }
