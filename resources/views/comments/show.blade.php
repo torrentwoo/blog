@@ -23,7 +23,7 @@
 @can ('comment', $article->author)
                                     <ul class="list-inline">
                                         <li>
-                                            <button type="button" class="btn btn-default btn-xs btn-vote{{ in_array(Auth::id(), $comment->votes->pluck('user_id')->all()) ? ' active' : null }}" data-toggle="{{ route('vote.up', $comment->id) }}" data-count="{{ $comment->votes()->withType('up')->count() }}">
+                                            <button type="button" class="btn btn-default btn-xs btn-vote{{ in_array(Auth::id(), $comment->votes->pluck('user_id')->all()) ? ' active' : null }}" data-handler="{{ route('vote.up', $comment->id) }}">
                                                 <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i><span class="vote-result{{ $comment->votes()->withType('up')->count() > 0 ? ' vote-result-active' : null }}"><span class="vote-amount">{{ $comment->votes()->withType('up')->count() }}</span>人</span>赞
                                             </button>
                                         </li>
@@ -122,14 +122,13 @@
                     return false;
                 }
             });
-            // Vote
+            // Vote: give the thumbs-up
             $('.btn-vote').bind('click', function() {
                 $btn = $(this);
-                $url = $btn.data('toggle');
-                //$count = $btn.data('count');
+                $url = $btn.data('handler');
                 $result = $('.vote-result', $btn);
                 $amount = $('.vote-amount', $btn);
-                $number = Math.abs($amount.text()) || 0; // number
+                $number = parseInt($amount.text(), 10) || 0; // number
 
                 if ($btn.hasClass('active') !== true) { // vote
                     $.post($url, {

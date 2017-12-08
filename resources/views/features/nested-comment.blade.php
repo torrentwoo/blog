@@ -11,12 +11,9 @@
 @can ('comment', $article->author)
                                             <ul class="list-inline">
                                                 <li>
-                                                    <form method="POST" action="#"><!-- vote up -->
-                                                        {{ csrf_field() }}
-                                                        <button type="button" class="btn btn-default btn-xs">
-                                                            <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i><!--20人-->赞
-                                                        </button>
-                                                    </form>
+                                                    <button type="button" class="btn btn-default btn-xs btn-vote{{ in_array(Auth::id(), $reply->votes->pluck('user_id')->all()) ? ' active' : null }}" data-handler="{{ route('vote.up', $reply->id) }}">
+                                                        <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i><span class="vote-result{{ $reply->votes()->withType('up')->count() > 0 ? ' vote-result-active' : null }}"><span class="vote-amount">{{ $reply->votes()->withType('up')->count() }}</span>人</span>赞
+                                                    </button>
                                                 </li>
 @can ('comment', $reply->commentator)
                                                 <li>
