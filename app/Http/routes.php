@@ -68,10 +68,10 @@ Route::post('/articles/{id}/favorite', 'FavoritesController@addFavoriteArticle')
 Route::delete('/articles/{id}/favorite', 'FavoritesController@revokeFavoriteArticle')->name('favorite.article');
 
 // Follows routes
-Route::post('/columns/{id}/follow', 'FollowsController@followColumn')->name('follow.column');
-Route::delete('/columns/{id}/follow', 'FollowsController@revokeFollowColumn')->name('follow.column');
-Route::post('/user/{id}/follow', 'FollowsController@followUser')->name('follow.user');
-Route::delete('/user/{id}/follow', 'FollowsController@revokeFollowUser')->name('follow.user');
+Route::post('/columns/{id}/follow', 'FollowController@followColumn')->name('follow.column');
+Route::delete('/columns/{id}/follow', 'FollowController@revokeFollowColumn')->name('follow.column');
+Route::post('/user/{id}/follow', 'FollowController@followUser')->name('follow.user');
+Route::delete('/user/{id}/follow', 'FollowController@revokeFollowUser')->name('follow.user');
 
 // Likes routes
 Route::post('/articles/{id}/like', 'LikesController@addLikeArticle')->name('like.article');
@@ -81,6 +81,12 @@ Route::delete('/articles/{id}/like', 'LikesController@revokeLikeArticle')->name(
 Route::get('/articles/{id}/comments', 'CommentsController@show')->name('article.comments');
 Route::post('/articles/{id}/comments', 'CommentsController@comment')->name('article.comment');
 Route::post('/articles/comments/{id}', 'CommentsController@reply')->name('comment.reply');
+
+// Votes routes
+Route::post('/comments/{id}/favour', 'VotesController@favour')->name('vote.up');
+Route::delete('/comments/{id}/favour', 'VotesController@revokeFavour')->name('vote.up');
+Route::post('/comments/{id}/blackball', 'VotesController@oppose')->name('vote.down');
+Route::delete('/comments/{id}/blackball', 'VotesController@revokeOppose')->name('vote.down');
 
 // Tags routes
 Route::get('/tags', 'TagsController@index')->name('tag.index');
