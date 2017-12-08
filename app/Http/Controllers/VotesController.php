@@ -45,7 +45,9 @@ class VotesController extends Controller
             // Notify the commentator that his comment has been get favour vote
             $message = [
                 'subject'   =>  '您有评论被点赞',
-                'content'   =>  '您在《' . $comment->commentable->title . '》的评论被用户：' . $voter->name . ' 点赞了。',
+                'content'   =>  empty($comment->commentable->title) !== true
+                            ?   '您在《' . $comment->commentable->title . '》的评论被用户：' . $voter->name . ' 点赞了。'
+                            :   '您对评论的回复，被用户：' . $voter->name . ' 点赞了。',
             ];
             Event::fire(new UserVoteNotificationEvent($vote, $comment->commentator, $message));
         }
