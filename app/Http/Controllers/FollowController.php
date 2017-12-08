@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class FollowsController extends Controller
+class FollowController extends Controller
 {
     /**
      * 已登录用户的模型
@@ -24,7 +24,7 @@ class FollowsController extends Controller
     protected $user;
 
     /**
-     * FollowsController constructor.
+     * FollowController constructor.
      */
     public function __construct()
     {
