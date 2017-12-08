@@ -17,7 +17,6 @@
                                 <li>喜欢了您的文章</li>
                                 <li class="small text-muted">{{ $notification->notifiable->created_at->format('Y-m-d g:i a') }}</li>
                             </ul>
-                            <p>{{ $notification->notifiable->content }}</p>
                             <blockquote class="small text-muted">
                                 <h4><a href="{{ route('article.show', $notification->notifiable->likable->id) }}">{{ $notification->notifiable->likable->title }}</a></h4>
                                 <p>{{ $notification->notifiable->likable->description }}</p>

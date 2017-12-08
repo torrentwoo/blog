@@ -17,10 +17,20 @@
                                 <li>点赞了您的评论</li>
                                 <li class="small text-muted">{{ $notification->notifiable->created_at->format('Y-m-d g:i a') }}</li>
                             </ul>
-                            <p>{{ $notification->notifiable->content }}</p>
+                            <p>{{ $notification->notifiable->votable->content }}</p>
                             <blockquote class="small text-muted">
-                                <h4><a href="{{ route('article.show', $notification->notifiable->commentable->id) }}">{{ $notification->notifiable->commentable->title }}</a></h4>
-                                <p>{{ $notification->notifiable->commentable->description }}</p>
+@if ($notification->notifiable->votable->commentable_type === App\Models\Article::class)
+                                <h4><a href="{{ route('article.show', $notification->notifiable->votable->commentable->id) }}">{{ $notification->notifiable->votable->commentable->title }}</a></h4>
+                                <p>{{ $notification->notifiable->votable->commentable->description }}</p>
+                                <p class="small">{{ $notification->notifiable->votable->commentable->author->name }}</p>
+@elseif ($notification->notifiable->votable->commentable_type === App\Models\Comment::class)
+                                <p>{{ $notification->notifiable->votable->commentable->content }}</p>
+                                <p class="small">
+                                    <a href="{{ route('user.show', $notification->notifiable->votable->commentator->id) }}">{{ $notification->notifiable->votable->commentator->name }}</a>
+                                    <span class="offset-left offset-right">评论自</span>
+                                    <a href="#">某一篇文章</a><!-- @TODO get the article, user home activities also has the same problem -->
+                                </p>
+@endif
                             </blockquote>
                         </div>
                     </div>
