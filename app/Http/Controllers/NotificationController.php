@@ -39,7 +39,9 @@ class NotificationController extends Controller
     {
         $user = Auth::user();
 
-        $comments = $user->notification()->withType('comment')->get();
+        $comments = $user->notification()->withType('comment')->get()->filter(function($e) {
+            return empty($e->notifiable) !== true;
+        })->values();
 
         return view('notification.comments.index', [
             // Navigation and position
@@ -109,7 +111,9 @@ class NotificationController extends Controller
     {
         $user = Auth::user();
 
-        $requests = $user->notification()->withType('request')->get();
+        $requests = $user->notification()->withType('request')->get()->filter(function($e) {
+            return empty($e->notifiable) !== true;
+        })->values();
 
         return view('notification.requests.index', [
             'notificationActive'    =>  'active',
@@ -128,7 +132,9 @@ class NotificationController extends Controller
     {
         $user = Auth::user();
 
-        $likes = $user->notification()->withType('like')->get();
+        $likes = $user->notification()->withType('like')->get()->filter(function($e) {
+            return empty($e->notifiable) !== true;
+        })->values();
 
         return view('notification.likes.index', [
             'notificationActive'    =>  'active',
@@ -196,13 +202,64 @@ class NotificationController extends Controller
     {
         $user = Auth::user();
 
-        $votes = $user->notification()->withType('vote')->get();
+        $votes = $user->notification()->withType('vote')->get()->filter(function($e) {
+            return empty($e->notifiable) !== true;
+        })->values();
 
         return view('notification.votes.index', [
             'notificationActive'    =>  'active',
             'voteActive'            =>  true,
             'votes'                 =>  $votes,
         ]);
+    }
+
+    /**
+     * 响应对 GET /notification/votes/{id} 的请求
+     * 显示用户收到的点赞的通知详情页面
+     *
+     * @param int $id 通知消息的标识符
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showVote($id)
+    {
+        $notification = Notification::findOrFail($id);
+
+        return view('notification.votes.show', [
+            // Navigation and position
+            'notificationActive'    =>  'active',
+            'voteActive'            =>  true,
+            // Data
+            'notification'          =>  $notification,
+        ]);
+    }
+
+    /**
+     * 响应对 DELETE/POST /notification/votes/{id} 的请求
+     * 删除有关点赞的指定通知消息
+     *
+     * @param int $id 通知消息的标识符
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function destroyVote($id)
+    {
+        if (Request::ajax()) { // Ajax request
+            $response = ['error' => true];
+            $notification = Notification::find($id);
+            if (empty($notification)) {
+                $response['message'] = '删除失败，找不到这一条记录';
+            } else {
+                $notification->delete();
+                $response = [
+                    'error'     =>  false,
+                    'message'   =>  '成功删除一条通知消息',
+                ];
+            }
+            return response()->json($response);
+        } else { // via DELETE request
+            $notification = Notification::findOrFail($id);
+            $notification->delete();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -215,7 +272,9 @@ class NotificationController extends Controller
     {
         $user = Auth::user();
 
-        $follows = $user->notification()->withType('follow')->get();
+        $follows = $user->notification()->withType('follow')->get()->filter(function($e) {
+            return empty($e->notifiable) !== true;
+        })->values();
 
         return view('notification.follow.index', [
             'notificationActive'    =>  'active',
@@ -283,7 +342,9 @@ class NotificationController extends Controller
     {
         $user = Auth::user();
 
-        $rewards = $user->notification()->withType('reward')->get();
+        $rewards = $user->notification()->withType('reward')->get()->filter(function($e) {
+            return empty($e->notifiable) !== true;
+        })->values();
 
         return view('notification.rewards.index', [
             'notificationActive'    =>  'active',
@@ -302,7 +363,9 @@ class NotificationController extends Controller
     {
         $user = Auth::user();
 
-        $others = $user->notification()->withType('undefined')->get();
+        $others = $user->notification()->withType('undefined')->get()->filter(function($e) {
+            return empty($e->notifiable) !== true;
+        })->values();
 
         return view('notification.others', [
             'notificationActive'    =>  'active',
