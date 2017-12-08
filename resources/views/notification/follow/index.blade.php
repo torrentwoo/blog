@@ -25,7 +25,7 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu{{ $notification->id }}">
                                         <li><a class="caution bg-primary" href="{{ route('notification.showFollow', $notification->id) }}"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>查看</a></li>
-                                        <li><a class="caution bg-danger" href="javascript:void(0);" data-toggle="#notification{{ $notification->id }}" data-handler="{{ route('notification.deleteFollow', $notification->id) }}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i>删除</a></li>
+                                        <li><a class="caution bg-danger" href="javascript:void(0);" data-target="#notification{{ $notification->id }}" data-handler="{{ route('notification.deleteFollow', $notification->id) }}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i>删除</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a class="caution bg-danger" href="#blacklist-{{ $notification->notifiable->holder->id }}"><i class="glyphicon glyphicon-ban-circle" aria-hidden="true"></i>加入黑名单</a></li>
                                     </ul>
@@ -50,12 +50,12 @@
     <script type="text/javascript">
         $(function() {
             // Delete notification
-            $('.media-quirk').on('click', 'a[data-toggle][data-handler]', function() {
+            $('.media-quirk').on('click', 'a[data-target][data-handler]', function() {
                 if (!confirm('是否确认删除这条通知消息')) {
                     return false;
                 }
                 var $btn = $(this);
-                var $wrap = $($btn.data('toggle'));
+                var $wrap = $($btn.data('target'));
                 var $url = $btn.data('handler');
                 $.ajaxSetup({
                     headers: {
