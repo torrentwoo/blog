@@ -179,8 +179,12 @@
                                     <blockquote class="text-muted">
                                         <p class="small">
                                             <a href="{{ route('user.show', $activity->activable->votable->commentator->id) }}">{{ $activity->activable->votable->commentator->name }}</a>
-                                            <span class="offset-right">评论自</span>
+                                            <span class="offset-left offset-right">评论自</span>
+@if ($activity->activable->votable->commentable_type === App\Models\Comment::class)
+                                            <a href="{{ route('article.comments', $activity->activable->votable->topmostComment()->commentable_id) }}#mark-{{ $activity->activable->votable->topmostComment()->id }}">{{ $activity->activable->votable->topmostComment()->commentable->title }}</a>
+@else
                                             <a href="{{ route('article.comments', $activity->activable->votable->commentable->id) }}#mark-{{ $activity->activable->votable->id }}">{{ $activity->activable->votable->commentable->title }}</a>
+@endif
                                         </p>
                                     </blockquote>
                                 </div>
@@ -237,8 +241,8 @@
                                         <p>{{ $activity->activable->commentable->content }}</p>
                                         <p class="small">
                                             <a href="{{ route('user.show', $activity->activable->commentable->commentator->id) }}">{{ $activity->activable->commentable->commentator->name }}</a>
-                                            <span class="offset-right">评论自</span>
-                                            <a href="{{ route('article.show', $activity->activable->commentable->commentable->id) }}">{{ $activity->activable->commentable->commentable->title }}</a>
+                                            <span class="offset-left offset-right">评论自</span>
+                                            <a href="{{ route('article.comments', $activity->activable->topmostComment()->commentable_id) }}#mark-{{ $activity->activable->topmostComment()->id }}">{{ $activity->activable->topmostComment()->commentable->title }}</a>
                                         </p>
                                     </blockquote>
                                 </div>
