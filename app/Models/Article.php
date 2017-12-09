@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\LogActivities;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Article extends Model
 {
@@ -62,7 +61,8 @@ class Article extends Model
      */
     public function scopeReleased($query)
     {
-        return $query->where('approval', '<>', 0)->where('released_at', '<=', Carbon::now());
+        return $query->where('approval', '<>', 0)
+                     ->where('released_at', '<=', Carbon::now());
     }
 
     /**
@@ -176,7 +176,7 @@ class Article extends Model
     /**
      * 是否被某人收藏
      *
-     * @param mixed $someone 某个被指代的用户，可以是用户模型，用户 id 标识符
+     * @param mixed $someone 某个被指代的用户，可以是用户实例，用户 id 标识符
      * @return bool
      */
     public function isFavoriteBy($someone)
@@ -208,7 +208,7 @@ class Article extends Model
     /**
      * 是否被某人喜欢
      *
-     * @param mixed $someone 某个被指代的用户，可以是用户模型，用户 id 标识符
+     * @param mixed $someone 某个被指代的用户，可以是用户实例，用户 id 标识符
      * @return bool
      */
     public function isLikedBy($someone)
