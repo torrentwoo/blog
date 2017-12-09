@@ -62,6 +62,9 @@ class NotificationController extends Controller
     public function showComment($id)
     {
         $notification = Notification::findOrFail($id);
+        if (empty($notification->notifiable)) {
+            abort(404);
+        }
 
         return view('notification.comments.show', [
             // Navigation and position
@@ -153,6 +156,9 @@ class NotificationController extends Controller
     public function showLike($id)
     {
         $notification = Notification::findOrFail($id);
+        if (empty($notification->notifiable)) {
+            abort(404);
+        }
 
         return view('notification.likes.show', [
             // Navigation and position
@@ -223,6 +229,9 @@ class NotificationController extends Controller
     public function showVote($id)
     {
         $notification = Notification::findOrFail($id);
+        if (empty($notification->notifiable)) {
+            abort(404);
+        }
 
         return view('notification.votes.show', [
             // Navigation and position
@@ -293,6 +302,9 @@ class NotificationController extends Controller
     public function showFollow($id)
     {
         $notification = Notification::findOrFail($id);
+        if (empty($notification->notifiable)) {
+            abort(404);
+        }
 
         return view('notification.follow.show', [
             // Navigation and position
