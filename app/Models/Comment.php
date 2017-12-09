@@ -59,6 +59,32 @@ class Comment extends Model
     }
 
     /**
+     * 获取评论（或回复）所附属的对象
+     * 若存在该对象，它可能指向的是一条评论，也可能指向的是某一篇文章
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function origin()
+    {
+        return $this->belongsTo(self::class, 'commentable_id', 'id');
+    }
+
+    /**
+     * 获取评论（或回复）所附属的最顶层的评论
+     * 可以通过这个方法，反查某一个被嵌套的评论（或回复）所属的文章
+     *
+     * @return Comment
+     */
+    public function topmostComment()
+    {
+        $parent = $this->origin;
+        while ($parent->parent_id !== 0) {
+            $parent = $parent->origin;
+        }
+        return $parent;
+    }
+
+    /**
      * 获取评论的赞或踩
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
