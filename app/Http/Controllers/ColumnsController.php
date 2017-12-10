@@ -39,7 +39,7 @@ class ColumnsController extends Controller
             return $factor1 + $factor2;
         })->values();
         // @TODO intend to make a region related column
-        $region = [];
+        $region = collect([]);
 
         return view('columns.index', [
             'recommend' =>  $recommend,
