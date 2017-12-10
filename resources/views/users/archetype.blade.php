@@ -33,7 +33,9 @@
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $user->id))
                             <div class="media-right nowrap-landscape" id="user-buttons">
 @can ('message', $user)
-                                <button type="button" class="btn btn-info btn-xs">发消息</button>
+                                <a href="{{ route('message.show', $user->id) }}" class="btn btn-info btn-xs" role="button">
+                                    <i class="glyphicon glyphicon-send" aria-hidden="true"></i>站内信
+                                </a>
 @endcan
 @can ('follow', $user)
                                 <form method="POST" action="{{ route('follow.user', $user->id) }}" id="userFollowForm" class="follow-form">
