@@ -7,7 +7,7 @@
                             <h1>站内信<small class="offset-right">全部</small></h1>
                         </div>
 @forelse ($messages as $index => $message)
-                        <div class="media media-quirk">
+                        <div class="media media-quirk" id="message{{ $index }}">
                             <div class="media-left">
                                 <img class="media-object img-circle avatar-sm" src="{{ $message->first()->sender->gravatar(48) }}" />
                             </div>
@@ -28,7 +28,7 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu{{ $index }}">
                                         <li><a class="caution bg-primary" href="{{ route('message.show', $message->first()->sender->id) }}"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>回复</a></li>
-                                        <li><a class="caution bg-danger" href="#delete-{{ $message->first()->sender->id }}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i>删除对话</a></li>
+                                        <li><a class="caution bg-danger" href="javascript:void(0);" data-target="#message{{ $index }}" data-handler="{{ route('message.delete', $message->first()->sender->id) }}" data-chat="{{ $message->first()->sender->name }}"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i>删除对话</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a class="caution bg-danger" href="#blacklist-{{ $message->first()->sender->id }}"><i class="glyphicon glyphicon-ban-circle" aria-hidden="true"></i>加入黑名单</a></li>
                                     </ul>
@@ -41,25 +41,6 @@
                             <p><strong>提示：</strong>您还没有收到任何站内信</p>
                         </div>
 @endforelse
-                        <nav class="text-center" aria-label="Page navigation">
-                            <ul class="pagination">
-                                <li class="disabled">
-                                    <a href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
                     </div>
                 </div>
 @stop
@@ -77,4 +58,35 @@
                         <a href="{{ route('notification.others') }}" class="list-group-item">其他</a>
                     </div>
                 </div>
+@stop
+
+@section('scripts')
+    <script type="text/javascript">
+        $(function() {
+            // Delete notification
+            $('.media-quirk').on('click', 'a[data-target][data-handler][data-chat]', function() {
+                $someone = $(this).data('chat') || '该用户';
+                if (!confirm('是否确认删除与 ' + $someone + ' 的所有对话')) {
+                    return false;
+                }
+                var $btn = $(this);
+                var $wrap = $($btn.data('target'));
+                var $url = $btn.data('handler');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.post($url, {
+                    '_method': 'DELETE'
+                }, function(response) {
+                    if (!response.error) {
+                        $wrap.remove();
+                    } else {
+                        window.alert(response.message);
+                    }
+                }, 'json');
+            });
+        });
+    </script>
 @stop
