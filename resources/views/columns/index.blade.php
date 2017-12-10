@@ -25,7 +25,7 @@
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade" id="recommend" aria-labelledby="recommend-tab">
+                    <div role="tabpanel" class="row tab-pane fade" id="recommend" aria-labelledby="recommend-tab">
 @forelse ($recommend as $column)
                         <div class="col-xs-6 col-lg-4">
                             <div class="thumbnail text-center column-thumbnail">
@@ -54,13 +54,15 @@
                             </div>
                         </div>
 @empty
-                        <div class="alert alert-warning alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <p><strong>提示：</strong>还没有可推荐的栏目哦</p>
+                        <div class="col-xs-12">
+                            <div class="alert alert-warning alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <p><strong>提示：</strong>还没有可推荐的栏目哦</p>
+                            </div>
                         </div>
 @endforelse
                     </div>
-                    <div role="tabpanel" class="tab-pane fade active in row" id="popular" aria-labelledby="popular-tab">
+                    <div role="tabpanel" class="row tab-pane fade active in" id="popular" aria-labelledby="popular-tab">
 @forelse ($popular as $column)
                         <div class="col-xs-6 col-lg-4">
                             <div class="thumbnail text-center column-thumbnail">
@@ -89,13 +91,15 @@
                             </div>
                         </div>
 @empty
-                        <div class="alert alert-warning alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <p><strong>提示：</strong>还没有出现任何热门的栏目，<em>去看看有什么推荐栏目吧</em></p>
+                        <div class="col-xs-12">
+                            <div class="alert alert-warning alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <p><strong>提示：</strong>还没有出现任何热门的栏目，<em>去看看有什么推荐栏目吧</em></p>
+                            </div>
                         </div>
 @endforelse
                     </div>
-                    <div role="tabpanel" class="tab-pane fade" id="region" aria-labelledby="region-tab">
+                    <div role="tabpanel" class="row tab-pane fade" id="region" aria-labelledby="region-tab">
 @forelse ($region as $column)
                         <div class="col-xs-6 col-lg-4">
                             <div class="thumbnail text-center column-thumbnail">
@@ -124,9 +128,11 @@
                             </div>
                         </div>
 @empty
-                        <div class="alert alert-warning alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <p><strong>提示：</strong>还没有任何地区专属栏目哦</p>
+                        <div class="col-xs-12">
+                            <div class="alert alert-warning alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <p><strong>提示：</strong>还没有任何地区专属栏目，<em>去看看有什么推荐栏目吧</em></p>
+                            </div>
                         </div>
 @endforelse
                     </div>
