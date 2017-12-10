@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class ReceivedMessage extends Model
 {
     /**
-     * 站内信模型使用的数据表名称
+     * 站内信已收到消息模型使用的数据表名称
      *
      * @var string
      */
-    protected $table = 'messages';
+    protected $table = 'received_messages';
 
     /**
      * 准予批量赋值的数据表字段名称
@@ -51,8 +51,8 @@ class Message extends Model
     }
 
     /**
-     * 定义与发信人（用户）之间相对的一对多关联
-     * 反查站内信的发信人是哪一个用户
+     * 定义与站内信发送者（用户）之间相对的一对多关联
+     * 反查站内信的发送者是哪一个用户
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -62,8 +62,8 @@ class Message extends Model
     }
 
     /**
-     * 定义与收信人（用户）之间相对的一对多关联
-     * 反查站内信的收信人是哪一个用户
+     * 定义与站内信接收者（用户）之间相对的一对多关联
+     * 反查站内信的接收者是哪一个用户
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

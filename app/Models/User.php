@@ -304,13 +304,23 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
-     * 获取用户的所有站内信
+     * 获取用户发出的所有站内信
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function messages()
+    public function outgoingMessages()
     {
-        return $this->hasMany(Message::class, 'recipient_id');
+        return $this->hasMany(OutgoingMessage::class, 'from_id');
+    }
+
+    /**
+     * 获取用户接收的所有站内信
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function receivedMessages()
+    {
+        return $this->hasMany(ReceivedMessage::class, 'recipient_id');
     }
 
     /**
