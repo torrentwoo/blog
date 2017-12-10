@@ -51,6 +51,9 @@ class MessagesController extends Controller
                 $query->where('from_id', '=', $export->id)->where('recipient_id', '=', $import->id);
             })->orderBy('created_at', 'asc')
             ->get();
+        // Mark messages as read
+        Message::unread()->where('from_id', '=', $import->id)->where('recipient_id', '=', $export->id)
+                         ->update(['read' =>  true]);
 
         return view('messages.show', compact('import', 'messages'))->with('notificationActive', 'active');
     }
@@ -90,5 +93,37 @@ class MessagesController extends Controller
         }*/
 
         return redirect()->back();
+    }
+
+    /**
+     * 响应对 DELETE /notification/messages/{id} 的请求
+     * 删除与指定用户的所有对话
+     *
+     * @param int $id 发来站内信的用户的 id 标识符
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id, Request $request)
+    {
+        $sender = User::find($id);
+        $myself = Auth::user();
+        $response = ['error' => true];
+        if (empty($sender)) {
+            $sender = new \stdClass();
+            $sender->id = $id;
+            $sender->name = '该用户';
+        }
+
+        Message::where('from_id', '=', $sender->id)->where('recipient_id', '=', $myself->id)->delete();
+
+        if ($request->ajax()) {
+            $response = [
+                'error'     =>  false,
+                'message'   =>  "成功删除了与 {$sender->name} 的所有对话",
+            ];
+            return response()->json($response);
+        } else {
+            return redirect()->back();
+        }
     }
 }
