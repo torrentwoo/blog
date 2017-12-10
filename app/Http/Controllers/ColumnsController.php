@@ -38,7 +38,7 @@ class ColumnsController extends Controller
             $factor2 = $b->follows->count() - $a->follows->count();
             return $factor1 + $factor2;
         })->values();
-        // 地区专属栏目 @TODO
+        // @TODO intend to make a region related column
         $region = [];
 
         return view('columns.index', [
