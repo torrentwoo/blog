@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendActivationEmail;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\Follow;
@@ -99,16 +100,13 @@ class UsersController extends Controller
      */
     public function sendActivationMessage(User $recipient)
     {
-        $view     = 'emails.activation';
-        $user     = $recipient;
-        $data     = compact('user');
-        $from     = 'admin@dev.local';
-        $fromName = 'admin';
-        $to       = $user->email;
-        $subject  = '注册验证通知邮件';
-        Mail::send($view, $data, function($message) use ($from, $fromName, $to, $subject) {
-            $message->from($from, $fromName)->to($to)->subject($subject);
-        });
+        // Use the default queue
+        $job = new SendActivationEmail($recipient);
+        // Use the specified queue which named emails
+        // This required a explicit declaration of queue name at queue configuration
+        // @see https://laravel-china.org/articles/5747/analysis-of-laravel-queue-implementation-principle-solve-the-problem
+        //$job = (new SendActivationEmail($recipient))->onQueue('emails');
+        $this->dispatch($job);
     }
 
     /**

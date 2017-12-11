@@ -57,6 +57,13 @@ class User extends Model implements AuthenticatableContract,
     protected $hidden = ['password', 'remember_token', 'activation_token'];
 
     /**
+     * 是否记录 User 上的模型事件
+     *
+     * @var bool
+     */
+    protected $logModelEvents = false;
+
+    /**
      * 当用户创建（注册）时，自动生成 activation_token 值
      */
     public static function boot()
