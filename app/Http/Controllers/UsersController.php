@@ -87,25 +87,24 @@ class UsersController extends Controller
         ]);
         // Send an account activation message to user via mail
         $this->sendActivationMessage($user);
-
         session()->flash('success', '注册验证通知邮件已经发送到您的注册邮箱，请注意查收');
 
         return view('users.activation')->with('user', $user);
     }
 
     /**
-     * Send an account activation message to specified user
+     * Send an account activation message to specified user via queue job
      *
      * @param \App\Models\User $recipient
      */
     public function sendActivationMessage(User $recipient)
     {
-        // Use the default queue
-        $job = new SendActivationEmail($recipient);
-        // Use the specified queue which named emails
-        // This required a explicit declaration of queue name at queue configuration
-        // @see https://laravel-china.org/articles/5747/analysis-of-laravel-queue-implementation-principle-solve-the-problem
-        //$job = (new SendActivationEmail($recipient))->onQueue('emails');
+        // Specifying the queue for a job
+        // @see https://laravel.com/docs/5.1/queues#pushing-jobs-onto-the-queue
+        // @see https://d.laravel-china.org/docs/5.1/queues#%E6%8C%87%E5%AE%9A%E4%BB%BB%E5%8A%A1%E6%89%80%E5%B1%9E%E7%9A%84%E9%98%9F%E5%88%97
+        $job = (new SendActivationEmail($recipient))->onQueue('emails'); // the queue named as emails
+        // To listen the queue:
+        // php artisan queue:work [queue:connection] --queue=emails --daemon --tries=3 &
         $this->dispatch($job);
     }
 
