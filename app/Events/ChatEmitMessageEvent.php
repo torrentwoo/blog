@@ -8,22 +8,33 @@ use App\Models\User;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ChatEmitMessageEvent extends Event
+class ChatEmitMessageEvent extends Event implements ShouldBroadcast
 {
     use SerializesModels;
 
+    /**
+     * 消息接收者（用户）的实例
+     *
+     * @var User
+     */
     public $user;
 
+    /**
+     * 发出的消息的实例
+     *
+     * @var OutgoingMessage
+     */
     public $message;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param User $recipient
+     * @param OutgoingMessage $message
      */
-    public function __construct(User $user, OutgoingMessage $message)
+    public function __construct(User $recipient, OutgoingMessage $message)
     {
-        $this->user = $user;
+        $this->user = $recipient;
         $this->message = $message;
     }
 
@@ -34,6 +45,16 @@ class ChatEmitMessageEvent extends Event
      */
     public function broadcastOn()
     {
-        return ['user.' . $this->user->id];
+        return ['chat-with:' . $this->user->id];
+    }
+
+    /**
+     * Get the broadcast event name.
+     *
+     * @return string
+     */
+    public function broadcastAs()
+    {
+        return 'app.chat';
     }
 }

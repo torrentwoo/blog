@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChatEmitMessageEvent;
 use App\Models\User;
 use App\Models\OutgoingMessage;
 use App\Models\ReceivedMessage;
@@ -102,6 +103,8 @@ class MessagesController extends Controller
         ];
         $outgoingMessage = $myself->outgoingMessages()->create($message); // outgoing message for sender
         $receivedMessage = $recipient->receivedMessages()->create($message); // received message for recipient
+
+        Event::fire(new ChatEmitMessageEvent($recipient, $outgoingMessage));
 
         return redirect()->back();
     }
