@@ -33,7 +33,7 @@
                         </div>
 @can ('message', $import)
                         <div class="dialog-form">
-                            <form method="POST" action="{{ route('message.send', $import->id) }}">
+                            <form id="chat-message" method="POST" action="{{ route('message.send', $import->id) }}">
                                 @include('features.builtIn-alert')
 
                                 {{ csrf_field() }}
@@ -41,7 +41,7 @@
                                     <textarea name="message" class="form-control" rows="3" placeholder="请在此输入站内信"></textarea>
                                 </div>
                                 <div class="form-group text-right">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" id="send-message">
                                         <i class="glyphicon glyphicon-send" aria-hidden="true"></i>发送
                                     </button>
                                 </div>
@@ -65,4 +65,13 @@
                         <a href="{{ route('notification.others') }}" class="list-group-item">其他</a>
                     </div>
                 </div>
+@stop
+
+@section('scripts')
+    <script type="text/javascript" src="/assets/js/socket.io-2.0.4.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            //
+        })
+    </script>
 @stop

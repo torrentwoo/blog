@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\OutgoingMessage;
 use App\Models\ReceivedMessage;
 use Auth;
+use Event;
 
 use Illuminate\Http\Request;
 
@@ -99,8 +100,8 @@ class MessagesController extends Controller
             'recipient_id'  =>  $recipient->id,
             'content'       =>  $request->message,
         ];
-        $myself->outgoingMessages()->create($message); // outgoing message for sender
-        $recipient->receivedMessages()->create($message); // received message for recipient
+        $outgoingMessage = $myself->outgoingMessages()->create($message); // outgoing message for sender
+        $receivedMessage = $recipient->receivedMessages()->create($message); // received message for recipient
 
         return redirect()->back();
     }
