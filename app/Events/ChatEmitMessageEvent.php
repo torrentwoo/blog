@@ -13,11 +13,18 @@ class ChatEmitMessageEvent extends Event implements ShouldBroadcast
     use SerializesModels;
 
     /**
+     * 消息发送者（用户）的实例
+     *
+     * @var User
+     */
+    private $sender;
+
+    /**
      * 消息接收者（用户）的实例
      *
      * @var User
      */
-    public $user;
+    private $recipient;
 
     /**
      * 发出的消息的实例
@@ -29,12 +36,15 @@ class ChatEmitMessageEvent extends Event implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
+     * @param User $sender
      * @param User $recipient
      * @param OutgoingMessage $message
      */
-    public function __construct(User $recipient, OutgoingMessage $message)
+    public function __construct(User $sender, User $recipient, OutgoingMessage $message)
     {
-        $this->user = $recipient;
+        $this->sender = $sender;
+        $this->recipient = $recipient;
+
         $this->message = $message;
     }
 
@@ -45,7 +55,9 @@ class ChatEmitMessageEvent extends Event implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['chat-with.' . $this->user->id];
+        // Generate unique pair channel that just only for two of them
+        $id = collect([$this->sender->id, $this->recipient->id])->sort()->implode('-');
+        return ['chat-with.' . $id];
     }
 
     /**

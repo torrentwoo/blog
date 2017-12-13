@@ -117,8 +117,9 @@
                 }, 'json');
             });
             // Receive message and show received message
-            var socket = io('http://127.0.0.1:3000'); // Keep same with the server that defined at chat-socket.js, which is driven by Node.js
-            socket.on('chat-with.{{ $import->id }}:app.chat', function(data) {
+            var socket = io('{{ env('APP_URL') }}:3000'); // Keep same with the server that defined at chat-socket.js, which is driven by Node.js
+            var unique = '{{ collect([$import->id, Auth::id()])->sort()->implode('-') }}';
+            socket.on('chat-with.' + unique + ':app.chat', function(data) {
                 console.log(data);
             })
         })

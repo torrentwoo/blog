@@ -17,7 +17,7 @@ app.listen(3000, function() {
 });
 
 /*
-redis.subscribe('test-channel');
+redis.subscribe('public-channel');
 
 redis.on('message', function(channel, message) {
     console.log(message);
@@ -28,10 +28,10 @@ redis.psubscribe('*', function(error, count) {
 });
 
 redis.on('pmessage', function(pattern, channel, message) {
-    message = JSON.parse(message);
-    io.emit(channel + ':' + message.event, message.data);
     //console.log(pattern, channel, message);
     //console.log(pattern); // will be return *
-    console.log(channel); // returns channel name
-    console.log(message); // returns message
+    //console.log(channel); // returns channel name
+    //console.log(message); // returns message
+    message = JSON.parse(message);
+    io.emit(channel + ':' + message.event, message.data);
 });

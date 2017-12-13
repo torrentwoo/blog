@@ -109,7 +109,7 @@ class MessagesController extends Controller
             $outgoingMessage = $myself->outgoingMessages()->create($message); // outgoing message for sender
             $receivedMessage = $recipient->receivedMessages()->create($message); // received message for recipient
 
-            Event::fire(new ChatEmitMessageEvent($recipient, $outgoingMessage));
+            Event::fire(new ChatEmitMessageEvent($myself, $recipient, $outgoingMessage));
 
             return redirect()->back();
         } else {
@@ -148,7 +148,7 @@ class MessagesController extends Controller
                 'delivered' => $outgoingMessage->created_at->format('n/j g:i a'),
             ];
 
-            Event::fire(new ChatEmitMessageEvent($recipient, $outgoingMessage));
+            Event::fire(new ChatEmitMessageEvent($myself, $recipient, $outgoingMessage));
 
             return response()->json($response);
         }
