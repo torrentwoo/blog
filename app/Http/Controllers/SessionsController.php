@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Event;
+
 use App\Events\UserLoginEvent;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Event;
 
 class SessionsController extends Controller
 {

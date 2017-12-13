@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Image;
+use Storage;
+
 use App\Jobs\SendActivationEmail;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\Follow;
 use App\Models\User;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 
 class UsersController extends Controller
 {
