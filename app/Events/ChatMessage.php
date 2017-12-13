@@ -3,12 +3,12 @@
 namespace App\Events;
 
 use App\Events\Event;
-use App\Models\OutgoingMessage;
+use App\Models\ReceivedMessage;
 use App\Models\User;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ChatEmitMessageEvent extends Event implements ShouldBroadcast
+class ChatMessage extends Event implements ShouldBroadcast
 {
     use SerializesModels;
 
@@ -17,7 +17,7 @@ class ChatEmitMessageEvent extends Event implements ShouldBroadcast
      *
      * @var User
      */
-    private $sender;
+    public $from;
 
     /**
      * 消息接收者（用户）的实例
@@ -27,25 +27,33 @@ class ChatEmitMessageEvent extends Event implements ShouldBroadcast
     private $recipient;
 
     /**
-     * 发出的消息的实例
+     * 收到的消息的实例
      *
-     * @var OutgoingMessage
+     * @var ReceivedMessage
      */
     public $message;
 
     /**
+     * 已经格式化的消息发送的日期时间
+     *
+     * @var string
+     */
+    public $delivered;
+
+    /**
      * Create a new event instance.
      *
-     * @param User $sender
+     * @param User $from
      * @param User $recipient
-     * @param OutgoingMessage $message
+     * @param ReceivedMessage $message
      */
-    public function __construct(User $sender, User $recipient, OutgoingMessage $message)
+    public function __construct(User $from, User $recipient, ReceivedMessage $message)
     {
-        $this->sender = $sender;
+        $this->from = $from;
         $this->recipient = $recipient;
 
         $this->message = $message;
+        $this->delivered = $message->created_at->format('n/j g:i a');
     }
 
     /**
@@ -55,9 +63,7 @@ class ChatEmitMessageEvent extends Event implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        // Generate unique pair channel that just only for two of them
-        $id = collect([$this->sender->id, $this->recipient->id])->sort()->implode('-');
-        return ['chat-with.' . $id];
+        return ['message-to.' . $this->recipient->id];
     }
 
     /**
@@ -67,6 +73,6 @@ class ChatEmitMessageEvent extends Event implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'app.chat';
+        return 'app.chatMessage';
     }
 }

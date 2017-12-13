@@ -79,6 +79,7 @@
             var myselfAvatar = '{{ Auth::user()->gravatar(32) }}';
             // Primary dialog box
             var $dialog = $('div.dialog-box');
+            animation($dialog);
             // Send message and show outgoing message
             $('#chat-message').bind('submit', function(e) {
                 var e = e ? e : (window.event.returnValue = false);
@@ -113,15 +114,34 @@
                             '<small class="dialog-timestamp text-muted">' + response.delivered + '</small>' +
                             '</div>' +
                             '</div>').appendTo($dialog);
+                        // Force to show the latest message
+                        animation($dialog);
                     }
                 }, 'json');
             });
             // Receive message and show received message
             var socket = io('{{ env('APP_URL') }}:3000'); // Keep same with the server that defined at chat-socket.js, which is driven by Node.js
             var unique = '{{ collect([$import->id, Auth::id()])->sort()->implode('-') }}';
+            var myself = parseInt('{{ Auth::id() }}');
             socket.on('chat-with.' + unique + ':app.chat', function(data) {
-                console.log(data);
-            })
-        })
+                //console.log(data);
+                if (data.dialog.from_id != myself) {
+                    $('<div class="dialog-import">\n' +
+                        '<div class="dialog-content">\n' +
+                        '<img class="img-circle avatar-xs dialog-avatar" src="' + recipientAvatar + '" />\n' +
+                        '<div class="well dialog-message">' + data.dialog.content + '</div>\n' +
+                        '<small class="text-muted">' + data.datetime + '</small>\n' +
+                        '</div>\n' +
+                        '</div>').appendTo($dialog);
+                    // When new message comes in, automatic scroll to bottom
+                    animation($dialog);
+                }
+            });
+        });
+        var animation = function(o) {
+            o.animate({
+                scrollTop: o[0].scrollHeight
+            }, 400);
+        };
     </script>
 @stop

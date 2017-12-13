@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ChatEmitMessageEvent;
+use App\Events\Chat;
+use App\Events\ChatMessage;
 use App\Models\User;
 use App\Models\OutgoingMessage;
 use App\Models\ReceivedMessage;
@@ -109,7 +110,8 @@ class MessagesController extends Controller
             $outgoingMessage = $myself->outgoingMessages()->create($message); // outgoing message for sender
             $receivedMessage = $recipient->receivedMessages()->create($message); // received message for recipient
 
-            Event::fire(new ChatEmitMessageEvent($myself, $recipient, $outgoingMessage));
+            Event::fire(new Chat($myself, $recipient, $outgoingMessage));
+            Event::fire(new ChatMessage($myself, $recipient, $receivedMessage));
 
             return redirect()->back();
         } else {
@@ -148,7 +150,8 @@ class MessagesController extends Controller
                 'delivered' => $outgoingMessage->created_at->format('n/j g:i a'),
             ];
 
-            Event::fire(new ChatEmitMessageEvent($myself, $recipient, $outgoingMessage));
+            Event::fire(new Chat($myself, $recipient, $outgoingMessage));
+            Event::fire(new ChatMessage($myself, $recipient, $receivedMessage));
 
             return response()->json($response);
         }

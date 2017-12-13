@@ -1,3 +1,7 @@
+/**
+ * The file can be monitored by Supervisor
+ */
+
 var app = require('http').Server();
 var io = require('socket.io')(app);
 

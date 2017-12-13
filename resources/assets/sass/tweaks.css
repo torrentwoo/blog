@@ -515,8 +515,11 @@ ul#tags-label li {
 .dialog-box {
     margin-bottom:1em;
     height:auto;
+    min-height:200px;
+    max-height:400px;
     padding:1em;
     overflow:hidden;
+    overflow-y:auto;
 }
     .dialog-box .dialog-import, .dialog-box .dialog-export {
         float:left;
@@ -580,6 +583,9 @@ ul#tags-label li {
 .dialog-form {
     margin-top:1em;
 }
+    .dialog-form .alert {
+        display:none;
+    }
 
 /*
  Public footer

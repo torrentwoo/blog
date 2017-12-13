@@ -92,6 +92,7 @@
 @stop
 
 @section('scripts')
+    <script type="text/javascript" src="/assets/js/socket.io-2.0.4.js"></script>
     <script type="text/javascript">
         $(function() {
             // Delete notification
@@ -117,6 +118,12 @@
                         window.alert(response.message);
                     }
                 }, 'json');
+            });
+            // Listen on new incoming message
+            var socket = io('{{ env('APP_URL') }}:3000');
+            var myself = parseInt('{{ Auth::id() }}');
+            socket.on('message-to.' + myself + ':app.chatMessage', function(data) {
+                console.log(data);
             });
         });
     </script>
