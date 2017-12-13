@@ -30,8 +30,12 @@ class MessagesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $received = $user->receivedMessages()->with('sender')->get()->groupBy('from_id')->values();
-        $outgoing = $user->outgoingMessages()->with('recipient')->get()->groupBy('from_id')->values();
+        $received = $user->receivedMessages()->whereHas('sender', function($query) {
+            $query->whereNotNull('id');
+        })->get()->groupBy('from_id')->values();
+        $outgoing = $user->outgoingMessages()->whereHas('recipient', function($query) {
+            $query->whereNotNull('id');
+        })->get()->groupBy('from_id')->values();
 
         return view('messages.index', [
             'user'      =>  $user,
