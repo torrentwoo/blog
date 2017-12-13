@@ -85,32 +85,73 @@ class MessagesController extends Controller
      */
     public function send(Request $request, $id)
     {
-        $recipient = User::findOrFail($id);
-        $myself = Auth::user();
-        // Check blacklist
-        if ($recipient->blacklist->contains($myself)) {
-            session()->flash('warning', "您暂时无法给 {$recipient->name} 发送站内信");
+        if (!$request->ajax()) {
+            $recipient = User::findOrFail($id);
+            $myself = Auth::user();
+            // Check blacklist
+            if ($recipient->blacklist->contains($myself)) {
+                session()->flash('warning', "您暂时无法给 {$recipient->name} 发送站内信");
+                return redirect()->back();
+            }
+            // Input validation
+            $this->validate($request, [
+                'message' => 'required|max:140',
+            ], [
+                'message.required' => '站内信 的内容不可为空',
+                'message.max' => '站内信 的内容不能大于 140 个字符',
+            ]);
+            // Message data
+            $message = [
+                'from_id' => $myself->id,
+                'recipient_id' => $recipient->id,
+                'content' => $request->message,
+            ];
+            $outgoingMessage = $myself->outgoingMessages()->create($message); // outgoing message for sender
+            $receivedMessage = $recipient->receivedMessages()->create($message); // received message for recipient
+
+            Event::fire(new ChatEmitMessageEvent($recipient, $outgoingMessage));
+
             return redirect()->back();
+        } else {
+            $recipient = User::find($id);
+            $myself = Auth::user();
+            $response = ['error' => true];
+            if (empty($recipient)) {
+                $response['message'] = 'Invalid message recipient';
+                return response()->json($response);
+            }
+            if ($recipient->blacklist->contains($myself)) {
+                $response['message'] = 'Cannot send message to ' . $recipient->name . ' , you are on the blacklist';
+                return response()->json($response);
+            }
+            if ($request->has('message') !== true) {
+                $response['message'] = 'Message can not be empty';
+                return response()->json($response);
+            }
+            if (mb_strlen($request->message) > 140) {
+                $response['message'] = 'Message too long, be sure message content is less than 140 characters';
+                return response()->json($response);
+            }
+
+            $message = [
+                'from_id' => $myself->id,
+                'recipient_id' => $recipient->id,
+                'content' => $request->message,
+            ];
+            $outgoingMessage = $myself->outgoingMessages()->create($message); // outgoing message for sender
+            $receivedMessage = $recipient->receivedMessages()->create($message); // received message for recipient
+
+            $response = [
+                'error' => false,
+                'message' => 'Message been delivered',
+                'outgoingMessage' => $outgoingMessage->content,
+                'delivered' => $outgoingMessage->created_at->format('n/j g:i a'),
+            ];
+
+            Event::fire(new ChatEmitMessageEvent($recipient, $outgoingMessage));
+
+            return response()->json($response);
         }
-        // Input validation
-        $this->validate($request, [
-            'message'   =>  'required|max:140',
-        ], [
-            'message.required'  =>  '站内信 的内容不可为空',
-            'message.max'       =>  '站内信 的内容不能大于 140 个字符',
-        ]);
-        // Message data
-        $message = [
-            'from_id'       =>  $myself->id,
-            'recipient_id'  =>  $recipient->id,
-            'content'       =>  $request->message,
-        ];
-        $outgoingMessage = $myself->outgoingMessages()->create($message); // outgoing message for sender
-        $receivedMessage = $recipient->receivedMessages()->create($message); // received message for recipient
-
-        Event::fire(new ChatEmitMessageEvent($recipient, $outgoingMessage));
-
-        return redirect()->back();
     }
 
     /**

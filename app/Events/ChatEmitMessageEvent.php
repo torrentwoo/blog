@@ -45,7 +45,7 @@ class ChatEmitMessageEvent extends Event implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['chat-with:' . $this->user->id];
+        return ['chat-with.' . $this->user->id];
     }
 
     /**

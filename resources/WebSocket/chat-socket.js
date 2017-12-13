@@ -29,9 +29,9 @@ redis.psubscribe('*', function(error, count) {
 
 redis.on('pmessage', function(pattern, channel, message) {
     message = JSON.parse(message);
-    //io.emit(channel + ':' + message.event, message.data);
+    io.emit(channel + ':' + message.event, message.data);
     //console.log(pattern, channel, message);
-    console.log(pattern); // will be return *
+    //console.log(pattern); // will be return *
     console.log(channel); // returns channel name
     console.log(message); // returns message
 });
