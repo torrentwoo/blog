@@ -101,10 +101,10 @@ class UsersController extends Controller
     {
         // Specifying the queue for a job
         // @see https://laravel.com/docs/5.1/queues#pushing-jobs-onto-the-queue
-        // @see https://d.laravel-china.org/docs/5.1/queues#%E6%8C%87%E5%AE%9A%E4%BB%BB%E5%8A%A1%E6%89%80%E5%B1%9E%E7%9A%84%E9%98%9F%E5%88%97
-        $job = (new SendActivationEmail($recipient))->onQueue('emails'); // the queue named as emails
         // To listen the queue:
-        // php artisan queue:work [queue:connection] --queue=emails --daemon --tries=3 &
+        // php artisan queue:work [queue:connection] --queue=emails[,other queue] --sleep=3 --tries=3 --daemon &
+        $job = (new SendActivationEmail($recipient))->onQueue('emails'); // the queue named as emails
+
         $this->dispatch($job);
     }
 
