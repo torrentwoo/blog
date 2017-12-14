@@ -40,6 +40,15 @@
                                     <span class="alert-response"></span>
                                 </div>
                                 {{ csrf_field() }}
+
+                                <input type="hidden" id="serverAddr" value="{{ env('APP_URL') }}" />
+                                <input type="hidden" id="serverPort" value="{{ env('SOCKET_LISTEN_PORT', 3000) }}" />
+
+                                <input type="hidden" id="myselfId" value="{{ Auth::id() }}" />
+                                <input type="hidden" id="myselfAvatar" value="{{ Auth::user()->gravatar(32) }}" />
+                                <input type="hidden" id="othersId" value="{{ $import->id }}" />
+                                <input type="hidden" id="othersAvatar" value="{{ $import->gravatar(32) }}" />
+
                                 <div class="form-group">
                                     <textarea name="message" class="form-control" rows="3" placeholder="请在此输入站内信"></textarea>
                                 </div>
@@ -72,76 +81,5 @@
 
 @section('scripts')
     <script type="text/javascript" src="/assets/js/socket.io-2.0.4.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            // Avatars
-            var recipientAvatar = '{{ $import->gravatar(32) }}';
-            var myselfAvatar = '{{ Auth::user()->gravatar(32) }}';
-            // Primary dialog box
-            var $dialog = $('div.dialog-box');
-            animation($dialog);
-            // Send message and show outgoing message
-            $('#chat-message').bind('submit', function(e) {
-                var e = e ? e : (window.event.returnValue = false);
-                e.preventDefault(); // prevent default event
-
-                var form = $(this), url = form.prop('action');
-                var alarm = $('div.alert', form), alarmText = $('span.alert-response', form);
-                var $message = $('textarea[name="message"]', form);
-                if (!$.trim($message.val()).length) {
-                    alarm.show().find(alarmText).text('站内信 的内容不可为空');
-                    return false;
-                }
-                if ($message.val().length > 140) {
-                    alarm.show().find(alarmText).text('站内信 的内容不能大于 140 个字符');
-                    return false;
-                }
-                alarm.hide().find(alarmText).text('');
-
-                // Send message via Ajax
-                $.post(url, {
-                    '_method': 'POST',
-                    '_token': $('meta[name="csrf-token"]').attr('content'),
-                    'message': $message.val()
-                }, function(response) {
-                    if (response.error !== true) {
-                        alarm.hide(); // hide error alert
-                        $message.val('');
-                        // Show outgoing message
-                        $('<div class="dialog-export"><div class="dialog-content">' +
-                            '<img class="img-circle avatar-xs dialog-avatar" src="' + myselfAvatar + '" />' +
-                            '<div class="well dialog-message">' + response.outgoingMessage + '</div>' +
-                            '<small class="dialog-timestamp text-muted">' + response.delivered + '</small>' +
-                            '</div>' +
-                            '</div>').appendTo($dialog);
-                        // Force to show the latest message
-                        animation($dialog);
-                    }
-                }, 'json');
-            });
-            // Receive message and show received message
-            var socket = io('{{ env('APP_URL') }}:3000'); // Keep same with the server that defined at chat-socket.js, which is driven by Node.js
-            var unique = '{{ collect([$import->id, Auth::id()])->sort()->implode('-') }}';
-            var myself = parseInt('{{ Auth::id() }}');
-            socket.on('chat-with.' + unique + ':app.chat', function(data) {
-                //console.log(data);
-                if (data.dialog.from_id != myself) {
-                    $('<div class="dialog-import">\n' +
-                        '<div class="dialog-content">\n' +
-                        '<img class="img-circle avatar-xs dialog-avatar" src="' + recipientAvatar + '" />\n' +
-                        '<div class="well dialog-message">' + data.dialog.content + '</div>\n' +
-                        '<small class="text-muted">' + data.datetime + '</small>\n' +
-                        '</div>\n' +
-                        '</div>').appendTo($dialog);
-                    // When new message comes in, automatic scroll to bottom
-                    animation($dialog);
-                }
-            });
-        });
-        var animation = function(o) {
-            o.animate({
-                scrollTop: o[0].scrollHeight
-            }, 400);
-        };
-    </script>
+    <script type="text/javascript" src="/assets/js/chat-via-socket.js"></script>
 @stop
