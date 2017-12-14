@@ -66,6 +66,40 @@ footer {
 .navbar-brand {
     height:auto;
 }
+#nav-notification .glyphicon-bell{
+    position:relative;
+}
+    #nav-notification .hint {
+        position:absolute;
+        right:-7px;
+        top:-7px;
+        width:10px;
+        height:10px;
+        display:block;
+        background:#fb503b;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        -webkit-animation: NotifyLight 3s ease-in-out infinite alternate;
+        -o-animation: NotifyLight 3s ease-in-out infinite alternate;
+        animation: NotifyLight 3s ease-in-out infinite alternate;
+    }
+    @keyframes NotifyLight {
+        0% {
+            background:#f00;
+            opacity:.25;
+            -webkit-box-shadow: 0 1px 2px rgba(255,255,255, .1);
+            -moz-box-shadow: 0 1px 2px rgba(255,255,255, .1);
+            box-shadow: 0 1px 2px rgba(255,255,255, .1);
+        }
+        100% {
+            background:#fb503b;
+            opacity: 1;
+            -webkit-box-shadow: 0 1px 10px rgba(255,0,0, 1);
+            -moz-box-shadow: 0 1px 10px rgba(255,0,0, 1);
+            box-shadow: 0 1px 10px rgba(255,0,0, 1);
+        }
+    }
 /* implement from .alert-success */
 .alert-status {
     color:#3c763d;
