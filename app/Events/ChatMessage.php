@@ -53,7 +53,7 @@ class ChatMessage extends Event implements ShouldBroadcast
         $this->recipient = $recipient;
 
         $this->message = $message;
-        $this->delivered = $message->created_at->format('n/j g:i a');
+        $this->delivered = $message->created_at->format('Y-m-d g:i a');
     }
 
     /**
