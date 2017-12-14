@@ -14,13 +14,24 @@ var elixir = require('laravel-elixir');
 elixir.config.sourcemaps = false; // disable to generate source maps
 
 elixir(function(mix) {
-    mix.sass('app.scss', 'public/assets/css')
-        .browserify('app.js', 'public/assets/js')
-        .browserify('ajax-login.js', 'public/assets/js')
-        .browserify('html5shiv.min.js', 'public/assets/js')
-        .browserify('respond.min.js', 'public/assets/js')
-        .browserify('ie10-viewport-bug-workaround.js', 'public/assets/js');
-    mix.copy('resources/assets/sass/bootstrap-3.3.7.min.css', 'public/assets/css/bootstrap-3.3.7.min.css');
-    mix.copy('resources/assets/sass/ie10-viewport-bug-workaround.css', 'public/assets/css');
+    // Compile sass to css - css framework|each dependence
+    //mix.sass('app.scss', 'public/assets/css'); // here no need compile for now
+
+    // Merge css files - style tweaks
+    mix.styles([
+        'offcanvas.css',
+        'tweaks.css'
+    ], 'public/assets/css/ui-merged.css');
+
+    // Copy specified resources
     mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap', 'public/assets/fonts');
+
+    // Javascript stuff
+    mix.browserify('app.js', 'public/assets/js')
+        .browserify('ajax-login.js', 'public/assets/js');
+
+    // Version controller - file(s) are relative to /public directory
+    mix.version([
+        'assets/css/ui-merged.css'
+    ]);
 });

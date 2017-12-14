@@ -23,7 +23,7 @@
 --}}
     <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-3.3.7.min.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/ie10-viewport-bug-workaround.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/app.css" />
+    <link rel="stylesheet" type="text/css" href="{{ elixir('assets/css/ui-merged.css') }}" />
 {{--
     extra control sections via meta definition
 --}}

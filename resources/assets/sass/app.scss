@@ -1,12 +1,4 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-
-// Import bootstrap framework
+/**
+ * Import the Bootstrap CSS Framework (current version:3.3.7)
+ */
 //@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-//@import url("https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css");
-//@import "bootstrap-3.3.7.min";
-
-// Import custom style
-@import "offcanvas";
-// Style backward compatibility tweaks
-@import "tweaks";
-
