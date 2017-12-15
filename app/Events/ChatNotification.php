@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ChatMessage extends Event implements ShouldBroadcast
+class ChatNotification extends Event implements ShouldBroadcast
 {
     use SerializesModels;
 
@@ -63,7 +63,7 @@ class ChatMessage extends Event implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['message-to.' . $this->recipient->id];
+        return ['notify-to.' . $this->recipient->id];
     }
 
     /**
@@ -73,6 +73,6 @@ class ChatMessage extends Event implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'app.chatMessage';
+        return 'app.chatNotification';
     }
 }

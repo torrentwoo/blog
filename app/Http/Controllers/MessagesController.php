@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\Chat;
-use App\Events\ChatMessage;
+use App\Events\ChatNotification;
 use App\Events\Notify;
 use App\Models\User;
 use App\Models\OutgoingMessage;
@@ -112,7 +112,7 @@ class MessagesController extends Controller
             $receivedMessage = $recipient->receivedMessages()->create($message); // received message for recipient
 
             Event::fire(new Chat($myself, $recipient, $outgoingMessage));
-            Event::fire(new ChatMessage($myself, $recipient, $receivedMessage));
+            Event::fire(new ChatNotification($myself, $recipient, $receivedMessage));
             Event::fire(new Notify($recipient));
 
             return redirect()->back();
@@ -153,7 +153,7 @@ class MessagesController extends Controller
             ];
 
             Event::fire(new Chat($myself, $recipient, $outgoingMessage));
-            Event::fire(new ChatMessage($myself, $recipient, $receivedMessage));
+            Event::fire(new ChatNotification($myself, $recipient, $receivedMessage));
             Event::fire(new Notify($recipient));
 
             return response()->json($response);

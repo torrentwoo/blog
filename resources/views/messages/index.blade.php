@@ -92,39 +92,5 @@
 @stop
 
 @section('scripts')
-    <script type="text/javascript" src="/assets/js/socket.io-2.0.4.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            // Delete notification
-            $('.media-quirk').on('click', 'a[data-target][data-handler][data-chat]', function() {
-                $someone = $(this).data('chat') || '该用户';
-                if (!confirm('是否确认删除与 ' + $someone + ' 的所有对话')) {
-                    return false;
-                }
-                var $btn = $(this);
-                var $wrap = $($btn.data('target'));
-                var $url = $btn.data('handler');
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.post($url, {
-                    '_method': 'DELETE'
-                }, function(response) {
-                    if (!response.error) {
-                        $wrap.remove();
-                    } else {
-                        window.alert(response.message);
-                    }
-                }, 'json');
-            });
-            // Listen on new incoming message
-            var socket = io('{{ env('APP_URL') }}:3000');
-            var myself = parseInt('{{ Auth::id() }}');
-            socket.on('message-to.' + myself + ':app.chatMessage', function(data) {
-                console.log(data);
-            });
-        });
-    </script>
+    <script type="text/javascript" src="/assets/js/app-chatNotification.js"></script>
 @stop
