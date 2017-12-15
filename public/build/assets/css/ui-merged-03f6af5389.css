@@ -66,10 +66,10 @@ footer {
 .navbar-brand {
     height:auto;
 }
-#nav-notification .glyphicon-bell{
+#nav-notification-hook {
     position:relative;
 }
-    #nav-notification .hint {
+    #nav-notification-hook .hint {
         position:absolute;
         right:-7px;
         top:-7px;

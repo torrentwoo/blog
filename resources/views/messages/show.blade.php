@@ -80,6 +80,5 @@
 @stop
 
 @section('scripts')
-    <script type="text/javascript" src="/assets/js/socket.io-2.0.4.js"></script>
-    <script type="text/javascript" src="/assets/js/chat-via-socket.js"></script>
+    <script type="text/javascript" src="/assets/js/app-chat.js"></script>
 @stop

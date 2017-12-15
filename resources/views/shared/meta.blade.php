@@ -16,9 +16,14 @@
 @if (isset($headMeta['description']))
     <meta name="description" content="{{ $headMeta['description'] }}" />
 @endif
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-{{--
     <meta name="author" content="torrent, 790896@qq.com" />
+    <meta name="app:url" content="{{ env('APP_URL') }}" />
+    <meta name="app:port" content="{{ env('SOCKET_LISTEN_PORT', 3000) }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+@if (Auth::check())
+    <meta name="private:uid" content="{{ Auth::id() }}" />
+@endif
+{{--
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 --}}
     <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-3.3.7.min.css" />

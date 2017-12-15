@@ -26,6 +26,10 @@
 
     <script type="text/javascript" src="/assets/js/app.js"></script>
     <script type="text/javascript" src="/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript" src="/assets/js/socket.io-2.0.4.js"></script>
+@if (Auth::check())
+    <script type="text/javascript" src="/assets/js/app-notification.js"></script>
+@endif
 {{-- extra scripts, third-party plugins located here --}}
 @yield('scripts')
 </body>
