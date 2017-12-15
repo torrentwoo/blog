@@ -41,9 +41,6 @@
                                 </div>
                                 {{ csrf_field() }}
 
-                                <input type="hidden" id="serverAddr" value="{{ env('APP_URL') }}" />
-                                <input type="hidden" id="serverPort" value="{{ env('SOCKET_LISTEN_PORT', 3000) }}" />
-
                                 <input type="hidden" id="myselfId" value="{{ Auth::id() }}" />
                                 <input type="hidden" id="myselfAvatar" value="{{ Auth::user()->gravatar(32) }}" />
                                 <input type="hidden" id="othersId" value="{{ $import->id }}" />
@@ -80,5 +77,6 @@
 @stop
 
 @section('scripts')
+    <script type="text/javascript" src="/assets/js/socket.io-2.0.4.js"></script>
     <script type="text/javascript" src="/assets/js/app-chat.js"></script>
 @stop

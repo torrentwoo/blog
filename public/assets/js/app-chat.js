@@ -3,8 +3,9 @@
 
 ;$(function () {
     // Cache variables
-    var _serverAddr = $('#serverAddr').val(),
-        _serverPort = $('#serverPort').val();
+    var server = $('meta[name="app:url"]').attr('content'),
+        port = $('meta[name="app:port"]').attr('content');
+
     var _myselfId = $('#myselfId').val(),
         _myselfAvatar = $('#myselfAvatar').val();
     var _othersId = $('#othersId').val(),
@@ -68,7 +69,7 @@
 
     // Handle receive message via socket.io
     try {
-        var socket = io(_serverAddr + ':' + _serverPort);
+        var socket = io(server + ':' + port);
         var unique = uniqChannel(_myselfId, _othersId);
         socket.on('chat-with.' + unique + ':app.chat', function (data) {
             if (data.dialog.from_id != _myselfId) {
