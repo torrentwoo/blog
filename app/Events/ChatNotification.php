@@ -12,12 +12,12 @@ class ChatNotification extends Event implements ShouldBroadcast
 {
     use SerializesModels;
 
-    /**
-     * 消息发送者（用户）的实例
-     *
-     * @var User
-     */
-    public $from;
+    public $from = [
+        'id' => '',
+        'name' => '',
+        'avatar' => '',
+        'blacklist' => '',
+    ];
 
     /**
      * 消息接收者（用户）的实例
@@ -26,19 +26,12 @@ class ChatNotification extends Event implements ShouldBroadcast
      */
     private $recipient;
 
-    /**
-     * 收到的消息的实例
-     *
-     * @var ReceivedMessage
-     */
-    public $message;
-
-    /**
-     * 已经格式化的消息发送的日期时间
-     *
-     * @var string
-     */
-    public $delivered;
+    public $message = [
+        'content' => '',
+        'datetime' => '',
+        'show' => '',
+        'delete' => '',
+    ];
 
     /**
      * Create a new event instance.
@@ -49,11 +42,17 @@ class ChatNotification extends Event implements ShouldBroadcast
      */
     public function __construct(User $from, User $recipient, ReceivedMessage $message)
     {
-        $this->from = $from;
+        $this->from['id'] = $from->id;
+        $this->from['name'] = $from->name;
+        $this->from['avatar'] = $from->gravatar(32);
+        $this->from['blacklistUrl'] = ''; // only accept a route
+
         $this->recipient = $recipient;
 
-        $this->message = $message;
-        $this->delivered = $message->created_at->format('Y-m-d g:i a');
+        $this->message['content'] = str_limit($message->content);
+        $this->message['datetime'] = $message->created_at->format('Y-m-d g:i a');
+        $this->message['show'] = route('message.show', $from->id);
+        $this->message['delete'] = route('message.delete', $from->id);
     }
 
     /**

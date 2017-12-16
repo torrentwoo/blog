@@ -6,6 +6,8 @@
                         <div class="page-header">
                             <h1>站内信<small class="offset-right">全部</small></h1>
                         </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12" id="message-container">
 @forelse ($messages as $index => $message)
                         <div class="media media-quirk" id="message{{ $index }}">
                             <div class="media-left">

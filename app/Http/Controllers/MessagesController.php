@@ -34,10 +34,14 @@ class MessagesController extends Controller
         $user = Auth::user();
         $received = $user->receivedMessages()->whereHas('sender', function($query) {
             $query->whereNotNull('id');
-        })->get()->groupBy('from_id')->values();
+        })->get()->sort(function($a, $b) {
+            return strcmp($b->created_at, $a->created_at);
+        })->groupBy('from_id')->values();
         $outgoing = $user->outgoingMessages()->whereHas('recipient', function($query) {
             $query->whereNotNull('id');
-        })->get()->groupBy('from_id')->values();
+        })->get()->sort(function($a, $b) {
+            return strcmp($b->created_at, $a->created_at);
+        })->groupBy('from_id')->values();
 
         return view('messages.index', [
             'user'      =>  $user,
