@@ -145,6 +145,6 @@
 
 @section('scripts')
 @unless (Auth::check())
-    <script type="text/javascript" src="{{ asset('/assets/js/ajax-login.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/assets/js/app-login.js') }}"></script>
 @endunless
 @stop
