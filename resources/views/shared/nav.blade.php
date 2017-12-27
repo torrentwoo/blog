@@ -39,7 +39,7 @@
                             <li><a class="caution bg-danger" href="{{ route('logout') }}"><i class="glyphicon glyphicon-off" aria-hidden="true"></i>注销登录</a></li>
                         </ul>
                     </li>
-                    <li class="{{ $writeActive or 'void' }}"><a href="#write" title="写文章" target="_blank"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><i class="sr-only">写文章</i></a></li>
+                    <li class="{{ $writeActive or 'void' }}"><a href="{{ route('write') }}" title="开始写作"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><i class="sr-only">写文章</i></a></li>
 @else
                     <li class="{{ $loginActive or 'void' }}"><a href="{{ route('login') }}">登陆</a></li>
                     <li class="{{ $registerActive or 'void' }}"><a href="{{ route('register') }}">注册</a></li>

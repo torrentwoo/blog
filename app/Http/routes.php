@@ -129,6 +129,9 @@ Route::delete('/notification/rewards/{id}', 'NotificationController@destroyRewar
 Route::get('/notification/others', 'NotificationController@others')->name('notification.others');
 Route::delete('/notification/others/{id}', 'NotificationController@destroyOthers')->name('notification.deleteOthers');
 
+// Writing routes
+Route::get('/write', 'WritingController@write')->name('write');
+
 
 //--------------------------------------/
 //----    Administration routes     ----/
