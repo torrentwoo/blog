@@ -9,7 +9,7 @@
                             <input type="text" name="title" value="" id="writing-title" class="form-control input-lg" placeholder="文章标题" />
                         </div>
                         <div class="form-group">
-                            <label for="writing-content">正文内容<small class="offset-right text-muted">正在使用 {{ $editor }} 作为编辑工具</small></label>
+                            <label for="writing-content">正文内容<small class="offset-right text-muted">正在使用 {{ $editor or 'CKEditor' }} 作为编辑工具</small></label>
                             <textarea name="content" id="writing-content" class="form-control input-lg" rows="3" placeholder="正文内容"></textarea>
                             <ul class="help-block list-inline" id="writing-upload">
                                 <li>上传/插入</li>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-9">
                         <div class="form-group text-center">
-                            <input type="hidden" name="text-editor" value="{{ $editor or 'html' }}" />
+                            <input type="hidden" name="text-editor" value="{{ $editor or 'CKEditor' }}" />
                             <button type="button" id="writing-publish" class="btn btn-primary">保存并发表文章</button>
                         </div>
                     </div>
@@ -43,7 +43,32 @@
 
 @section('scripts')
     <script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/assets/ckeditor/adapters/jquery.js"></script>
     <script type="text/javascript">
-        CKEDITOR.replace('writing-content', { customConfig: 'config-writing.js' } );
+        var editor = CKEDITOR.replace('writing-content', {
+            customConfig: 'config-writing.js',
+            height: 300
+        });
+        // Override save function
+        CKEDITOR.plugins.registered['save'] = {
+            init : function(editor) {
+                var command = editor.addCommand('save', {
+                    modes: {
+                        wysiwyg: 1,
+                        source: 1
+                    },
+                    exec: function (editor) {
+                        // do something
+                        var data = editor.getData();
+                        alert(data);
+                    }
+                });
+                editor.ui.addButton('Save', {label: '保存草稿', command: 'save'});
+            }
+        }
+        $('#upload-image').on('click', function() {
+            var element = CKEDITOR.dom.element.createFromHtml('<p><img src="https://start.fedoraproject.org/static/images/fedora-logo.png" width="155" alt="title" /></p>');
+            editor.insertElement(element);
+        })
     </script>
 @stop
