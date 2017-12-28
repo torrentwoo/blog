@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -14,9 +15,15 @@ class WritingController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * 响应对 GET /write 的请求
+     * 显示撰写文章的页面
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function write()
     {
-        // Begin to write
-        return 'Begin to write';
+        $editor = Auth::user()->preference()->pluck('editor');
+        return view('writing.write', compact('editor'));
     }
 }

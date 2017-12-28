@@ -423,6 +423,53 @@ a.text-muted:hover, a.text-muted:active {
 }
 
 /*
+ Writing
+ */
+#writing-upload .ico {
+    cursor:pointer;
+}
+    #writing-upload .ico:hover {
+        color:#444;
+    }
+    #upload-hint .ellipsis {
+        display: inline-block;
+        width: 10px;
+        height: 2px;
+        padding-right: 2px;
+        border-left: 2px solid currentColor;
+        border-right: 2px solid currentColor;
+        background-color: currentColor;
+        background-clip: content-box;
+        box-sizing: border-box;
+        -webkit-animation: StepDot 3s step-start infinite both;
+        -o-animation: StepDot 3s step-start infinite both;
+        animation: StepDot 3s step-start infinite both;
+    }
+    #upload-hint .ellipsis:before {
+        content: '...';
+    }
+    #upload-hint .ellipsis::before {
+        content: '';
+    }
+    :root .ellipsis {
+        margin-left: 2px;
+        padding-left: 2px;
+    }
+    @keyframes StepDot {
+        25% {
+            border-color: transparent;
+            background-color: transparent;
+        }
+        50% {
+            border-right-color: transparent;
+            background-color: transparent;
+        }
+        75% {
+            border-right-color: transparent;
+        }
+    }
+
+/*
  User home
  */
 #user-meta {
