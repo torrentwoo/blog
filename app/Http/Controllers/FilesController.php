@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-//use Illuminate\Support\Facades\Storage;
 
 class FilesController extends Controller
 {
@@ -69,13 +68,19 @@ class FilesController extends Controller
             } else {
                 $filename = $basename;
             }
-            $response = [
-                'error' =>  false,
-                'file'  =>  'file/' . $filename,
-                'message'   =>  'Image upload succeed',
-            ];
 
             $image = Image::make($request->file('image'))->save("{$root}/{$filename}");
+            if ($image instanceof \Intervention\Image\Image) {
+                $response = [
+                    'error' =>  false,
+                    'image' =>  route('file.show', $filename),
+                ];
+            } else {
+                $response = [
+                    'error' =>  true,
+                    'message'   =>  'Image upload failed',
+                ];
+            }
         }
         return response()->json($response);
     }

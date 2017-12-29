@@ -17,7 +17,7 @@
                                 <li class="icon" id="video-trigger" title="插入视频"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><span class="sr-only">插入视频</span></li>
                                 <li class="icon" id="audio-trigger" title="插入音频"><span class="glyphicon glyphicon-music" aria-hidden="true"></span><span class="sr-only">插入音频</span></li>
                                 <li class="icon" id="other-trigger" title="上传或插入其他文件"><span class="glyphicon glyphicon-open" aria-hidden="true"></span><span class="sr-only">上传或插入其他文件</span></li>
-                                <li class="hidden-x" id="upload-hint">上传中<span class="ellipsis"></span></li>
+                                <li class="hidden" id="upload-hint">上传中<span class="ellipsis"></span></li>
                             </ul>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                             <h4 class="modal-title" id="uploadImageModalLabel">插入图像</h4>
                         </div>
                         <div class="modal-body">
-                            <p id="uploadImageModalMessage" class="alert alert-danger hidden"></p>
+                            <p id="uploadImageModalPrompt" class="alert alert-danger hidden"></p>
                             <div class="form-group" id="image-source">
                                 <label>选择图像</label>
                                 <input type="file" name="image" accept="image/gif,image/jpeg,image/png" id="image-upload" />
@@ -75,7 +75,8 @@
 @section('scripts')
     <script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="/assets/ckeditor/adapters/jquery.js"></script>
-    <script type="text/javascript" src="/assets/js/app-ckeditor.js"></script>
+    <script type="text/javascript" src="/assets/js/FormData-emulator.js"></script>
+    <script type="text/javascript" src="/assets/js/app-ckeditorAssist.js"></script>
 {{--
     <script type="text/javascript">
         var editor = CKEDITOR.replace('writing-content', {

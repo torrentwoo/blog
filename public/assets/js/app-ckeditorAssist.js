@@ -25,9 +25,10 @@
         }
         // Upload and insert image
     };$('#image-source').on('click', '#image-toggle', function () {
+        // toggle between upload and external image
         var button = $(this),
-            type = button.attr('aria-type');
-        var upload = $('#image-upload'),
+            type = button.attr('aria-type'),
+            upload = $('#image-upload'),
             external = $('#image-external');
         if (type === 'upload') {
             upload.hide();
@@ -40,82 +41,92 @@
             button.attr('aria-type', 'upload');
             button.text('或选择网络图片');
         }
+        $('#uploadImageModalPrompt').addClass('hidden').text('');
     });
     $('#insert-image').bind('click', function () {
-        var dialog = $($(this).data('target'));
-        var message = $('#uploadImageModalMessage'),
-            toggle = $('#image-toggle').attr('aria-type');
-        var upload = $('#image-upload'),
-            external = $('input[name="image-external"]');
-        var alternate = $('input[name="alternate"]');
-        //console.log(toggle);
+        var dialog = $($(this).data('target')),
+            prompt = $('#uploadImageModalPrompt'),
+            toggle = $('#image-toggle').attr('aria-type'),
+            upload = $('#image-upload'),
+            external = $('input[name="image-external"]'),
+            alternate = $('input[name="alternate"]');
         if (toggle === 'external') {
+            // using external image
             var regexImgUrl = new RegExp('^(?:ht|f)tps?:\/\/[^$]+\.gif|jpe?g|png$');
             if (regexImgUrl.test(external.val()) !== true) {
-                message.removeClass('hidden').text('网络图片 不是有效的图像');
+                prompt.removeClass('hidden').text('网络图片 不是有效的图像');
                 return false;
             } else {
                 insertImage(external.val(), alternate.val());
+                resetUpload(dialog, prompt, true);
             }
         }
         if (toggle === 'upload') {
+            // upload local image via ajax
             var regexUploadImg = new RegExp('\.(?:jpe?g|png|gif)$', 'i');
             if (regexUploadImg.test(upload.val()) !== true) {
-                message.removeClass('hidden').text('本地图片 不是有效的图像');
+                prompt.removeClass('hidden').text('本地图片 不是有效的图像');
                 return false;
             } else {
-                // do image upload
+                // upload image
                 // https://api.jquery.com/jQuery.ajax/
                 // https://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
                 // https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
                 // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest#Submitting_forms_and_uploading_files
                 var data = new FormData();
-                jQuery.each(jQuery('#image-upload')[0].files, function (i, file) {
-                    data.append('image', file);
-                });
-                var opts = {
+                data.append('image', upload[0].files[0]); // the data being send
+                var opts = { // ajax settings
                     url: '/file/upload/image',
                     data: data,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    type: 'POST',
+                    cache: false, // force not to cache anythings from browser
+                    contentType: false, // do not set any content type header
+                    processData: false, // do not process data
+                    type: 'POST', // jQuery prior to 1.9.0
                     method: 'POST',
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    error: function error(xhr, status, thrown) {
+                        //console.log(xhr);
+                        if (xhr.status === 422 || status === 'error') {
+                            prompt.removeClass('hidden').text(xhr.responseJSON.image.join("\r\n"));
+                        }
+                    },
                     success: function success(response) {
                         if (response.error !== true) {
-                            insertImage(response.file, alternate.val());
+                            insertImage(response.image, alternate.val());
+                            resetUpload(dialog, prompt, true);
                         } else {
-                            message.removeClass('hidden').text(response.message);
-                            return false;
+                            prompt.removeClass('hidden').text(response.message);
                         }
                     }
                 };
-                console.log(data.fake);
                 if (data.fake) {
                     // Make sure no text encoding stuff is done by xhr
                     opts.xhr = function () {
-                        var xhr = jQuery.ajaxSettings.xhr();
+                        var xhr = $.ajaxSettings.xhr();
                         xhr.send = xhr.sendAsBinary;
                         return xhr;
                     };
                     opts.contentType = "multipart/form-data; boundary=" + data.boundary;
                     opts.data = data.toString();
                 }
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                jQuery.ajax(opts);
+                $.ajax(opts); // upload via ajax
             }
         }
-        dialog.modal('hide'); // hide the opened modal dialog
-        message.addClass('hidden').text(''); // restore prompt to default status
+    });
+    var resetUpload = function resetUpload(dialog, prompt, boolean) {
+        var boolean = boolean || false;
+        prompt.addClass('hidden').text(''); // restore prompt to default status
         $('input', dialog).each(function (i) {
             // empty input fields
             $(this).val('');
         });
-    });
+        if (boolean) {
+            dialog.modal('hide'); // hide the opened modal dialog
+        }
+    };
     var insertImage = function insertImage(src, alt) {
         var image = new Image(),
             width;
