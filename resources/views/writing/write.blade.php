@@ -13,10 +13,10 @@
                             <textarea name="content" id="writing-content" class="form-control input-lg" rows="3" placeholder="正文内容"></textarea>
                             <ul class="help-block list-inline" id="writing-upload">
                                 <li>上传/插入</li>
-                                <li class="ico" id="upload-image" title="插入图像"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span><span class="sr-only">插入图像</span></li>
-                                <li class="ico" id="upload-video" title="插入视频"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><span class="sr-only">插入视频</span></li>
-                                <li class="ico" id="upload-audio" title="插入音频"><span class="glyphicon glyphicon-music" aria-hidden="true"></span><span class="sr-only">插入音频</span></li>
-                                <li class="ico" id="upload-other" title="上传或插入其他文件"><span class="glyphicon glyphicon-open" aria-hidden="true"></span><span class="sr-only">上传或插入其他文件</span></li>
+                                <li class="icon" id="image-trigger" title="插入图像" data-toggle="modal" data-target="#uploadImageModal"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span><span class="sr-only">插入图像</span></li>
+                                <li class="icon" id="video-trigger" title="插入视频"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><span class="sr-only">插入视频</span></li>
+                                <li class="icon" id="audio-trigger" title="插入音频"><span class="glyphicon glyphicon-music" aria-hidden="true"></span><span class="sr-only">插入音频</span></li>
+                                <li class="icon" id="other-trigger" title="上传或插入其他文件"><span class="glyphicon glyphicon-open" aria-hidden="true"></span><span class="sr-only">上传或插入其他文件</span></li>
                                 <li class="hidden-x" id="upload-hint">上传中<span class="ellipsis"></span></li>
                             </ul>
                         </div>
@@ -39,12 +39,39 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="uploadImageModal" tabindex="-1" role="dialog" aria-labelledby="uploadImageModalLabel"><!-- image -->
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="uploadImageModalLabel">插入图像</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>选择图像</label>
+                                <input type="file" />
+                            </div>
+                            <div class="form-group">
+                                <label for="image-alt">替代文本</label>
+                                <input type="text" name="image-alt" id="image-alt" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="insert-image" data-target="#uploadImageModal">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 @stop
 
 @section('scripts')
     <script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="/assets/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript" src="/assets/js/app-ckeditor.js"></script>
     <script type="text/javascript">
+        /*
         var editor = CKEDITOR.replace('writing-content', {
             customConfig: 'config-writing.js',
             height: 300
@@ -65,10 +92,11 @@
                 });
                 editor.ui.addButton('Save', {label: '保存草稿', command: 'save'});
             }
-        }
+        }*/
+        /*
         $('#upload-image').on('click', function() {
             var element = CKEDITOR.dom.element.createFromHtml('<p><img src="https://start.fedoraproject.org/static/images/fedora-logo.png" width="155" alt="title" /></p>');
             editor.insertElement(element);
-        })
+        })*/
     </script>
 @stop

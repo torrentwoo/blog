@@ -31,7 +31,8 @@ elixir(function(mix) {
         .browserify('app-login.js', 'public/assets/js')
         .browserify('app-chat.js', 'public/assets/js')
         .browserify('app-notification.js', 'public/assets/js')
-        .browserify('app-chatNotification.js', 'public/assets/js');
+        .browserify('app-chatNotification.js', 'public/assets/js')
+        .browserify('app-ckeditor.js', 'public/assets/js');
 
     // Version controller - file(s) are relative to /public directory
     mix.version([

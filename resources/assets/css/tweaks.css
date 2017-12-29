@@ -425,10 +425,10 @@ a.text-muted:hover, a.text-muted:active {
 /*
  Writing
  */
-#writing-upload .ico {
+#writing-upload .icon {
     cursor:pointer;
 }
-    #writing-upload .ico:hover {
+    #writing-upload .icon:hover {
         color:#444;
     }
     #upload-hint .ellipsis {
