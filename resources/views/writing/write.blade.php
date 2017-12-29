@@ -48,13 +48,19 @@
                             <h4 class="modal-title" id="uploadImageModalLabel">插入图像</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
+                            <p id="uploadImageModalMessage" class="alert alert-danger hidden"></p>
+                            <div class="form-group" id="image-source">
                                 <label>选择图像</label>
-                                <input type="file" />
+                                <input type="file" name="image" accept="image/gif,image/jpeg,image/png" id="image-upload" />
+                                <div class="input-group hidden" id="image-external">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span></span>
+                                    <input type="text" name="image-external" class="form-control" placeholder="请输入网络图片的链接地址" />
+                                </div>
+                                <p class="help-block"><b>图像</b>：请选择一个图像，<b>仅允许</b>：GIF, JPEG, PNG 格式；<a class="offset-right" id="image-toggle" href="javascript:void(0);" data-target="#image-source" aria-type="upload">或选择网络图片</a></p>
                             </div>
                             <div class="form-group">
                                 <label for="image-alt">替代文本</label>
-                                <input type="text" name="image-alt" id="image-alt" class="form-control" />
+                                <input type="text" name="alternate" class="form-control" />
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -70,8 +76,8 @@
     <script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="/assets/ckeditor/adapters/jquery.js"></script>
     <script type="text/javascript" src="/assets/js/app-ckeditor.js"></script>
+{{--
     <script type="text/javascript">
-        /*
         var editor = CKEDITOR.replace('writing-content', {
             customConfig: 'config-writing.js',
             height: 300
@@ -92,11 +98,11 @@
                 });
                 editor.ui.addButton('Save', {label: '保存草稿', command: 'save'});
             }
-        }*/
-        /*
+        }
         $('#upload-image').on('click', function() {
             var element = CKEDITOR.dom.element.createFromHtml('<p><img src="https://start.fedoraproject.org/static/images/fedora-logo.png" width="155" alt="title" /></p>');
             editor.insertElement(element);
-        })*/
+        });
     </script>
+--}}
 @stop
