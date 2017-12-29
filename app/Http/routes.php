@@ -101,6 +101,7 @@ Route::get('/subscriptions/user/{id}', 'SubscriptionsController@followingUser')-
 // Files routes
 Route::get('/file/{filename}', 'FilesController@show')->where('filename', '[^\n\r\s]+')->name('file.show');
 Route::get('/file/download/{filename}', 'FilesController@download')->where('filename', '[^\s]+')->name('file.download');
+Route::post('/file/upload/{type}', 'FilesController@upload')->name('file.upload');
 
 // Notification and messages routes
 Route::get('/notification', 'NotificationController@index')->name('notification.index');

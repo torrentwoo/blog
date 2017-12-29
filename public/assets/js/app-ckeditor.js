@@ -65,18 +65,48 @@
                 return false;
             } else {
                 // do image upload
-                $.post('/file/upload/image', {
-                    "_method": 'POST',
-                    "_token": $('meta[name="csrf-token"]').attr('content'),
-                    "image": upload.val()
-                }, function (response) {
-                    if (response.error !== true) {
-                        insertImage(response.file, alternate.val());
-                    } else {
-                        message.removeClass('hidden').text(response.message);
-                        return false;
+                // https://api.jquery.com/jQuery.ajax/
+                // https://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
+                // https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
+                // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest#Submitting_forms_and_uploading_files
+                var data = new FormData();
+                jQuery.each(jQuery('#image-upload')[0].files, function (i, file) {
+                    data.append('image', file);
+                });
+                var opts = {
+                    url: '/file/upload/image',
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    type: 'POST',
+                    method: 'POST',
+                    success: function success(response) {
+                        if (response.error !== true) {
+                            insertImage(response.file, alternate.val());
+                        } else {
+                            message.removeClass('hidden').text(response.message);
+                            return false;
+                        }
                     }
-                }, 'json');
+                };
+                console.log(data.fake);
+                if (data.fake) {
+                    // Make sure no text encoding stuff is done by xhr
+                    opts.xhr = function () {
+                        var xhr = jQuery.ajaxSettings.xhr();
+                        xhr.send = xhr.sendAsBinary;
+                        return xhr;
+                    };
+                    opts.contentType = "multipart/form-data; boundary=" + data.boundary;
+                    opts.data = data.toString();
+                }
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                jQuery.ajax(opts);
             }
         }
         dialog.modal('hide'); // hide the opened modal dialog
