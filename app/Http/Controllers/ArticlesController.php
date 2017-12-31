@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\ArticleBrowseEvent;
 use App\Models\Article;
+use Auth;
 use Event;
 
 use Illuminate\Http\Request;
@@ -13,6 +14,19 @@ use App\Http\Controllers\Controller;
 
 class ArticlesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'only'  =>  [
+                'create',
+                'store',
+                'edit',
+                'update',
+                'destroy',
+            ],
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,11 +40,13 @@ class ArticlesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        $editor = Auth::user()->preference()->pluck('editor');
+
+        return view('articles.create', compact('editor'))->with('writeActive', 'active');
     }
 
     /**

@@ -61,7 +61,8 @@ Route::get('/columns', 'ColumnsController@index')->name('column.index');
 Route::get('/columns/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->name('column.show');
 
 // Articles routes
-Route::get('/articles/{id}', 'ArticlesController@show')->where('id', '[a-z\d]+')->name('article.show');
+Route::get('/write', 'ArticlesController@create')->name('write');
+Route::get('/articles/{id}', 'ArticlesController@show')->name('article.show');
 
 // Favorites routes
 Route::post('/articles/{id}/favorite', 'FavoritesController@addFavoriteArticle')->name('favorite.article');
@@ -129,9 +130,6 @@ Route::get('/notification/rewards/{id}', 'NotificationController@showReward')->n
 Route::delete('/notification/rewards/{id}', 'NotificationController@destroyReward')->name('notification.deleteReward');
 Route::get('/notification/others', 'NotificationController@others')->name('notification.others');
 Route::delete('/notification/others/{id}', 'NotificationController@destroyOthers')->name('notification.deleteOthers');
-
-// Writing routes
-Route::get('/write', 'WritingController@write')->name('write');
 
 
 //--------------------------------------/
