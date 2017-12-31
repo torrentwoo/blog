@@ -7,7 +7,7 @@
         customConfig: 'config-writing.js',
         height: 300
     });
-    // Override the button save function
+    // Override the function of save button
     CKEDITOR.plugins.registered['save'] = {
         init: function init(editor) {
             var command = editor.addCommand('save', {
@@ -17,14 +17,15 @@
                 },
                 exec: function exec(editor) {
                     // do something
-                    var data = editor.getData();
-                    alert("@FIXME, data:\n" + data);
+                    var rawData = editor.getData(); // raw format data (HTML)
+                    alert("@FIXME, data:\n" + rawData);
                 }
             });
             editor.ui.addButton('Save', { label: '保存草稿', command: 'save' });
         }
-        // Upload and insert image
-    };$('#image-source').on('click', '#image-toggle', function () {
+    };
+    // Upload and insert image
+    $('#image-source').on('click', '#image-toggle', function () {
         // toggle between upload and external image
         var button = $(this),
             type = button.attr('aria-type'),
@@ -71,8 +72,8 @@
                 // upload image
                 // https://api.jquery.com/jQuery.ajax/
                 // https://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
-                // https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
-                // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest#Submitting_forms_and_uploading_files
+                // https://developer.mozilla.org/docs/Web/API/FormData/Using_FormData_Objects
+                // https://developer.mozilla.org/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest#Submitting_forms_and_uploading_files
                 var data = new FormData();
                 data.append('image', upload[0].files[0]); // the data being send
                 var opts = { // ajax settings
@@ -117,13 +118,13 @@
         }
     });
     var resetUpload = function resetUpload(dialog, prompt, boolean) {
-        var boolean = boolean || false;
+        var state = boolean || false;
         prompt.addClass('hidden').text(''); // restore prompt to default status
-        $('input', dialog).each(function (i) {
+        $('input', dialog).each(function () {
             // empty input fields
             $(this).val('');
         });
-        if (boolean) {
+        if (state) {
             dialog.modal('hide'); // hide the opened modal dialog
         }
     };
@@ -142,7 +143,8 @@
     // Upload and insert video
     // Upload and insert audio
     // Upload and insert other multi-media file
-    // Auto-save writing draft
+    // Save content to the draft
+    // Restore content from the writing draft
 })();
 
 },{}]},{},[1]);

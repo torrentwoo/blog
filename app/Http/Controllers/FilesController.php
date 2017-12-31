@@ -16,7 +16,10 @@ class FilesController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'only'  =>  ['upload'],
+            'only'  =>  [
+                'upload',
+                'uploadImage',
+            ],
         ]);
     }
 
@@ -55,7 +58,7 @@ class FilesController extends Controller
         $this->validate($request, [
             'image' =>  'image|max:1024', // unit: kb
         ], [
-            'image.image'   =>  '本地图片 必须是有效的图片1',
+            'image.image'   =>  '本地图片 必须是有效的图片',
             'image.max'     =>  '本地图片 不能大于 1M',
         ]);
         if ($request->hasFile('image') && config('filesystems.default') === 'local') {

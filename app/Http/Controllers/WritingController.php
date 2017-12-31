@@ -24,6 +24,6 @@ class WritingController extends Controller
     public function write()
     {
         $editor = Auth::user()->preference()->pluck('editor');
-        return view('writing.write', compact('editor'));
+        return view('writing.write', compact('editor'))->with('writeActive', 'active');
     }
 }
