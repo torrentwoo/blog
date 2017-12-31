@@ -21,20 +21,39 @@ class CommentsController extends Controller
      */
     public function __construct()
     {
-        // 应用 Authenticate 中间件，并应用到控制器的所有方法中，除了 show
+        // 应用 Authenticate 中间件，并应用到控制器的所有方法中，除了 index, show
         $this->middleware('auth', [
-            'except'  =>  ['show'],
+            'except'  =>  [
+                'index',
+                'show',
+            ],
         ]);
     }
 
     /**
-     * Display a listing of the resource.
+     * 显示某一篇的所有评论
      *
-     * @return \Illuminate\Http\Response
+     * @param int $articleId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index($articleId)
     {
-        //
+        // Retrieve article and its column data
+        $article = Article::with('column')->released()->findOrFail($articleId);
+        // Retrieve comments those comment on this article
+        $comments = $article->comments()->with('commentator')->latest('created_at')->get();
+        // Retrieve the top 8 most commented articles that got same column with specified article
+        $popular  = Article::with('comments')->released()->get()->filter(function($e) use ($article) {
+            return $e->column_id === $article->column_id;
+        })->sortByDesc(function($item) {
+            return $item->comments->count();
+        })->values()->take(8);
+
+        return view('comments.index', [
+            'article'   =>  $article,
+            'comments'  =>  $comments,
+            'popular'   =>  $popular,
+        ]);
     }
 
     /**
@@ -48,27 +67,16 @@ class CommentsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * 处理用户对文章的评论
      *
      * @param Request $request
-     * @param $id
+     * @param int $articleId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function comment(Request $request, $id)
+    public function store(Request $request, $articleId)
     {
         // 定位被评论的文章
-        $article = Article::released()->findOrFail($id);
+        $article = Article::released()->findOrFail($articleId);
         // 验证用户端的输入
         $this->validate($request, [
             'comment'   =>  'required|min:15',
@@ -97,13 +105,16 @@ class CommentsController extends Controller
      * 处理用户对评论的回复
      *
      * @param Request $request
-     * @param $id
+     * @param int $articleId
+     * @param int $commentId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function reply(Request $request, $id)
+    public function reply(Request $request, $articleId, $commentId)
     {
+        // 定位评论所在的文章
+        $article = Article::findOrFail($articleId);
         // 定位被回复的评论
-        $comment = Comment::findOrFail($id);
+        $comment = Comment::findOrFail($commentId);
         // 验证用户端的输入
         $this->validate($request, [
             'reply' =>  'required|min:15',
@@ -120,38 +131,20 @@ class CommentsController extends Controller
         // 为评论保存回复数据
         $comment->replies()->save($reply);
 
-        if ($request->has('articleId')) {
-            $url = route('article.comments', $request->articleId) . '#mark-' . $comment->id;
-            return redirect($url);
-        } else {
-            return redirect()->back();
-        }
+        $url = route('articles.comments.index', $article->id) . '#mark-' . $comment->id;
+
+        return redirect($url);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id the value of article identifier
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        // Retrieve article and its column data
-        $article = Article::with('column')->released()->findOrFail($id);
-        // Retrieve comments those comment on this article
-        $comments = $article->comments()->with('commentator')->latest('created_at')->get();
-        // Retrieve the top 8 most commented articles that got same column with specified article
-        $popular  = Article::with('comments')->released()->get()->filter(function($e) use ($article) {
-            return $e->column_id === $article->column_id;
-        })->sortByDesc(function($item) {
-            return $item->comments->count();
-        })->values()->take(8);
-
-        return view('comments.show', [
-            'article'   =>  $article,
-            'comments'  =>  $comments,
-            'popular'   =>  $popular,
-        ]);
+        //
     }
 
     /**

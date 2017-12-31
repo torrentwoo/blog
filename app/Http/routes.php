@@ -64,6 +64,11 @@ Route::get('/columns/{id}', 'ColumnsController@show')->name('columns.show');
 Route::get('/write', 'ArticlesController@create')->name('write');
 Route::get('/articles/{id}', 'ArticlesController@show')->name('articles.show');
 
+// Comments routes
+Route::get( '/articles/{article}/comments', 'CommentsController@index')->name('articles.comments.index');
+Route::post('/articles/{article}/comments', 'CommentsController@store')->name('articles.comments.store');
+Route::post('/articles/{article}/comments/{comment}', 'CommentsController@reply')->name('articles.comments.reply');
+
 // Favorites routes
 Route::post('/articles/{id}/favorite', 'FavoritesController@addFavoriteArticle')->name('favorite.article');
 Route::delete('/articles/{id}/favorite', 'FavoritesController@revokeFavoriteArticle')->name('favorite.article');
@@ -77,11 +82,6 @@ Route::delete('/user/{id}/follow', 'FollowController@revokeFollowUser')->name('f
 // Likes routes
 Route::post('/articles/{id}/like', 'LikesController@addLikeArticle')->name('like.article');
 Route::delete('/articles/{id}/like', 'LikesController@revokeLikeArticle')->name('like.article');
-
-// Comments related routes
-Route::get('/articles/{id}/comments', 'CommentsController@show')->name('article.comments');
-Route::post('/articles/{id}/comments', 'CommentsController@comment')->name('article.comment');
-Route::post('/articles/comments/{id}', 'CommentsController@reply')->name('comment.reply');
 
 // Votes routes
 Route::post('/comments/{id}/favour', 'VotesController@favour')->name('vote.up');

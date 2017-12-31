@@ -32,7 +32,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="text-muted" href="{{ route('article.comments', $notification->notifiable->votable->commentable->id) }}">
+                                        <a class="text-muted" href="{{ route('articles.comments.index', $notification->notifiable->votable->commentable->id) }}">
                                             <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                             <span class="sr-only">评论：</span>
                                             {{ $notification->notifiable->votable->commentable->comments->count() }}
@@ -48,7 +48,7 @@
                                 <p class="small">
                                     <a href="{{ route('user.show', $notification->notifiable->votable->commentator->id) }}">{{ $notification->notifiable->votable->commentator->name }}</a>
                                     <span class="offset-left offset-right">评论自</span>
-                                    <a href="{{ route('article.comments', $notification->notifiable->votable->topmostComment()->commentable_id) }}#mark-{{ $notification->notifiable->votable->topmostComment()->id }}">{{ $notification->notifiable->votable->topmostComment()->commentable->title }}</a>
+                                    <a href="{{ route('articles.comments.index', $notification->notifiable->votable->topmostComment()->commentable_id) }}#mark-{{ $notification->notifiable->votable->topmostComment()->id }}">{{ $notification->notifiable->votable->topmostComment()->commentable->title }}</a>
                                 </p>
 @endif
                             </blockquote>

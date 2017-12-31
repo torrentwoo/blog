@@ -163,7 +163,7 @@
 @endforeach
                         </ul>
                         <p class="text-right">
-                            <a class="btn btn-info" href="{{ route('article.comments', $article->id) }}" role="button">查看更多评论</a>
+                            <a class="btn btn-info" href="{{ route('articles.comments.index', $article->id) }}" role="button">查看更多评论</a>
                         </p>
                     </div>
 @endif

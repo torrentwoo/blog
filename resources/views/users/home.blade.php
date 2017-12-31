@@ -46,7 +46,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="text-muted" href="{{ route('article.comments', $activity->activable->id) }}">
+                                                    <a class="text-muted" href="{{ route('articles.comments.index', $activity->activable->id) }}">
                                                         <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                                         <span class="sr-only">评论：</span>
                                                         {{ $activity->activable->comments->count() }}
@@ -95,7 +95,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="text-muted" href="{{ route('article.comments', $activity->activable->likable->id) }}">
+                                                    <a class="text-muted" href="{{ route('articles.comments.index', $activity->activable->likable->id) }}">
                                                         <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                                         <span class="sr-only">评论：</span>
                                                         {{ $activity->activable->likable->comments->count() }}
@@ -144,7 +144,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="text-muted" href="{{ route('article.comments', $activity->activable->favorable->id) }}">
+                                                    <a class="text-muted" href="{{ route('articles.comments.index', $activity->activable->favorable->id) }}">
                                                         <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                                         <span class="sr-only">评论：</span>
                                                         {{ $activity->activable->favorable->comments->count() }}
@@ -181,9 +181,9 @@
                                             <a href="{{ route('user.show', $activity->activable->votable->commentator->id) }}">{{ $activity->activable->votable->commentator->name }}</a>
                                             <span class="offset-left offset-right">评论自</span>
 @if ($activity->activable->votable->commentable_type === App\Models\Comment::class)
-                                            <a href="{{ route('article.comments', $activity->activable->votable->topmostComment()->commentable_id) }}#mark-{{ $activity->activable->votable->topmostComment()->id }}">{{ $activity->activable->votable->topmostComment()->commentable->title }}</a>
+                                            <a href="{{ route('articles.comments.index', $activity->activable->votable->topmostComment()->commentable_id) }}#mark-{{ $activity->activable->votable->topmostComment()->id }}">{{ $activity->activable->votable->topmostComment()->commentable->title }}</a>
 @else
-                                            <a href="{{ route('article.comments', $activity->activable->votable->commentable->id) }}#mark-{{ $activity->activable->votable->id }}">{{ $activity->activable->votable->commentable->title }}</a>
+                                            <a href="{{ route('articles.comments.index', $activity->activable->votable->commentable->id) }}#mark-{{ $activity->activable->votable->id }}">{{ $activity->activable->votable->commentable->title }}</a>
 @endif
                                         </p>
                                     </blockquote>
@@ -215,7 +215,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="text-muted" href="{{ route('article.comments', $activity->activable->commentable->id) }}">
+                                                <a class="text-muted" href="{{ route('articles.comments.index', $activity->activable->commentable->id) }}">
                                                     <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                                     <span class="sr-only">评论：</span>
                                                     {{ $activity->activable->commentable->comments->count() }}
@@ -242,7 +242,7 @@
                                         <p class="small">
                                             <a href="{{ route('user.show', $activity->activable->commentable->commentator->id) }}">{{ $activity->activable->commentable->commentator->name }}</a>
                                             <span class="offset-left offset-right">评论自</span>
-                                            <a href="{{ route('article.comments', $activity->activable->topmostComment()->commentable_id) }}#mark-{{ $activity->activable->topmostComment()->id }}">{{ $activity->activable->topmostComment()->commentable->title }}</a>
+                                            <a href="{{ route('articles.comments.index', $activity->activable->topmostComment()->commentable_id) }}#mark-{{ $activity->activable->topmostComment()->id }}">{{ $activity->activable->topmostComment()->commentable->title }}</a>
                                         </p>
                                     </blockquote>
                                 </div>
@@ -335,7 +335,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="text-muted" href="{{ route('article.comments', $article->id) }}">
+                                                <a class="text-muted" href="{{ route('articles.comments.index', $article->id) }}">
                                                     <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                                     <span class="sr-only">评论：</span>
                                                     {{ $article->comments->count() }}
@@ -383,7 +383,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="text-muted" href="{{ route('article.comments', $article->id) }}">
+                                                <a class="text-muted" href="{{ route('articles.comments.index', $article->id) }}">
                                                     <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                                     <span class="sr-only">评论：</span>
                                                     {{ $article->comments->count() }}

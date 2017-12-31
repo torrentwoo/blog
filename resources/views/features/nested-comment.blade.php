@@ -30,9 +30,8 @@
                                                     <span class="sr-only">错误：</span>
                                                     <span class="alert-response"></span>
                                                 </div>
-                                                <form method="POST" action="{{ route('comment.reply', $reply->id) }}">
+                                                <form method="POST" action="{{ route('articles.comments.reply', [$article->id, $reply->id]) }}">
                                                     {{ csrf_field() }}
-                                                    <input type="hidden" name="articleId" value="{{ $article->id }}" />
                                                     <div class="form-group">
                                                         <textarea name="reply" class="form-control" rows="3" placeholder="请在此写下您的回复" aria-required="true"></textarea>
                                                     </div>

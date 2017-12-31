@@ -50,7 +50,7 @@
                                             </li>
                                         </ul>
 @elseif ($comment->commentable_type === \App\Models\Comment::class)
-                                        <p><a href="{{ route('article.comments', $comment->commentable->commentable_id) }}#mark-{{ $comment->commentable->id }}">{{ str_limit($comment->commentable->content, 320) }}</a></p>
+                                        <p><a href="{{ route('articles.comments.index', $comment->commentable->commentable_id) }}#mark-{{ $comment->commentable->id }}">{{ str_limit($comment->commentable->content, 320) }}</a></p>
                                         <ul class="list-inline text-muted">
                                             <li><a href="{{ route('user.show', $comment->commentable->commentator->id) }}">{{ $comment->commentable->commentator->name }}</a></li>
                                             <li>
@@ -116,7 +116,7 @@
                                             </li>
                                         </ul>
 @elseif ($comment->first()->commentable_type === \App\Models\Comment::class)
-                                        <p><a href="{{ route('article.comments', $comment->first()->commentable->commentable_id) }}#mark-{{ $comment->first()->commentable->id }}">{{ str_limit($comment->first()->commentable->content, 320) }}</a></p>
+                                        <p><a href="{{ route('articles.comments.index', $comment->first()->commentable->commentable_id) }}#mark-{{ $comment->first()->commentable->id }}">{{ str_limit($comment->first()->commentable->content, 320) }}</a></p>
                                         <ul class="list-inline text-muted">
                                             <li><a href="{{ route('user.show', $comment->first()->commentable->commentator->id) }}">{{ $comment->first()->commentable->commentator->name }}</a></li>
                                             <li>
