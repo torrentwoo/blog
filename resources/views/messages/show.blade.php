@@ -5,7 +5,7 @@
                     <div class="col-xs-12 col-md-12">
                         <div class="page-header">
                             <h1>站内信<small class="offset-right">与 {{ $import->name }} 的会话</small>
-                                <a class="offset-right header-back" href="{{ route('message.index') }}">
+                                <a class="offset-right header-back" href="{{ route('messages.index') }}">
                                     <i class="glyphicon glyphicon-menu-left" aria-hidden="true"></i>返回
                                 </a>
                             </h1>
@@ -33,7 +33,7 @@
                         </div>
 @can ('message', $import)
                         <div class="dialog-form">
-                            <form id="chat-message" method="POST" action="{{ route('message.send', $import->id) }}">
+                            <form id="chat-message" method="POST" action="{{ route('messages.send', $import->id) }}">
                                 <div class="alert alert-danger" role="alert">
                                     <i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i>
                                     <span class="sr-only">错误：</span>
@@ -64,7 +64,7 @@
 @section('sidebar')
                 <div class="panel panel-default">
                     <div class="list-group">
-                        <a href="{{ route('message.index') }}" class="list-group-item active">站内信</a>
+                        <a href="{{ route('messages.index') }}" class="list-group-item active">站内信</a>
                         <a href="{{ route('notification.comment') }}" class="list-group-item">评论</a>
                         <a href="{{ route('notification.request') }}" class="list-group-item">投稿邀约</a>
                         <a href="{{ route('notification.vote') }}" class="list-group-item">点赞</a>

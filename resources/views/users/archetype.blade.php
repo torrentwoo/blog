@@ -5,7 +5,7 @@
                     <div class="col-xs-12">
                         <div class="media" id="user-meta">
                             <div class="media-left" id="user-avatar">
-                                <a href="{{ route('user.show', $user->id) }}">
+                                <a href="{{ route('users.show', $user->id) }}">
                                     <img class="media-object img-circle avatar-lg" src="{{ $user->gravatar(96) }}" alt="{{ $user->name }}" />
                                 </a>
                             </div>
@@ -33,7 +33,7 @@
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $user->id))
                             <div class="media-right nowrap-landscape" id="user-buttons">
 @can ('message', $user)
-                                <a href="{{ route('message.show', $user->id) }}" class="btn btn-info btn-xs" role="button">
+                                <a href="{{ route('messages.show', $user->id) }}" class="btn btn-info btn-xs" role="button">
                                     <i class="glyphicon glyphicon-send" aria-hidden="true"></i>站内信
                                 </a>
 @endcan
@@ -91,7 +91,7 @@
                                             <h4 class="modal-title" id="weixinModalLabel">{{ $user->name }} 的微信二维码</h4>
                                         </div>
                                         <div class="modal-body text-center">
-                                            <img src="{{ route('file.show', $user->socials->weixin) }}" class="img-rounded avatar-xl" />
+                                            <img src="{{ route('files.show', $user->socials->weixin) }}" class="img-rounded avatar-xl" />
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -115,8 +115,8 @@
                 </dl>
                 <hr />
                 <dl class="user-sidebar" id="user-subscriptions">
-                    <dd><a href="{{ route('subscription.index') }}"><i class="glyphicon glyphicon-headphones" aria-hidden="true"></i>我关注的栏目</a></dd>
-                    <dd><a href="{{ route('user.favorites', $user->id) }}"><i class="glyphicon glyphicon-heart" aria-hidden="true"></i>我喜欢的文章</a></dd>
+                    <dd><a href="{{ route('subscriptions.index') }}"><i class="glyphicon glyphicon-headphones" aria-hidden="true"></i>我关注的栏目</a></dd>
+                    <dd><a href="{{ route('users.favorites', $user->id) }}"><i class="glyphicon glyphicon-heart" aria-hidden="true"></i>我喜欢的文章</a></dd>
                 </dl>
                 <hr />
                 <dl class="user-sidebar" id="user-extensions">

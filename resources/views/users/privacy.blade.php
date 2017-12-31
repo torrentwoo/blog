@@ -8,7 +8,7 @@
                         </div>
                         @include('features.builtIn-alert')
 
-                        <form class="form-horizontal" method="POST" action="{{ route('user.updatePrivacy', $user->id) }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('users.updatePrivacy', $user->id) }}">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
                             <div class="form-group">

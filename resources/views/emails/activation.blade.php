@@ -57,7 +57,7 @@
                 </tr>
                 <tr>
                     <td class="msg-feature">
-                        <a class="msg-button" href="{{ route('user.activate', $user->activation_token) }}" target="_blank">激活我的账户</a>
+                        <a class="msg-button" href="{{ route('users.activate', $user->activation_token) }}" target="_blank">激活我的账户</a>
                     </td>
                 </tr>
                 <tr>
@@ -67,7 +67,7 @@
                 </tr>
                 <tr>
                     <td class="msg-feature">
-                        <a href="{{ route('user.activate', $user->activation_token) }}" target="_blank">{{ route('user.activate', $user->activation_token) }}</a>
+                        <a href="{{ route('users.activate', $user->activation_token) }}" target="_blank">{{ route('users.activate', $user->activation_token) }}</a>
                     </td>
                 </tr>
             </tbody>

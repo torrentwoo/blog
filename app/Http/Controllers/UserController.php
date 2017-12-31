@@ -36,7 +36,7 @@ class UserController extends Controller
                 'articles', // 用户的文章
                 'favorites', // 用户的收藏
                 'comments', // 用户的评论
-                //'balance', // 用户的账户余额
+                //'wallet', // 用户的账户余额
                 //'gifts', // 用户的卡券
                 //'cart', // 用户的购物车
             ],
@@ -536,7 +536,7 @@ class UserController extends Controller
             $user->update($data);
             session()->flash('success', '您的账号密码更新成功');
         }
-        return redirect()->route('user.show', $user->id);
+        return redirect()->route('users.show', $user->id);
     }
 
     /**

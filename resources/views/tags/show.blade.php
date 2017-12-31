@@ -3,7 +3,7 @@
 @section('content')
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home') }}">首页</a></li>
-                    <li><a href="{{ route('tag.index') }}">标签</a></li>
+                    <li><a href="{{ route('tags.index') }}">标签</a></li>
                     <li class="active">{{ $tag->name }}</li>
                 </ol>
                 <div class="row">
@@ -20,7 +20,7 @@
                             <div class="media-body">
                                 <h4 class="media-heading media-title"><a href="{{ route('articles.show', $article->id) }}">{{ $article->title }}</a></h4>
                                 <ul class="list-inline text-muted media-author">
-                                    <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
+                                    <li><a href="{{ route('users.show', $article->author->id) }}" class="text-muted">
                                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                             <span class="sr-only">作者：</span>
                                             {{ $article->author->name }}
@@ -35,7 +35,7 @@
 @if ($article->tags->isEmpty() !== true)
                                 <ul class="list-inline media-labels">
 @foreach ($article->tags as $tag)
-                                    <li><a href="{{ route('tag.show', $tag->id) }}" class="label label-{{ collect(['default', 'primary', 'success', 'info', 'warning', 'danger'])->random() }}">{{ $tag->name }}</a></li>
+                                    <li><a href="{{ route('tags.show', $tag->id) }}" class="label label-{{ collect(['default', 'primary', 'success', 'info', 'warning', 'danger'])->random() }}">{{ $tag->name }}</a></li>
 @endforeach
                                 </ul>
 @endif
@@ -85,7 +85,7 @@
                     </div>
                     <div class="list-group">
 @forelse ($popular as $tag)
-                        <a class="list-group-item {{ isset($id) && $id === $tag->id ? 'active' : null }}" href="{{ route('tag.show', $tag->id) }}">{{ $tag->name }}</a>
+                        <a class="list-group-item {{ isset($id) && $id === $tag->id ? 'active' : null }}" href="{{ route('tags.show', $tag->id) }}">{{ $tag->name }}</a>
 @empty
                         <p class="list-group-item">暂未出现热门标签</p>
 @endforelse

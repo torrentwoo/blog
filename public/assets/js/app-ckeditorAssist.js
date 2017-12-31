@@ -77,7 +77,7 @@
                 var data = new FormData();
                 data.append('image', upload[0].files[0]); // the data being send
                 var opts = { // ajax settings
-                    url: '/file/upload/image',
+                    url: '/files/upload/image',
                     data: data,
                     cache: false, // force not to cache anythings from browser
                     contentType: false, // do not set any content type header

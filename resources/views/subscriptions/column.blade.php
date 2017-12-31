@@ -57,7 +57,7 @@
                                 </h4>
                                 <p>{{ $article->description }}</p>
                                 <ul class="list-inline text-muted media-meta">
-                                    <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
+                                    <li><a href="{{ route('users.show', $article->author->id) }}" class="text-muted">
                                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                             <span class="sr-only">作者：</span>
                                             {{ $article->author->name }}
@@ -112,7 +112,7 @@
                                 </h4>
                                 <p>{{ $article->description }}</p>
                                 <ul class="list-inline text-muted media-meta">
-                                    <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
+                                    <li><a href="{{ route('users.show', $article->author->id) }}" class="text-muted">
                                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                             <span class="sr-only">作者：</span>
                                             {{ $article->author->name }}
@@ -167,7 +167,7 @@
                                 </h4>
                                 <p>{{ $article->description }}</p>
                                 <ul class="list-inline text-muted media-meta">
-                                    <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
+                                    <li><a href="{{ route('users.show', $article->author->id) }}" class="text-muted">
                                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                             <span class="sr-only">作者：</span>
                                             {{ $article->author->name }}

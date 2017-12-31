@@ -27,7 +27,7 @@
 @can ('follow', $author)
                         <div class="media header-media">
                             <div class="media-left">
-                                <a href="{{ route('user.show', $author->id) }}">
+                                <a href="{{ route('users.show', $author->id) }}">
                                     <img class="media-object img-circle avatar-md" alt="{{ $author->name }}" src="{{ $author->gravatar(64) }}" />
                                 </a>
                             </div>

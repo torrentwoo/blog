@@ -8,7 +8,7 @@
                         </div>
                         @include('features.builtIn-alert')
 
-                        <form class="form-horizontal" method="POST" action="{{ route('user.updateSocials', $user->id) }}" enctype="multipart/form-data">
+                        <form class="form-horizontal" method="POST" action="{{ route('users.updateSocials', $user->id) }}" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
                             <div class="form-group">
@@ -22,7 +22,7 @@
                                 <div class="col-sm-6">
 @if (empty($user->socials->weixin) !== true)
                                     <p>
-                                        <img src="{{ route('file.show', $user->socials->weixin) }}" class="media-object avatar-xl" />
+                                        <img src="{{ route('files.show', $user->socials->weixin) }}" class="media-object avatar-xl" />
                                     </p>
 @endif
                                     <input type="file" name="weixin" id="weixin" />

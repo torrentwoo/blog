@@ -51,7 +51,7 @@ class ChatNotification extends Event implements ShouldBroadcast
 
         $this->message['content'] = str_limit($message->content);
         $this->message['datetime'] = $message->created_at->format('Y-m-d g:i a');
-        $this->message['show'] = route('message.show', $from->id);
+        $this->message['show'] = route('messages.show', $from->id);
         $this->message['delete'] = route('message.delete', $from->id);
     }
 

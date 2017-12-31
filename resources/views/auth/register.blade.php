@@ -9,7 +9,7 @@
                     <div class="panel-body">
                         @include('features.builtIn-alert')
 
-                        <form action="{{ route('user.store') }}" method="POST">
+                        <form action="{{ route('users.store') }}" method="POST">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="username">用户名</label>

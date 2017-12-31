@@ -65,7 +65,7 @@ class SessionController extends Controller
                 $nickname = $nickname ?: $user->name;
                 $location = $request->has('redirect')
                           ? $request->redirect
-                          : route('user.show', compact('user'));
+                          : route('users.show', compact('user'));
 
                 // 记录（处理）用户登录事件
                 Event::fire(new UserLoginEvent($user));

@@ -19,7 +19,7 @@
 @forelse ($myComments as $comment)
                                 <div class="well well-quirk">
                                     <ul class="list-inline">
-                                        <li><a href="{{ route('user.show', $user->id) }}">{{ $user->name }}</a></li>
+                                        <li><a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a></li>
                                         <li>@if (!$comment->parent_id)发表@else回复@endif了评论</li>
                                         <li class="small text-muted">{{ $comment->created_at->format('Y-m-d g:i a') }}</li>
                                     </ul>
@@ -29,7 +29,7 @@
                                         <h4><a href="{{ route('articles.show', $comment->commentable->id) }}">{{ $comment->commentable->title }}</a></h4>
                                         <p>{{ str_limit($comment->commentable->content, 320) }}</p>
                                         <ul class="list-inline text-muted">
-                                            <li><a href="{{ route('user.show', $comment->commentable->author->id) }}">{{ $comment->commentable->author->name }}</a></li>
+                                            <li><a href="{{ route('users.show', $comment->commentable->author->id) }}">{{ $comment->commentable->author->name }}</a></li>
                                             <li>
                                                 <a class="text-muted" href="{{ route('articles.show', $comment->commentable->id) }}">
                                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
@@ -52,7 +52,7 @@
 @elseif ($comment->commentable_type === \App\Models\Comment::class)
                                         <p><a href="{{ route('articles.comments.index', $comment->commentable->commentable_id) }}#mark-{{ $comment->commentable->id }}">{{ str_limit($comment->commentable->content, 320) }}</a></p>
                                         <ul class="list-inline text-muted">
-                                            <li><a href="{{ route('user.show', $comment->commentable->commentator->id) }}">{{ $comment->commentable->commentator->name }}</a></li>
+                                            <li><a href="{{ route('users.show', $comment->commentable->commentator->id) }}">{{ $comment->commentable->commentator->name }}</a></li>
                                             <li>
                                                 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                                                 <span class="sr-only">赞：</span>
@@ -80,7 +80,7 @@
                                 <div class="well well-quirk">
 @foreach ($comment as $item)
                                     <ul class="list-inline">
-                                        <li><a href="{{ route('user.show', $item->commentator->id) }}">{{ $item->commentator->name }}</a></li>
+                                        <li><a href="{{ route('users.show', $item->commentator->id) }}">{{ $item->commentator->name }}</a></li>
 @if ($item->commentable_type === App\Models\Article::class)
                                         <li>评论了您的文章</li>
 @elseif ($item->commentable_type === App\Models\Comment::class)
@@ -95,7 +95,7 @@
                                         <h4><a href="{{ route('articles.show', $comment->first()->commentable->id) }}">{{ $comment->first()->commentable->title }}</a></h4>
                                         <p>{{ str_limit($comment->first()->commentable->content, 320) }}</p>
                                         <ul class="list-inline text-muted">
-                                            <li><a href="{{ route('user.show', $comment->first()->commentable->author->id) }}">{{ $comment->first()->commentable->author->name }}</a></li>
+                                            <li><a href="{{ route('users.show', $comment->first()->commentable->author->id) }}">{{ $comment->first()->commentable->author->name }}</a></li>
                                             <li>
                                                 <a class="text-muted" href="{{ route('articles.show', $comment->first()->commentable->id) }}">
                                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
@@ -118,7 +118,7 @@
 @elseif ($comment->first()->commentable_type === \App\Models\Comment::class)
                                         <p><a href="{{ route('articles.comments.index', $comment->first()->commentable->commentable_id) }}#mark-{{ $comment->first()->commentable->id }}">{{ str_limit($comment->first()->commentable->content, 320) }}</a></p>
                                         <ul class="list-inline text-muted">
-                                            <li><a href="{{ route('user.show', $comment->first()->commentable->commentator->id) }}">{{ $comment->first()->commentable->commentator->name }}</a></li>
+                                            <li><a href="{{ route('users.show', $comment->first()->commentable->commentator->id) }}">{{ $comment->first()->commentable->commentator->name }}</a></li>
                                             <li>
                                                 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                                                 <span class="sr-only">赞：</span>

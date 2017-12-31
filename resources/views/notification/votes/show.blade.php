@@ -23,7 +23,7 @@
                                 <h4><a href="{{ route('articles.show', $notification->notifiable->votable->commentable->id) }}">{{ $notification->notifiable->votable->commentable->title }}</a></h4>
                                 <p>{{ $notification->notifiable->votable->commentable->description }}</p>
                                 <ul class="list-inline small">
-                                    <li><a href="{{ route('user.show', $notification->notifiable->votable->commentable->author->id) }}">{{ $notification->notifiable->votable->commentable->author->name }}</a></li>
+                                    <li><a href="{{ route('users.show', $notification->notifiable->votable->commentable->author->id) }}">{{ $notification->notifiable->votable->commentable->author->name }}</a></li>
                                     <li>
                                         <a class="text-muted" href="{{ route('articles.show', $notification->notifiable->votable->commentable->id) }}">
                                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
@@ -46,7 +46,7 @@
 @elseif ($notification->notifiable->votable->commentable_type === App\Models\Comment::class)
                                 <p>{{ $notification->notifiable->votable->commentable->content }}</p>
                                 <p class="small">
-                                    <a href="{{ route('user.show', $notification->notifiable->votable->commentator->id) }}">{{ $notification->notifiable->votable->commentator->name }}</a>
+                                    <a href="{{ route('users.show', $notification->notifiable->votable->commentator->id) }}">{{ $notification->notifiable->votable->commentator->name }}</a>
                                     <span class="offset-left offset-right">评论自</span>
                                     <a href="{{ route('articles.comments.index', $notification->notifiable->votable->topmostComment()->commentable_id) }}#mark-{{ $notification->notifiable->votable->topmostComment()->id }}">{{ $notification->notifiable->votable->topmostComment()->commentable->title }}</a>
                                 </p>

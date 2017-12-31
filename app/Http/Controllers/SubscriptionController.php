@@ -66,7 +66,7 @@ class SubscriptionController extends Controller
     public function index()
     {
         if ($this->followings->isEmpty()) {
-            return redirect()->route('subscription.recommend');
+            return redirect()->route('subscriptions.recommend');
         } else {
             $data = $this->retrieve();
 

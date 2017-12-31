@@ -20,7 +20,7 @@
                             <blockquote class="small text-muted">
                                 <div class="well media">
                                     <div class="media-left">
-                                        <a href="{{ route('user.show', $notification->notifiable->holder->id) }}">
+                                        <a href="{{ route('users.show', $notification->notifiable->holder->id) }}">
                                             <img class="media-object img-circle avatar-sm" src="{{ $notification->notifiable->holder->gravatar(48) }}" />
                                         </a>
                                     </div>

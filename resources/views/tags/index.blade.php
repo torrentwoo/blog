@@ -9,7 +9,7 @@
                     <div class="col-xs-12 col-md-12">
                         <ul class="list-inline" id="tags-label">
 @foreach ($tags as $tag)
-                                <li><a href="{{ route('tag.show', $tag->id) }}" class="label label-{{ collect(['default', 'primary', 'success', 'info', 'warning', 'danger'])->random() }}">{{ $tag->name }}</a></li>
+                                <li><a href="{{ route('tags.show', $tag->id) }}" class="label label-{{ collect(['default', 'primary', 'success', 'info', 'warning', 'danger'])->random() }}">{{ $tag->name }}</a></li>
 
 @endforeach
                         </ul>

@@ -5,7 +5,7 @@
 @if ($followings->isEmpty() !== true && $followings->first()->followable_type === App\Models\User::class)
                 <div class="media header-media">
                     <div class="media-left">
-                        <a href="{{ route('user.show', $origin->id) }}">
+                        <a href="{{ route('users.show', $origin->id) }}">
                             <img class="media-object img-circle avatar-md" src="{{ $origin->gravatar(64) }}" />
                         </a>
                     </div>
@@ -15,11 +15,11 @@
                     </div>
                     <div class="media-right nowrap-landscape" id="user-buttons">
 @can ('message', $origin)
-                        <a href="{{ route('message.show', $origin->id) }}" class="btn btn-info btn-xs" role="button">
+                        <a href="{{ route('messages.show', $origin->id) }}" class="btn btn-info btn-xs" role="button">
                             <i class="glyphicon glyphicon-send" aria-hidden="true"></i>站内信
                         </a>
 @endcan
-                        <a href="{{ route('user.show', $origin->id) }}" class="btn btn-success btn-xs" role="button">
+                        <a href="{{ route('users.show', $origin->id) }}" class="btn btn-success btn-xs" role="button">
                             个人主页<span class="glyphicon glyphicon-chevron-right offset-right" aria-hidden="true"></span>
                         </a>
                     </div>

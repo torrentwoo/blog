@@ -26,7 +26,7 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        return redirect()->route('message.index');
+        return redirect()->route('messages.index');
     }
 
     /**

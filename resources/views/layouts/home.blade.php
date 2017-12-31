@@ -80,7 +80,7 @@
                                     <a href="{{ route('articles.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
                                 </h4>
                                 <ul class="list-inline text-muted media-author">
-                                    <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
+                                    <li><a href="{{ route('users.show', $article->author->id) }}" class="text-muted">
                                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                             <span class="sr-only">作者：</span>
                                             {{ $article->author->name }}

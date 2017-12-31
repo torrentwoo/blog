@@ -1,7 +1,7 @@
 @foreach ($replies as $reply)
                                     <div class="media" id="mark-{{ $reply->id }}">
                                         <div class="media-left">
-                                            <a href="{{ route('user.show', $reply->commentator->id) }}">
+                                            <a href="{{ route('users.show', $reply->commentator->id) }}">
                                                 <img class="media-object img-circle avatar-sm" src="{{ $reply->commentator->gravatar(48) }}" />
                                             </a>
                                         </div>

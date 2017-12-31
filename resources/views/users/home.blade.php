@@ -85,7 +85,7 @@
                                             <p>{{ $activity->activable->likable->description }}</p>
                                             <ul class="list-inline text-muted media-meta">
                                                 <li>
-                                                    <a href="{{ route('user.show', $activity->activable->likable->author->id) }}">{{ $activity->activable->likable->author->name }}</a>
+                                                    <a href="{{ route('users.show', $activity->activable->likable->author->id) }}">{{ $activity->activable->likable->author->name }}</a>
                                                 </li>
                                                 <li>
                                                     <a class="text-muted" href="{{ route('articles.show', $activity->activable->likable->id) }}">
@@ -134,7 +134,7 @@
                                             <p>{{ $activity->activable->favorable->description }}</p>
                                             <ul class="list-inline text-muted media-meta">
                                                 <li>
-                                                    <a href="{{ route('user.show', $activity->activable->favorable->author->id) }}">{{ $activity->activable->favorable->author->name }}</a>
+                                                    <a href="{{ route('users.show', $activity->activable->favorable->author->id) }}">{{ $activity->activable->favorable->author->name }}</a>
                                                 </li>
                                                 <li>
                                                     <a class="text-muted" href="{{ route('articles.show', $activity->activable->favorable->id) }}">
@@ -178,7 +178,7 @@
                                     <p>{{ $activity->activable->votable->content }}</p>
                                     <blockquote class="text-muted">
                                         <p class="small">
-                                            <a href="{{ route('user.show', $activity->activable->votable->commentator->id) }}">{{ $activity->activable->votable->commentator->name }}</a>
+                                            <a href="{{ route('users.show', $activity->activable->votable->commentator->id) }}">{{ $activity->activable->votable->commentator->name }}</a>
                                             <span class="offset-left offset-right">评论自</span>
 @if ($activity->activable->votable->commentable_type === App\Models\Comment::class)
                                             <a href="{{ route('articles.comments.index', $activity->activable->votable->topmostComment()->commentable_id) }}#mark-{{ $activity->activable->votable->topmostComment()->id }}">{{ $activity->activable->votable->topmostComment()->commentable->title }}</a>
@@ -205,7 +205,7 @@
                                         <p>{{ $activity->activable->commentable->description }}</p>
                                         <ul class="list-inline text-muted media-meta">
                                             <li>
-                                                <a href="{{ route('user.show', $activity->activable->commentable->author->id) }}">{{ $activity->activable->commentable->author->name }}</a>
+                                                <a href="{{ route('users.show', $activity->activable->commentable->author->id) }}">{{ $activity->activable->commentable->author->name }}</a>
                                             </li>
                                             <li>
                                                 <a class="text-muted" href="{{ route('articles.show', $activity->activable->commentable->id) }}">
@@ -240,7 +240,7 @@
                                     <blockquote class="text-muted">
                                         <p>{{ $activity->activable->commentable->content }}</p>
                                         <p class="small">
-                                            <a href="{{ route('user.show', $activity->activable->commentable->commentator->id) }}">{{ $activity->activable->commentable->commentator->name }}</a>
+                                            <a href="{{ route('users.show', $activity->activable->commentable->commentator->id) }}">{{ $activity->activable->commentable->commentator->name }}</a>
                                             <span class="offset-left offset-right">评论自</span>
                                             <a href="{{ route('articles.comments.index', $activity->activable->topmostComment()->commentable_id) }}#mark-{{ $activity->activable->topmostComment()->id }}">{{ $activity->activable->topmostComment()->commentable->title }}</a>
                                         </p>
@@ -283,7 +283,7 @@
                                     </ul>
                                     <div class="well media">
                                         <div class="media-left">
-                                            <a href="{{ route('user.show', $activity->activable->followable->id) }}">
+                                            <a href="{{ route('users.show', $activity->activable->followable->id) }}">
                                                 <img class="media-object img-circle avatar-sm" src="{{ $activity->activable->followable->gravatar(48) }}" />
                                             </a>
                                         </div>

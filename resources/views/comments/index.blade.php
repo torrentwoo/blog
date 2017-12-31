@@ -13,7 +13,7 @@
 @foreach ($comments as $comment)
                             <li class="media" id="mark-{{ $comment->id }}">
                                 <div class="media-left">
-                                    <a href="{{ route('user.show', $comment->commentator->id) }}">
+                                    <a href="{{ route('users.show', $comment->commentator->id) }}">
                                         <img alt="{{ $comment->commentator->name }}" class="media-object img-circle avatar-sm" src="{{ $comment->commentator->gravatar(48) }}" />
                                     </a>
                                 </div>

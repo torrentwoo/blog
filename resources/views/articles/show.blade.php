@@ -13,7 +13,7 @@
                             <h1>{{ $article->title }}</h1>
                             <ul id="article-brief" class="list-inline">
                                 <li>发表在：{{ $article->released_at->diffForHumans() }}</li>
-                                <li>作者：<a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a>
+                                <li>作者：<a href="{{ route('users.show', $article->author->id) }}">{{ $article->author->name }}</a>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
 @can ('follow', $article->author)
                                     <small class="offset-right">
@@ -42,7 +42,7 @@
 @if (isset($article->tags) && !$article->tags->isEmpty())
                         <div id="tags">
 @foreach ($article->tags as $tag)
-                            <a href="{{ route('tag.show', $tag->id) }}" class="label label-default">{{ $tag->name }}</a>
+                            <a href="{{ route('tags.show', $tag->id) }}" class="label label-default">{{ $tag->name }}</a>
 @endforeach
                         </div>
 @endif
@@ -50,12 +50,12 @@
                             <div id="article-author" class="col-xs-12 col-md-10 col-md-offset-1">
                                 <div class="well media">
                                     <div class="media-left">
-                                        <a href="{{ route('user.show', $article->author->id) }}">
+                                        <a href="{{ route('users.show', $article->author->id) }}">
                                             <img alt="{{ $article->author->name }}" class="media-object img-circle avatar-md" src="{{ $article->author->gravatar(64) }}" />
                                         </a>
                                     </div>
                                     <div class="media-body">
-                                        <h2 class="media-heading"><a href="{{ route('user.show', $article->author->id) }}">{{ $article->author->name }}</a></h2>
+                                        <h2 class="media-heading"><a href="{{ route('users.show', $article->author->id) }}">{{ $article->author->name }}</a></h2>
                                         <p class="text-muted">发表文章 {{ $article->author->articles()->released()->count() }} 篇，被 {{ $article->author->followingUsers->count() }} 人关注，收获 {{ $article->author->likedUsers()->count() }} 个喜欢</p>
                                     </div>
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
@@ -92,7 +92,7 @@
                             <div id="article-express" class="col-xs-6 col-md-6">
 @if (!Auth::check() || (Auth::check() && Auth::user()->id !== $article->author->id))
                                 <div class="btn-toolbar" role="toolbar">
-                                    <form method="POST" action="{{ route('like.article', $article->id) }}" id="articleLikeForm" class="btn-group" role="group">
+                                    <form method="POST" action="{{ route('articles.like', $article->id) }}" id="articleLikeForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
 @if ($article->isLikedBy(Auth::user()))
                                         {{ method_field('DELETE') }}
@@ -101,7 +101,7 @@
                                             <i class="glyphicon {{ $article->isLikedBy(Auth::user()) ? 'glyphicon-heart' : 'glyphicon-heart-empty' }}" aria-hidden="true"></i>喜欢
                                         </button>
                                     </form>
-                                    <form method="POST" action="{{ route('favorite.article', $article->id) }}" id="articleFavoriteForm" class="btn-group" role="group">
+                                    <form method="POST" action="{{ route('articles.favorite', $article->id) }}" id="articleFavoriteForm" class="btn-group" role="group">
                                         {{ csrf_field() }}
 @if ($article->isFavoriteBy(Auth::user()))
                                         {{ method_field('DELETE') }}

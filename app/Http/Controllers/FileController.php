@@ -24,7 +24,7 @@ class FileController extends Controller
     }
 
     /**
-     * 响应对 GET /file/{filename} 的请求
+     * 响应对 GET /files/{filename} 的请求
      * 用于显示某个文件（通常是多媒体类型文件，如：图像、音频、视频等）
      *
      * @param string $filename the file on local storage
@@ -76,7 +76,7 @@ class FileController extends Controller
             if ($image instanceof \Intervention\Image\Image) {
                 $response = [
                     'error' =>  false,
-                    'image' =>  route('file.show', $filename),
+                    'image' =>  route('files.show', $filename),
                 ];
             } else {
                 $response = [
@@ -89,7 +89,7 @@ class FileController extends Controller
     }
 
     /**
-     * 响应对 GET /file/download/{filename} 的请求
+     * 响应对 GET /files/download/{filename} 的请求
      * 用于下载某个（或一些）文件，并提供额外的操作选项，用于如归档、打包等操作请求
      *
      * @param string $filename the file on local storage
