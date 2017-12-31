@@ -34,12 +34,12 @@
                                     <div class="media">
                                         <div class="media-body">
                                             <h3 class="media-heading media-title">
-                                                <a href="{{ route('article.show', $activity->activable->id) }}">{{ $activity->activable->title }}</a>
+                                                <a href="{{ route('articles.show', $activity->activable->id) }}">{{ $activity->activable->title }}</a>
                                             </h3>
                                             <p>{{ $activity->activable->description }}</p>
                                             <ul class="list-inline text-muted media-meta">
                                                 <li>
-                                                    <a class="text-muted" href="{{ route('article.show', $activity->activable->id) }}">
+                                                    <a class="text-muted" href="{{ route('articles.show', $activity->activable->id) }}">
                                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                         <span class="sr-only">浏览：</span>
                                                         {{ $activity->activable->views }}
@@ -60,7 +60,7 @@
                                         </div>
 @if ($activity->activable->thumbnails->isEmpty() !== true)
                                         <div class="media-right hidden-portrait">
-                                            <a href="{{ route('article.show', $activity->activable->id) }}">
+                                            <a href="{{ route('articles.show', $activity->activable->id) }}">
                                                 <img class="media-object media-preview" src="{{ $activity->activable->thumbnails->first()->url }}" />
                                             </a>
                                         </div>
@@ -80,7 +80,7 @@
                                     <div class="media">
                                         <div class="media-body">
                                             <h3 class="media-heading media-title">
-                                                <a href="{{ route('article.show', $activity->activable->likable->id) }}">{{ $activity->activable->likable->title }}</a>
+                                                <a href="{{ route('articles.show', $activity->activable->likable->id) }}">{{ $activity->activable->likable->title }}</a>
                                             </h3>
                                             <p>{{ $activity->activable->likable->description }}</p>
                                             <ul class="list-inline text-muted media-meta">
@@ -88,7 +88,7 @@
                                                     <a href="{{ route('user.show', $activity->activable->likable->author->id) }}">{{ $activity->activable->likable->author->name }}</a>
                                                 </li>
                                                 <li>
-                                                    <a class="text-muted" href="{{ route('article.show', $activity->activable->likable->id) }}">
+                                                    <a class="text-muted" href="{{ route('articles.show', $activity->activable->likable->id) }}">
                                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                         <span class="sr-only">浏览：</span>
                                                         {{ $activity->activable->likable->views }}
@@ -109,7 +109,7 @@
                                         </div>
 @if ($activity->activable->likable->thumbnails->isEmpty() !== true)
                                         <div class="media-right hidden-portrait">
-                                            <a href="{{ route('article.show', $activity->activable->likable->id) }}">
+                                            <a href="{{ route('articles.show', $activity->activable->likable->id) }}">
                                                 <img class="media-object media-preview" src="{{ $activity->activable->likable->thumbnails->first()->url }}" />
                                             </a>
                                         </div>
@@ -129,7 +129,7 @@
                                     <div class="media">
                                         <div class="media-body">
                                             <h3 class="media-heading media-title">
-                                                <a href="{{ route('article.show', $activity->activable->favorable->id) }}">{{ $activity->activable->favorable->title }}</a>
+                                                <a href="{{ route('articles.show', $activity->activable->favorable->id) }}">{{ $activity->activable->favorable->title }}</a>
                                             </h3>
                                             <p>{{ $activity->activable->favorable->description }}</p>
                                             <ul class="list-inline text-muted media-meta">
@@ -137,7 +137,7 @@
                                                     <a href="{{ route('user.show', $activity->activable->favorable->author->id) }}">{{ $activity->activable->favorable->author->name }}</a>
                                                 </li>
                                                 <li>
-                                                    <a class="text-muted" href="{{ route('article.show', $activity->activable->favorable->id) }}">
+                                                    <a class="text-muted" href="{{ route('articles.show', $activity->activable->favorable->id) }}">
                                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                         <span class="sr-only">浏览：</span>
                                                         {{ $activity->activable->favorable->views }}
@@ -158,7 +158,7 @@
                                         </div>
 @if ($activity->activable->favorable->thumbnails->isEmpty() !== true)
                                         <div class="media-right hidden-portrait">
-                                            <a href="{{ route('article.show', $activity->activable->favorable->id) }}">
+                                            <a href="{{ route('articles.show', $activity->activable->favorable->id) }}">
                                                 <img class="media-object media-preview" src="{{ $activity->activable->favorable->thumbnails->first()->url }}" />
                                             </a>
                                         </div>
@@ -201,14 +201,14 @@
                                     </ul>
                                     <p>{{ $activity->activable->content }}</p>
                                     <blockquote class="text-muted">
-                                        <h4><a href="{{ route('article.show', $activity->activable->commentable->id) }}">{{ $activity->activable->commentable->title }}</a></h4>
+                                        <h4><a href="{{ route('articles.show', $activity->activable->commentable->id) }}">{{ $activity->activable->commentable->title }}</a></h4>
                                         <p>{{ $activity->activable->commentable->description }}</p>
                                         <ul class="list-inline text-muted media-meta">
                                             <li>
                                                 <a href="{{ route('user.show', $activity->activable->commentable->author->id) }}">{{ $activity->activable->commentable->author->name }}</a>
                                             </li>
                                             <li>
-                                                <a class="text-muted" href="{{ route('article.show', $activity->activable->commentable->id) }}">
+                                                <a class="text-muted" href="{{ route('articles.show', $activity->activable->commentable->id) }}">
                                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                     <span class="sr-only">浏览：</span>
                                                     {{ $activity->activable->commentable->views }}
@@ -311,14 +311,14 @@
                                 <div class="media media-article">
 @if (!$article->thumbnails->isEmpty())
                                     <div class="media-left hidden-portrait">
-                                        <a href="{{ route('article.show', $article->id) }}">
+                                        <a href="{{ route('articles.show', $article->id) }}">
                                             <img alt="{{ $article->title }}" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" />
                                         </a>
                                     </div>
 @endif
                                     <div class="media-body">
                                         <h4 class="media-heading media-title">
-                                            <a href="{{ route('article.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
+                                            <a href="{{ route('articles.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
                                         </h4>
                                         <p>{{ $article->description }}</p>
                                         <ul class="list-inline text-muted media-meta">
@@ -328,7 +328,7 @@
                                                 {{ $article->released_at->diffForHumans() }}
                                             </li>
                                             <li>
-                                                <a class="text-muted" href="{{ route('article.show', $article->id) }}">
+                                                <a class="text-muted" href="{{ route('articles.show', $article->id) }}">
                                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                     <span class="sr-only">浏览：</span>
                                                     {{ $article->views }}
@@ -360,14 +360,14 @@
                                 <div class="media media-article">
 @if (!$article->thumbnails->isEmpty())
                                     <div class="media-left hidden-portrait">
-                                        <a href="{{ route('article.show', $article->id) }}">
+                                        <a href="{{ route('articles.show', $article->id) }}">
                                             <img alt="{{ $article->title }}" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" />
                                         </a>
                                     </div>
 @endif
                                     <div class="media-body">
                                         <h4 class="media-heading media-title">
-                                            <a href="{{ route('article.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
+                                            <a href="{{ route('articles.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
                                         </h4>
                                         <p>{{ $article->description }}</p>
                                         <ul class="list-inline text-muted media-meta">
@@ -376,7 +376,7 @@
                                                 {{ $article->comments->first()->created_at->format('Y-m-d g:i a') }}
                                             </li>
                                             <li>
-                                                <a class="text-muted" href="{{ route('article.show', $article->id) }}">
+                                                <a class="text-muted" href="{{ route('articles.show', $article->id) }}">
                                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                     <span class="sr-only">浏览：</span>
                                                     {{ $article->views }}

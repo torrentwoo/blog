@@ -20,12 +20,12 @@
                             <p>{{ $notification->notifiable->votable->content }}</p>
                             <blockquote class="small text-muted">
 @if ($notification->notifiable->votable->commentable_type === App\Models\Article::class)
-                                <h4><a href="{{ route('article.show', $notification->notifiable->votable->commentable->id) }}">{{ $notification->notifiable->votable->commentable->title }}</a></h4>
+                                <h4><a href="{{ route('articles.show', $notification->notifiable->votable->commentable->id) }}">{{ $notification->notifiable->votable->commentable->title }}</a></h4>
                                 <p>{{ $notification->notifiable->votable->commentable->description }}</p>
                                 <ul class="list-inline small">
                                     <li><a href="{{ route('user.show', $notification->notifiable->votable->commentable->author->id) }}">{{ $notification->notifiable->votable->commentable->author->name }}</a></li>
                                     <li>
-                                        <a class="text-muted" href="{{ route('article.show', $notification->notifiable->votable->commentable->id) }}">
+                                        <a class="text-muted" href="{{ route('articles.show', $notification->notifiable->votable->commentable->id) }}">
                                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                             <span class="sr-only">浏览：</span>
                                             {{ $notification->notifiable->votable->commentable->views }}

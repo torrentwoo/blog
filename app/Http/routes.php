@@ -62,7 +62,7 @@ Route::get('/columns/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->
 
 // Articles routes
 Route::get('/write', 'ArticlesController@create')->name('write');
-Route::get('/articles/{id}', 'ArticlesController@show')->name('article.show');
+Route::get('/articles/{id}', 'ArticlesController@show')->name('articles.show');
 
 // Favorites routes
 Route::post('/articles/{id}/favorite', 'FavoritesController@addFavoriteArticle')->name('favorite.article');

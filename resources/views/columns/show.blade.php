@@ -56,14 +56,14 @@
                                 <div class="media media-article">
 @if (!$article->thumbnails->isEmpty())
                                     <div class="media-left hidden-portrait">
-                                        <a href="{{ route('article.show', $article->id) }}">
+                                        <a href="{{ route('articles.show', $article->id) }}">
                                             <img alt="{{ $article->title }}" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" />
                                         </a>
                                     </div>
 @endif
                                     <div class="media-body">
                                         <h2 class="h4 media-heading media-title">
-                                            <a href="{{ route('article.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
+                                            <a href="{{ route('articles.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
                                         </h2>
                                         <ul class="list-inline text-muted media-author">
                                             <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
@@ -79,13 +79,13 @@
                                         </ul>
                                         <p>{{ $article->description }}</p>
                                         <ul class="list-inline text-muted media-meta">
-                                            <li><a class="text-muted" href="{{ route('article.show', $article->id) }}">
+                                            <li><a class="text-muted" href="{{ route('articles.show', $article->id) }}">
                                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                     <span class="sr-only">浏览：</span>
                                                     {{ $article->views }}
                                                 </a>
                                             </li>
-                                            <li><a class="text-muted" href="{{ route('article.show', $article->id) . '#comments' }}">
+                                            <li><a class="text-muted" href="{{ route('articles.show', $article->id) . '#comments' }}">
                                                     <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                                     <span class="sr-only">评论：</span>
                                                     {{ $article->comments->count() }}
@@ -110,14 +110,14 @@
                                 <div class="media media-article">
 @if (!$article->thumbnails->isEmpty())
                                     <div class="media-left hidden-portrait">
-                                        <a href="{{ route('article.show', $article->id) }}">
+                                        <a href="{{ route('articles.show', $article->id) }}">
                                             <img alt="{{ $article->title }}" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" />
                                         </a>
                                     </div>
 @endif
                                     <div class="media-body">
                                         <h2 class="h4 media-heading media-title">
-                                            <a href="{{ route('article.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
+                                            <a href="{{ route('articles.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
                                         </h2>
                                         <ul class="list-inline text-muted media-author">
                                             <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
@@ -133,13 +133,13 @@
                                         </ul>
                                         <p>{{ $article->description }}</p>
                                         <ul class="list-inline text-muted media-meta">
-                                            <li><a class="text-muted" href="{{ route('article.show', $article->id) }}">
+                                            <li><a class="text-muted" href="{{ route('articles.show', $article->id) }}">
                                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                     <span class="sr-only">浏览：</span>
                                                     {{ $article->views }}
                                                 </a>
                                             </li>
-                                            <li><a class="text-muted" href="{{ route('article.show', $article->id) . '#comments' }}">
+                                            <li><a class="text-muted" href="{{ route('articles.show', $article->id) . '#comments' }}">
                                                     <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                                     <span class="sr-only">评论：</span>
                                                     {{ $article->comments->count() }}
@@ -164,14 +164,14 @@
                                 <div class="media media-article">
 @if (!$article->thumbnails->isEmpty())
                                     <div class="media-left hidden-portrait">
-                                        <a href="{{ route('article.show', $article->id) }}">
+                                        <a href="{{ route('articles.show', $article->id) }}">
                                             <img alt="{{ $article->title }}" class="media-object media-preview" src="{{  $article->thumbnails->first()->url }}" />
                                         </a>
                                     </div>
 @endif
                                     <div class="media-body">
                                         <h2 class="h4 media-heading media-title">
-                                            <a href="{{ route('article.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
+                                            <a href="{{ route('articles.show', $article->id) }}" title="{{ $article->title }}">{{ $article->title }}</a>
                                         </h2>
                                         <ul class="list-inline text-muted media-author">
                                             <li><a href="{{ route('user.show', $article->author->id) }}" class="text-muted">
@@ -187,13 +187,13 @@
                                         </ul>
                                         <p>{{ $article->description }}</p>
                                         <ul class="list-inline text-muted media-meta">
-                                            <li><a class="text-muted" href="{{ route('article.show', $article->id) }}">
+                                            <li><a class="text-muted" href="{{ route('articles.show', $article->id) }}">
                                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                     <span class="sr-only">浏览：</span>
                                                     {{ $article->views }}
                                                 </a>
                                             </li>
-                                            <li><a class="text-muted" href="{{ route('article.show', $article->id) . '#comments' }}">
+                                            <li><a class="text-muted" href="{{ route('articles.show', $article->id) . '#comments' }}">
                                                     <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                                     <span class="sr-only">评论：</span>
                                                     {{ $article->comments->count() }}

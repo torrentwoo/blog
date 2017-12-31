@@ -132,14 +132,14 @@
                             <ul class="pager">
                                 <li class="previous">
 @if (isset($prev))
-                                    <a href="{{ route('article.show', $prev->id) }}" title="{{ $prev->title }}"><i class="glyphicon glyphicon-menu-left" aria-hidden="true"></i>上一篇</a>
+                                    <a href="{{ route('articles.show', $prev->id) }}" title="{{ $prev->title }}"><i class="glyphicon glyphicon-menu-left" aria-hidden="true"></i>上一篇</a>
 @else
                                     <button class="btn btn-default pull-left disabled"><i class="glyphicon glyphicon-menu-left" aria-hidden="true"></i>上一篇</button>
 @endif
                                 </li>
                                 <li class="next">
 @if (isset($next))
-                                    <a href="{{ route('article.show', $next->id) }}" title="{{ $next->title }}">下一篇<span class="glyphicon glyphicon-menu-right offset-right" aria-hidden="true"></span></a>
+                                    <a href="{{ route('articles.show', $next->id) }}" title="{{ $next->title }}">下一篇<span class="glyphicon glyphicon-menu-right offset-right" aria-hidden="true"></span></a>
 @else
                                     <button class="btn btn-default pull-right disabled">下一篇<span class="glyphicon glyphicon-menu-right offset-right" aria-hidden="true"></span></button>
 @endif

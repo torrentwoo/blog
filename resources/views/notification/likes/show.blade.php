@@ -18,7 +18,7 @@
                                 <li class="small text-muted">{{ $notification->notifiable->created_at->format('Y-m-d g:i a') }}</li>
                             </ul>
                             <blockquote class="small text-muted">
-                                <h4><a href="{{ route('article.show', $notification->notifiable->likable->id) }}">{{ $notification->notifiable->likable->title }}</a></h4>
+                                <h4><a href="{{ route('articles.show', $notification->notifiable->likable->id) }}">{{ $notification->notifiable->likable->title }}</a></h4>
                                 <p>{{ $notification->notifiable->likable->description }}</p>
                             </blockquote>
                         </div>

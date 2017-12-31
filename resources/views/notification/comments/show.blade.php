@@ -23,7 +23,7 @@
                             </ul>
                             <p>{{ $notification->notifiable->content }}</p>
                             <blockquote class="small text-muted">
-                                <h4><a href="{{ route('article.show', $notification->notifiable->commentable->id) }}">{{ $notification->notifiable->commentable->title }}</a></h4>
+                                <h4><a href="{{ route('articles.show', $notification->notifiable->commentable->id) }}">{{ $notification->notifiable->commentable->title }}</a></h4>
                                 <p>{{ $notification->notifiable->commentable->description }}</p>
                             </blockquote>
                         </div>

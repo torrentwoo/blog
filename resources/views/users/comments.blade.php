@@ -26,19 +26,19 @@
                                     <p>{{ $comment->content }}</p>
                                     <blockquote class="small text-muted">
 @if ($comment->commentable_type === \App\Models\Article::class)
-                                        <h4><a href="{{ route('article.show', $comment->commentable->id) }}">{{ $comment->commentable->title }}</a></h4>
+                                        <h4><a href="{{ route('articles.show', $comment->commentable->id) }}">{{ $comment->commentable->title }}</a></h4>
                                         <p>{{ str_limit($comment->commentable->content, 320) }}</p>
                                         <ul class="list-inline text-muted">
                                             <li><a href="{{ route('user.show', $comment->commentable->author->id) }}">{{ $comment->commentable->author->name }}</a></li>
                                             <li>
-                                                <a class="text-muted" href="{{ route('article.show', $comment->commentable->id) }}">
+                                                <a class="text-muted" href="{{ route('articles.show', $comment->commentable->id) }}">
                                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                     <span class="sr-only">浏览：</span>
                                                     {{ $comment->commentable->views }}
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="text-muted" href="{{ route('article.show', $comment->commentable->id) . '#comments' }}">
+                                                <a class="text-muted" href="{{ route('articles.show', $comment->commentable->id) . '#comments' }}">
                                                     <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                                     <span class="sr-only">评论：</span>
                                                     {{ $comment->commentable->comments->count() }}
@@ -92,19 +92,19 @@
 @endforeach
                                     <blockquote class="small text-muted">
 @if ($comment->first()->commentable_type === \App\Models\Article::class)
-                                        <h4><a href="{{ route('article.show', $comment->first()->commentable->id) }}">{{ $comment->first()->commentable->title }}</a></h4>
+                                        <h4><a href="{{ route('articles.show', $comment->first()->commentable->id) }}">{{ $comment->first()->commentable->title }}</a></h4>
                                         <p>{{ str_limit($comment->first()->commentable->content, 320) }}</p>
                                         <ul class="list-inline text-muted">
                                             <li><a href="{{ route('user.show', $comment->first()->commentable->author->id) }}">{{ $comment->first()->commentable->author->name }}</a></li>
                                             <li>
-                                                <a class="text-muted" href="{{ route('article.show', $comment->first()->commentable->id) }}">
+                                                <a class="text-muted" href="{{ route('articles.show', $comment->first()->commentable->id) }}">
                                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                     <span class="sr-only">浏览：</span>
                                                     {{ $comment->first()->commentable->views }}
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="text-muted" href="{{ route('article.show', $comment->first()->commentable->id) . '#comments' }}">
+                                                <a class="text-muted" href="{{ route('articles.show', $comment->first()->commentable->id) . '#comments' }}">
                                                     <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                                     <span class="sr-only">评论：</span>
                                                     {{ $comment->first()->commentable->comments->count() }}

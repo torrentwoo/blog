@@ -4,7 +4,7 @@
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home') }}">首页</a></li>
                     <li><a href="{{ route('column.show', $article->column->id) }}">{{ $article->column->name }}</a></li>
-                    <li><a href="{{ route('article.show', $article->id) }}">{{ $article->title }}</a></li>
+                    <li><a href="{{ route('articles.show', $article->id) }}">{{ $article->title }}</a></li>
                     <li class="active">评论</li>
                 </ol>
                 <div class="row">
@@ -80,7 +80,7 @@
                     </div>
                     <div class="list-group">
 @forelse ($popular as $article)
-                        <a class="list-group-item" href="{{ route('article.show', $article->id) }}">{{ str_limit($article->title, 24) }}<span class="badge" title="评论数量：{{ $article->comments->count() }}">{{ $article->comments->count() }}</span></a>
+                        <a class="list-group-item" href="{{ route('articles.show', $article->id) }}">{{ str_limit($article->title, 24) }}<span class="badge" title="评论数量：{{ $article->comments->count() }}">{{ $article->comments->count() }}</span></a>
 @empty
                         <p class="list-group-item">暂未出现热门评论文章</p>
 @endforelse
