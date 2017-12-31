@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class FavoritesController extends Controller
+class FavoriteController extends Controller
 {
     /**
      * 已登录用户的模型
@@ -21,7 +21,7 @@ class FavoritesController extends Controller
     protected $user;
 
     /**
-     * FavoritesController constructor.
+     * FavoriteController constructor.
      */
     public function __construct()
     {

@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class VotesController extends Controller
+class VoteController extends Controller
 {
     public function __construct()
     {

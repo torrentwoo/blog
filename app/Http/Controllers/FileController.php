@@ -11,7 +11,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 
-class FilesController extends Controller
+class FileController extends Controller
 {
     public function __construct()
     {

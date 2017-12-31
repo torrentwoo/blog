@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class MessagesController extends Controller
+class MessageController extends Controller
 {
     public function __construct()
     {

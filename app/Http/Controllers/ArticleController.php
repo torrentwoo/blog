@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class ArticlesController extends Controller
+class ArticleController extends Controller
 {
     public function __construct()
     {

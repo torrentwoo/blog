@@ -14,35 +14,35 @@
 // The extra routes must located before the resource route
 
 // Inherent pages routes
-Route::get('/', 'PagesController@index')->name('home');
-Route::get('/about', 'PagesController@about')->name('about');
-Route::get('/contact', 'PagesController@contact')->name('contact');
-Route::get('/help', ['as'   =>  'help', 'uses'  =>  'PagesController@help']);
-Route::get('/search', 'PagesController@search')->name('search');
+Route::get('/', 'PageController@index')->name('home');
+Route::get('/about', 'PageController@about')->name('about');
+Route::get('/contact', 'PageController@contact')->name('contact');
+Route::get('/help', ['as'   =>  'help', 'uses'  =>  'PageController@help']);
+Route::get('/search', 'PageController@search')->name('search');
 
 // User related routes
-Route::get('/auth/register', 'UsersController@create')->name('register');
-Route::post('/user', 'UsersController@store')->name('user.store');
-Route::get('/user/activate/{token}', 'UsersController@activate')->name('user.activate');
-Route::get('/user/{id}', 'UsersController@show')->name('user.show');
+Route::get('/auth/register', 'UserController@create')->name('register');
+Route::post('/user', 'UserController@store')->name('user.store');
+Route::get('/user/activate/{token}', 'UserController@activate')->name('user.activate');
+Route::get('/user/{id}', 'UserController@show')->name('user.show');
 
-Route::get('/user/{id}/profile',   'UsersController@showProfile')->name('user.updateProfile');
-Route::patch('/user/{id}/profile', 'UsersController@updateProfile')->name('user.updateProfile');
-Route::get('/user/{id}/socials',   'UsersController@showSocials')->name('user.updateSocials');
-Route::patch('/user/{id}/socials', 'UsersController@updateSocials')->name('user.updateSocials');
-Route::get('/user/{id}/privacy',   'UsersController@showPrivacy')->name('user.updatePrivacy');
-Route::patch('/user/{id}/privacy', 'UsersController@updatePrivacy')->name('user.updatePrivacy');
-Route::get('/user/{id}/assists',   'UsersController@showAssists')->name('user.updateAssists');
-Route::patch('/user/{id}/assists', 'UsersController@updateAssists')->name('user.updateAssists');
-Route::get('/user/{id}/account',   'UsersController@showAccount')->name('user.updateAccount');
-Route::patch('/user/{id}/account', 'UsersController@updateAccount')->name('user.updateAccount');
+Route::get('/user/{id}/profile',   'UserController@showProfile')->name('user.updateProfile');
+Route::patch('/user/{id}/profile', 'UserController@updateProfile')->name('user.updateProfile');
+Route::get('/user/{id}/socials',   'UserController@showSocials')->name('user.updateSocials');
+Route::patch('/user/{id}/socials', 'UserController@updateSocials')->name('user.updateSocials');
+Route::get('/user/{id}/privacy',   'UserController@showPrivacy')->name('user.updatePrivacy');
+Route::patch('/user/{id}/privacy', 'UserController@updatePrivacy')->name('user.updatePrivacy');
+Route::get('/user/{id}/assists',   'UserController@showAssists')->name('user.updateAssists');
+Route::patch('/user/{id}/assists', 'UserController@updateAssists')->name('user.updateAssists');
+Route::get('/user/{id}/account',   'UserController@showAccount')->name('user.updateAccount');
+Route::patch('/user/{id}/account', 'UserController@updateAccount')->name('user.updateAccount');
 
-Route::get('/user/{id}/articles', 'UsersController@articles')->name('user.articles');
-Route::get('/user/{id}/favorites', 'UsersController@favorites')->name('user.favorites');
-Route::get('/user/{id}/comments', 'UsersController@comments')->name('user.comments');
-/*Route::get('/user/{id}/balance', 'UsersController@balance')->name('user.balance');
-Route::get('/user/{id}/gifts', 'UsersController@gifts')->name('user.gifts');
-Route::get('/user/{id}/cart', 'UsersController@cart')->name('user.cart');*/
+Route::get('/user/{id}/articles', 'UserController@articles')->name('user.articles');
+Route::get('/user/{id}/favorites', 'UserController@favorites')->name('user.favorites');
+Route::get('/user/{id}/comments', 'UserController@comments')->name('user.comments');
+/*Route::get('/user/{id}/balance', 'UserController@balance')->name('user.balance');
+Route::get('/user/{id}/gifts', 'UserController@gifts')->name('user.gifts');
+Route::get('/user/{id}/cart', 'UserController@cart')->name('user.cart');*/
 
 // User password rescue routes
 Route::get('/help/password/rescue', 'Auth\PasswordController@getEmail')->name('password.rescue');
@@ -51,27 +51,27 @@ Route::get('/help/password/reset/{token}', 'Auth\PasswordController@getReset')->
 Route::post('/help/password/reset', 'Auth\PasswordController@postReset')->name('password.update');
 
 // Authentication routes
-Route::get('/auth/login', 'SessionsController@create')->name('login');
-Route::post('/auth/login', 'SessionsController@store')->name('login');
-Route::post('/auth/ajaxLogin', 'SessionsController@ajaxLogin')->name('ajaxLogin');
-Route::get('/auth/logout', 'SessionsController@destroy')->name('logout');
+Route::get('/auth/login', 'SessionController@create')->name('login');
+Route::post('/auth/login', 'SessionController@store')->name('login');
+Route::post('/auth/ajaxLogin', 'SessionController@ajaxLogin')->name('ajaxLogin');
+Route::get('/auth/logout', 'SessionController@destroy')->name('logout');
 
 // Columns routes
-Route::get('/columns', 'ColumnsController@index')->name('columns.index');
-Route::get('/columns/{id}', 'ColumnsController@show')->name('columns.show');
+Route::get('/columns', 'ColumnController@index')->name('columns.index');
+Route::get('/columns/{id}', 'ColumnController@show')->name('columns.show');
 
 // Articles routes
-Route::get('/write', 'ArticlesController@create')->name('write');
-Route::get('/articles/{id}', 'ArticlesController@show')->name('articles.show');
+Route::get('/write', 'ArticleController@create')->name('write');
+Route::get('/articles/{id}', 'ArticleController@show')->name('articles.show');
 
 // Comments routes
-Route::get( '/articles/{article}/comments', 'CommentsController@index')->name('articles.comments.index');
-Route::post('/articles/{article}/comments', 'CommentsController@store')->name('articles.comments.store');
-Route::post('/articles/{article}/comments/{comment}', 'CommentsController@reply')->name('articles.comments.reply');
+Route::get( '/articles/{article}/comments', 'ArticleCommentController@index')->name('articles.comments.index');
+Route::post('/articles/{article}/comments', 'ArticleCommentController@store')->name('articles.comments.store');
+Route::post('/articles/{article}/comments/{comment}', 'ArticleCommentController@reply')->name('articles.comments.reply');
 
 // Favorites routes
-Route::post('/articles/{id}/favorite', 'FavoritesController@addFavoriteArticle')->name('favorite.article');
-Route::delete('/articles/{id}/favorite', 'FavoritesController@revokeFavoriteArticle')->name('favorite.article');
+Route::post('/articles/{id}/favorite', 'FavoriteController@addFavoriteArticle')->name('favorite.article');
+Route::delete('/articles/{id}/favorite', 'FavoriteController@revokeFavoriteArticle')->name('favorite.article');
 
 // Follows routes
 Route::post('/columns/{id}/follow', 'FollowController@followColumn')->name('follow.column');
@@ -80,36 +80,36 @@ Route::post('/user/{id}/follow', 'FollowController@followUser')->name('follow.us
 Route::delete('/user/{id}/follow', 'FollowController@revokeFollowUser')->name('follow.user');
 
 // Likes routes
-Route::post('/articles/{id}/like', 'LikesController@addLikeArticle')->name('like.article');
-Route::delete('/articles/{id}/like', 'LikesController@revokeLikeArticle')->name('like.article');
+Route::post('/articles/{id}/like', 'LikeController@addLikeArticle')->name('like.article');
+Route::delete('/articles/{id}/like', 'LikeController@revokeLikeArticle')->name('like.article');
 
 // Votes routes
-Route::post('/comments/{id}/favour', 'VotesController@favour')->name('vote.up');
-Route::delete('/comments/{id}/favour', 'VotesController@revokeFavour')->name('vote.up');
-Route::post('/comments/{id}/blackball', 'VotesController@oppose')->name('vote.down');
-Route::delete('/comments/{id}/blackball', 'VotesController@revokeOppose')->name('vote.down');
+Route::post('/comments/{id}/favour', 'VoteController@favour')->name('vote.up');
+Route::delete('/comments/{id}/favour', 'VoteController@revokeFavour')->name('vote.up');
+Route::post('/comments/{id}/blackball', 'VoteController@oppose')->name('vote.down');
+Route::delete('/comments/{id}/blackball', 'VoteController@revokeOppose')->name('vote.down');
 
 // Tags routes
-Route::get('/tags', 'TagsController@index')->name('tag.index');
-Route::get('/tags/{id}', 'TagsController@show')->name('tag.show');
+Route::get('/tags', 'TagController@index')->name('tag.index');
+Route::get('/tags/{id}', 'TagController@show')->name('tag.show');
 
 // Subscription routes
-Route::get('/subscriptions', 'SubscriptionsController@index')->name('subscription.index');
-Route::get('/subscriptions/recommendation', 'SubscriptionsController@recommend')->name('subscription.recommend');
-Route::get('/subscriptions/column/{id}', 'SubscriptionsController@followingColumn')->name('subscription.column');
-Route::get('/subscriptions/user/{id}', 'SubscriptionsController@followingUser')->name('subscription.user');
+Route::get('/subscriptions', 'SubscriptionController@index')->name('subscription.index');
+Route::get('/subscriptions/recommendation', 'SubscriptionController@recommend')->name('subscription.recommend');
+Route::get('/subscriptions/column/{id}', 'SubscriptionController@followingColumn')->name('subscription.column');
+Route::get('/subscriptions/user/{id}', 'SubscriptionController@followingUser')->name('subscription.user');
 
 // Files routes
-Route::get('/file/{filename}', 'FilesController@show')->where('filename', '[^\n\r\s]+')->name('file.show');
-Route::get('/file/download/{filename}', 'FilesController@download')->where('filename', '[^\s]+')->name('file.download');
-Route::post('/file/upload/{type}', 'FilesController@upload')->name('file.upload');
+Route::get('/file/{filename}', 'FileController@show')->where('filename', '[^\n\r\s]+')->name('file.show');
+Route::get('/file/download/{filename}', 'FileController@download')->where('filename', '[^\s]+')->name('file.download');
+Route::post('/file/upload/{type}', 'FileController@upload')->name('file.upload');
 
 // Notification and messages routes
 Route::get('/notification', 'NotificationController@index')->name('notification.index');
-Route::get('/notification/messages', 'MessagesController@index')->name('message.index');
-Route::get('/notification/messages/{id}', 'MessagesController@show')->name('message.show');
-Route::post('/notification/messages/{id}', 'MessagesController@send')->name('message.send');
-Route::delete('/notification/messages/{id}', 'MessagesController@destroy')->name('message.delete');
+Route::get('/notification/messages', 'MessageController@index')->name('message.index');
+Route::get('/notification/messages/{id}', 'MessageController@show')->name('message.show');
+Route::post('/notification/messages/{id}', 'MessageController@send')->name('message.send');
+Route::delete('/notification/messages/{id}', 'MessageController@destroy')->name('message.delete');
 Route::get('/notification/comments', 'NotificationController@comment')->name('notification.comment');
 Route::get('/notification/comments/{id}', 'NotificationController@showComment')->name('notification.showComment');
 Route::delete('/notification/comments/{id}', 'NotificationController@destroyComment')->name('notification.deleteComment');

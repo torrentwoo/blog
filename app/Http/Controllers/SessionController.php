@@ -12,12 +12,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class SessionsController extends Controller
+class SessionController extends Controller
 {
     use ThrottlesLogins;
 
     /**
-     * SessionsController constructor.
+     * SessionController constructor.
      */
     public function __construct()
     {

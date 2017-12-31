@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class LikesController extends Controller
+class LikeController extends Controller
 {
     /**
      * 已登录用户的实例
@@ -23,7 +23,7 @@ class LikesController extends Controller
     protected $user;
 
     /**
-     * LikesController constructor.
+     * LikeController constructor.
      */
     public function __construct()
     {

@@ -17,10 +17,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     /**
-     * UsersController constructor.
+     * UserController constructor.
      */
     public function __construct()
     {

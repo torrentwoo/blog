@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class PagesController extends Controller
+class PageController extends Controller
 {
     /**
      * 响应对 GET / 的请求
