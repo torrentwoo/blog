@@ -49,15 +49,15 @@
                         <ul id="home-columns" class="list-inline">
 @foreach ($columns as $column)
 @if ($column->thumbnails->isEmpty())
-                            <li><a href="{{ route('column.show', $column->id) }}" class="btn btn-default" role="button">{{ $column->name }}</a></li>
+                            <li><a href="{{ route('columns.show', $column->id) }}" class="btn btn-default" role="button">{{ $column->name }}</a></li>
 @else
-                            <li><a href="{{ route('column.show', $column->id) }}" class="btn btn-default btn-hasDiagram" role="button">
+                            <li><a href="{{ route('columns.show', $column->id) }}" class="btn btn-default btn-hasDiagram" role="button">
                                     <img class="media-object btn-diagram" src="{{ $column->thumbnails->first()->url }}" alt="{{ $column->name }}">{{ $column->name }}
                                 </a>
                             </li>
 @endif
 @endforeach
-                            <li><a href="{{ route('column.index') }}" class="btn btn-link">
+                            <li><a href="{{ route('columns.index') }}" class="btn btn-link">
                                     <i>更多热门栏目</i>
                                     <span class="glyphicon glyphicon-menu-right"></span>
                                 </a>
@@ -93,7 +93,7 @@
                                 </ul>
                                 <p>{{ $article->description }}</p>
                                 <ul class="list-inline media-meta">
-                                    <li><a class="media-column" href="{{ route('column.show', $article->column->id) }}">{{ $article->column->name }}</a></li>
+                                    <li><a class="media-column" href="{{ route('columns.show', $article->column->id) }}">{{ $article->column->name }}</a></li>
                                     <li>
                                         <a class="text-muted" href="{{ route('articles.show', $article->id) }}">
                                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>

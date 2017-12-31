@@ -29,12 +29,12 @@
 @forelse ($recommend as $column)
                         <div class="col-xs-6 col-lg-4">
                             <div class="thumbnail text-center column-thumbnail">
-                                <a href="{{ route('column.show', $column->id) }}" class="a icon">
+                                <a href="{{ route('columns.show', $column->id) }}" class="a icon">
 @if ($column->thumbnails->isEmpty() !== true)
                                     <img class="media-object img-rounded avatar-md" src="{{ $column->thumbnails->first()->url }}" alt="{{ $column->name }}" />
 @endif
                                 </a>
-                                <a href="{{ route('column.show', $column->id) }}" class="a">
+                                <a href="{{ route('columns.show', $column->id) }}" class="a">
                                     <h2 class="heading">{{ $column->name }}</h2>
                                     <p class="brief hidden-xs">{{ str_limit($column->description, 32) }}</p>
                                 </a>
@@ -50,7 +50,7 @@
                                     </form>
                                 </div>
                                 <hr />
-                                <p class="count"><a href="{{ route('column.show', $column->id) }}" class="a">{{ $column->articles()->released()->count() }}篇文章</a><i class="divider">&middot;</i>{{ $column->follows()->count() }}人关注</p>
+                                <p class="count"><a href="{{ route('columns.show', $column->id) }}" class="a">{{ $column->articles()->released()->count() }}篇文章</a><i class="divider">&middot;</i>{{ $column->follows()->count() }}人关注</p>
                             </div>
                         </div>
 @empty
@@ -66,12 +66,12 @@
 @forelse ($popular as $column)
                         <div class="col-xs-6 col-lg-4">
                             <div class="thumbnail text-center column-thumbnail">
-                                <a href="{{ route('column.show', $column->id) }}" class="a icon">
+                                <a href="{{ route('columns.show', $column->id) }}" class="a icon">
 @if ($column->thumbnails->isEmpty() !== true)
                                     <img class="media-object img-rounded avatar-md" src="{{ $column->thumbnails->first()->url }}" alt="{{ $column->name }}" />
 @endif
                                 </a>
-                                <a href="{{ route('column.show', $column->id) }}" class="a">
+                                <a href="{{ route('columns.show', $column->id) }}" class="a">
                                     <h2 class="heading">{{ $column->name }}</h2>
                                     <p class="brief hidden-xs">{{ str_limit($column->description, 32) }}</p>
                                 </a>
@@ -87,7 +87,7 @@
                                     </form>
                                 </div>
                                 <hr />
-                                <p class="count"><a href="{{ route('column.show', $column->id) }}" class="a">{{ $column->articles()->released()->count() }}篇文章</a><i class="divider">&middot;</i>{{ $column->follows()->count() }}人关注</p>
+                                <p class="count"><a href="{{ route('columns.show', $column->id) }}" class="a">{{ $column->articles()->released()->count() }}篇文章</a><i class="divider">&middot;</i>{{ $column->follows()->count() }}人关注</p>
                             </div>
                         </div>
 @empty
@@ -103,12 +103,12 @@
 @forelse ($region as $column)
                         <div class="col-xs-6 col-lg-4">
                             <div class="thumbnail text-center column-thumbnail">
-                                <a href="{{ route('column.show', $column->id) }}" class="a icon">
+                                <a href="{{ route('columns.show', $column->id) }}" class="a icon">
                                     @if ($column->thumbnails->isEmpty() !== true)
                                         <img class="media-object img-rounded avatar-md" src="{{ $column->thumbnails->first()->url }}" alt="{{ $column->name }}" />
                                     @endif
                                 </a>
-                                <a href="{{ route('column.show', $column->id) }}" class="a">
+                                <a href="{{ route('columns.show', $column->id) }}" class="a">
                                     <h2 class="heading">{{ $column->name }}</h2>
                                     <p class="brief hidden-xs">{{ str_limit($column->description, 32) }}</p>
                                 </a>
@@ -124,7 +124,7 @@
                                     </form>
                                 </div>
                                 <hr />
-                                <p class="count"><a href="{{ route('column.show', $column->id) }}" class="a">{{ $column->articles()->released()->count() }}篇文章</a><i class="divider">&middot;</i>{{ $column->follows()->count() }}人关注</p>
+                                <p class="count"><a href="{{ route('columns.show', $column->id) }}" class="a">{{ $column->articles()->released()->count() }}篇文章</a><i class="divider">&middot;</i>{{ $column->follows()->count() }}人关注</p>
                             </div>
                         </div>
 @empty

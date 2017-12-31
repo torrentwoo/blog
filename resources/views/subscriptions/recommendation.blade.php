@@ -77,7 +77,7 @@
                         <div class="media header-media">
 @if (!$column->thumbnails->isEmpty())
                                 <div class="media-left">
-                                    <a href="{{ route('column.show', $column->id) }}">
+                                    <a href="{{ route('columns.show', $column->id) }}">
                                         <img class="media-object img-rounded avatar-md" alt="{{ $column->name }}" src="{{ $column->thumbnails->first()->url }}" />
                                     </a>
                                 </div>

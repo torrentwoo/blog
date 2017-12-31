@@ -40,7 +40,7 @@
                                 </ul>
 @endif
                                 <ul class="list-inline media-meta">
-                                    <li><a class="media-column" href="{{ route('column.show', $article->column->id) }}">{{ $article->column->name }}</a></li>
+                                    <li><a class="media-column" href="{{ route('columns.show', $article->column->id) }}">{{ $article->column->name }}</a></li>
                                     <li>
                                         <a class="text-muted" href="{{ route('articles.show', $article->id) }}">
                                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>

@@ -5,7 +5,7 @@
                 <div class="media header-media">
 @if (!$origin->thumbnails->isEmpty())
                     <div class="media-left">
-                        <a href="{{ route('column.show', $origin->id) }}">
+                        <a href="{{ route('columns.show', $origin->id) }}">
                             <img class="media-object img-rounded avatar-md" src="{{ $origin->thumbnails->first()->url }}" />
                         </a>
                     </div>
@@ -18,7 +18,7 @@
                         <button type="button" class="btn btn-info btn-xs">
                             <i class="glyphicon glyphicon-ok-circle" aria-hidden="true"></i>投稿
                         </button>
-                        <a href="{{ route('column.show', $origin->id) }}" class="btn btn-success btn-xs" role="button">
+                        <a href="{{ route('columns.show', $origin->id) }}" class="btn btn-success btn-xs" role="button">
                             栏目主页<span class="glyphicon glyphicon-chevron-right offset-right" aria-hidden="true"></span>
                         </a>
                     </div>

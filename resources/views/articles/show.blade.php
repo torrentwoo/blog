@@ -3,8 +3,8 @@
 @section('content')
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home') }}">首页</a></li>
-                    <li><a href="{{ route('column.index') }}">热门栏目</a></li>
-                    <li><a href="{{ route('column.show', $article->column->id) }}">{{ $article->column->name }}</a></li>
+                    <li><a href="{{ route('columns.index') }}">热门栏目</a></li>
+                    <li><a href="{{ route('columns.show', $article->column->id) }}">{{ $article->column->name }}</a></li>
                     <li class="active">{{ $article->title }}</li>
                 </ol>
                 <div class="row">

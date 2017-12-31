@@ -3,13 +3,13 @@
 @section('content')
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home') }}">首页</a></li>
-                    <li><a href="{{ route('column.index') }}">热门栏目</a></li>
+                    <li><a href="{{ route('columns.index') }}">热门栏目</a></li>
                     <li class="active">{{ $column->name }}</li>
                 </ol>
                 <div class="media header-media">
 @if (!$column->thumbnails->isEmpty())
                     <div class="media-left">
-                        <a href="{{ route('column.show', $column->id) }}">
+                        <a href="{{ route('columns.show', $column->id) }}">
                             <img class="media-object img-rounded avatar-md" alt="{{ $column->name }}" src="{{ $column->thumbnails->first()->url }}" />
                         </a>
                     </div>

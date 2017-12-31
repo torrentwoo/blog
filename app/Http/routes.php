@@ -57,8 +57,8 @@ Route::post('/auth/ajaxLogin', 'SessionsController@ajaxLogin')->name('ajaxLogin'
 Route::get('/auth/logout', 'SessionsController@destroy')->name('logout');
 
 // Columns routes
-Route::get('/columns', 'ColumnsController@index')->name('column.index');
-Route::get('/columns/{id}', 'ColumnsController@show')->where('id', '[a-z\d]+')->name('column.show');
+Route::get('/columns', 'ColumnsController@index')->name('columns.index');
+Route::get('/columns/{id}', 'ColumnsController@show')->name('columns.show');
 
 // Articles routes
 Route::get('/write', 'ArticlesController@create')->name('write');

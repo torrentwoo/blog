@@ -261,7 +261,7 @@
                                     <div class="well media">
 @if ($activity->activable->followable->thumbnails->isEmpty() !== true)
                                         <div class="media-left">
-                                            <a href="{{ route('column.show', $activity->activable->followable->id) }}">
+                                            <a href="{{ route('columns.show', $activity->activable->followable->id) }}">
                                                 <img class="media-object img-rounded avatar-sm" src="{{ $activity->activable->followable->thumbnails->first()->url }}" />
                                             </a>
                                         </div>
