@@ -34,6 +34,7 @@
                     <div class="col-xs-12 col-sm-9">
                         <div class="form-group text-center">
                             <input type="hidden" name="text-editor" value="{{ $editor or 'CKEditor' }}" />
+                            <input type="hidden" name="draft-handler" value="{{ route('articles.draft') }}" />
                             <button type="button" id="writing-publish" class="btn btn-primary">保存并发表文章</button>
                         </div>
                     </div>

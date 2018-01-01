@@ -63,6 +63,7 @@ Route::get('/columns/{id}', 'ColumnController@show')->name('columns.show');
 
 // Articles routes
 Route::get('/articles/create', 'ArticleController@create')->name('write');
+Route::post('/articles/draft', 'ArticleController@draft')->name('articles.draft');
 Route::get('/articles/{id}', 'ArticleController@show')->name('articles.show');
 
 // Comments routes

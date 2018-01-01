@@ -49,6 +49,46 @@ class ArticleController extends Controller
         return view('articles.create', compact('editor'))->with('writeActive', 'active');
     }
 
+    public function draft(Request $request)
+    {
+        $response = [
+            'error' =>  true,
+            'message'   =>  'Wait for draft data',
+        ];
+        /*
+        $this->validate($request, [
+            'title' =>  'required|min:4|max:191',
+            'content'   =>  'required',
+        ], [
+            'title.required'    =>  '文章标题 不能为空',
+            'title.min' =>  '文章标题 至少为 4 个字符',
+            'title.max' =>  '文章标题 不能大于 191 个字符',
+            'content.required'  =>  '文章内容 不能为空',
+        ]);*/
+        $data = [];
+        if ($request->has('title')) {
+            $data['title'] = $request->title;
+        }
+        if ($request->has('content')) {
+            $data['content'] = $request->input('content');
+        }
+        if ($request->has('column')) {
+            $data['column'] = $request->column;
+        }
+        if ($request->has('tags')) {
+            $data['tags'] = $request->tags;
+        }
+        // @TODO save to draft
+        $response = [
+            'error' =>  false,
+            'message'   =>  'Draft saved successfully',
+            'timestamp' =>  'Just now', // datetime
+            'id'    =>  'Unique-id',
+        ];
+
+        return response()->json($response);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

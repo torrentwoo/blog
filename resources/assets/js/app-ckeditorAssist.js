@@ -1,4 +1,9 @@
 ;(function() {
+    // Cache variables
+    var title = $('input[name="title"]'),
+        column = $('input[name="column"]'),
+        tags = $('input[name="tags"]'),
+        draftHandler = $('input[name="draft-handler"]').val(); // string
     // Load and initialize CKEditor
     var editor = CKEDITOR.replace('writing-content', {
         customConfig: 'config-writing.js',
@@ -13,8 +18,13 @@
                     source: 1
                 },
                 exec: function (editor) { // fire save draft
-                    var rawData = editor.getData(); // raw format data (HTML)
-                    alert("@FIXME, data:\n" + rawData);
+                    var data = {
+                        'title': title.val(),
+                        'content': editor.getData(), // raw format data (HTML)
+                        'column': column.val(),
+                        'tags': tags.val()
+                    };
+                    saveToDraft(data);
                 }
             });
             editor.ui.addButton('Save', {label: '保存草稿', command: 'save'});
@@ -137,5 +147,27 @@
     // Upload and insert audio
     // Upload and insert other multi-media file
     // Save content to the draft
+    var saveToDraft = function(data) {
+        var draftId;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.post(draftHandler, data, function(response) {
+            if (response.error !== true) {
+                console.log('Draft was saved at: ' + response.timestamp);
+                draftId = response.id;
+            } else {
+                window.alert(response.message);
+            }
+        }, 'json').fail(function(xhr, status, thrown) {
+            console.log('XHR Status: ' + xhr.readyState + ', Response Status: ' + status + ', Exception: ' + thrown);
+        });
+        return draftId;
+    };
     // Restore content from the writing draft
+    var restoreFromDraft = function(id) {
+        //
+    };
 })();
