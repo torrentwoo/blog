@@ -1,6 +1,8 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 ;(function () {
     // Load and initialize CKEditor
     var editor = CKEDITOR.replace('writing-content', {
@@ -16,7 +18,7 @@
                     source: 1
                 },
                 exec: function exec(editor) {
-                    // do something
+                    // fire save draft
                     var rawData = editor.getData(); // raw format data (HTML)
                     alert("@FIXME, data:\n" + rawData);
                 }
@@ -30,35 +32,36 @@
         var button = $(this),
             type = button.attr('aria-type'),
             upload = $('#image-upload'),
-            external = $('#image-external');
-        if (type === 'upload') {
-            upload.hide();
-            external.removeClass('hidden');
-            button.attr('aria-type', 'external');
-            button.text('或上传本地图片');
-        } else {
+            remote = $('#image-remote');
+        if (type === 'remote') {
             upload.show();
-            external.addClass('hidden');
+            remote.addClass('hidden');
             button.attr('aria-type', 'upload');
             button.text('或选择网络图片');
+        } else {
+            upload.hide();
+            remote.removeClass('hidden');
+            button.attr('aria-type', 'remote');
+            button.text('或上传本地图片');
         }
         $('#uploadImageModalPrompt').addClass('hidden').text('');
     });
     $('#insert-image').bind('click', function () {
         var dialog = $($(this).data('target')),
+            handler = dialog.attr('aria-handler'),
             prompt = $('#uploadImageModalPrompt'),
             toggle = $('#image-toggle').attr('aria-type'),
             upload = $('#image-upload'),
-            external = $('input[name="image-external"]'),
+            remote = $('input[name="image-url"]'),
             alternate = $('input[name="alternate"]');
-        if (toggle === 'external') {
+        if (toggle === 'remote') {
             // using external image
             var regexImgUrl = new RegExp('^(?:ht|f)tps?:\/\/[^$]+\.gif|jpe?g|png$');
-            if (regexImgUrl.test(external.val()) !== true) {
+            if (regexImgUrl.test(remote.val()) !== true) {
                 prompt.removeClass('hidden').text('网络图片 不是有效的图像');
                 return false;
             } else {
-                insertImage(external.val(), alternate.val());
+                insertImage(remote.val(), alternate.val());
                 resetUpload(dialog, prompt, true);
             }
         }
@@ -77,21 +80,25 @@
                 var data = new FormData();
                 data.append('image', upload[0].files[0]); // the data being send
                 var opts = { // ajax settings
-                    url: '/files/upload/image',
+                    url: handler,
                     data: data,
                     cache: false, // force not to cache anythings from browser
                     contentType: false, // do not set any content type header
                     processData: false, // do not process data
-                    type: 'POST', // jQuery prior to 1.9.0
                     method: 'POST',
+                    type: 'POST', // jQuery prior to 1.9.0
                     dataType: 'json',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     error: function error(xhr, status, thrown) {
                         //console.log(xhr);
-                        if (xhr.status === 422 || status === 'error') {
-                            prompt.removeClass('hidden').text(xhr.responseJSON.image.join("\r\n"));
+                        if (status === 'error') {
+                            if (_typeof(xhr.responseJSON) === 'object') {
+                                prompt.removeClass('hidden').text(xhr.responseJSON.image.join("\r\n"));
+                            } else {
+                                prompt.removeClass('hidden').text(thrown);
+                            }
                         }
                     },
                     success: function success(response) {

@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="uploadImageModal" tabindex="-1" role="dialog" aria-labelledby="uploadImageModalLabel"><!-- image -->
+            <div class="modal fade" id="uploadImageModal" tabindex="-1" role="dialog" aria-labelledby="uploadImageModalLabel" aria-handler="{{ route('files.upload', 'image') }}"><!-- image -->
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -52,9 +52,9 @@
                             <div class="form-group" id="image-source">
                                 <label>选择图像</label>
                                 <input type="file" name="image" accept="image/gif,image/jpeg,image/png" id="image-upload" />
-                                <div class="input-group hidden" id="image-external">
+                                <div class="input-group hidden" id="image-remote">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span></span>
-                                    <input type="text" name="image-external" class="form-control" placeholder="请输入网络图片的链接地址" />
+                                    <input type="text" name="image-url" class="form-control" placeholder="请输入网络图片的链接地址" />
                                 </div>
                                 <p class="help-block"><b>图像</b>：请选择一个图像，<b>仅允许</b>：GIF, JPEG, PNG 格式；<a class="offset-right" id="image-toggle" href="javascript:void(0);" data-target="#image-source" aria-type="upload">或选择网络图片</a></p>
                             </div>
