@@ -1,1 +1,1 @@
-A laravel 5.1 blog
+A multi-user blog based on Laravel 5.1 LTS
