@@ -6,3 +6,6 @@ Homestead.json
 # Ignore these directories and files for PHPStorm
 /id
 /.idea
+# Ignore the following files created by laravel-ide-helper
+.phpstorm.meta.php
+_ide_helper.php

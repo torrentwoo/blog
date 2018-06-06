@@ -149,6 +149,8 @@ return [
          * Other application service providers
          */
         Intervention\Image\ImageServiceProvider::class,
+
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*
